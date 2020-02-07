@@ -1,7 +1,10 @@
-# rehacked
-ReactJS revisited.
+# Rehacked: ReactJS revisited.ReactJS revisited.
 
-## Example Code
+## Introduction
+
+## Features
+
+## Examples
 <table style="table-layout: fixed; width: 100%">
   <tr>
   <th>Rehacked</th>
