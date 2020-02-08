@@ -25,6 +25,7 @@ Rehacked {
     Render        = "render:" RenderBody
     RenderBody    = htmlelement "<-" id
 
+    scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
     htmlelement   = ("p", "div", "body")
     id            =  ~keyword letter idrest*
