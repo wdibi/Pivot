@@ -19,9 +19,7 @@ Rehacked {
     ActionsBody   = 
 
     Events        = "events:" EventsBody
-    EventsBody    = htmlelement "<=" htmlevent id params     -- tag
-                  | "." id "<=" htmlevent id params
-                  | 
+    EventsBody    = strlit "<--" "on" htmlevents "then" Call
 
     Effects       = "effects:" EffectsBody
     EffectsBody   = 
@@ -29,6 +27,9 @@ Rehacked {
     Render        = "render:" RenderBody
     RenderBody    = 
 
+    Call          = id "(" params ")"
+
+    strlit        = "\'" any "\'"
     params        = ListOf<Exp, ",">
     scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
