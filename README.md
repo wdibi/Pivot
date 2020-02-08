@@ -48,6 +48,23 @@ import:
   }
 ```
 
+## Examples: States
+
+```text
+states: count = 0
+```
+
+```text
+states: 
+  count = 0 | setCount
+```
+
+```text
+states: 
+  colors = ['red', 'green', 'blue']
+  colorIndex = 0 | setColorIndex
+```
+
 ## Examples
 <table style="table-layout: fixed; width: 100%">
   <tr>
