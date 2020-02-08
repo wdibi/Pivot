@@ -4,21 +4,26 @@ Rehacked {
     ComponentDec  = ("RootComponent" | "Component") id scopestart ComponentBody dedent
     ComponentBody = Imports? States? Props? Actions? Events? Effects? Render
 
-    Imports       = "imports" scopestart ImportsBody dedent
-    ImportsBody   = 
+    Imports       = "imports" ImportsBody dedent
+    ImportsBody   = scopestart
 
-    States        = "states" scopestart StatesBody dedent
+    States        = "states" StatesBody dedent
+    StatesBody    = scopestart (id "=" Exp | id "=" Exp "|" id)+
 
-    Props         = "props" scopestart PropsBody dedent
-    PropsBody     = 
+    Props         = "props" PropsBody dedent
+    PropsBody     = scopestart "[" ListOf<(id "=" Exp | id), ","> "]"
 
-    Actions       = "actions" scopestart ActionsBody dedent
+    Actions       = "actions" ActionsBody dedent
+    ActionsBody   = scopestart
 
-    Events        = "events" scopestart EventsBody dedent
+    Events        = "events" EventsBody dedent
+    EventsBody    = scopestart
 
-    Effects       = "effects" scopestart EffectsBody dedent
+    Effects       = "effects" EffectsBody dedent
+    EffectsBody   = scopestart
 
-    Render        = "render" scopestart RenderBody dedent
+    Render        = "render" RenderBody dedent
+    RenderBody    = scopestart
 
     scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
