@@ -1,10 +1,15 @@
-# Rehacked: ReactJS revisited.
+# ReHacked: ReactJS revisited.
 
 ## Introduction
 ---
+This is ReHacked, a programming language designed to revamp and overhaul React, a popular JavaScript library used to design user interfaces. Inspired by React and it's capabilities as a JS library, ReHacked overcomes React's shortcomings and is laid out in a simpler, more consistent and organized fashion. Intended to be straightforward and clean, ReHacked is built to make building user interfaces as accessible and effortless as it should be.
 
 ## Features
 ---
+* Impure functional language
+* One way data binding
+* Declarative
+* Virtual DOM
 
 ## Types
 ---
@@ -39,7 +44,7 @@ Operators
 ---
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
+  <th>ReHacked</th>
   <th>React</th>
   </tr>
 
@@ -57,7 +62,7 @@ RootComponent App:
     states:
         count = 0 | setCount
     
-    props:
+    // props:
 
     actions:
         onIncrement():
@@ -65,9 +70,9 @@ RootComponent App:
         onDecrement():
             setCount(count--)
 
-    events:
+    // events:
     
-    effects:
+    // effects:
 
     render:
         <div class="App">
@@ -121,7 +126,7 @@ ReactDOM.render(<App />, rootElement);
 
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
+  <th>ReHacked</th>
   <th>React</th>
   </tr>
 
@@ -140,32 +145,32 @@ Component App:
         data,
         table
 
-    actions:
+    // actions:
 
-    events:
+    // events:
     
-    effects:
+    // effects:
 
     render:
-        (div)
+        <div>
             {data && (
-                (div class="League")
-                    (div class="LeagueHeader")
-                        (div class="LeagueName")
-                            (p){data.name}
-                        (div class="LeagueInfo")
-                            (p){data.country, data.country_code}
-                            (p){data.season} Season
-                    (div class="Teams")
+                <div class="League">
+                    <div class="LeagueHeader">
+                        <div class="LeagueName">
+                            <p>{data.name}
+                        <div class="LeagueInfo">
+                            <p>{data.country, data.country_code}
+                            <p>{data.season} Season
+                    <div class="Teams">
                         {Object.keys(table).length == 2}
                         {table[0] && 
                             table[0].map(teams => (
-                                (div class="TeamInfo")
-                                    (div)
-                                        (img src={teams.logo} alt="logo" class="TeamLogo")
-                                    (div){teams.rank}
-                                    (div){teams.teamName}
-                                    (div)Points: {teams.points}
+                                <div class="TeamInfo">
+                                    <div>
+                                        <img src={teams.logo} alt="logo" class="TeamLogo">
+                                    <div> {teams.rank}
+                                    <div> {teams.teamName}
+                                    <div> Points: {teams.points}
                             ))
                         }
             )}
@@ -228,7 +233,7 @@ export default LeagueData;
 
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
+  <th>ReHacked</th>
   <th>React</th>
   </tr>
 
@@ -247,16 +252,16 @@ Component App:
             Resume: './Resume.pdf'
         }
     
-    states:
+    // states:
     
     props:
         setCurrDisplay
 
-    actions:
+    // actions:
 
-    events:
+    // events:
     
-    effects:
+    // effects:
 
     render:
         <div class="navbarContainer">
@@ -344,6 +349,92 @@ const AppHeader = ({ setCurrDisplay }) => {
 };
 
 export default AppHeader;
+```
+
+  </td>
+
+  </tr>
+</table>
+
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>ReHacked</th>
+  <th>React</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```javascript
+Component App:
+    imports:
+        CSS: ['./App.css']
+        Components: {
+            AppHeader: './AppHeader',
+            Intro: './Intro',
+            Education: './Education',
+            Experience: './Experience',
+            Contact: './Contact'
+        }
+    
+    states:
+        currDisplay = 'intro' | setCurrDisplay
+    
+    // props:
+
+    // actions:
+
+    // events:
+    
+    // effects:
+
+    render:
+        <div class="App">
+            <div class="AppHeader">
+                <div class="menu">
+                    <AppHeader setCurrDisplay={setCurrDisplay} />
+            <div class="contentTest">
+                {currDisplay === "intro" && <Intro />}
+                {currDisplay === "education" && <Education />}
+                {currDisplay === "experience" && <Experience />}
+                {currDisplay === "contact" && <Contact />}
+```
+  </td>
+
+  <td>
+
+```javascript
+import React, { useState } from "react";
+
+import "./App.css";
+
+import AppHeader from "./AppHeader";
+import Intro from "./Intro";
+import Education from "./Education";
+import Experience from "./Experience";
+import Contact from "./Contact";
+
+const App = () => {
+  let [currDisplay, setCurrDisplay] = useState("intro");
+
+  return (
+    <div className="App">
+      <div className="AppHeader">
+        <div className="menu">
+          <AppHeader setCurrDisplay={setCurrDisplay} />
+        </div>
+      </div>
+      <div className="contentTest">
+        {currDisplay === "intro" && <Intro />}
+        {currDisplay === "education" && <Education />}
+        {currDisplay === "experience" && <Experience />}
+        {currDisplay === "contact" && <Contact />}
+      </div>
+    </div>
+  );
+};
+
+export default App;
 ```
 
   </td>
