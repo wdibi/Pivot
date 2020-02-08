@@ -10,6 +10,7 @@ Rehacked {
     States        = "states" scopestart StatesBody dedent
 
     Props         = "props" scopestart PropsBody dedent
+    PropsBody     = 
 
     Actions       = "actions" scopestart ActionsBody dedent
 
