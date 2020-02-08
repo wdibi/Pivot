@@ -1,16 +1,15 @@
 Rehacked {
-    Program       = newline* Stmt+ newline*
-    Stmt          = ComponentDec
+    Program       = ComponentDec 
     ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody
     ComponentBody = Import? States? Props? Actions? Events? Effects? Render
 
     Import        = "import:" ImportBody
     ImportBody    = ICSS? IComponents?
-    ICSS          = "CSS:" "[" NonemptyListOf<csspath, ","> "]"
-    IComponents   = "components:" "{" NonemptyListOf<rename, ","> "}"
+    ICSS          = "css:" "[" NonemptyListOf<csspath, ","> "]"
+    IComponents   = "components:" "{" NonemptyListOf<Cimport, ","> "}"
     
     States        = "states:" StatesBody
-    StatesBody    = ((id "=" Exp) ("|" id)?)*  -- states
+    StatesBody    = ((id "=" Exp) ("|" id)?)*
     
     Props         = "props:" PropsBody
     PropsBody     = "[" NonemptyListOf<id, ","> "]"
@@ -24,23 +23,29 @@ Rehacked {
     Effects       = "effects:" EffectsBody
     EffectsBody   = 
 
-    Render        = "render:" RenderBody
-    RenderBody    = 
+    Render        = "render:"
 
-    Call          = id "(" params ")"
+    Call          = id "(" ListOf<Exp, ","> ")"
 
     Exp           = Literals
+                  | "[" ListOf<Exp, ","> "]"  -- list
 
     Literals      = strlit
                   | numlit
                   | boollit 
                 
 
-    strlit        = "\'" any "\'"
-    numlit        = digit+ ("." digit+)?
-    boollit       = "true" | "false"
-    params        = ListOf<Exp, ",">
+    char          =  escape
+                  |  ~"\\" ~"\"" ~"'" ~"\n" any
     keyword       = ("RootComponent" | "Component")
+    charlit       =  "'" (char | "\"") "'"
+    strlit        =  "\"" (char | "\'")* "\""
+    escape        =  "\\\\" | "\\\"" | "\\'" | "\\n"
+    boollit       =  "true" | "false"
+    numlit        = digit+
+    Cimport       = id ":" path
+    path          = (alnum | "/")+
+    csspath       = alnum*
     htmlelement   = ("p" | "div" | "body")
     htmlevents    = ("error" | "abort" | "load" | "beforeunload" | "unload" | "online" | "offline" | "focus"  | "blur" | "updateready"
                   | "open" | "message" | "error" | "close" | "pagehide" | "pageshow" | "popstate" | "animationstart" | "obsolete"
@@ -57,6 +62,4 @@ Rehacked {
     id            =  ~keyword letter idrest*
     idrest        =  "_" | alnum
     newline       = "\n"+
-    indent        =  "⇨"
-    dedent        =  "⇦"
 }
