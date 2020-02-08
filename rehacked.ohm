@@ -1,0 +1,20 @@
+Rehacked {
+    Program       = newline* Stmt+ newline*
+    Stmt          = ComponentDec
+    ComponentDec  = ("RootComponent" | "Component") id ':' newline indent ComponentBody+ dedent
+    ComponentBody = "imports:" newline indent ImportsBody dedent
+                  | "states:" newline indent StatesBody dedent
+                  | "props:" newline indent PropsBody dedent
+                  | "actions:" newline indent ActionsBody dedent
+                  | "events:" newline indent EventsBody dedent
+                  | "effects:" newline indent EffectsBody dedent
+                  | "render:" newline indent RenderBody dedent
+    ImportsBody   = 
+
+    keyword       = ("RootComponent" | "Component")
+    id            =  ~keyword letter idrest*
+  	idrest        =  "_" | alnum
+    newline       = "\n"+
+    indent        =  "⇨"
+    dedent        =  "⇦"
+}
