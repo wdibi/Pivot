@@ -17,17 +17,32 @@ Rehacked {
     ActionsBody   = 
 
     Events        = "events:" EventsBody
-    EventsBody    = 
+    EventsBody    = htmlelement "<=" htmlevent id params     -- tag
+                  | "." id "<=" htmlevent id params
+                  | 
 
     Effects       = "effects:" EffectsBody
     EffectsBody   = 
 
     Render        = "render:" RenderBody
-    RenderBody    = htmlelement "<-" id
+    RenderBody    = 
 
+    params        = ListOf<Exp, ",">
     scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
     htmlelement   = ("p", "div", "body")
+    htmlevents    = ("error" | "abort" | "load" | "beforeunload" | "unload" | "online" | "offline" | "focus"  | "blur" | "updateready"
+                  | "open" | "message" | "error" | "close" | "pagehide" | "pageshow" | "popstate" | "animationstart" | "obsolete"
+                  | "animationcancel" | "animationend" | "animationiteration" | "transitionstart" | "transitioncancel" | "noupdate"
+                  | "transitionend" | "transitionrun" | "reset" | "submit" | "beforeprint" | "afterprint" | "compositionstart"
+                  | "compositionupdate" | "compositionend" | "fullscreenchange" | "fullscreenerror" | "resize" | "scroll" | "cut" | "show"
+                  | "copy" | "paste" | "keydown" | "keypress" | "keyup" | "auxclick" | "click" | "contextmenu" | "dblclick" | "downloading"
+                  | "mousedown" | "mouseenter" | "mouseleave" | "mousemove" | "mouseover" | "mouseout" | "mouseup" | "pointerlockchange"
+                  | "pointerlockerror" | "select" | "wheel" | "drag" | "dragend" | "dragenter" | "dragstart" | "dragleave" | "dragover" | "drop"
+                  | "audioprocess" | "canplay" | "canplaythough" | "complete" | "durationchange" | "empties" | "ended" | "loadeddata"
+                  | "loadedmetadata" | "pause" | "play" | "playing" | "ratechange" | "seeked" | "seeking" | "stalled" | "suspend" | "timeupdate"
+                  | "volumechange" | "waiting" | "abort" | "error" | "load" | "loadend" | "loadstart" | "progress" | "timeout" | "checking"
+                  | "broadcast" | "checkboxstatechange" | "hashchange" | "input" | "radiostatechange" | "readystatechange" | "valuechange"
     id            =  ~keyword letter idrest*
   	idrest        =  "_" | alnum
     newline       = "\n"+
