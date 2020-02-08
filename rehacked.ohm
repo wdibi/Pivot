@@ -4,14 +4,16 @@ Rehacked {
     ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody
     ComponentBody = Imports? States? Props? Actions? Events? Effects? Render
 
-    Imports       = "imports:" ImportsBody
-    ImportsBody   = 
-
+    Import        = "import:" ImportBody
+    ImportBody    = ICSS? IComponents?
+    ICSS          = "CSS:" "[" NonemptyListOf<csspath, ","> "]"
+    IComponents   = "components:" "{" NonemptyListOf<rename, ","> "}"
+    
     States        = "states:" StatesBody
-    StatesBody    = (id "=" Exp | id "=" Exp "|" id)+
-
+    StatesBody    = ((id "=" Exp) ("|" id)?)*  -- states
+    
     Props         = "props:" PropsBody
-    PropsBody     = "[" ListOf<(id "=" Exp | id), ","> "]"
+    PropsBody     = "[" NonemptyListOf<id, ","> "]"
 
     Actions       = "actions:" ActionsBody
     ActionsBody   = 
@@ -44,7 +46,7 @@ Rehacked {
                   | "volumechange" | "waiting" | "abort" | "error" | "load" | "loadend" | "loadstart" | "progress" | "timeout" | "checking"
                   | "broadcast" | "checkboxstatechange" | "hashchange" | "input" | "radiostatechange" | "readystatechange" | "valuechange"
     id            =  ~keyword letter idrest*
-  	idrest        =  "_" | alnum
+    idrest        =  "_" | alnum
     newline       = "\n"+
     indent        =  "⇨"
     dedent        =  "⇦"
