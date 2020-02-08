@@ -44,7 +44,7 @@ Operators
 ---
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
+  <th>ReHacked</th>
   <th>React</th>
   </tr>
 
@@ -126,8 +126,8 @@ ReactDOM.render(<App />, rootElement);
 
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
-  <th>React</th>
+  <!-- <th>Rehacked</th>
+  <th>React</th> -->
   </tr>
 
   <tr>
@@ -233,8 +233,8 @@ export default LeagueData;
 
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
-  <th>React</th>
+  <!-- <th>Rehacked</th>
+  <th>React</th> -->
   </tr>
 
   <tr>
@@ -358,8 +358,8 @@ export default AppHeader;
 
 <table style="table-layout: fixed; width: 100%">
   <tr>
-  <th>Rehacked</th>
-  <th>React</th>
+  <!-- <th>Rehacked</th>
+  <th>React</th> -->
   </tr>
 
   <tr>
