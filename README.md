@@ -37,6 +37,17 @@ Operators
 * Ternary `a if b else c`
 * Comment  `//`
 
+## Example: Import
+
+```text
+import:
+  css: ['./App.css', './Main.css']
+  components: {
+    AppHeader: './AppHeader', 
+    DangerButton: './buttons/DangerButton'
+  }
+```
+
 ## Examples
 <table style="table-layout: fixed; width: 100%">
   <tr>
