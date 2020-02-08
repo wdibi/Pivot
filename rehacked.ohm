@@ -1,28 +1,28 @@
 Rehacked {
     Program       = newline* Stmt+ newline*
     Stmt          = ComponentDec
-    ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody dedent
+    ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody
     ComponentBody = Imports? States? Props? Actions? Events? Effects? Render
 
-    Imports       = "imports:" ImportsBody dedent
+    Imports       = "imports:" ImportsBody
     ImportsBody   = 
 
-    States        = "states:" StatesBody dedent
+    States        = "states:" StatesBody
     StatesBody    = (id "=" Exp | id "=" Exp "|" id)+
 
-    Props         = "props:" PropsBody dedent
+    Props         = "props:" PropsBody
     PropsBody     = "[" ListOf<(id "=" Exp | id), ","> "]"
 
-    Actions       = "actions:" ActionsBody dedent
+    Actions       = "actions:" ActionsBody
     ActionsBody   = 
 
-    Events        = "events:" EventsBody dedent
+    Events        = "events:" EventsBody
     EventsBody    = 
 
-    Effects       = "effects:" EffectsBody dedent
+    Effects       = "effects:" EffectsBody
     EffectsBody   = 
 
-    Render        = "render:" RenderBody dedent
+    Render        = "render:" RenderBody
     RenderBody    = 
 
     keyword       = ("RootComponent" | "Component")
