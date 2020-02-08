@@ -2,7 +2,7 @@ Rehacked {
     Program       = newline* Stmt+ newline*
     Stmt          = ComponentDec
     ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody
-    ComponentBody = Imports? States? Props? Actions? Events? Effects? Render
+    ComponentBody = Import? States? Props? Actions? Events? Effects? Render
 
     Import        = "import:" ImportBody
     ImportBody    = ICSS? IComponents?
@@ -29,11 +29,19 @@ Rehacked {
 
     Call          = id "(" params ")"
 
+    Exp           = Literals
+
+    Literals      = strlit
+                  | numlit
+                  | boollit 
+                
+
     strlit        = "\'" any "\'"
+    numlit        = digit+ ("." digit+)?
+    boollit       = "true" | "false"
     params        = ListOf<Exp, ",">
-    scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
-    htmlelement   = ("p", "div", "body")
+    htmlelement   = ("p" | "div" | "body")
     htmlevents    = ("error" | "abort" | "load" | "beforeunload" | "unload" | "online" | "offline" | "focus"  | "blur" | "updateready"
                   | "open" | "message" | "error" | "close" | "pagehide" | "pageshow" | "popstate" | "animationstart" | "obsolete"
                   | "animationcancel" | "animationend" | "animationiteration" | "transitionstart" | "transitioncancel" | "noupdate"
@@ -45,7 +53,7 @@ Rehacked {
                   | "audioprocess" | "canplay" | "canplaythough" | "complete" | "durationchange" | "empties" | "ended" | "loadeddata"
                   | "loadedmetadata" | "pause" | "play" | "playing" | "ratechange" | "seeked" | "seeking" | "stalled" | "suspend" | "timeupdate"
                   | "volumechange" | "waiting" | "abort" | "error" | "load" | "loadend" | "loadstart" | "progress" | "timeout" | "checking"
-                  | "broadcast" | "checkboxstatechange" | "hashchange" | "input" | "radiostatechange" | "readystatechange" | "valuechange"
+                  | "broadcast" | "checkboxstatechange" | "hashchange" | "input" | "radiostatechange" | "readystatechange" | "valuechange")
     id            =  ~keyword letter idrest*
     idrest        =  "_" | alnum
     newline       = "\n"+

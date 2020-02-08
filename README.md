@@ -65,6 +65,13 @@ states:
   colorIndex = 0 | setColorIndex
 ```
 
+## Examples: Events
+
+```text
+events:
+  'div' <-- on click then incrementCounter(1)
+```
+
 ## Examples
 <table style="table-layout: fixed; width: 100%">
   <tr>
