@@ -15,37 +15,32 @@
   <td>
 
 ```javascript
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
-
-import './styles.css'
-
-Component App:
-    States:
+RootComponent App:
+    imports:
+        './styles.css'
+    
+    states:
         count: 0
     
-    Props:
+    props:
 
-    Events:
+    actions:
         onIncrement():
             setCount(count++)
-        onDecriment():
+        onDecrement():
             setCount(count--)
 
-    Effects:
+    events:
+    
+    effects:
 
-    Render:
+    render:
         <div className="App">
-            <h1>Hello CodeSandbox</h1>
             <h2>You clicked {count} times!</h2>
-
             <button onClick={() => onIncrement()}>Decrement</button>
-            <button onClick={() => onDecriment()}>Increment</button>
+            <button onClick={() => onDecrement()}>Increment</button>
         </div>
-
-ReactDOM.render(<App />, rootElement)
 ```
-
   </td>
 
   <td>
@@ -61,7 +56,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
       <h2>You clicked {count} times!</h2>
 
       <button onClick={() => setCount(count - 1)}>Decrement</button>
