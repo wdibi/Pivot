@@ -1,31 +1,30 @@
 Rehacked {
     Program       = newline* Stmt+ newline*
     Stmt          = ComponentDec
-    ComponentDec  = ("RootComponent" | "Component") id scopestart ComponentBody dedent
+    ComponentDec  = ("RootComponent" | "Component") id ":" ComponentBody dedent
     ComponentBody = Imports? States? Props? Actions? Events? Effects? Render
 
-    Imports       = "imports" ImportsBody dedent
-    ImportsBody   = scopestart
+    Imports       = "imports:" ImportsBody dedent
+    ImportsBody   = 
 
-    States        = "states" StatesBody dedent
-    StatesBody    = scopestart (id "=" Exp | id "=" Exp "|" id)+
+    States        = "states:" StatesBody dedent
+    StatesBody    = (id "=" Exp | id "=" Exp "|" id)+
 
-    Props         = "props" PropsBody dedent
-    PropsBody     = scopestart "[" ListOf<(id "=" Exp | id), ","> "]"
+    Props         = "props:" PropsBody dedent
+    PropsBody     = "[" ListOf<(id "=" Exp | id), ","> "]"
 
-    Actions       = "actions" ActionsBody dedent
-    ActionsBody   = scopestart
+    Actions       = "actions:" ActionsBody dedent
+    ActionsBody   = 
 
-    Events        = "events" EventsBody dedent
-    EventsBody    = scopestart
+    Events        = "events:" EventsBody dedent
+    EventsBody    = 
 
-    Effects       = "effects" EffectsBody dedent
-    EffectsBody   = scopestart
+    Effects       = "effects:" EffectsBody dedent
+    EffectsBody   = 
 
-    Render        = "render" RenderBody dedent
-    RenderBody    = scopestart
+    Render        = "render:" RenderBody dedent
+    RenderBody    = 
 
-    scopestart    = ':' newline indent
     keyword       = ("RootComponent" | "Component")
     id            =  ~keyword letter idrest*
   	idrest        =  "_" | alnum
