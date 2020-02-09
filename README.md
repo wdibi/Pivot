@@ -1,6 +1,15 @@
 # ReHacked: ReactJS revisited.
 <p align="center">
   <img src="logo.png" width="30%">
+  * [Introduction](#introduction)
+  * [Features](#features)
+  * [Types](#types)
+  * [Examples:](#examples-)
+    + [Import](#import)
+    + [States](#states)
+    + [Actions](#actions)
+    + [Events](#events)
+    + [Components](#components)
 </p>
 
 ## Introduction
