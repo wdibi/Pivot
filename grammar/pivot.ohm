@@ -52,7 +52,7 @@ Pivot {
                       | "return" | "then" | "and" | "or") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
-  numlit              = digit+ ("." digit+)? (("E" | "e") ("+" | "-")? digit+)?
+  numlit              = digit+
   boollit             = "true" | "false"
   char                = escape
                       | ~"\\" ~"\"" ~"'" ~"\n" any
