@@ -5,8 +5,8 @@ Rehacked {
 
     Import        = "import:" ImportBody
     ImportBody    = ICSS? IComponents?
-    ICSS          = "css:" "[" NonemptyListOf<csspath, ","> "]"
-    IComponents   = "components:" "{" NonemptyListOf<Cimport, ","> "}"
+    ICSS          = "css:" NonemptyListOf<csspath, ","> 
+    IComponents   = "components:"  NonemptyListOf<Cimport, ","> 
     
     States        = "states:" StatesBody
     StatesBody    = ((id "=" Exp) ("|" id)?)*
@@ -15,19 +15,21 @@ Rehacked {
     PropsBody     = "[" NonemptyListOf<id, ","> "]"
 
     Actions       = "actions:" ActionsBody
-    ActionsBody   = 
+    ActionsBody   = ActionDec+
+    ActionDec     = id "("  ListOf<id, ","> ")" ":"
 
     Events        = "events:" EventsBody
-    EventsBody    = strlit "<--" "on" htmlevents "then" Call
+    EventsBody    = strlit "<--" "on" htmlevents "then" ActionCall
 
     Effects       = "effects:" EffectsBody
-    EffectsBody   = 
+    EffectsBody   = "action:" ActionCall ("dependencies:" NonemptyListOf<id, ",">)?
 
     Render        = "render:"
 
-    Call          = id "(" ListOf<Exp, ","> ")"
+    ActionCall    = id "(" ListOf<Exp, ","> ")"
 
-    Exp           = Literals
+    Exp           = id
+                  | Literals
                   | "[" ListOf<Exp, ","> "]"  -- list
 
     Literals      = strlit
