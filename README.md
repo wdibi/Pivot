@@ -67,6 +67,13 @@ import:
 
 ```
 
+### Props
+
+```text
+props:
+
+```
+
 ### States
 This portion of the component is reserved for declaring states as well as optionally state changing functions. 
 
