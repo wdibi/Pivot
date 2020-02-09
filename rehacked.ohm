@@ -8,10 +8,11 @@ Rehacked {
     ICSS          = "css:" NonemptyListOf<csspath, ","> 
     IComponents   = "components:"  NonemptyListOf<Cimport, ","> 
     
-    States        = "states:" StatesBody
-    StatesBody    = ((id "=" Exp) ("|" id)?)*
+    Props         = "props:" PropsBody
+    PropsBody     = (id "=" Exp)+
     
-    Props         = "props:" id+
+    States        = "states:" StatesBody
+    StatesBody    = ((id "=" Exp) ("|" id)?)+
 
     Actions       = "actions:" ActionsBody
     ActionsBody   = ActionDec+
