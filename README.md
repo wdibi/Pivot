@@ -1,18 +1,31 @@
 # ReHacked: ReactJS revisited.
+<p align="center">
+  <img src="logo.png" width="30%">
+  
+</p>
+
+## Table of Content
+- [ReHacked: ReactJS revisited.](#rehacked--reactjs-revisited)
+  * [Introduction](#introduction)
+  * [Features](#features)
+  * [Types](#types)
+  * [Examples:](#examples-)
+    + [Import](#import)
+    + [States](#states)
+    + [Actions](#actions)
+    + [Events](#events)
+    + [Components](#components)
 
 ## Introduction
----
 This is ReHacked, a programming language designed to revamp and overhaul React, a popular JavaScript library used to design user interfaces. Inspired by React and it's capabilities as a JS library, ReHacked overcomes React's shortcomings and is laid out in a simpler, more consistent and organized fashion. Intended to be straightforward and clean, ReHacked is built to make building user interfaces as accessible and effortless as it should be.
 
 ## Features
----
 * Impure functional language
 * One way data binding
 * Declarative
 * Virtual DOM
 
 ## Types
----
 Primitive Types
 * String
 * Boolean
@@ -40,8 +53,56 @@ Operators
 * Ternary `a if b else c`
 * Comment  `//`
 
-## Examples
----
+## Examples: 
+### Import
+
+```text
+import:
+  css: ['./App.css', './Main.css']
+  components: {
+    AppHeader: './AppHeader', 
+    DangerButton: './buttons/DangerButton'
+  }
+```
+
+### States
+
+```text
+states: count = 0
+```
+
+```text
+states: 
+  count = 0 | setCount
+```
+
+```text
+states: 
+  colors = ['red', 'green', 'blue']
+  colorIndex = 0 | setColorIndex
+```
+
+### Actions
+```text
+actions:
+  incrementCount(): setCount(count++)
+  multiplyCount(multiplier):
+    result = count * multiplier
+    setCount(result)
+    return result
+```
+
+### Events
+Events are formatted as such:
+_querySelector_ <-- on _event_ then _action_
+
+```text
+events:
+  'div' <-- on click then incrementCounter(1)
+  '#welcomebox' <-- on mouseover then changeText('Hello world')
+```
+
+### Components
 <table style="table-layout: fixed; width: 100%">
   <tr>
   <th>ReHacked</th>
