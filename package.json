@@ -1,0 +1,31 @@
+{
+  "name": "rehacked",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"logo.png\" width=\"30%\">",
+  "main": "index.js",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "scripts": {
+    "test": "jest test/**/*test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdibi/Rehacked.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wdibi/Rehacked/issues"
+  },
+  "homepage": "https://github.com/wdibi/Rehacked#readme",
+  "dependencies": {
+    "chai": "^4.2.0"
+  }
+}
