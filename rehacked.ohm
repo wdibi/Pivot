@@ -9,13 +9,13 @@ Rehacked {
     IComponents   = "components:"  NonemptyListOf<Cimport, ","> 
     
     Props         = "props:" PropsBody
-    PropsBody     = (id "=" Exp)+
+    PropsBody     = (id ("=" Exp)? ";")+
     
     States        = "states:" StatesBody
-    StatesBody    = ((id "=" Exp) ("|" id)?)+
+    StatesBody    = ((id "=" Exp) ("|" id)? ";")+
 
     Actions       = "actions:" ActionsBody
-    ActionsBody   = ActionDec+
+    ActionsBody   = (ActionDec ";")+
     ActionDec     = id "("  ListOf<id, ","> ")" ":" ActionCall
     ActionCall    = id "(" ListOf<Exp, ","> ")"
 
@@ -26,12 +26,10 @@ Rehacked {
     EffectsBody   = "action:" ActionCall ("dependencies:" NonemptyListOf<id, ",">)?
 
     Render        = "render:" RenderBody
-    RenderBody    = JSX+
-
-    JSX           = "<" id (id "=" Exp)* ">" Exp? "</" id ">"
+    RenderBody    = any*
 
     Exp           = Exp "||" Exp1                              -- or
-                  | Exp "&&" Exp1                             -- and
+                  | Exp "&&" Exp1                              -- and
                   | Exp1
     Exp1          = Exp2 relop Exp2                            -- binary
                   | Exp2
@@ -41,10 +39,10 @@ Rehacked {
                   | Exp4
     Exp4          = prefixop Exp5                              -- unary
                   | Exp5
-    Exp5          = id
-                  | boollit
+    Exp5          =  strlit
+    			  | boollit
                   | numlit
-                  | strlit
+                  | id
                   | "[" ListOf<Exp, ","> "]"                   -- list
                   | ActionCall                                 -- actioncall
                   | "(" Exp ")"                                -- parens
@@ -63,8 +61,8 @@ Rehacked {
     boollit       = "true" | "false"
     numlit        = digit+
     Cimport       = id ":" path
-    path          = (alnum | "/")+
-    csspath       = alnum*
+    path          = "'" (char)* "'"
+    csspath       = "'" (char)* "'"
     htmlelement   = ("p" | "div" | "body")
     htmlevents    = ("error" | "abort" | "load" | "beforeunload" | "unload" | "online" | "offline" | "focus"  | "blur" | "updateready"
                   | "open" | "message" | "error" | "close" | "pagehide" | "pageshow" | "popstate" | "animationstart" | "obsolete"
