@@ -20,7 +20,7 @@ Pivot {
   TaskDeclaration     = newline* "task" id "(" listOf<Exp, ","> ")" Block ends
   FunctionDeclaration = newline* "func" id "(" listOf<Exp, ","> ")" Block? ReturnStatement ends
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"
-  Exp                 = Exp orop Exp1                                                        -- or
+  Exp                 = Exp orop Exp1                                                       -- or
                       | Exp andop Exp1                                                      -- and
                       | Exp1
   Exp1                = Exp2 relop Exp2                                                     -- binary
