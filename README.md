@@ -1,4 +1,4 @@
-# Pivot: A New Spin on Programming
+# Pivot
 <p align="center">
   <img src="logo.png" width="30%">
   
@@ -20,11 +20,14 @@
     + [Sample Program](#sample-program)
 
 ## Introduction
-Pivot is a programming language designed to take in the cool aspects of other languages -- like Awk, F#, and Erlang -- and create a way for programmers to 
+Pivot is a programming language that combines the likeness of modern languages with functional languages such as Awk, F#, and Erlang.
 
 
 ## Features
-* Statically Typed
+* Dynamically typed
+* Weakly typed
+* Scripting
+* Impure functional language
 * add...
 
 ## Types
@@ -39,6 +42,7 @@ Operators
 * Add `+`
 * Subtract `-`
 * Multiply `*`
+* Power `**`
 * Divide `/`
 * Modulus `%`
 * Strict Equality `==`
@@ -46,10 +50,8 @@ Operators
 * Greater than `>`
 * Less than or equal `<=`
 * Greater than or equal `>=`
-* typeof `typeof`
 * Logical AND `and`, `&&`
 * Logical OR `or`, `||`
-* Comment  `//`
 
 ## Examples: 
 ### Variable Declarations
@@ -82,9 +84,9 @@ end                               }
 ```text
 // Pivot                          // JavaScript
 if x > 5                          if(x > 5) {
-  then print("hello");              console.log("hello")
+  then print "hello";              console.log("hello")
 else                              } else {
-  print("bye");                     console.log("bye")
+  print "bye";                     console.log("bye")
 end                               }
 ```
 
@@ -144,5 +146,4 @@ function fibonacci(num) {
   }
   return b;
 }
-
 ```
