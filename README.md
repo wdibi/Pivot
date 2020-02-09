@@ -4,6 +4,7 @@
   
 </p>
 
+<!-- https://ecotrust-canada.github.io/markdown-toc/ -->
 ## Table of Content
 - [ReHacked: ReactJS revisited.](#rehacked--reactjs-revisited)
   * [Introduction](#introduction)
@@ -55,17 +56,19 @@ Operators
 
 ## Examples: 
 ### Import
+An optional segment of the component, necessary only when importing outside CSS or Components. The CSS subsection holds String paths to the .css files corresponding to the component. The component subsection holds a mapping of component name to path of file.
 
 ```text
 import:
-  css: ['./App.css', './Main.css']
-  components: {
-    AppHeader: './AppHeader', 
-    DangerButton: './buttons/DangerButton'
-  }
+  css: "./App.css", "./Main.css"
+  components:
+    AppHeader: "./AppHeader", 
+    DangerButton: "./buttons/DangerButton"
+
 ```
 
 ### States
+This portion of the component is reserved for declaring states as well as optionally state changing functions. 
 
 ```text
 states: count = 0
@@ -78,7 +81,7 @@ states:
 
 ```text
 states: 
-  colors = ['red', 'green', 'blue']
+  colors = ["red", "green", "blue"]
   colorIndex = 0 | setColorIndex
 ```
 
@@ -98,8 +101,8 @@ _querySelector_ <-- on _event_ then _action_
 
 ```text
 events:
-  'div' <-- on click then incrementCounter(1)
-  '#welcomebox' <-- on mouseover then changeText('Hello world')
+  "div" <-- on click then incrementCounter(1)
+  "#welcomebox" <-- on mouseover then changeText("Hello world")
 ```
 
 ### Components
@@ -115,10 +118,9 @@ events:
 ```javascript
 RootComponent App:
     imports:
-        CSS: ['./App.css']
-        Components: {
-            Header: './Header'
-        }
+        CSS: "./App.css"
+        Components: 
+            Header: "./Header"
     
     states:
         count = 0 | setCount
@@ -197,7 +199,7 @@ ReactDOM.render(<App />, rootElement);
 ```javascript
 Component App:
     imports:
-        CSS: ['./react-tabs.css', './LeagueData.css']
+        CSS: './react-tabs.css', './LeagueData.css'
     
     states:
         count = 0 | setCount
