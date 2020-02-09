@@ -1,4 +1,21 @@
 # ReHacked: ReactJS revisited.
+<p align="center">
+  <img src="logo.png" width="30%">
+  
+</p>
+
+<!-- https://ecotrust-canada.github.io/markdown-toc/ -->
+## Table of Content
+- [ReHacked: ReactJS revisited.](#rehacked--reactjs-revisited)
+  * [Introduction](#introduction)
+  * [Features](#features)
+  * [Types](#types)
+  * [Examples:](#examples-)
+    + [Import](#import)
+    + [States](#states)
+    + [Actions](#actions)
+    + [Events](#events)
+    + [Components](#components)
 
 ## Introduction
 This is ReHacked, a programming language designed to revamp and overhaul React, a popular JavaScript library used to design user interfaces. Inspired by React and it's capabilities as a JS library, ReHacked overcomes React's shortcomings and is laid out in a simpler, more consistent and organized fashion. Intended to be straightforward and clean, ReHacked is built to make building user interfaces as accessible and effortless as it should be.
@@ -37,18 +54,21 @@ Operators
 * Ternary `a if b else c`
 * Comment  `//`
 
-## Example: Import
+## Examples: 
+### Import
+An optional segment of the component, necessary only when importing outside CSS or Components. The CSS subsection holds String paths to the .css files corresponding to the component. The component subsection holds a mapping of component name to path of file.
 
 ```text
 import:
-  css: ['./App.css', './Main.css']
-  components: {
-    AppHeader: './AppHeader', 
-    DangerButton: './buttons/DangerButton'
-  }
+  css: "./App.css", "./Main.css"
+  components:
+    AppHeader: "./AppHeader", 
+    DangerButton: "./buttons/DangerButton"
+
 ```
 
-## Examples: States
+### States
+This portion of the component is reserved for declaring states as well as optionally state changing functions. 
 
 ```text
 states: count = 0
@@ -61,18 +81,31 @@ states:
 
 ```text
 states: 
-  colors = ['red', 'green', 'blue']
+  colors = ["red", "green", "blue"]
   colorIndex = 0 | setColorIndex
 ```
 
-## Examples: Events
+### Actions
+```text
+actions:
+  incrementCount(): setCount(count++)
+  multiplyCount(multiplier):
+    result = count * multiplier
+    setCount(result)
+    return result
+```
+
+### Events
+Events are formatted as such:
+_querySelector_ <-- on _event_ then _action_
 
 ```text
 events:
-  'div' <-- on click then incrementCounter(1)
+  "div" <-- on click then incrementCounter(1)
+  "#welcomebox" <-- on mouseover then changeText("Hello world")
 ```
 
-## Examples
+### Components
 <table style="table-layout: fixed; width: 100%">
   <tr>
   <th>ReHacked</th>
@@ -85,10 +118,9 @@ events:
 ```javascript
 RootComponent App:
     imports:
-        CSS: ['./App.css']
-        Components: {
-            Header: './Header'
-        }
+        CSS: "./App.css"
+        Components: 
+            Header: "./Header"
     
     states:
         count = 0 | setCount
@@ -167,7 +199,7 @@ ReactDOM.render(<App />, rootElement);
 ```javascript
 Component App:
     imports:
-        CSS: ['./react-tabs.css', './LeagueData.css']
+        CSS: './react-tabs.css', './LeagueData.css'
     
     states:
         count = 0 | setCount
