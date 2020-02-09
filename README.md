@@ -1,5 +1,7 @@
 # ReHacked: ReactJS revisited.
-![ReHacked logo](logo.png)
+<p align="center">
+  <img src="logo.png" width="30%">
+</p>
 
 ## Introduction
 This is ReHacked, a programming language designed to revamp and overhaul React, a popular JavaScript library used to design user interfaces. Inspired by React and it's capabilities as a JS library, ReHacked overcomes React's shortcomings and is laid out in a simpler, more consistent and organized fashion. Intended to be straightforward and clean, ReHacked is built to make building user interfaces as accessible and effortless as it should be.
