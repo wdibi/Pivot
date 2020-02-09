@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/wdibi/Rehacked#readme",
   "dependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "ohm-js": "^0.14.0"
   }
 }

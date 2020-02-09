@@ -44,10 +44,10 @@ function fibonacci(num) {
   return b;
 }
 
-let x <- 25;
+let x = 25;
   while x do
     print x;
-    x <- x - 1;
+    x = x - 1;
 end
 
 let x = 25;
@@ -64,4 +64,11 @@ describe("The syntax checker", () => {
       done();
     });
   });
+});
+
+describe("Check full program for failure", () => {
+  test(`detects the error ${programFail}`, done => {
+    expect(syntaxCheck(programFail)).toBe(false);
+    done();
+    });
 });
