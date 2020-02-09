@@ -29,9 +29,11 @@ Pivot {
                       | Exp3
   Exp3                = Exp3 mulop Exp4                                                     -- binary
                       | Exp4
-  Exp4                = prefixop Exp5                                                       -- unary
+  Exp4                = prefixop Exp4                                                       -- unary
                       | Exp5
-  Exp5                = id
+  Exp5                = Exp5 "**" Exp6                                                      -- binary
+                      | Exp6
+  Exp6                = id
                       | boollit
                       | numlit
                       | strlit
