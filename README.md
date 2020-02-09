@@ -1,4 +1,5 @@
 # ReHacked: ReactJS revisited.
+![ReHacked logo](logo.png)
 
 ## Introduction
 This is ReHacked, a programming language designed to revamp and overhaul React, a popular JavaScript library used to design user interfaces. Inspired by React and it's capabilities as a JS library, ReHacked overcomes React's shortcomings and is laid out in a simpler, more consistent and organized fashion. Intended to be straightforward and clean, ReHacked is built to make building user interfaces as accessible and effortless as it should be.
@@ -37,7 +38,8 @@ Operators
 * Ternary `a if b else c`
 * Comment  `//`
 
-## Example: Import
+## Examples: 
+### Import
 
 ```text
 import:
@@ -48,7 +50,7 @@ import:
   }
 ```
 
-## Examples: States
+### States
 
 ```text
 states: count = 0
@@ -65,14 +67,27 @@ states:
   colorIndex = 0 | setColorIndex
 ```
 
-## Examples: Events
+### Actions
+```text
+actions:
+  incrementCount(): setCount(count++)
+  multiplyCount(multiplier):
+    result = count * multiplier
+    setCount(result)
+    return result
+```
+
+### Events
+Events are formatted as such:
+_querySelector_ <-- on _event_ then _action_
 
 ```text
 events:
   'div' <-- on click then incrementCounter(1)
+  '#welcomebox' <-- on mouseover then changeText('Hello world')
 ```
 
-## Examples
+### Components
 <table style="table-layout: fixed; width: 100%">
   <tr>
   <th>ReHacked</th>
