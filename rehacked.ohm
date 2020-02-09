@@ -16,7 +16,7 @@ Rehacked {
 
     Actions       = "actions:" ActionsBody
     ActionsBody   = ActionDec+
-    ActionDec     = id "("  ListOf<id, ","> ")" ":"
+    ActionDec     = id "("  ListOf<id, ","> ")" ":" ActionCall
 
     Events        = "events:" EventsBody
     EventsBody    = strlit "<--" "on" htmlevents "then" ActionCall
