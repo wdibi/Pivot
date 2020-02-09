@@ -16,6 +16,7 @@ Rehacked {
     Actions       = "actions:" ActionsBody
     ActionsBody   = ActionDec+
     ActionDec     = id "("  ListOf<id, ","> ")" ":" ActionCall
+    ActionCall    = id "(" ListOf<Exp, ","> ")"
 
     Events        = "events:" EventsBody
     EventsBody    = strlit "<--" "on" htmlevents "then" ActionCall
@@ -23,12 +24,13 @@ Rehacked {
     Effects       = "effects:" EffectsBody
     EffectsBody   = "action:" ActionCall ("dependencies:" NonemptyListOf<id, ",">)?
 
-    Render        = "render:"
+    Render        = "render:" RenderBody
+    RenderBody    = JSX+
 
-    ActionCall    = id "(" ListOf<Exp, ","> ")"
+    JSX           = "<" id (id "=" Exp)* ">" Exp? "</" id ">"
 
     Exp           =  Exp "||" Exp1                              -- or
-                  |  Exp "&&" Exp1                             -- and
+                  |  Exp "&&" Exp1                              -- and
                   |  Exp1
     Exp1          =  Exp2 relop Exp2                            -- binary
                   |  Exp2
@@ -46,10 +48,10 @@ Rehacked {
                   |  ActionCall                                 -- actioncall
                   |  "(" Exp ")"                                -- parens
 
-      addop       =  "+" | "-"
-      relop       =  "<=" | "<" | "==" | "!=" | "is" | ">=" | ">" 
-      mulop       =  "*" | "//" | "/" | "%"
-      prefixop    =  "-" | "not" | "!"
+    addop         =  "+" | "-"
+    relop         =  "<=" | "<" | "==" | "!=" | "is" | ">=" | ">" 
+    mulop         =  "*" | "//" | "/" | "%"
+    prefixop      =  "-" | "not" | "!"
 
     char          =  escape
                   |  ~"\\" ~"\"" ~"'" ~"\n" any
