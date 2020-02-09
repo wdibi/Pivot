@@ -1,6 +1,7 @@
 # ReHacked: ReactJS revisited.
 <p align="center">
   <img src="logo.png" width="30%">
+  - [ReHacked: ReactJS revisited.](#rehacked--reactjs-revisited)
   * [Introduction](#introduction)
   * [Features](#features)
   * [Types](#types)
