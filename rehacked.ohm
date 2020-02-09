@@ -28,22 +28,37 @@ Rehacked {
 
     ActionCall    = id "(" ListOf<Exp, ","> ")"
 
-    Exp           = id
-                  | Literals
-                  | "[" ListOf<Exp, ","> "]"  -- list
-
-    Literals      = strlit
+    Exp           = Exp "or" Exp1                              -- or
+                  | Exp "and" Exp1                             -- and
+                  | Exp1
+    Exp1          = Exp2 relop Exp2                            -- binary
+                  | Exp2
+    Exp2          = Exp2 addop Exp3                            -- binary
+                  | Exp3
+    Exp3          = Exp3 mulop Exp4                            -- binary
+                  | Exp4
+    Exp4          = prefixop Exp5                              -- unary
+                  | Exp5
+    Exp5          = id
+                  | boollit
                   | numlit
-                  | boollit 
-                
+                  | strlit
+                  | "[" ListOf<Exp, ","> "]"                   -- list
+                  | ActionCall                                 -- actioncall
+                  | "(" Exp ")"                                -- parens
 
-    char          =  escape
-                  |  ~"\\" ~"\"" ~"'" ~"\n" any
+    addop         = "+" | "-"
+    relop         = "<=" | "<" | "==" | "!=" | "is" | ">=" | ">" 
+    mulop         = "*" | "//" | "/" | "%"
+    prefixop      = "-" | "not" | "!"
+
+    char          = escape
+                  | ~"\\" ~"\"" ~"'" ~"\n" any
     keyword       = ("RootComponent" | "Component")
-    charlit       =  "'" (char | "\"") "'"
-    strlit        =  "\"" (char | "\'")* "\""
-    escape        =  "\\\\" | "\\\"" | "\\'" | "\\n"
-    boollit       =  "true" | "false"
+    charlit       = "'" (char | "\"") "'"
+    strlit        = "\"" (char | "\'")* "\""
+    escape        = "\\\\" | "\\\"" | "\\'" | "\\n"
+    boollit       = "true" | "false"
     numlit        = digit+
     Cimport       = id ":" path
     path          = (alnum | "/")+
@@ -61,7 +76,7 @@ Rehacked {
                   | "loadedmetadata" | "pause" | "play" | "playing" | "ratechange" | "seeked" | "seeking" | "stalled" | "suspend" | "timeupdate"
                   | "volumechange" | "waiting" | "abort" | "error" | "load" | "loadend" | "loadstart" | "progress" | "timeout" | "checking"
                   | "broadcast" | "checkboxstatechange" | "hashchange" | "input" | "radiostatechange" | "readystatechange" | "valuechange")
-    id            =  ~keyword letter idrest*
-    idrest        =  "_" | alnum
+    id            = ~keyword letter idrest*
+    idrest        = "_" | alnum
     newline       = "\n"+
 }
