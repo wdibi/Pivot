@@ -1,78 +1,69 @@
 Pivot {
-  Program        = Statement+ newline*
-  
-  Statement      = Declaration
-                  | IfStatement
-                  | ReturnStatement
-                  | FunctionDeclaration
-                  | TaskDeclaration
-  
-  Block           = Statement+
-  
-  Declaration     = Type id "<-" Exp ";"                                                                  -- declaration
-                  | Type "(" NonemptyListOf<id, ","> ")"  "<-" "(" NonemptyListOf<Exp, ","> ")" ";"       -- multidec
-                  | id "<-" Exp ";"                                                                       -- assign
-  
-  IfStatement     = "if" Exp "then" Statement ("else" Statement)? "end"
-  ReturnStatement = "return" Statement
-  IterationStatement =  "while" Exp Block "end"  -- while
-                     | "repeat" Block "until" Exp ";" -- loop
-  
-  TaskDeclaration    = "task" id "(" listOf<id, ","> ")" Block "end"
-  FunctionDeclaration = "func" id "(" listOf<id, ","> ")" Block? "return" Exp "end"
-
-
-
-
-
-
-
-
-
-  Exp             =  Exp orop Exp1                                                                    -- or
-                  |  Exp andop Exp1                                                                   -- and
-                  |  Exp1
-  Exp1            =  Exp2 relop Exp2                                                                  -- binary
-                  |  Exp2
-  Exp2            =  Exp2 addop Exp3                                                                  -- binary
-                  |  Exp3
-  Exp3            =  Exp3 mulop Exp4                                                                  -- binary
-                  |  Exp4
-  Exp4            =  prefixop Exp5                                                                    -- unary
-                  |  Exp5
-  Exp5            =  boollit
-                  |  numlit
-                  |  strlit
-                  |  id
-                  |  "[" ListOf<Exp, ","> "]"                                                         -- list
-                  |  "{" ListOf<KeyValue, ","> "}"                                                    -- dict
-                  |  "(" Exp ")"                                                                      -- parens
-
-  Type            =  ( NumType | StringType | BooleanType | ListType | DictType )
-  NumType         =  "number"
-  StringType      =  "string"
-  BooleanType     =  "boolean"
-  ListType        =  "list<"Type">"
-  DictType        =  "dict<"Type","Type">"
-  KeyValue        =  Exp ":" Exp
-  keyword         =  ("while" | "if" | "else" | "return" | "then" | "and" | "or") ~idrest
-  id              =  ~keyword ("_" | letter) idrest*
-  idrest          =  "_" | alnum
-  numlit          =  digit+ ("." digit+)? (("E" | "e") ("+" | "-")? digit+)?
-  boollit         =  "true" | "false"
-  char            = escape
-                  | ~"\\" ~"\"" ~"'" ~"\n" any
-  charlit         = "'" (char | "\"") "'"
-  strlit          = "\"" (char | "\'")* "\""
-  escape          = "\\\\" | "\\\"" | "\\'" | "\\n"
-  andop           = "and" | "AND" | "&&"
-  orop            = "or" | "OR" | "||"
-  addop           =  "+" | "-"
-  relop           =  "<=" | "<" | "==" | "!=" | "is" | ">=" | ">" 
-  mulop           =  "*" | "//" | "/" | "%"
-  prefixop        =  "-" | "not" | "!"
-  newline         =  "\n"+
-  space          :=  " " | "\t" | comment
-  comment         =  "~" ~"*" (~"\n" any)*                      -- singleline
-                  |  "~*" (~"*~" any)* "*~"                     -- multiline
+  Program             = Statement+
+  Statement           = FunctionDeclaration
+                      | IfStatement
+                      | Variables
+                      | TaskDeclaration
+                      | IterationStatement
+                      | CallStatement
+                      | PrintStatment
+  Block               = Statement+
+  Variables           = newline* "let" id "<-" (CallStatement | Exp) ";"                    -- declaration
+                      | newline*  "let" "(" NonemptyListOf<id, ","> ")"  
+                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                           -- multidec  
+                      | newline* id "<-" (CallStatement | Exp) ";"                          -- assign
+  IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
+  ReturnStatement     = newline* "return" Exp ";"
+  IterationStatement  = newline* "while" Exp "do" Block ends                                -- while
+                      | newline* "repeat" Block newline* "until" Exp ";"                    -- loop
+  PrintStatment       = newline* print (CallStatement | Exp)  ";"
+  TaskDeclaration     = newline* "task" id "(" listOf<Exp, ","> ")" Block ends
+  FunctionDeclaration = newline* "func" id "(" listOf<Exp, ","> ")" Block? ReturnStatement ends
+  CallStatement       = newline* id "(" listOf<Exp, ","> ")"
+  Exp                 = Exp orop Exp1                                                        -- or
+                      | Exp andop Exp1                                                      -- and
+                      | Exp1
+  Exp1                = Exp2 relop Exp2                                                     -- binary
+                      | Exp2
+  Exp2                = Exp2 addop Exp3                                                     -- binary
+                      | Exp3
+  Exp3                = Exp3 mulop Exp4                                                     -- binary
+                      | Exp4
+  Exp4                = prefixop Exp5                                                       -- unary
+                      | Exp5
+  Exp5                = id
+                      | boollit
+                      | numlit
+                      | strlit
+                      | id
+                      | "[" ListOf<Exp, ","> "]"                                             -- list
+                      | "{" ListOf<KeyValuePair, ","> "}"                                    -- dict
+                      | "(" Exp ")"                                                          -- parens
+  Type                = ( NumType | StringType | BooleanType | ListType | DictType )
+  NumType             = "number"
+  StringType          = "string"
+  BooleanType         = "boolean"
+  ListType            = "list"
+  DictType            = "dict"
+  KeyValuePair        = Exp ":" Exp
+  keyword             = ("while" | "repeat" | "if" | "else" 
+                      | "return" | "then" | "and" | "or") ~idrest
+  id                  = ~keyword ("_" | letter | "$") idrest*
+  idrest              = "_" | alnum
+  numlit              = digit+ ("." digit+)? (("E" | "e") ("+" | "-")? digit+)?
+  boollit             = "true" | "false"
+  char                = escape
+                      | ~"\\" ~"\"" ~"'" ~"\n" any
+  charlit             = "'" (char | "\"") "'"
+  strlit              = "\"" (char | "\'")* "\""
+  escape              = "\\\\" | "\\\"" | "\\'" | "\\n"
+  andop               = "and" | "AND" | "&&"
+  orop                = "or" | "OR" | "||"
+  addop               = "+" | "-"
+  relop               = "<=" | "<" | "==" | "!=" | ">=" | ">" 
+  mulop               = "*" | "/" | "%"
+  prefixop            = "-" | "not" | "!"
+  newline             = "\n"+
+  ends                = "\n"* "end"
+  print               = "print" ~alnum
 }
