@@ -21,7 +21,7 @@ Pivot {
                       | newline* "task" id "(" Params ")" Block ends                            -- task
   Params              = (Type id ("," Type id)*)?
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"                                    -- function
-                      | newline* (id | List | Dict) "<->" CallStatement                         -- method
+                      | newline* ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)       -- method
   Exp                 = Exp orop Exp1                                                           -- or
                       | Exp andop Exp1                                                          -- and
                       | Exp1
