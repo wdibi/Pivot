@@ -193,6 +193,35 @@ let animals = ["dog", "cat", "pig"]
 
 </table>
 
+### For Loop
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  for num a <- 0; a < 2; a <- a + 1; do
+      print a;
+  end
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  for (let i = 0; i < 2; i++) {
+    console.log(i);
+  }
+  ```
+
+  </td>
+
+</table>
+
 ### While Loop
 <table style="table-layout: fixed; width: 100%">
   <tr>
@@ -272,14 +301,39 @@ let animals = ["dog", "cat", "pig"]
   <td>
 
   ```text
-  {dict} circle <- { color: "red", radius: 5 };
+  {str:num} ages <- { "john" : 5, "tim" : 6 };
   ```
   </td>
 
   <td>
 
   ```javascript
-  let Circle = { color: "red", radius: 5 }
+  let ages = { "john": 5, "tim" : 6 }
+  ```
+
+  </td>
+
+</table>
+
+### List
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  [str] friends <- { "john", "tim" };
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  let friends = ["john", "tim"];
   ```
 
   </td>
@@ -300,7 +354,7 @@ let animals = ["dog", "cat", "pig"]
 
   ```text
   fibonacci(num x) -> num
-      (num a, num b, num temp) <- (1, 0, 0);
+      all num(a, b, temp) <- (1, 0, 0);
 
       repeat
           temp <- a;

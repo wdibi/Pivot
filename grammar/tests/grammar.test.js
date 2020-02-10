@@ -12,7 +12,9 @@ str name <- "Jigar";
 num a <- 5;
 bool over20 <- true;
 
-{str:num} ages <- { "john":5, "tim": 69 };
+all str(a, b, c) <- ("hi", "bye", "goodnight");
+
+{str:num} ages <- { "john" : 5, "tim" : 6 };
 
 [num] sorted <- [1, 5, 2, 4] << sort() << addFive();
 
@@ -44,6 +46,10 @@ fibonacci(num x) -> num
 end
 
 num x <- 25;
+
+for num a <- 0; a < 2; a <- a + 1; do
+    print a;
+end
 
 while x do
     print x;
