@@ -37,16 +37,20 @@ Pivot {
                       | boollit
                       | numlit
                       | strlit
+                      | charlit
                       | id
-                      | "[" ListOf<Exp, ","> "]"                                                -- list
-                      | "{" ListOf<KeyValuePair, ","> "}"                                       -- dict
+                      | List                                                                    -- list
+                      | Dict                                                                    -- dict
                       | "(" Exp ")"                                                             -- parens
-  Type                = ( NumType | StringType | BooleanType | ListType | DictType )
+  List                = "[" ListOf<Exp, ","> "]"
+  Dict                = "{" ListOf<KeyValuePair, ","> "}"  
+  Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType )
   NumType             = "num"
   StringType          = "str"
+  CharType            = "char"
   BooleanType         = "bool"
-  ListType            = "list"
-  DictType            = "dict"
+  ListType            = "[" Type "]"
+  DictType            = "{" Type ":" Type "}"
   KeyValuePair        = Exp ":" Exp
   keyword             = ("while" | "repeat" | "if" | "else" 
                       | "return" | "then" | "and" | "or") ~idrest
