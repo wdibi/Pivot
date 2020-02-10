@@ -17,7 +17,7 @@ Pivot {
                       | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
                       | newline* "for" Exp ";" Exp ";" Exp "do" Block ends                      -- for
   PrintStatment       = newline* print (CallStatement | Exp)  ";"
-  FunctionDeclaration = newline* "func" id "(" Params ")" "->" Type Block? ReturnStatement ends -- func
+  FunctionDeclaration = newline* id "(" Params ")" "->" Type Block? ReturnStatement ends        -- func
                       | newline* "task" id "(" Params ")" Block ends                            -- task
   Params              = (Type id ("," Type id)*)?
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"                                    -- function
