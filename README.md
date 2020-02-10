@@ -130,7 +130,10 @@ let animals = ["dog", "cat", "pig"]
       return x+5;
   end
 
-
+  num x <- 5;
+  task updateX(num value)
+      x <- value;
+  end
   ```
   </td>
 
@@ -139,6 +142,11 @@ let animals = ["dog", "cat", "pig"]
   ```javascript
   function add5(x) {
       return x+5;
+  }
+
+  let x = 5;
+  function updateX(num) {
+    x = num;
   }
   ```
 
