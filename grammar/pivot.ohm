@@ -8,39 +8,39 @@ Pivot {
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* "let" id "<-" (CallStatement | Exp) ";"                    -- declaration
+  Variables           = newline* "let" id "<-" (CallStatement | Exp) ";"                        -- declaration
                       | newline*  "let" "(" NonemptyListOf<id, ","> ")"  
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                           -- multidec  
-                      | newline* id "<-" (CallStatement | Exp) ";"                          -- assign
+                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
+                      | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
   IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
   ReturnStatement     = newline* "return" Exp ";"
-  IterationStatement  = newline* "while" Exp "do" Block ends                                -- while
-                      | newline* "repeat" Block newline* "until" Exp ";"                    -- loop
+  IterationStatement  = newline* "while" Exp "do" Block ends                                    -- while
+                      | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
   PrintStatment       = newline* print (CallStatement | Exp)  ";"
-  TaskDeclaration     = newline* "task" id "(" listOf<Exp, ","> ")" Block ends
-  FunctionDeclaration = newline* "func" id "(" listOf<Exp, ","> ")" Block? ReturnStatement ends
+  FunctionDeclaration = newline* "func" id "(" listOf<Exp, ","> ")" Block? ReturnStatement ends -- func
+                      | newline* "task" id "(" listOf<Exp, ","> ")" Block ends                  -- task
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"
-  Exp                 = Exp orop Exp1                                                       -- or
-                      | Exp andop Exp1                                                      -- and
+  Exp                 = Exp orop Exp1                                                           -- or
+                      | Exp andop Exp1                                                          -- and
                       | Exp1
-  Exp1                = Exp2 relop Exp2                                                     -- binary
+  Exp1                = Exp2 relop Exp2                                                         -- binary
                       | Exp2
-  Exp2                = Exp2 addop Exp3                                                     -- binary
+  Exp2                = Exp2 addop Exp3                                                         -- binary
                       | Exp3
-  Exp3                = Exp3 mulop Exp4                                                     -- binary
+  Exp3                = Exp3 mulop Exp4                                                         -- binary
                       | Exp4
-  Exp4                = prefixop Exp4                                                       -- unary
+  Exp4                = prefixop Exp4                                                           -- unary
                       | Exp5
-  Exp5                = Exp5 "**" Exp6                                                      -- binary
+  Exp5                = Exp5 "**" Exp6                                                          -- binary
                       | Exp6
   Exp6                = id
                       | boollit
                       | numlit
                       | strlit
                       | id
-                      | "[" ListOf<Exp, ","> "]"                                             -- list
-                      | "{" ListOf<KeyValuePair, ","> "}"                                    -- dict
-                      | "(" Exp ")"                                                          -- parens
+                      | "[" ListOf<Exp, ","> "]"                                                -- list
+                      | "{" ListOf<KeyValuePair, ","> "}"                                       -- dict
+                      | "(" Exp ")"                                                             -- parens
   Type                = ( NumType | StringType | BooleanType | ListType | DictType )
   NumType             = "number"
   StringType          = "string"
