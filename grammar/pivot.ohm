@@ -7,12 +7,14 @@ Pivot {
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                         -- declaration
+  Variables           = newline* Type id "<-" (CallStatement | IfShort | Exp ) ";"              -- declaration
                       | newline*  "(" Type id ("," Type id)+ ")"  
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
                       | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
   IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
-  ReturnStatement     = newline* "return" Exp ";"
+  IfShort             = newline* Exp "when" (CallStatement | Exp ) 
+                        "otherwise" (CallStatement | IfShort | Exp )
+  ReturnStatement     = newline* "return" (CallStatement | IfShort | Exp ) ";"
   IterationStatement  = newline* "while" Exp "do" Block ends                                    -- while
                       | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
                       | newline* "for" Exp ";" Exp ";" Exp "do" Block ends                      -- for
@@ -36,6 +38,7 @@ Pivot {
   Exp5                = Exp5 "**" Exp6                                                          -- binary
                       | Exp6
   Exp6                = id
+                      | IfShort
                       | boollit
                       | numlit
                       | strlit
