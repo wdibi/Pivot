@@ -8,44 +8,48 @@
 const syntaxCheck = require("../syntax-checker");
 
 const program = String.raw`
-let name <- "Jigar";
-let a <- 5;
-let over20 <- true;
+str name <- "Jigar";
+num a <- 5;
+bool over20 <- true;
 
-let circle <- { color: "red", radius: 5 };
+{str:num} ages <- { "john":5, "tim": 69 };
+
+[num] sorted <- [1, 5, 2, 4] << sort() << addFive();
+
 print name;
 
-let x <- 30;
+num x <- 30;
 
 repeat
   print x;
   x <- x - 5;
 until x == -30;
 
-task updateX(value)
+task updateX(num value)
   x <- value;
 end
 
-let y <- 8 ** 8;
+num y <- 8 ** 8;
 
-func fibonacci(num)
-  let (a,b,temp) <- (1, 0, 0);
+fibonacci(num x) -> num
+    (num a, num b, num temp) <- (1, 0, 0);
+    repeat
+        temp <- a;
+        a <- a + b;
+        b <- temp;
+        x <- x - 1;
+    until num < 0;
 
-  repeat
-    temp <- a;
-    a <- a + b;
-    b <- temp;
-    num <- num - 1;
-  until num < 0;
-  return b;
-  end
+    return b;
+end
 
-let x <- 25;
-  while x do
+num x <- 25;
+
+while x do
     print x;
     x <- x - 1;
 end 
-`
+`;
 
 describe("The syntax checker", () => {
   test("accepts the full program with all syntactic forms", done => {
