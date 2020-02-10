@@ -55,14 +55,38 @@ Operators
 
 ## Examples: 
 ### Variable Declarations
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+    <th>Pivot</th>
+    <th>JavaScript</th>
+  </tr>
+  <tr>
+  
+  <td>
 
 ```text
-// Pivot                          // JavaScript
-let name <- "Jigar";              const name = "Jigar"
-let age <- 21;                    let age = 21
-let below6ft <- true;             let below6ft = true
-let (a,b,c) <- (1,2,3);           let a = 5, b = 2, c = 3
+str name <- "Jigar";
+_ age <- 21;
+bool below6ft <- true;
+(num a, num b, num c) <- (1,2,3);
+[str] animals = ["dog", "cat", "pig"];
 ```
+  
+  </td>
+
+  <td>
+  
+```javascript
+let name = "Jigar"
+let age = 21
+let below6ft = true
+let a = 5, b = 2, c = 3
+let animals = ["dog", "cat", "pig"]
+```
+
+  </td>
+  </tr>
+</table>
 
 ### Arithmetic
 
