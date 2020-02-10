@@ -12,6 +12,10 @@ str name <- "Jigar";
 num a <- 5;
 bool over20 <- true;
 
+{str:num} ages <- { "john":5, "tim": 69 };
+
+[num] sorted <- [1, 5, 2, 4] << sort() << addFive();
+
 print name;
 
 num x <- 30;
