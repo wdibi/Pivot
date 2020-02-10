@@ -20,15 +20,15 @@
     + [Sample Program](#sample-program)
 
 ## Introduction
-Pivot is a programming language that combines the likeness of modern languages with functional languages such as Awk, F#, and Erlang.
+This is Pivot, a programming language designed to combine the simplicity of modern languages with the capabilities of functional languages. Inspired by languages like Awk, F#, Erlang, and JS, Pivot takes an impure approach with the mindset of removing the limitations of similar languages.
 
+Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Raymundo.
 
 ## Features
-* Dynamically typed
-* Weakly typed
+* Statically typed except for the auto type, `_`
+* Strongly typed
 * Scripting
 * Impure functional language
-* add...
 
 ## Types
 Primitive Types
@@ -69,7 +69,7 @@ str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
 (num a, num b, num c) <- (1,2,3);
-[str] animals = ["dog", "cat", "pig"];
+[str] animals <- ["dog", "cat", "pig"];
 ```
   
   </td>
@@ -89,85 +89,297 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### Arithmetic
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
 
-```text
-// Pivot                          // JavaScript
-a <- 3*2 + (5 ** 6) / 7;          a = 3*2 + (5 ** 6) / 7
-b <- 12 - 17 + 8;                 b = 12 - 17 + 8
-```
+  <tr>
+  <td>
+
+  ```text
+  a <- 3*2 + (5 ** 6) / 7;
+  b <- 12 - 17 + 8;
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  a = 3*2 + (5 ** 6) / 7
+  b = 12 - 17 + 8
+  ```
+
+  </td>
+
+</table>
 
 ### Functions
-```text
-// Pivot                          // JavaScript
-func add5(x)                      function add5(x) {
-  return x+5;                       return x+5
-end                               }
-```
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  add5(num x) -> num
+      return x+5;
+  end
+
+
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  function add5(x) {
+      return x+5;
+  }
+  ```
+
+  </td>
+
+</table>
 
 ### If Statement
-```text
-// Pivot                          // JavaScript
-if x > 5                          if(x > 5) {
-  then print "hello";              console.log("hello")
-else                              } else {
-  print "bye";                     console.log("bye")
-end                               }
-```
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  if x > 5
+      then print "hello";
+  else 
+      print "bye";
+  end
+
+  if x > 5 then print x; end
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  if (x > 5) {
+      console.log("hello");
+  } else {
+      console.log("bye");
+  }
+
+  if (x > 5) {
+      console.log(x);
+  }
+  ```
+
+  </td>
+
+</table>
 
 ### While Loop
-```text
-// Pivot                          // JavaScript
-let x <- 25;                      let x = 25
-while x do                        while (x) {
-  print x;                          console.log("looping")
-  x <- x - 1;                       x = x - 1
-end                               }
-```
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  let x <- 25;
+
+  while x do
+      print x;
+      x <- x - 1;
+  end
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  let x = 25;
+
+  while (x) {
+      console.log(x);
+      x--;
+  }
+  ```
+
+  </td>
+
+</table>
 
 ### Repeat
-```text
-// Pivot                // JavaScript
-let x <- 30;            do {
-repeat                    console.log(x)
-  print x;                x = x - 5
-  x <- x - 5;           } while (x >= -30)
-until x == -30;
-```
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
 
-### Objects
-```text
-// Pivot                                        // JavaScript
-let circle <- { color: "red", radius: 5 };      let Circle = { color: "red", radius: 5 }
-```
+  <tr>
+  <td>
+
+  ```text
+  let x <- 30;
+
+  repeat
+      print x;
+      x <- x - 5;
+  until x == -30;
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  do (
+      console.log(x);
+      x -= 5;
+  ) while (x >= -30)
+  ```
+
+  </td>
+
+</table>
+
+### Dictionary
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  {dict} circle <- { color: "red", radius: 5 };
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  let Circle = { color: "red", radius: 5 }
+  ```
+
+  </td>
+
+</table>
 
 ### Sample Program:
 
 #### Fibonacci Pivot:
-```text
-func fibonacci(num)
-  let (a,b,temp) <- (1, 0, 0);
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
 
-  repeat
-    temp <- a;
-    a <- a + b;
-    b <- temp;
-    num <- num - 1;
-  until num < 0;
-  return b;
+  <tr>
+  <td>
+
+  ```text
+  fibonacci(num x) -> num
+      (num a, num b, num temp) <- (1, 0, 0);
+
+      repeat
+          temp <- a;
+          a <- a + b;
+          b <- temp;
+          x <- x - 1;
+      until num < 0;
+
+      return b;
   end
-```
+  ```
+  </td>
 
-#### Fibonacci JavaScript:
-```javascript
-function fibonacci(num) {
-  let a = 1, b = 0, temp
+  <td>
 
-  while(num >= 0) {
-    temp = a
-    a = a + b;
-    b = temp;
-    num--
+  ```javascript
+  function fibonacci(num) {
+      let a = 1, b = 0, temp;
+      
+      while(num >= 0) {
+          temp = a;
+          a = a + b;
+          b = temp;
+          num--;
+      }
+      return b;
   }
-  return b;
-}
-```
+  ```
+
+  </td>
+
+</table>
+
+#### Even or Odd:
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  evenOdd(num x) -> bool
+      return x % 2 == 0;
+  end
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  function evenOdd(num) {
+      return x % 2 == 0;
+  }
+  ```
+
+  </td>
+
+</table>
+
+#### Greatest Common Divisor:
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+  ```text
+  gcd(num a, num b) -> num
+      return a when !b otherwise gcd(b, a % b);
+  end
+  ```
+  </td>
+
+  <td>
+
+  ```javascript
+  function gcd(a, b) {
+      return !b ? a : gcd(b, a % b);
+  }
+  ```
+
+  </td>
+
+</table>
