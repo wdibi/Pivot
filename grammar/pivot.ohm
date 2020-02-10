@@ -19,7 +19,8 @@ Pivot {
   FunctionDeclaration = newline* "func" id "(" Params ")" "->" Type Block? ReturnStatement ends -- func
                       | newline* "task" id "(" Params ")" Block ends                            -- task
   Params              = (Type id ("," Type id)*)
-  CallStatement       = newline* id "(" listOf<Exp, ","> ")"
+  CallStatement       = newline* id "(" listOf<Exp, ","> ")"                                    -- function
+                      | newline* (id | List | Dict) "<->" CallStatement                         -- method
   Exp                 = Exp orop Exp1                                                           -- or
                       | Exp andop Exp1                                                          -- and
                       | Exp1
