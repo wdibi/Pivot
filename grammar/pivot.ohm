@@ -7,8 +7,8 @@ Pivot {
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* "let" id "<-" (CallStatement | Exp) ";"                        -- declaration
-                      | newline*  "let" "(" NonemptyListOf<id, ","> ")"  
+  Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                        -- declaration
+                      | newline*  "(" Params ")"  
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
                       | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
   IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
@@ -16,8 +16,9 @@ Pivot {
   IterationStatement  = newline* "while" Exp "do" Block ends                                    -- while
                       | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
   PrintStatment       = newline* print (CallStatement | Exp)  ";"
-  FunctionDeclaration = newline* "func" id "(" listOf<Exp, ","> ")" Block? ReturnStatement ends -- func
-                      | newline* "task" id "(" listOf<Exp, ","> ")" Block ends                  -- task
+  FunctionDeclaration = newline* "func" id "(" Params ")" "->" Type Block? ReturnStatement ends -- func
+                      | newline* "task" id "(" Params ")" Block ends                            -- task
+  Params              = (Type id ("," Type id)*)
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"
   Exp                 = Exp orop Exp1                                                           -- or
                       | Exp andop Exp1                                                          -- and
@@ -41,9 +42,9 @@ Pivot {
                       | "{" ListOf<KeyValuePair, ","> "}"                                       -- dict
                       | "(" Exp ")"                                                             -- parens
   Type                = ( NumType | StringType | BooleanType | ListType | DictType )
-  NumType             = "number"
-  StringType          = "string"
-  BooleanType         = "boolean"
+  NumType             = "num"
+  StringType          = "str"
+  BooleanType         = "bool"
   ListType            = "list"
   DictType            = "dict"
   KeyValuePair        = Exp ":" Exp
