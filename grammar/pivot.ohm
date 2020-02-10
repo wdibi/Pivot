@@ -3,7 +3,6 @@ Pivot {
   Statement           = FunctionDeclaration
                       | IfStatement
                       | Variables
-                      | TaskDeclaration
                       | IterationStatement
                       | CallStatement
                       | PrintStatment
