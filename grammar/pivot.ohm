@@ -8,7 +8,7 @@ Pivot {
                       | PrintStatment
   Block               = Statement+
   Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                        -- declaration
-                      | newline*  "(" Params ")"  
+                      | newline*  "(" Type id ("," Type id)+ ")"  
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
                       | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
   IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
@@ -18,7 +18,7 @@ Pivot {
   PrintStatment       = newline* print (CallStatement | Exp)  ";"
   FunctionDeclaration = newline* "func" id "(" Params ")" "->" Type Block? ReturnStatement ends -- func
                       | newline* "task" id "(" Params ")" Block ends                            -- task
-  Params              = (Type id ("," Type id)*)
+  Params              = (Type id ("," Type id)*)?
   CallStatement       = newline* id "(" listOf<Exp, ","> ")"                                    -- function
                       | newline* (id | List | Dict) "<->" CallStatement                         -- method
   Exp                 = Exp orop Exp1                                                           -- or
@@ -45,13 +45,14 @@ Pivot {
                       | "(" Exp ")"                                                             -- parens
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"  
-  Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType )
+  Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
   NumType             = "num"
   StringType          = "str"
   CharType            = "char"
   BooleanType         = "bool"
   ListType            = "[" Type "]"
   DictType            = "{" Type ":" Type "}"
+  AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
   keyword             = ("while" | "repeat" | "if" | "else" 
                       | "return" | "then" | "and" | "or") ~idrest
