@@ -7,7 +7,7 @@ Pivot {
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                        -- declaration
+  Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                         -- declaration
                       | newline*  "(" Type id ("," Type id)+ ")"  
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
                       | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
