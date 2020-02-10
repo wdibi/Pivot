@@ -7,12 +7,14 @@ Pivot {
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* Type id "<-" (CallStatement | Exp) ";"                         -- declaration
+  Variables           = newline* Type id "<-" (CallStatement | IfShort | Exp) ";"               -- declaration
                       | newline*  "(" Type id ("," Type id)+ ")"  
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
                       | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
   IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
-  ReturnStatement     = newline* "return" Exp ";"
+  IfShort             = newline* Exp "when" (CallStatement | Exp ) 
+                        "otherwise" (CallStatement | IfShort | Exp )
+  ReturnStatement     = newline* "return" (Exp | IfShort) ";"
   IterationStatement  = newline* "while" Exp "do" Block ends                                    -- while
                       | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
                       | newline* "for" Exp ";" Exp ";" Exp "do" Block ends                      -- for
@@ -56,7 +58,7 @@ Pivot {
   AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
   keyword             = ("while" | "repeat" | "if" | "else" 
-                      | "return" | "then" | "and" | "or") ~idrest
+                      | "return" | "then" | "and" | "or" | "when" | "otherwise") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
