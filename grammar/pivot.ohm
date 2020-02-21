@@ -1,32 +1,32 @@
 Pivot {
   Program             = Statement+
   Statement           = FunctionDeclaration
+                      | VarDeclaration
                       | IfStatement
-                      | Variables
                       | IterationStatement
                       | CallStatement
                       | PrintStatment
   Block               = Statement+
-  Variables           = newline* "all" Type "(" NonemptyListOf<id, ","> ")" 
+  VarDeclaration      = "all" Type "(" NonemptyListOf<id, ","> ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- allmultidec
-                      | newline* Type id "<-" (CallStatement | IfShort | Exp) ";"               -- declaration
-                      | newline*  "(" Type id ("," Type id)+ ")"  
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec  
-                      | newline* id "<-" (CallStatement | Exp) ";"                              -- assign
-  IfStatement         = newline* "if" Exp "then" Statement (newline* "else" Statement)? ends
-  IfShort             = newline* Exp "when" (CallStatement | Exp ) 
+                      | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- declaration
+                      |  "(" Type id ("," Type id)+ ")"
+                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
+  Assignment          = id "<-" (CallStatement | Exp) ";"
+  IfStatement         = "if" Exp "then" Statement ("else" Statement)? ends
+  IfShort             = Exp "when" (CallStatement | Exp )
                         "otherwise" (CallStatement | IfShort | Exp )
-  ReturnStatement     = newline* "return" (Exp | IfShort) ";"
-  IterationStatement  = newline* "while" Exp "do" Block ends                                    -- while
-                      | newline* "repeat" Block newline* "until" Exp ";"                        -- loop
-                      | newline* "for" Variables (Exp | CallStatement) 
-                      	";" (CallStatement | Variables) "do" Block ends                         -- for
-  PrintStatment       = newline* print (CallStatement | Exp)  ";"
-  FunctionDeclaration = newline* id "(" Params ")" "->" Type Block? ReturnStatement ends        -- func
-                      | newline* "task" id "(" Params ")" Block ends                            -- task
+  ReturnStatement     = "return" (Exp | IfShort) ";"
+  IterationStatement  = "while" Exp "do" Block ends                                             -- while
+                      | "repeat" Block "until" Exp ";"                                          -- loop
+                      | "for" VarDeclaration (Exp | CallStatement)
+                      	";" (CallStatement | Assignment) "do" Block ends                        -- for
+  PrintStatment       = print (CallStatement | Exp)  ";"
+  FunctionDeclaration = id "(" Params ")" "->" Type Block? ReturnStatement ends                 -- func
+                      | "task" id "(" Params ")" Block ends                                     -- task
   Params              = (Type id ("," Type id)*)?
-  CallStatement       = newline* id "(" listOf<Exp, ","> ")"                                    -- function
-                      | newline* ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)       -- method
+  CallStatement       = id "(" listOf<Exp, ","> ")"                                             -- function
+                      | ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)                -- method
   Exp                 = Exp orop Exp1                                                           -- or
                       | Exp andop Exp1                                                          -- and
                       | Exp1
@@ -45,12 +45,11 @@ Pivot {
                       | numlit
                       | strlit
                       | charlit
-                      | Variables
                       | List                                                                    -- list
                       | Dict                                                                    -- dict
                       | "(" Exp ")"                                                             -- parens
   List                = "[" ListOf<Exp, ","> "]"
-  Dict                = "{" ListOf<KeyValuePair, ","> "}"  
+  Dict                = "{" ListOf<KeyValuePair, ","> "}"
   Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
   NumType             = "num"
   StringType          = "str"
@@ -60,7 +59,7 @@ Pivot {
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
-  keyword             = ("while" | "repeat" | "if" | "else" 
+  keyword             = ("while" | "repeat" | "if" | "else"
                       | "return" | "then" | "and" | "or" | "when" | "otherwise") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
@@ -74,7 +73,7 @@ Pivot {
   andop               = "and" | "AND" | "&&"
   orop                = "or" | "OR" | "||"
   addop               = "+" | "-"
-  relop               = "<=" | "<" | "==" | "!=" | ">=" | ">" 
+  relop               = "<=" | "<" | "==" | "!=" | ">=" | ">"
   mulop               = "*" | "/" | "%"
   prefixop            = "-" | "not" | "!"
   newline             = "\n"+
