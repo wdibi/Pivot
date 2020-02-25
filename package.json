@@ -1,5 +1,5 @@
 {
-  "name": "rehacked",
+  "name": "pivot",
   "version": "1.0.0",
   "description": "<p align=\"center\">   <img src=\"logo.png\" width=\"30%\">",
   "main": "index.js",
@@ -10,23 +10,28 @@
     }
   },
   "devDependencies": {
-    "jest": "^25.1.0"
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "jest": "^24.1.0",
+    "prettier": "1.19.1"
   },
   "scripts": {
-    "test": "jest grammar/**/*test.js"
+    "test": "jest --collect-coverage",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wdibi/Rehacked.git"
+    "url": "git+https://github.com/wdibi/Pivot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wdibi/Rehacked/issues"
+    "url": "https://github.com/wdibi/Pivot/issues"
   },
-  "homepage": "https://github.com/wdibi/Rehacked#readme",
+  "homepage": "https://github.com/wdibi/Pivot#readme",
   "dependencies": {
     "chai": "^4.2.0",
-    "ohm-js": "^0.14.0"
+    "ohm-js": "^0.14.0",
+    "yargs": "^13.2.2"
   }
 }
