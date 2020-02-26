@@ -1,12 +1,12 @@
 Pivot {
-  Program             = Statement+
+  Program             = Block
+  Block               = Statement+
   Statement           = FunctionDeclaration
                       | VarDeclaration
                       | IfStatement
                       | IterationStatement
                       | CallStatement
                       | PrintStatment
-  Block               = Statement+
   VarDeclaration      = "all" Type "(" NonemptyListOf<id, ","> ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- allmultidec
                       | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- declaration
