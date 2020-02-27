@@ -326,7 +326,7 @@ let animals = ["dog", "cat", "pig"]
   <td>
 
   ```text
-  [str] friends <- { "john", "tim" };
+  [str] friends <- [ "john", "tim" ];
   ```
   </td>
 
