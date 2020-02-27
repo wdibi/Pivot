@@ -1,4 +1,5 @@
 # Pivot
+![](https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg)
 <p align="center">
   <img src="logo.png" width="30%">
   
