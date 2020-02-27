@@ -22,10 +22,7 @@ print name;
 
 num x <- 30;
 
-repeat
-  print x;
-  x <- x - 5;
-until x == -30;
+
 
 task updateX(num value)
   x <- value;
