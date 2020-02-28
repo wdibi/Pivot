@@ -11,9 +11,9 @@
 
 
 <p align="center">
-  <!-- <a href="https://github.com/facebook/react-native/blob/master/LICENSE">
+  <a href="https://github.com/wdibi/Pivot/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Native is released under the MIT license." />
-  </a> -->
+  </a>
   <a href="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg">
     <img src="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg" alt="Node CI status." />
   </a>
@@ -30,8 +30,8 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
 
 
 ## Contents
-  * [Types](#types)
-  * [Examples:](#examples-)
+  - [Types](#types)
+  - [Examples:](#examples-)
     + [Variable Declarations](#variable-declarations)
     + [Arithmetic](#arithmetic)
     + [Functions](#functions)
@@ -40,6 +40,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
     + [Repeat](#repeat)
     + [Objects](#objects)
     + [Sample Program](#sample-program)
+  - [License](#-license)
   
 ## Types
 Primitive Types
@@ -456,3 +457,9 @@ let animals = ["dog", "cat", "pig"]
   </td>
 
 </table>
+
+## 📄 License
+
+Pivot is MIT licensed, as found in the [LICENSE][l] file.
+
+[l]: https://github.com/wdibi/Pivot/blob/master/LICENSE
