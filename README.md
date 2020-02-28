@@ -1,14 +1,35 @@
-# Pivot
-![](https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg)
 <p align="center">
   <img src="logo.png" width="30%">
-  
 </p>
 
-## Table of Contents
-- Pivot: A New Spin on Programming
-  * [Introduction](#introduction)
-  * [Features](#features)
+<h1 align="center">
+  <a href="https://reactnative.dev/">
+    Pivot
+  </a>
+</h1>
+<p align="center"><strong>A new spin on programming</strong><br></p>
+
+
+<p align="center">
+  <!-- <a href="https://github.com/facebook/react-native/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Native is released under the MIT license." />
+  </a> -->
+  <a href="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg">
+    <img src="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg" alt="Node CI status." />
+  </a>
+</p>
+
+Pivot is designed to combine the simplicity of modern languages with the capabilities of functional languages. Inspired by languages like Awk, F#, Erlang, and JS, Pivot takes an impure approach with the mindset of removing the limitations of similar languages.
+
+- **Statically typed** except for the auto type, `_`
+- **Strongly typed**
+- **Scripting**
+- **Impure functional language**
+
+Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Raymundo.
+
+
+## Contents
   * [Types](#types)
   * [Examples:](#examples-)
     + [Variable Declarations](#variable-declarations)
@@ -19,18 +40,7 @@
     + [Repeat](#repeat)
     + [Objects](#objects)
     + [Sample Program](#sample-program)
-
-## Introduction
-This is Pivot, a programming language designed to combine the simplicity of modern languages with the capabilities of functional languages. Inspired by languages like Awk, F#, Erlang, and JS, Pivot takes an impure approach with the mindset of removing the limitations of similar languages.
-
-Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Raymundo.
-
-## Features
-* Statically typed except for the auto type, `_`
-* Strongly typed
-* Scripting
-* Impure functional language
-
+  
 ## Types
 Primitive Types
 * string
