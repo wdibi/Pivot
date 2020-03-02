@@ -1,3 +1,9 @@
+<style>
+table {
+    width:100%;
+}
+</style>
+
 <p align="center">
   <img src="logo.png" width="30%">
 </p>
@@ -101,7 +107,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### Arithmetic
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -128,7 +134,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### Functions
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -167,7 +173,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### If Statement
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -206,7 +212,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### For Loop
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -235,7 +241,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### While Loop
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -270,7 +276,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### Repeat
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -303,7 +309,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### Dictionary
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -328,7 +334,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 ### List
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -355,7 +361,7 @@ let animals = ["dog", "cat", "pig"]
 ### Sample Program:
 
 #### Fibonacci Pivot:
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -401,7 +407,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 #### Even or Odd:
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
@@ -430,7 +436,7 @@ let animals = ["dog", "cat", "pig"]
 </table>
 
 #### Greatest Common Divisor:
-<table style="table-layout: fixed; width: 100%">
+<table style="table-layout: fixed">
   <tr>
   <th>Pivot</th>
   <th>JavaScript</th>
