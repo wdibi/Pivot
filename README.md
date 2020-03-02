@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">
-  <a href="https://reactnative.dev/">
+  <a href="https://github.com/wdibi/Pivot/">
     Pivot
   </a>
 </h1>
