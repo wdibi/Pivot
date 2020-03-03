@@ -64,7 +64,55 @@ class PrintStatement {
   }
 }
 
+class Identifier {
+  constructor(value) {
+    this.value = value;
+  }
+}
+
+class Type {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+const BoolType = new Type("bool");
+const CharType = new Type("char");
+const StringType = new Type("string");
+const NumType = new Type("num");
+const ListType = new Type("list");
+const DictType = new Type("dict");
+const AutoType = new Type("auto");
+
 class Expression {}
+
+class BooleanLiteral extends Expression {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+}
+
+class NumericLiteral extends Expression {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+}
+
+class StringLiteral extends Expression {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+}
+
+class CharacterLiteral extends Expression {
+  constructor(value) {
+    super();
+    this.value = value;
+  }
+}
 
 class UnaryExpression extends Expression {
   constructor(op, operand) {
@@ -94,5 +142,18 @@ module.exports = {
   IfStatement,
   ForStatement,
   RepeatStatement,
+  Type,
+  BoolType,
+  CharType,
+  StringType,
+  NumType,
+  ListType,
+  DictType,
+  AutoType,
   PrintStatement,
+  NumericLiteral,
+  Identifier,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
 };
