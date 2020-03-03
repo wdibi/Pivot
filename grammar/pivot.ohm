@@ -51,11 +51,11 @@ Pivot {
                       | "(" Exp ")"                                                             -- parens
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
-  Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
+  Type                = ( NumType | StringType | CharType | BoolType | ListType | DictType | AutoType )
   NumType             = "num"
   StringType          = "str"
   CharType            = "char"
-  BooleanType         = "bool"
+  BoolType            = "bool"
   ListType            = "[" Type "]"
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
@@ -66,10 +66,10 @@ Pivot {
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
   boollit             = "true" | "false"
-  char                = escape
                       | ~"\\" ~"\"" ~"'" ~"\n" any
   charlit             = "'" (char | "\"") "'"
   strlit              = "\"" (char | "\'")* "\""
+  char                = escape
   escape              = "\\\\" | "\\\"" | "\\'" | "\\n"
   andop               = "and" | "AND" | "&&"
   orop                = "or" | "OR" | "||"
