@@ -1,9 +1,3 @@
-<style>
-table {
-    width:100%;
-}
-</style>
-
 <p align="center">
   <img src="logo.png" width="30%">
 </p>
