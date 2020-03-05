@@ -13,8 +13,11 @@
   <a href="https://github.com/wdibi/Pivot/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Native is released under the MIT license." />
   </a>
-  <a href="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg">
-    <img src="https://github.com/wdibi/Pivot/workflows/Node.js%20CI/badge.svg" alt="Node CI status." />
+  <a href="https://github.com/wdibi/Pivot/workflows/Test/badge.svg">
+    <img src="https://github.com/wdibi/Pivot/workflows/Test/badge.svg" alt="Test status." />
+  </a>
+    <a href="https://github.com/wdibi/Pivot/workflows/ESLint/badge.svg">
+    <img src="https://github.com/wdibi/Pivot/workflows/ESLint/badge.svg" alt="ESLint" />
   </a>
 </p>
 
