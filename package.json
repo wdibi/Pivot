@@ -1,7 +1,7 @@
 {
   "name": "pivot",
   "version": "1.0.0",
-  "description": "<p align=\"center\">   <img src=\"logo.png\" width=\"30%\">",
+  "description": "",
   "main": "index.js",
   "eslintConfig": {
     "env": {
