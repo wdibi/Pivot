@@ -10,6 +10,7 @@ const {
   Program,
   Block,
   AssignmentStatement,
+  IfStatement,
   BooleanLiteral,
   NumericLiteral,
   CharacterLiteral,
@@ -25,6 +26,10 @@ const {
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
 
+function arrayToNullable(a) {
+  return a.length === 0 ? null : a[0];
+}
+
 /* eslint-disable no-unused-vars */
 const astBuilder = grammar.createSemantics().addOperation("ast", {
   Program(b) {
@@ -32,6 +37,13 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   Block(s) {
     return new Block(s.ast());
+  },
+  IfStatement(_if, test, _then, consequent, _else, alternate, _ends) {
+    return new IfStatement(
+      test.ast(),
+      consequent.ast(),
+      arrayToNullable(alternate.ast())
+    );
   },
   Assignment(id, _a, e, _) {
     return new AssignmentStatement(id.ast(), e.ast());

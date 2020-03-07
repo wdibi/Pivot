@@ -15,6 +15,7 @@ const {
   IdExpression,
   NumericLiteral,
   AssignmentStatement,
+  IfStatement,
 } = require("..");
 
 const fixture = {
@@ -26,6 +27,28 @@ const fixture = {
       ])
     ),
   ],
+
+  IfStatement: [
+    String.raw`
+    if x then y <- 5; end
+    `,
+    new Program(
+      new Block([
+        new IfStatement(
+          new IdExpression("x"),
+          [
+            new AssignmentStatement(
+              new IdExpression("y"),
+              new NumericLiteral(5)
+            ),
+          ],
+          null
+        ),
+      ])
+    ),
+  ],
+
+  
 };
 
 describe("The parser", () => {

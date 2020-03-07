@@ -13,7 +13,7 @@ Pivot {
                       |  "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
   Assignment          = id "<-" (CallStatement | Exp) ";"
-  IfStatement         = "if" Exp "then" Statement ("else" Statement)? ends
+  IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)? ends
   IfShort             = Exp "when" (CallStatement | Exp )
                         "otherwise" (CallStatement | IfShort | Exp )
   ReturnStatement     = "return" (Exp | IfShort) ";"
@@ -59,7 +59,7 @@ Pivot {
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
-  keyword             = ("while" | "repeat" | "if" | "else"
+  keyword             = ("all" | "while" | "repeat" | "if" | "else"
                       | "return" | "then" | "and" | "or" | "when" | "otherwise") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
