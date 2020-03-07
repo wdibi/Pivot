@@ -15,6 +15,7 @@ const {
   IfStatement,
   WhileStatement,
   VariableDeclaration,
+  FunctionCall,
   BooleanLiteral,
   NumericLiteral,
   CharacterLiteral,
@@ -58,6 +59,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   IterationStatement_for(_for, initial, test, _sc, exp, _do, body, _end) {
     return new ForStatement(initial.ast(), test.ast(), exp.ast(), body.ast());
+  },
+  CallStatement_function(id, _openParen, args, _closeParen, _sc) {
+    return new FunctionCall(id.ast(), args.ast());
   },
   IfStatement(_if, test, _then, consequent, _else, alternate, _end) {
     return new IfStatement(
@@ -134,9 +138,12 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   _terminal() {
     return this.sourceString;
   },
-  NonemptyListOf(first, _, rest) {
+  nonemptyListOf(first, _, rest) {
     return [first.ast(), ...rest.ast()];
   },
+  // EmptyListOf() {
+  //   return [];
+  // },
 });
 /* eslint-enable no-unused-vars */
 

@@ -15,6 +15,11 @@ class FunctionDeclaration {
     Object.assign(this, { id, type, params, body });
   }
 }
+class FunctionCall {
+  constructor(id, params) {
+    Object.assign(this, { id, params });
+  }
+}
 
 class TaskDeclaration {
   constructor(id, params, body) {
@@ -157,4 +162,5 @@ module.exports = {
   BooleanLiteral,
   CharacterLiteral,
   IdExpression,
+  FunctionCall,
 };

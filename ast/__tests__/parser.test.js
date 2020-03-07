@@ -23,6 +23,7 @@ const {
   RepeatStatement,
   ForStatement,
   BinaryExpression,
+  FunctionCall,
 } = require("..");
 
 const fixture = {
@@ -258,6 +259,25 @@ const fixture = {
             new IdExpression("z")
           )
         ),
+      ])
+    ),
+  ],
+
+  FunctionCall: [
+    String.raw`
+      gcd(1,x**5,3);
+    `,
+    new Program(
+      new Block([
+        new FunctionCall(new IdExpression("gcd"), [
+          new NumericLiteral(1),
+          new BinaryExpression(
+            "**",
+            new IdExpression("x"),
+            new NumericLiteral(5)
+          ),
+          new NumericLiteral(3),
+        ]),
       ])
     ),
   ],

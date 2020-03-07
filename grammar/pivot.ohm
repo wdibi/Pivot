@@ -25,7 +25,7 @@ Pivot {
   FunctionDeclaration = id "(" Params ")" "->" Type Block? ReturnStatement ends                 -- func
                       | "task" id "(" Params ")" Block ends                                     -- task
   Params              = (Type id ("," Type id)*)?
-  CallStatement       = id "(" listOf<Exp, ","> ")"                                             -- function
+  CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                         -- function
                       | ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)                -- method
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
