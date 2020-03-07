@@ -27,20 +27,21 @@ Pivot {
   Params              = (Type id ("," Type id)*)?
   CallStatement       = id "(" listOf<Exp, ","> ")"                                             -- function
                       | ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)                -- method
-  Exp                 = Exp orop Exp1                                                           -- or
-                      | Exp andop Exp1                                                          -- and
+  Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
-  Exp1                = Exp2 relop Exp2                                                         -- binary
+  Exp1                = Exp1 andop Exp2                                                         -- binary
                       | Exp2
-  Exp2                = Exp2 addop Exp3                                                         -- binary
+  Exp2                = Exp2 relop Exp3                                                         -- binary
                       | Exp3
-  Exp3                = Exp3 mulop Exp4                                                         -- binary
+  Exp3                = Exp3 addop Exp4                                                         -- binary
                       | Exp4
-  Exp4                = prefixop Exp4                                                           -- unary
+  Exp4                = Exp4 mulop Exp5                                                         -- binary
                       | Exp5
-  Exp5                = Exp5 "**" Exp6                                                          -- binary
+  Exp5                = prefixop Exp6                                                           -- unary
                       | Exp6
-  Exp6                = id
+  Exp6                = Exp6 "**" Exp7                                                          -- binary
+                      | Exp7
+  Exp7                = id
                       | boollit
                       | numlit
                       | strlit
