@@ -14,10 +14,12 @@ const {
   Block,
   IdExpression,
   NumericLiteral,
+  StringLiteral,
   AssignmentStatement,
   IfStatement,
   VariableDeclaration,
   Type,
+  WhileStatement,
 } = require("..");
 
 const fixture = {
@@ -89,8 +91,48 @@ const fixture = {
   ],
 
   // MultiVariableDeclaration: [
-  //   String.raw`all x,y,z <- 1,2,3;`
-  // ]
+  //   String.raw`all x,y,z <- "a","b",3;`,
+  //   new Program(
+  //     new Block([
+  //       new VariableDeclaration(
+  //         new IdExpression("x"),
+  //         new Type("string"),
+  //         new StringLiteral("a")
+  //       ),
+  //       new VariableDeclaration(
+  //         new IdExpression("y"),
+  //         new Type("string"),
+  //         new StringLiteral("b")
+  //       ),
+  //       new VariableDeclaration(
+  //         new IdExpression("z"),
+  //         new Type("num"),
+  //         new NumericLiteral(3)
+  //       ),
+  //     ])
+  //   ),
+  // ],
+
+  WhileLoop: [
+    String.raw`
+    while x do
+      x <- 1;
+    end
+    `,
+    new Program(
+      new Block([
+        new WhileStatement(
+          new IdExpression("x"),
+          new Block([
+            new AssignmentStatement(
+              new IdExpression("x"),
+              new NumericLiteral(1)
+            ),
+          ])
+        ),
+      ])
+    ),
+  ],
 };
 
 describe("The parser", () => {

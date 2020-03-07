@@ -11,6 +11,7 @@ const {
   Block,
   AssignmentStatement,
   IfStatement,
+  WhileStatement,
   VariableDeclaration,
   BooleanLiteral,
   NumericLiteral,
@@ -42,7 +43,13 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   VarDeclaration_single(type, id, _arrow, init, _sc) {
     return new VariableDeclaration(id.ast(), type.ast(), init.ast());
   },
-  IfStatement(_if, test, _then, consequent, _else, alternate, _ends) {
+  // VarDeclaration_multi(_all, type, _arrow, ids, initials) {
+  //   return new VariableDeclaration(id.ast(), type.ast(), init.ast());
+  // },
+  IterationStatement_while(_while, test, _do, block, _end) {
+    return new WhileStatement(test.ast(), block.ast());
+  },
+  IfStatement(_if, test, _then, consequent, _else, alternate, _end) {
     return new IfStatement(
       test.ast(),
       consequent.ast(),
@@ -76,14 +83,17 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   numlit(_first, _, _last) {
     return new NumericLiteral(+this.sourceString);
   },
-  charlit(_first, _c, _last) {
-    return new CharacterLiteral(this.sourceString);
+  charlit(_openQuote, char, _closeQuote) {
+    return new CharacterLiteral(this.sourceString.slice(1, -1));
   },
   id(_first, _rest) {
     return new IdExpression(this.sourceString);
   },
   _terminal() {
     return this.sourceString;
+  },
+  NonemptyListOf(first, _, rest) {
+    return [first.ast(), ...rest.ast()];
   },
 });
 /* eslint-enable no-unused-vars */
