@@ -21,6 +21,7 @@ const {
   Type,
   WhileStatement,
   RepeatStatement,
+  ForStatement,
   BinaryExpression,
 } = require("..");
 
@@ -156,6 +157,48 @@ const fixture = {
             ),
           ]),
           new IdExpression("y")
+        ),
+      ])
+    ),
+  ],
+
+  ForLoop: [
+    String.raw`
+    for num a <- 0; a < 2; a <- a + 1; do
+      y <- y / a;
+    end
+    `,
+    new Program(
+      new Block([
+        new ForStatement(
+          new VariableDeclaration(
+            new IdExpression("a"),
+            new Type("num"),
+            new NumericLiteral(0)
+          ),
+          new BinaryExpression(
+            "<",
+            new IdExpression("a"),
+            new NumericLiteral(2)
+          ),
+          new AssignmentStatement(
+            new IdExpression("a"),
+            new BinaryExpression(
+              "+",
+              new IdExpression("a"),
+              new NumericLiteral(1)
+            )
+          ),
+          new Block([
+            new AssignmentStatement(
+              new IdExpression("y"),
+              new BinaryExpression(
+                "/",
+                new IdExpression("y"),
+                new IdExpression("a")
+              )
+            ),
+          ])
         ),
       ])
     ),

@@ -11,6 +11,7 @@ const {
   Block,
   AssignmentStatement,
   RepeatStatement,
+  ForStatement,
   IfStatement,
   WhileStatement,
   VariableDeclaration,
@@ -54,6 +55,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   IterationStatement_repeat(_repeat, block, _until, exp, _sc) {
     return new RepeatStatement(block.ast(), exp.ast());
+  },
+  IterationStatement_for(_for, initial, test, _sc, exp, _do, body, _end) {
+    return new ForStatement(initial.ast(), test.ast(), exp.ast(), body.ast());
   },
   IfStatement(_if, test, _then, consequent, _else, alternate, _end) {
     return new IfStatement(
