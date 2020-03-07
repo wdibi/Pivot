@@ -11,6 +11,7 @@ const {
   Block,
   AssignmentStatement,
   IfStatement,
+  VariableDeclaration,
   BooleanLiteral,
   NumericLiteral,
   CharacterLiteral,
@@ -37,6 +38,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   Block(s) {
     return new Block(s.ast());
+  },
+  VarDeclaration_single(type, id, _arrow, init, _sc) {
+    return new VariableDeclaration(id.ast(), type.ast(), init.ast());
   },
   IfStatement(_if, test, _then, consequent, _else, alternate, _ends) {
     return new IfStatement(

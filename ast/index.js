@@ -7,7 +7,7 @@ class Program {
 class Block {
   constructor(statements) {
     this.statements = statements;
-  } 
+  }
 }
 
 class FunctionDeclaration {
@@ -23,8 +23,8 @@ class TaskDeclaration {
 }
 
 class VariableDeclaration {
-  constructor(id, type) {
-    Object.assign(this, { id, type });
+  constructor(id, type, init) {
+    Object.assign(this, { id, type, init });
   }
 }
 

@@ -16,6 +16,8 @@ const {
   NumericLiteral,
   AssignmentStatement,
   IfStatement,
+  VariableDeclaration,
+  Type,
 } = require("..");
 
 const fixture = {
@@ -72,6 +74,23 @@ const fixture = {
       ])
     ),
   ],
+
+  VariableDeclaration: [
+    String.raw`num a <- 10;`,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("a"),
+          new Type("num"),
+          new NumericLiteral(10)
+        ),
+      ])
+    ),
+  ],
+
+  // MultiVariableDeclaration: [
+  //   String.raw`all x,y,z <- 1,2,3;`
+  // ]
 };
 
 describe("The parser", () => {

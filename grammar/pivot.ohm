@@ -8,8 +8,8 @@ Pivot {
                       | CallStatement
                       | PrintStatment
                       | Assignment
-  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- allmultidec
-                      | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- declaration
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- multi
+                      | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- single
                       |  "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
   Assignment          = id "<-" (CallStatement | Exp) ";"
