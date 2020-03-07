@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Test
 
 on:
   # Trigger the workflow on push or pull request,
@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node: [ '13', '12' ]
 
     steps:
     - uses: actions/checkout@v2
