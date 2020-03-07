@@ -24,6 +24,7 @@ const {
   NumType,
   ListType,
   DictType,
+  BinaryExpression,
   AutoType,
 } = require(".");
 
@@ -80,6 +81,10 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
       case "auto":
         return AutoType;
     }
+  },
+  Exp_binary(e1, _, e2) {
+    let op = this.sourceString.includes("or") ? "or" : "||";
+    return new BinaryExpression(op, e1.ast(), e2.ast());
   },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");

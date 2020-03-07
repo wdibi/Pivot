@@ -21,6 +21,7 @@ const {
   Type,
   WhileStatement,
   RepeatStatement,
+  BinaryExpression,
 } = require("..");
 
 const fixture = {
@@ -151,6 +152,35 @@ const fixture = {
             ),
           ]),
           new IdExpression("y")
+        ),
+      ])
+    ),
+  ],
+
+  OrOperator: [
+    String.raw`
+      bool a <- x or y;
+      bool b <- y || z;
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("a"),
+          new Type("bool"),
+          new BinaryExpression(
+            "or",
+            new IdExpression("x"),
+            new IdExpression("y")
+          )
+        ),
+        new VariableDeclaration(
+          new IdExpression("b"),
+          new Type("bool"),
+          new BinaryExpression(
+            "||",
+            new IdExpression("y"),
+            new IdExpression("z")
+          )
         ),
       ])
     ),

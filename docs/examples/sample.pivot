@@ -1,1 +1,2 @@
-repeat x <- 5; until x;
+num b <- x or y;
+num b <- x || y;
