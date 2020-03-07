@@ -185,6 +185,35 @@ const fixture = {
       ])
     ),
   ],
+
+  AndOperator: [
+    String.raw`
+      bool a <- x and y;
+      bool b <- y && z;
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("a"),
+          new Type("bool"),
+          new BinaryExpression(
+            "and",
+            new IdExpression("x"),
+            new IdExpression("y")
+          )
+        ),
+        new VariableDeclaration(
+          new IdExpression("b"),
+          new Type("bool"),
+          new BinaryExpression(
+            "&&",
+            new IdExpression("y"),
+            new IdExpression("z")
+          )
+        ),
+      ])
+    ),
+  ],
 };
 
 describe("The parser", () => {

@@ -86,6 +86,10 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     let op = this.sourceString.includes("or") ? "or" : "||";
     return new BinaryExpression(op, e1.ast(), e2.ast());
   },
+  Exp1_binary(e1, _, e2) {
+    let op = this.sourceString.includes("and") ? "and" : "&&";
+    return new BinaryExpression(op, e1.ast(), e2.ast());
+  },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");
   },
