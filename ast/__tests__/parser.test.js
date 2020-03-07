@@ -48,7 +48,30 @@ const fixture = {
     ),
   ],
 
-  
+  IfElseStatement: [
+    String.raw`
+    if x then y <- 5; else y <- 4; end
+    `,
+    new Program(
+      new Block([
+        new IfStatement(
+          new IdExpression("x"),
+          [
+            new AssignmentStatement(
+              new IdExpression("y"),
+              new NumericLiteral(5)
+            ),
+          ],
+          [
+            new AssignmentStatement(
+              new IdExpression("y"),
+              new NumericLiteral(4)
+            ),
+          ]
+        ),
+      ])
+    ),
+  ],
 };
 
 describe("The parser", () => {

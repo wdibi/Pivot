@@ -1,4 +1,6 @@
 if x then 
 x <- 5; 
-y <-5;
+else
+x <- 5;
+y <- 4;
 end
