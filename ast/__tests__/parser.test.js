@@ -12,19 +12,18 @@ const parse = require("../parser");
 const {
   Program,
   Block,
-  WriteStatement,
-  IntegerLiteral,
+  PrintStatement,
+  NumericLiteral,
   VariableExpression,
 } = require("..");
 
 const fixture = {
   hello: [
-    String.raw`write 0, x;`,
+    String.raw`print 0`,
     new Program(
       new Block([
-        new WriteStatement([
-          new IntegerLiteral("0"),
-          new VariableExpression("x"),
+        new PrintStatement([
+          new NumericLiteral("0")
         ]),
       ])
     ),
