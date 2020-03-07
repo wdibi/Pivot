@@ -12,7 +12,7 @@ str name <- "Jigar";
 num a <- 5;
 bool over20 <- true;
 
-all str(a, b, c) <- ("hi", "bye", "goodnight");
+all str a, b, c <- "hi", "bye", "goodnight";
 
 {str:num} ages <- { "john" : 5, "tim" : 6 };
 

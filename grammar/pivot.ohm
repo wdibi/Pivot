@@ -8,8 +8,7 @@ Pivot {
                       | CallStatement
                       | PrintStatment
                       | Assignment
-  VarDeclaration      = "all" Type "(" NonemptyListOf<id, ","> ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- allmultidec
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- allmultidec
                       | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- declaration
                       |  "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
@@ -42,8 +41,8 @@ Pivot {
   Exp5                = Exp5 "**" Exp6                                                          -- binary
                       | Exp6
   Exp6                = id
-                      | numlit
                       | boollit
+                      | numlit
                       | strlit
                       | charlit
                       | List                                                                    -- list
@@ -51,11 +50,11 @@ Pivot {
                       | "(" Exp ")"                                                             -- parens
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
-  Type                = ( NumType | StringType | CharType | BoolType | ListType | DictType | AutoType )
+  Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
   NumType             = "num"
   StringType          = "str"
   CharType            = "char"
-  BoolType            = "bool"
+  BooleanType         = "bool"
   ListType            = "[" Type "]"
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
@@ -66,10 +65,10 @@ Pivot {
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
   boollit             = "true" | "false"
+  char                = escape
                       | ~"\\" ~"\"" ~"'" ~"\n" any
   charlit             = "'" (char | "\"") "'"
   strlit              = "\"" (char | "\'")* "\""
-  char                = escape
   escape              = "\\\\" | "\\\"" | "\\'" | "\\n"
   andop               = "and" | "AND" | "&&"
   orop                = "or" | "OR" | "||"
