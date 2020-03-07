@@ -9,24 +9,12 @@
 
 const parse = require("../parser");
 
-const {
-  Program,
-  Block,
-  PrintStatement,
-  NumericLiteral,
-  VariableExpression,
-} = require("..");
+const { Program, Block, IdExpression, NumericLiteral } = require("..");
 
 const fixture = {
-  hello: [
-    String.raw`print 0`,
-    new Program(
-      new Block([
-        new PrintStatement([
-          new NumericLiteral("0")
-        ]),
-      ])
-    ),
+  SimpleAssignment: [
+    String.raw`x <- 5;`,
+    new Program(new Block([new IdExpression("x"), new NumericLiteral(5)])),
   ],
 };
 

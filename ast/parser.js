@@ -6,9 +6,24 @@
 const ohm = require("ohm-js");
 const fs = require("fs");
 
-const { Program, Block, FunctionDeclaration } = require(".");
+const {
+  Program,
+  Block,
+  AssignmentStatement,
+  BooleanLiteral,
+  NumericLiteral,
+  CharacterLiteral,
+  IdExpression,
+  BoolType,
+  CharType,
+  StringType,
+  NumType,
+  ListType,
+  DictType,
+  AutoType,
+} = require(".");
 
-const grammar = ohm.grammar(fs.readFileSync("./grammar/iki.ohm"));
+const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
 
 /* eslint-disable no-unused-vars */
 const astBuilder = grammar.createSemantics().addOperation("ast", {
@@ -18,7 +33,42 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Block(s) {
     return new Block(s.ast());
   },
-  FunctionDeclaration()
+  Assignment(id, _a, e, _) {
+    return new AssignmentStatement(id.ast(), e.ast());
+  },
+  Type(typeName) {
+    switch (typeName.sourceString) {
+      case "bool":
+        return BoolType;
+      case "char":
+        return CharType;
+      case "string":
+        return StringType;
+      case "num":
+        return NumType;
+      case "list":
+        return ListType;
+      case "dict":
+        return DictType;
+      case "auto":
+        return AutoType;
+    }
+  },
+  boollit(_) {
+    return new BooleanLiteral(this.sourceString === "true");
+  },
+  numlit(_first, _, _last) {
+    return new NumericLiteral(+this.sourceString);
+  },
+  charlit(_first, _c, _last) {
+    return new CharacterLiteral(this.sourceString);
+  },
+  id(_first, _rest) {
+    return new IdExpression(this.sourceString);
+  },
+  _terminal() {
+    return this.sourceString;
+  },
 });
 /* eslint-enable no-unused-vars */
 

@@ -7,7 +7,7 @@ class Program {
 class Block {
   constructor(statements) {
     this.statements = statements;
-  }
+  } 
 }
 
 class FunctionDeclaration {
@@ -64,12 +64,6 @@ class PrintStatement {
   }
 }
 
-class Identifier {
-  constructor(value) {
-    this.value = value;
-  }
-}
-
 class Type {
   constructor(name) {
     this.name = name;
@@ -114,6 +108,13 @@ class CharacterLiteral extends Expression {
   }
 }
 
+class IdExpression extends Expression {
+  constructor(name) {
+    super();
+    this.name = name;
+  }
+}
+
 class UnaryExpression extends Expression {
   constructor(op, operand) {
     super();
@@ -152,8 +153,8 @@ module.exports = {
   AutoType,
   PrintStatement,
   NumericLiteral,
-  Identifier,
   StringLiteral,
   BooleanLiteral,
   CharacterLiteral,
+  IdExpression,
 };
