@@ -42,8 +42,8 @@ Pivot {
   Exp5                = Exp5 "**" Exp6                                                          -- binary
                       | Exp6
   Exp6                = id
-                      | boollit
                       | numlit
+                      | boollit
                       | strlit
                       | charlit
                       | List                                                                    -- list
