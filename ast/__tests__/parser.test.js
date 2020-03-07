@@ -139,7 +139,7 @@ const fixture = {
   RepeatLoop: [
     String.raw`
     repeat
-      x <- 5;
+      x <- x + 5;
     until y;
     `,
     new Program(
@@ -148,7 +148,11 @@ const fixture = {
           new Block([
             new AssignmentStatement(
               new IdExpression("x"),
-              new NumericLiteral(5)
+              new BinaryExpression(
+                "+",
+                new IdExpression("x"),
+                new NumericLiteral(5)
+              )
             ),
           ]),
           new IdExpression("y")
