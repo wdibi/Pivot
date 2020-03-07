@@ -25,6 +25,7 @@ const {
   ListType,
   DictType,
   BinaryExpression,
+  UnaryExpression,
   AutoType,
 } = require(".");
 
@@ -89,6 +90,30 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Exp1_binary(e1, _, e2) {
     let op = this.sourceString.includes("and") ? "and" : "&&";
     return new BinaryExpression(op, e1.ast(), e2.ast());
+  },
+  Exp2_binary(e1, op, e2) {
+    return new BinaryExpression(op.sourceString, e1.ast(), e2.ast());
+  },
+  Exp3_binary(e1, op, e2) {
+    return new BinaryExpression(op.sourceString, e1.ast(), e2.ast());
+  },
+  Exp4_binary(e1, op, e2) {
+    return new BinaryExpression(op.sourceString, e1.ast(), e2.ast());
+  },
+  Exp5_unary(op, e) {
+    return new UnaryExpression(op.sourceString, e.ast());
+  },
+  Exp6_binary(e1, op, e2) {
+    return new BinaryExpression(op.sourceString, e1.ast(), e2.ast());
+  },
+  Exp7_list(l) {
+    return l.ast();
+  },
+  Exp7_dict(d) {
+    return d.ast();
+  },
+  Exp7_parens(_1, e, _2) {
+    return e.ast();
   },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");
