@@ -18,7 +18,7 @@ Pivot {
                         "otherwise" (CallStatement | IfShort | Exp )
   ReturnStatement     = "return" (Exp | IfShort) ";"
   IterationStatement  = "while" Exp "do" Block ends                                             -- while
-                      | "repeat" Block "until" Exp ";"                                          -- loop
+                      | "repeat" Block "until" Exp ";"                                          -- repeat
                       | "for" VarDeclaration (Exp | CallStatement)
                       	";" (CallStatement | Assignment) "do" Block ends                        -- for
   PrintStatment       = print (CallStatement | Exp)  ";"

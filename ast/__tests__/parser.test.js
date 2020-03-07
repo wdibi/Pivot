@@ -20,6 +20,7 @@ const {
   VariableDeclaration,
   Type,
   WhileStatement,
+  RepeatStatement,
 } = require("..");
 
 const fixture = {
@@ -129,6 +130,27 @@ const fixture = {
               new NumericLiteral(1)
             ),
           ])
+        ),
+      ])
+    ),
+  ],
+
+  RepeatLoop: [
+    String.raw`
+    repeat
+      x <- 5;
+    until y;
+    `,
+    new Program(
+      new Block([
+        new RepeatStatement(
+          new Block([
+            new AssignmentStatement(
+              new IdExpression("x"),
+              new NumericLiteral(5)
+            ),
+          ]),
+          new IdExpression("y")
         ),
       ])
     ),
