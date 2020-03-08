@@ -6,7 +6,7 @@ Pivot {
                       | IfStatement
                       | IterationStatement
                       | CallStatement
-                      | PrintStatment
+                      | PrintStatement
                       | Assignment
   VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- multi
                       | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- single
@@ -21,7 +21,7 @@ Pivot {
                       | "repeat" Block "until" Exp ";"                                          -- repeat
                       | "for" VarDeclaration (Exp | CallStatement)
                       	";" (CallStatement | Assignment) "do" Block ends                        -- for
-  PrintStatment       = print (CallStatement | Exp)  ";"
+  PrintStatement      = print (CallStatement | Exp)  ";"
   FunctionDeclaration = id "(" Params ")" "->" Type Block? ReturnStatement ends                 -- func
                       | "task" id "(" Params ")" Block ends                                     -- task
   Params              = (Type id ("," Type id)*)?
