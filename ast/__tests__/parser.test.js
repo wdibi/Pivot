@@ -397,7 +397,27 @@ const fixture = {
         )
       ])
     )
-  ]
+  ],
+
+  List: [
+    String.raw`
+      [str] myList <- ["Will", "Manny", "Nico", "Jigar"];
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("myList"),
+          new ListType(new BasicType("string")),
+          new ListExpression([
+            new StringLiteral("Will"),
+            new StringLiteral("Manny"),
+            new StringLiteral("Nico"),
+            new StringLiteral("Jigar")
+          ])
+        )
+      ])
+    )
+  ],
 };
 
 describe("The parser", () => {
