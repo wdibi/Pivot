@@ -38,6 +38,7 @@ const {
   FunctionDeclaration,
   Parameter,
   ReturnStatement,
+  TaskDeclaration,
 } = require(".");
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
@@ -74,6 +75,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   FunctionDeclaration_regular(i, _o, a, _c, _arrow, t, b, _e) {
     return new FunctionDeclaration(i.ast(), t.ast(), a.ast(), b.ast());
+  },
+  FunctionDeclaration_task(_t, i, _o, a, _c, b, _e) {
+    return new TaskDeclaration(i.ast(), a.ast(), b.ast());
   },
   FunctionCall(id, _openParen, args, _closeParen) {
     return new FunctionCall(id.ast(), args.ast());
