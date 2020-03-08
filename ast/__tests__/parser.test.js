@@ -33,6 +33,7 @@ const {
   PrintStatement,
   DictionaryExpression,
   KeyValuePair,
+  FunctionDeclaration,
 } = require("..");
 
 const fixture = {
@@ -334,6 +335,32 @@ const fixture = {
             new KeyValuePair(new StringLiteral("cows"), new NumericLiteral(1)),
             new KeyValuePair(new StringLiteral("pigs"), new NumericLiteral(3)),
           ])
+        ),
+      ])
+    ),
+  ],
+
+  FunctionDeclaration: [
+    String.raw`
+      addFive(num a) -> num
+        return a+5;
+      end
+    `,
+    new Program(
+      new Block([
+        new FunctionDeclaration(new IdExpression("addFive"), [
+          new BasicType("num"),
+          new Parameter("a"),
+          new BasicType("num"),
+          new ReturnStatement(
+            "return",
+            new BinaryExpression(
+              "+",
+              new IdExpression("a"),
+              new NumericLiteral("5")
+              )
+            )
+          ]
         ),
       ])
     ),
