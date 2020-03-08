@@ -23,9 +23,9 @@ Pivot {
                       | "for" VarDeclaration (Exp | CallStatement)
                       	";" (CallStatement | Assignment) "do" Block ends                        -- for
   PrintStatement      = print (CallStatement | Exp)  ";"
-  FunctionDeclaration = id "(" Parameters ")" "->" Type Block+ ends                             -- regular
-                      | "task" id "(" Parameters ")" Block ends                                 -- void
-  Parameters          = (Type id ("," Type id)*)?
+  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block+ ends                 -- regular
+                      | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- void
+  Parameter           = Type id
   CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                         -- function
                       | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
   Exp                 = Exp orop Exp1                                                           -- binary
