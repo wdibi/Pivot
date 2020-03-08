@@ -21,6 +21,11 @@ class FunctionCall {
   }
 }
 
+class CallChain {
+  constructor(item, methods) {
+    Object.assign(this, { item, methods });
+  }
+}
 class TaskDeclaration {
   constructor(id, params, body) {
     Object.assign(this, { id, params, body });
@@ -120,6 +125,13 @@ class IdExpression extends Expression {
   }
 }
 
+class ListExpression extends Expression {
+  constructor(elements) {
+    super();
+    this.elements = elements;
+  }
+}
+
 class UnaryExpression extends Expression {
   constructor(op, operand) {
     super();
@@ -163,4 +175,6 @@ module.exports = {
   CharacterLiteral,
   IdExpression,
   FunctionCall,
+  CallChain,
+  ListExpression,
 };

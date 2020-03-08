@@ -1,2 +1,1 @@
-num b <- x or y;
-num b <- x || y;
+num loc <- [4,5,2,6] << find(5);

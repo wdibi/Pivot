@@ -29,6 +29,8 @@ const {
   BinaryExpression,
   UnaryExpression,
   AutoType,
+  CallChain,
+  ListExpression,
 } = require(".");
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
@@ -62,6 +64,12 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   CallStatement_function(id, _openParen, args, _closeParen, _sc) {
     return new FunctionCall(id.ast(), args.ast());
+  },
+  FunctionCall(id, _openParen, args, _closeParen) {
+    return new FunctionCall(id.ast(), args.ast());
+  },
+  CallStatement_chain(item, _dArrow, methods) {
+    return new CallChain(item.ast(), methods.ast());
   },
   IfStatement(_if, test, _then, consequent, _else, alternate, _end) {
     return new IfStatement(
@@ -123,6 +131,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Exp7_parens(_1, e, _2) {
     return e.ast();
   },
+  List(_open, elements, _close) {
+    return new ListExpression(elements.ast());
+  },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");
   },
@@ -139,6 +150,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     return this.sourceString;
   },
   nonemptyListOf(first, _, rest) {
+    return [first.ast(), ...rest.ast()];
+  },
+  NonemptyListOf(first, _, rest) {
     return [first.ast(), ...rest.ast()];
   },
   // EmptyListOf() {

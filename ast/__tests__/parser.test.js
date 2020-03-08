@@ -14,6 +14,7 @@ const {
   Block,
   IdExpression,
   NumericLiteral,
+  CharacterLiteral,
   StringLiteral,
   AssignmentStatement,
   IfStatement,
@@ -24,6 +25,8 @@ const {
   ForStatement,
   BinaryExpression,
   FunctionCall,
+  CallChain,
+  ListExpression,
 } = require("..");
 
 const fixture = {
@@ -82,13 +85,13 @@ const fixture = {
   ],
 
   VariableDeclaration: [
-    String.raw`num a <- 10;`,
+    String.raw`char a <- 'a';`,
     new Program(
       new Block([
         new VariableDeclaration(
           new IdExpression("a"),
-          new Type("num"),
-          new NumericLiteral(10)
+          new Type("char"),
+          new CharacterLiteral("a")
         ),
       ])
     ),
@@ -278,6 +281,33 @@ const fixture = {
           ),
           new NumericLiteral(3),
         ]),
+      ])
+    ),
+  ],
+
+  Chain: [
+    String.raw`
+      num loc <- [4,5,2,6] << find(5);
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("loc"),
+          new Type("num"),
+          new CallChain(
+            new ListExpression([
+              new NumericLiteral(4),
+              new NumericLiteral(5),
+              new NumericLiteral(2),
+              new NumericLiteral(6),
+            ]),
+            [
+              new FunctionCall(new IdExpression("find"), [
+                new NumericLiteral(5),
+              ]),
+            ]
+          )
+        ),
       ])
     ),
   ],
