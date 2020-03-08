@@ -33,6 +33,8 @@ const {
   ListExpression,
   PrintStatement,
   StringLiteral,
+  DictionaryExpression,
+  KeyValuePair,
 } = require(".");
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
@@ -83,23 +85,26 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Assignment(id, _a, e, _) {
     return new AssignmentStatement(id.ast(), e.ast());
   },
-  Type(typeName) {
-    switch (typeName.sourceString) {
-      case "bool":
-        return BoolType;
-      case "char":
-        return CharType;
-      case "string":
-        return StringType;
-      case "num":
-        return NumType;
-      case "list":
-        return ListType;
-      case "dict":
-        return DictType;
-      case "auto":
-        return AutoType;
-    }
+  BooleanType(_) {
+    return BoolType;
+  },
+  CharType(_) {
+    return CharType;
+  },
+  StringType(_) {
+    return StringType;
+  },
+  NumType(_) {
+    return NumType;
+  },
+  AutoType(_) {
+    return AutoType;
+  },
+  ListType(_open, type, _close) {
+    return new ListType(type.ast());
+  },
+  DictType(_open, keyType, _colon, valueType, _close) {
+    return new DictType(keyType.ast(), valueType.ast());
   },
   Exp_binary(e1, _, e2) {
     let op = this.sourceString.includes("or") ? "or" : "||";
@@ -139,6 +144,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   List(_open, elements, _close) {
     return new ListExpression(elements.ast());
   },
+  Dict(_open, pair, _close) {
+    return new DictionaryExpression(pair.ast());
+  },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");
   },
@@ -149,7 +157,7 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     return new CharacterLiteral(this.sourceString.slice(1, -1));
   },
   strlit(_openQuote, str, _closeQuote) {
-    return new CharacterLiteral(this.sourceString.slice(1, -1));
+    return new StringLiteral(this.sourceString.slice(1, -1));
   },
   id(_first, _rest) {
     return new IdExpression(this.sourceString);
@@ -162,6 +170,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   NonemptyListOf(first, _, rest) {
     return [first.ast(), ...rest.ast()];
+  },
+  KeyValuePair(key, _colon, value) {
+    return new KeyValuePair(key.ast(), value.ast());
   },
   // EmptyListOf() {
   //   return [];

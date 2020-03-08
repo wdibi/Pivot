@@ -74,19 +74,35 @@ class PrintStatement {
   }
 }
 
-class Type {
+class KeyValuePair {
+  constructor(key, value) {
+    Object.assign(this, { key, value });
+  }
+}
+
+class BasicType {
   constructor(name) {
     this.name = name;
   }
 }
 
-const BoolType = new Type("bool");
-const CharType = new Type("char");
-const StringType = new Type("string");
-const NumType = new Type("num");
-const ListType = new Type("list");
-const DictType = new Type("dict");
-const AutoType = new Type("auto");
+const BoolType = new BasicType("bool");
+const CharType = new BasicType("char");
+const StringType = new BasicType("string");
+const NumType = new BasicType("num");
+const AutoType = new BasicType("auto");
+
+class ListType {
+  constructor(type) {
+    this.type = type;
+  }
+}
+class DictType {
+  constructor(keyType, valueType) {
+    this.keyType = keyType;
+    this.valueType = valueType;
+  }
+}
 
 class Expression {}
 
@@ -132,6 +148,13 @@ class ListExpression extends Expression {
   }
 }
 
+class DictionaryExpression extends Expression {
+  constructor(pairs) {
+    super();
+    this.pairs = pairs;
+  }
+}
+
 class UnaryExpression extends Expression {
   constructor(op, operand) {
     super();
@@ -160,7 +183,7 @@ module.exports = {
   IfStatement,
   ForStatement,
   RepeatStatement,
-  Type,
+  BasicType,
   BoolType,
   CharType,
   StringType,
@@ -177,4 +200,6 @@ module.exports = {
   FunctionCall,
   CallChain,
   ListExpression,
+  DictionaryExpression,
+  KeyValuePair,
 };

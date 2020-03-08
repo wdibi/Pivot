@@ -19,7 +19,9 @@ const {
   AssignmentStatement,
   IfStatement,
   VariableDeclaration,
-  Type,
+  BasicType,
+  DictType,
+  ListType,
   WhileStatement,
   RepeatStatement,
   ForStatement,
@@ -28,6 +30,8 @@ const {
   CallChain,
   ListExpression,
   PrintStatement,
+  DictionaryExpression,
+  KeyValuePair,
 } = require("..");
 
 const fixture = {
@@ -91,7 +95,7 @@ const fixture = {
       new Block([
         new VariableDeclaration(
           new IdExpression("a"),
-          new Type("char"),
+          new BasicType("char"),
           new CharacterLiteral("a")
         ),
       ])
@@ -104,17 +108,17 @@ const fixture = {
   //     new Block([
   //       new VariableDeclaration(
   //         new IdExpression("x"),
-  //         new Type("string"),
+  //         new BasicType("string"),
   //         new StringLiteral("a")
   //       ),
   //       new VariableDeclaration(
   //         new IdExpression("y"),
-  //         new Type("string"),
+  //         new BasicType("string"),
   //         new StringLiteral("b")
   //       ),
   //       new VariableDeclaration(
   //         new IdExpression("z"),
-  //         new Type("num"),
+  //         new BasicType("num"),
   //         new NumericLiteral(3)
   //       ),
   //     ])
@@ -178,7 +182,7 @@ const fixture = {
         new ForStatement(
           new VariableDeclaration(
             new IdExpression("a"),
-            new Type("num"),
+            new BasicType("num"),
             new NumericLiteral(0)
           ),
           new BinaryExpression(
@@ -218,7 +222,7 @@ const fixture = {
       new Block([
         new VariableDeclaration(
           new IdExpression("a"),
-          new Type("bool"),
+          new BasicType("bool"),
           new BinaryExpression(
             "or",
             new IdExpression("x"),
@@ -227,7 +231,7 @@ const fixture = {
         ),
         new VariableDeclaration(
           new IdExpression("b"),
-          new Type("bool"),
+          new BasicType("bool"),
           new BinaryExpression(
             "||",
             new IdExpression("y"),
@@ -247,7 +251,7 @@ const fixture = {
       new Block([
         new VariableDeclaration(
           new IdExpression("a"),
-          new Type("bool"),
+          new BasicType("bool"),
           new BinaryExpression(
             "and",
             new IdExpression("x"),
@@ -256,7 +260,7 @@ const fixture = {
         ),
         new VariableDeclaration(
           new IdExpression("b"),
-          new Type("bool"),
+          new BasicType("bool"),
           new BinaryExpression(
             "&&",
             new IdExpression("y"),
@@ -294,7 +298,7 @@ const fixture = {
       new Block([
         new VariableDeclaration(
           new IdExpression("loc"),
-          new Type("num"),
+          new BasicType("num"),
           new CallChain(
             new ListExpression([
               new NumericLiteral(4),
@@ -319,6 +323,24 @@ const fixture = {
     `,
     new Program(
       new Block([new PrintStatement(new StringLiteral("Hello World!"))])
+    ),
+  ],
+
+  Dictionary: [
+    String.raw`
+      {str : num} count <- {"cows":1, "pigs":3};
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression("count"),
+          new DictType(new BasicType("string"), new BasicType("num")),
+          new DictionaryExpression([
+            new KeyValuePair(new StringLiteral("cows"), new NumericLiteral(1)),
+            new KeyValuePair(new StringLiteral("pigs"), new NumericLiteral(3)),
+          ])
+        ),
+      ])
     ),
   ],
 };
