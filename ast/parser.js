@@ -162,9 +162,7 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   id(_first, _rest) {
     return new IdExpression(this.sourceString);
   },
-  _terminal() {
-    return this.sourceString;
-  },
+
   nonemptyListOf(first, _, rest) {
     return [first.ast(), ...rest.ast()];
   },
@@ -174,10 +172,11 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   KeyValuePair(key, _colon, value) {
     return new KeyValuePair(key.ast(), value.ast());
   },
-  // EmptyListOf() {
-  //   return [];
+  // _terminal() {
+  //   return this.sourceString;
   // },
 });
+
 /* eslint-enable no-unused-vars */
 
 module.exports = text => {
