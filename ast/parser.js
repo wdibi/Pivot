@@ -54,9 +54,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   VarDeclaration_single(type, id, _arrow, init, _sc) {
     return new VariableDeclaration(id.ast(), type.ast(), init.ast());
   },
-  // VarDeclaration_multi(_all, type, _arrow, ids, initials) {
-  //   return new VariableDeclaration(id.ast(), type.ast(), init.ast());
-  // },
+  VarDeclaration_multi(_all, type, ids, _arrow, initials, _sc) {
+    return new VariableDeclaration(ids.ast(), type.ast(), initials.ast());
+  },
   IterationStatement_while(_while, test, _do, block, _end) {
     return new WhileStatement(test.ast(), block.ast());
   },

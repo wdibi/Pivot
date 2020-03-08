@@ -16,6 +16,7 @@ const {
   NumericLiteral,
   CharacterLiteral,
   StringLiteral,
+  BooleanLiteral,
   AssignmentStatement,
   IfStatement,
   VariableDeclaration,
@@ -102,28 +103,22 @@ const fixture = {
     ),
   ],
 
-  // MultiVariableDeclaration: [
-  //   String.raw`all x,y,z <- "a","b",3;`,
-  //   new Program(
-  //     new Block([
-  //       new VariableDeclaration(
-  //         new IdExpression("x"),
-  //         new BasicType("string"),
-  //         new StringLiteral("a")
-  //       ),
-  //       new VariableDeclaration(
-  //         new IdExpression("y"),
-  //         new BasicType("string"),
-  //         new StringLiteral("b")
-  //       ),
-  //       new VariableDeclaration(
-  //         new IdExpression("z"),
-  //         new BasicType("num"),
-  //         new NumericLiteral(3)
-  //       ),
-  //     ])
-  //   ),
-  // ],
+  MultiVariableDeclaration: [
+    String.raw`all bool x,y,z <- true,false,true;`,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          [new IdExpression("x"), new IdExpression("y"), new IdExpression("z")],
+          new BasicType("bool"),
+          [
+            new BooleanLiteral(true),
+            new BooleanLiteral(false),
+            new BooleanLiteral(true),
+          ]
+        ),
+      ])
+    ),
+  ],
 
   WhileLoop: [
     String.raw`
