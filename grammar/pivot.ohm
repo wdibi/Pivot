@@ -24,7 +24,7 @@ Pivot {
                       	";" (CallStatement | Assignment) "do" Block ends                        -- for
   PrintStatement      = print (CallStatement | Exp)  ";"
   FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block  ends                 -- regular
-                      | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- void
+                      | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- task
   Parameter           = Type id
   CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                         -- function
                       | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
