@@ -396,7 +396,7 @@ let friends = ["john", "tim"];
 
 ```text
 fibonacci(num x) -> num
-    all num(a, b, temp) <- (1, 0, 0);
+    all num a, b, temp <- 1, 0, 0;
 
     repeat
         temp <- a;

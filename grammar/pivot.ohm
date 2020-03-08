@@ -5,43 +5,44 @@ Pivot {
                       | VarDeclaration
                       | IfStatement
                       | IterationStatement
-                      | CallStatement
-                      | PrintStatment
+                      | CallExpression
+                      | PrintStatement
                       | Assignment
-  VarDeclaration      = "all" Type "(" NonemptyListOf<id, ","> ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- allmultidec
-                      | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- declaration
+                      | ReturnStatement
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"    -- multi
+                      | Type id "<-" (CallExpression | IfShort | Exp) ";"                        -- single
                       |  "(" Type id ("," Type id)+ ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
-  Assignment          = id "<-" (CallStatement | Exp) ";"
-  IfStatement         = "if" Exp "then" Statement ("else" Statement)? ends
-  IfShort             = Exp "when" (CallStatement | Exp )
-                        "otherwise" (CallStatement | IfShort | Exp )
+                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                                -- multidec
+  Assignment          = id "<-" (CallExpression | Exp) ";"
+  IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)? ends
+  IfShort             = Exp "when" (CallExpression | Exp )
+                        "otherwise" (CallExpression | IfShort | Exp )
   ReturnStatement     = "return" (Exp | IfShort) ";"
   IterationStatement  = "while" Exp "do" Block ends                                             -- while
-                      | "repeat" Block "until" Exp ";"                                          -- loop
-                      | "for" VarDeclaration (Exp | CallStatement)
-                      	";" (CallStatement | Assignment) "do" Block ends                        -- for
-  PrintStatment       = print (CallStatement | Exp)  ";"
-  FunctionDeclaration = id "(" Params ")" "->" Type Block? ReturnStatement ends                 -- func
-                      | "task" id "(" Params ")" Block ends                                     -- task
-  Params              = (Type id ("," Type id)*)?
-  CallStatement       = id "(" listOf<Exp, ","> ")"                                             -- function
-                      | ((id | List | Dict) ("<<" id "(" listOf<Exp, ","> ")")+)                -- method
-  Exp                 = Exp orop Exp1                                                           -- or
-                      | Exp andop Exp1                                                          -- and
+                      | "repeat" Block "until" Exp ";"                                          -- repeat
+                      | "for" VarDeclaration (Exp | CallExpression)
+                      	";" (CallExpression | Assignment) "do" Block ends                       -- for
+  PrintStatement      = print (CallExpression | Exp)  ";"
+  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block  ends                 -- regular
+                      | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- task
+  Parameter           = Type id
+  CallExpression       = id "(" listOf<Exp, ","> ")" ";"                                        -- function
+                      | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
+  Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
-  Exp1                = Exp2 relop Exp2                                                         -- binary
+  Exp1                = Exp1 andop Exp2                                                         -- binary
                       | Exp2
-  Exp2                = Exp2 addop Exp3                                                         -- binary
+  Exp2                = Exp2 relop Exp3                                                         -- binary
                       | Exp3
-  Exp3                = Exp3 mulop Exp4                                                         -- binary
+  Exp3                = Exp3 addop Exp4                                                         -- binary
                       | Exp4
-  Exp4                = prefixop Exp4                                                           -- unary
+  Exp4                = Exp4 mulop Exp5                                                         -- binary
                       | Exp5
-  Exp5                = Exp5 "**" Exp6                                                          -- binary
+  Exp5                = prefixop Exp6                                                           -- unary
                       | Exp6
-  Exp6                = id
+  Exp6                = Exp6 "**" Exp7                                                          -- binary
+                      | Exp7
+  Exp7                = id
                       | boollit
                       | numlit
                       | strlit
@@ -49,6 +50,7 @@ Pivot {
                       | List                                                                    -- list
                       | Dict                                                                    -- dict
                       | "(" Exp ")"                                                             -- parens
+  FunctionCall        = id "(" listOf<Exp, ","> ")"
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
   Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
@@ -60,8 +62,9 @@ Pivot {
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
-  keyword             = ("while" | "repeat" | "if" | "else"
-                      | "return" | "then" | "and" | "or" | "when" | "otherwise") ~idrest
+  keyword             = ("all" | "while" | "repeat" | "if" | "else"
+                      | "return" | "then" | "and" | "or" | "when" 
+                      | "otherwise" | "print" | "true" | "false") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
