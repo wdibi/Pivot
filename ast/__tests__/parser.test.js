@@ -385,11 +385,11 @@ const fixture = {
           ],
           new Block([
             new AssignmentStatement(
-              "x",
+              new IdExpression("x"),
               new BinaryExpression(
                 "*",
                 new IdExpression("value"),
-                new IdExpression("value2")
+                new IdExpression("valueTwo")
               )
             )
           ])
