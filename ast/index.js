@@ -51,7 +51,7 @@ class WhileStatement {
 }
 
 class RepeatStatement {
-  constructor(item) {
+  constructor(body, condition) {
     Object.assign(this, { body, condition });
   }
 }
