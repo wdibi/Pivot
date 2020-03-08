@@ -35,6 +35,9 @@ const {
   StringLiteral,
   DictionaryExpression,
   KeyValuePair,
+  FunctionDeclaration,
+  Parameter,
+  ReturnStatement,
 } = require(".");
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
@@ -68,6 +71,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   },
   CallStatement_function(id, _openParen, args, _closeParen, _sc) {
     return new FunctionCall(id.ast(), args.ast());
+  },
+  FunctionDeclaration_regular(i, _o, a, _c, _arrow, t, b, _e) {
+    return new FunctionDeclaration(i.ast(), t.ast(), a.ast(), b.ast());
   },
   FunctionCall(id, _openParen, args, _closeParen) {
     return new FunctionCall(id.ast(), args.ast());
@@ -138,8 +144,14 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Exp7_parens(_1, e, _2) {
     return e.ast();
   },
+  Parameter(t, i) {
+    return new Parameter(t.ast(), i.ast());
+  },
   PrintStatement(_print, item, _sc) {
     return new PrintStatement(item.ast());
+  },
+  ReturnStatement(_r, item, _sc) {
+    return new ReturnStatement(item.ast());
   },
   List(_open, elements, _close) {
     return new ListExpression(elements.ast());
@@ -162,7 +174,6 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   id(_first, _rest) {
     return new IdExpression(this.sourceString);
   },
-
   nonemptyListOf(first, _, rest) {
     return [first.ast(), ...rest.ast()];
   },

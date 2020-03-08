@@ -51,8 +51,14 @@ class WhileStatement {
 }
 
 class RepeatStatement {
-  constructor(body, condition) {
+  constructor(item) {
     Object.assign(this, { body, condition });
+  }
+}
+
+class ReturnStatement {
+  constructor(item) {
+    this.item = item;
   }
 }
 
@@ -77,6 +83,12 @@ class PrintStatement {
 class KeyValuePair {
   constructor(key, value) {
     Object.assign(this, { key, value });
+  }
+}
+
+class Parameter {
+  constructor(type, value) {
+    Object.assign(this, { type, value });
   }
 }
 
@@ -202,4 +214,6 @@ module.exports = {
   ListExpression,
   DictionaryExpression,
   KeyValuePair,
+  ReturnStatement,
+  Parameter,
 };
