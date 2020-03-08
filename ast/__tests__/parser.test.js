@@ -350,19 +350,19 @@ const fixture = {
     `,
     new Program(
       new Block([
-        new FunctionDeclaration(new IdExpression("addFive"), [
+        new FunctionDeclaration(
+          new IdExpression("addFive"),
           new BasicType("num"),
-          new Parameter("a"),
-          new BasicType("num"),
-          new ReturnStatement(
-            "return",
-            new BinaryExpression(
-              "+",
-              new IdExpression("a"),
-              new NumericLiteral("5")
+          [new Parameter(new BasicType("num"), new IdExpression("a"))],
+          new Block([
+            new ReturnStatement(
+              new BinaryExpression(
+                "+",
+                new IdExpression("a"),
+                new NumericLiteral(5)
               )
-            )
-          ]
+            ),
+          ])
         ),
       ])
     ),
