@@ -31,6 +31,8 @@ const {
   AutoType,
   CallChain,
   ListExpression,
+  PrintStatement,
+  StringLiteral,
 } = require(".");
 
 const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
@@ -131,6 +133,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Exp7_parens(_1, e, _2) {
     return e.ast();
   },
+  PrintStatement(_print, item, _sc) {
+    return new PrintStatement(item.ast());
+  },
   List(_open, elements, _close) {
     return new ListExpression(elements.ast());
   },
@@ -141,6 +146,9 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     return new NumericLiteral(+this.sourceString);
   },
   charlit(_openQuote, char, _closeQuote) {
+    return new CharacterLiteral(this.sourceString.slice(1, -1));
+  },
+  strlit(_openQuote, str, _closeQuote) {
     return new CharacterLiteral(this.sourceString.slice(1, -1));
   },
   id(_first, _rest) {

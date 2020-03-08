@@ -27,6 +27,7 @@ const {
   FunctionCall,
   CallChain,
   ListExpression,
+  PrintStatement,
 } = require("..");
 
 const fixture = {
@@ -309,6 +310,15 @@ const fixture = {
           )
         ),
       ])
+    ),
+  ],
+
+  Print: [
+    String.raw`
+      print("Hello World!");
+    `,
+    new Program(
+      new Block([new PrintStatement(new StringLiteral("Hello World!"))])
     ),
   ],
 };

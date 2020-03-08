@@ -69,8 +69,8 @@ class AssignmentStatement {
 }
 
 class PrintStatement {
-  constructor(expression) {
-    this.expression = expression;
+  constructor(item) {
+    this.item = item;
   }
 }
 
