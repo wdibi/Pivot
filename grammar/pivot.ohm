@@ -5,28 +5,28 @@ Pivot {
                       | VarDeclaration
                       | IfStatement
                       | IterationStatement
-                      | CallStatement
+                      | CallExpression
                       | PrintStatement
                       | Assignment
                       | ReturnStatement
-  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- multi
-                      | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- single
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"    -- multi
+                      | Type id "<-" (CallExpression | IfShort | Exp) ";"                        -- single
                       |  "(" Type id ("," Type id)+ ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                               -- multidec
-  Assignment          = id "<-" (CallStatement | Exp) ";"
+                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                                -- multidec
+  Assignment          = id "<-" (CallExpression | Exp) ";"
   IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)? ends
-  IfShort             = Exp "when" (CallStatement | Exp )
-                        "otherwise" (CallStatement | IfShort | Exp )
+  IfShort             = Exp "when" (CallExpression | Exp )
+                        "otherwise" (CallExpression | IfShort | Exp )
   ReturnStatement     = "return" (Exp | IfShort) ";"
   IterationStatement  = "while" Exp "do" Block ends                                             -- while
                       | "repeat" Block "until" Exp ";"                                          -- repeat
-                      | "for" VarDeclaration (Exp | CallStatement)
-                      	";" (CallStatement | Assignment) "do" Block ends                        -- for
-  PrintStatement      = print (CallStatement | Exp)  ";"
+                      | "for" VarDeclaration (Exp | CallExpression)
+                      	";" (CallExpression | Assignment) "do" Block ends                       -- for
+  PrintStatement      = print (CallExpression | Exp)  ";"
   FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block  ends                 -- regular
                       | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- task
   Parameter           = Type id
-  CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                         -- function
+  CallExpression       = id "(" listOf<Exp, ","> ")" ";"                                        -- function
                       | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1

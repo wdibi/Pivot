@@ -70,7 +70,7 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   IterationStatement_for(_for, initial, test, _sc, exp, _do, body, _end) {
     return new ForStatement(initial.ast(), test.ast(), exp.ast(), body.ast());
   },
-  CallStatement_function(i, _openParen, args, _closeParen, _sc) {
+  CallExpression_function(i, _openParen, args, _closeParen, _sc) {
     return new FunctionCall(i.ast(), args.ast());
   },
   FunctionDeclaration_regular(i, _o, a, _c, _a, t, b, _end) {
@@ -82,7 +82,7 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   FunctionCall(i, _openParen, args, _closeParen) {
     return new FunctionCall(i.ast(), args.ast());
   },
-  CallStatement_chain(item, _a, methods) {
+  CallExpression_chain(item, _a, methods) {
     return new CallChain(item.ast(), methods.ast());
   },
   IfStatement(_if, t, _then, consequent, _e, alternate, _end) {
