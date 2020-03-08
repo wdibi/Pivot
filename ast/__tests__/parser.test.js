@@ -36,7 +36,8 @@ const {
   FunctionDeclaration,
   Parameter,
   ReturnStatement,
-  TaskDeclaration
+  TaskDeclaration,
+  UnaryExpression,
 } = require("..");
 
 const fixture = {
@@ -148,7 +149,7 @@ const fixture = {
   RepeatLoop: [
     String.raw`
     repeat
-      x <- x + 5;
+      x <- -x + 5;
     until y;
     `,
     new Program(
@@ -159,7 +160,7 @@ const fixture = {
               new IdExpression("x"),
               new BinaryExpression(
                 "+",
-                new IdExpression("x"),
+                new UnaryExpression("-", new IdExpression("x")),
                 new NumericLiteral(5)
               )
             )
