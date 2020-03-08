@@ -245,7 +245,7 @@ const fixture = {
   AndOperator: [
     String.raw`
       bool a <- x and y;
-      bool b <- y && z;
+      _ b <- y && z;
     `,
     new Program(
       new Block([
@@ -260,7 +260,7 @@ const fixture = {
         ),
         new VariableDeclaration(
           new IdExpression("b"),
-          new BasicType("bool"),
+          new BasicType("auto"),
           new BinaryExpression(
             "&&",
             new IdExpression("y"),
