@@ -62,7 +62,8 @@ Pivot {
   AutoType            = "_"
   KeyValuePair        = Exp ":" Exp
   keyword             = ("all" | "while" | "repeat" | "if" | "else"
-                      | "return" | "then" | "and" | "or" | "when" | "otherwise" | "print") ~idrest
+                      | "return" | "then" | "and" | "or" | "when" 
+                      | "otherwise" | "print" | "true" | "false") ~idrest
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
