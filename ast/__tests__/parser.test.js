@@ -36,6 +36,7 @@ const {
   FunctionDeclaration,
   Parameter,
   ReturnStatement,
+  TaskDeclaration
 } = require("..");
 
 const fixture = {
@@ -43,9 +44,9 @@ const fixture = {
     String.raw`x <- 5;`,
     new Program(
       new Block([
-        new AssignmentStatement(new IdExpression("x"), new NumericLiteral(5)),
+        new AssignmentStatement(new IdExpression("x"), new NumericLiteral(5))
       ])
-    ),
+    )
   ],
 
   IfStatement: [
@@ -60,12 +61,12 @@ const fixture = {
             new AssignmentStatement(
               new IdExpression("y"),
               new NumericLiteral(5)
-            ),
+            )
           ],
           null
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   IfElseStatement: [
@@ -80,17 +81,17 @@ const fixture = {
             new AssignmentStatement(
               new IdExpression("y"),
               new NumericLiteral(5)
-            ),
+            )
           ],
           [
             new AssignmentStatement(
               new IdExpression("y"),
               new NumericLiteral(4)
-            ),
+            )
           ]
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   VariableDeclaration: [
@@ -101,9 +102,9 @@ const fixture = {
           new IdExpression("a"),
           new BasicType("char"),
           new CharacterLiteral("a")
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   MultiVariableDeclaration: [
@@ -116,11 +117,11 @@ const fixture = {
           [
             new BooleanLiteral(true),
             new BooleanLiteral(false),
-            new BooleanLiteral(true),
+            new BooleanLiteral(true)
           ]
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   WhileLoop: [
@@ -137,11 +138,11 @@ const fixture = {
             new AssignmentStatement(
               new IdExpression("x"),
               new NumericLiteral(1)
-            ),
+            )
           ])
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   RepeatLoop: [
@@ -161,12 +162,12 @@ const fixture = {
                 new IdExpression("x"),
                 new NumericLiteral(5)
               )
-            ),
+            )
           ]),
           new IdExpression("y")
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   ForLoop: [
@@ -204,11 +205,11 @@ const fixture = {
                 new IdExpression("y"),
                 new IdExpression("a")
               )
-            ),
+            )
           ])
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   OrOperator: [
@@ -235,9 +236,9 @@ const fixture = {
             new IdExpression("y"),
             new IdExpression("z")
           )
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   AndOperator: [
@@ -264,9 +265,9 @@ const fixture = {
             new IdExpression("y"),
             new IdExpression("z")
           )
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   FunctionCall: [
@@ -282,10 +283,10 @@ const fixture = {
             new IdExpression("x"),
             new NumericLiteral(5)
           ),
-          new NumericLiteral(3),
-        ]),
+          new NumericLiteral(3)
+        ])
       ])
-    ),
+    )
   ],
 
   Chain: [
@@ -302,17 +303,17 @@ const fixture = {
               new NumericLiteral(4),
               new NumericLiteral(5),
               new NumericLiteral(2),
-              new NumericLiteral(6),
+              new NumericLiteral(6)
             ]),
             [
               new FunctionCall(new IdExpression("find"), [
-                new NumericLiteral(5),
-              ]),
+                new NumericLiteral(5)
+              ])
             ]
           )
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   Print: [
@@ -321,7 +322,7 @@ const fixture = {
     `,
     new Program(
       new Block([new PrintStatement(new StringLiteral("Hello World!"))])
-    ),
+    )
   ],
 
   Dictionary: [
@@ -335,11 +336,11 @@ const fixture = {
           new DictType(new BasicType("string"), new BasicType("num")),
           new DictionaryExpression([
             new KeyValuePair(new StringLiteral("cows"), new NumericLiteral(1)),
-            new KeyValuePair(new StringLiteral("pigs"), new NumericLiteral(3)),
+            new KeyValuePair(new StringLiteral("pigs"), new NumericLiteral(3))
           ])
-        ),
+        )
       ])
-    ),
+    )
   ],
 
   FunctionDeclaration: [
@@ -361,12 +362,41 @@ const fixture = {
                 new IdExpression("a"),
                 new NumericLiteral(5)
               )
-            ),
+            )
           ])
-        ),
+        )
       ])
-    ),
+    )
   ],
+
+  TaskDeclaration: [
+    String.raw`
+      task updateX(num value, num valueTwo)
+        x <- value * valueTwo;
+      end
+    `,
+    new Program(
+      new Block([
+        new TaskDeclaration(
+          new IdExpression("updateX"),
+          [
+            new Parameter(new BasicType("num"), new IdExpression("value")),
+            new Parameter(new BasicType("num"), new IdExpression("valueTwo"))
+          ],
+          new Block([
+            new AssignmentStatement(
+              "x",
+              new BinaryExpression(
+                "*",
+                new IdExpression("value"),
+                new IdExpression("value2")
+              )
+            )
+          ])
+        )
+      ])
+    )
+  ]
 };
 
 describe("The parser", () => {
