@@ -34,6 +34,8 @@ const {
   DictionaryExpression,
   KeyValuePair,
   FunctionDeclaration,
+  Parameter,
+  ReturnStatement,
 } = require("..");
 
 const fixture = {
