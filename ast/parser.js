@@ -55,45 +55,45 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Block(s) {
     return new Block(s.ast());
   },
-  VarDeclaration_single(type, id, _arrow, init, _sc) {
-    return new VariableDeclaration(id.ast(), type.ast(), init.ast());
+  VarDeclaration_single(t, i, _a, init, _sc) {
+    return new VariableDeclaration(i.ast(), t.ast(), init.ast());
   },
-  VarDeclaration_multi(_all, type, ids, _arrow, initials, _sc) {
-    return new VariableDeclaration(ids.ast(), type.ast(), initials.ast());
+  VarDeclaration_multi(_all, t, i, _a, init, _sc) {
+    return new VariableDeclaration(i.ast(), t.ast(), init.ast());
   },
-  IterationStatement_while(_while, test, _do, block, _end) {
-    return new WhileStatement(test.ast(), block.ast());
+  IterationStatement_while(_while, t, _do, b, _end) {
+    return new WhileStatement(t.ast(), b.ast());
   },
-  IterationStatement_repeat(_repeat, block, _until, exp, _sc) {
-    return new RepeatStatement(block.ast(), exp.ast());
+  IterationStatement_repeat(_repeat, b, _until, exp, _sc) {
+    return new RepeatStatement(b.ast(), exp.ast());
   },
   IterationStatement_for(_for, initial, test, _sc, exp, _do, body, _end) {
     return new ForStatement(initial.ast(), test.ast(), exp.ast(), body.ast());
   },
-  CallStatement_function(id, _openParen, args, _closeParen, _sc) {
-    return new FunctionCall(id.ast(), args.ast());
+  CallStatement_function(i, _openParen, args, _closeParen, _sc) {
+    return new FunctionCall(i.ast(), args.ast());
   },
-  FunctionDeclaration_regular(i, _o, a, _c, _arrow, t, b, _e) {
+  FunctionDeclaration_regular(i, _o, a, _c, _a, t, b, _end) {
     return new FunctionDeclaration(i.ast(), t.ast(), a.ast(), b.ast());
   },
   FunctionDeclaration_task(_t, i, _o, a, _c, b, _e) {
     return new TaskDeclaration(i.ast(), a.ast(), b.ast());
   },
-  FunctionCall(id, _openParen, args, _closeParen) {
-    return new FunctionCall(id.ast(), args.ast());
+  FunctionCall(i, _openParen, args, _closeParen) {
+    return new FunctionCall(i.ast(), args.ast());
   },
-  CallStatement_chain(item, _dArrow, methods) {
+  CallStatement_chain(item, _a, methods) {
     return new CallChain(item.ast(), methods.ast());
   },
-  IfStatement(_if, test, _then, consequent, _else, alternate, _end) {
+  IfStatement(_if, t, _then, consequent, _e, alternate, _end) {
     return new IfStatement(
-      test.ast(),
+      t.ast(),
       consequent.ast(),
       arrayToNullable(alternate.ast())
     );
   },
-  Assignment(id, _a, e, _) {
-    return new AssignmentStatement(id.ast(), e.ast());
+  Assignment(i, _a, e, _) {
+    return new AssignmentStatement(i.ast(), e.ast());
   },
   BooleanType(_) {
     return BoolType;
@@ -110,10 +110,10 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   AutoType(_) {
     return AutoType;
   },
-  ListType(_open, type, _close) {
-    return new ListType(type.ast());
+  ListType(_o, t, _c) {
+    return new ListType(t.ast());
   },
-  DictType(_open, keyType, _colon, valueType, _close) {
+  DictType(_o, keyType, _colon, valueType, _c) {
     return new DictType(keyType.ast(), valueType.ast());
   },
   Exp_binary(e1, _, e2) {
@@ -151,38 +151,38 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
   Parameter(t, i) {
     return new Parameter(t.ast(), i.ast());
   },
-  PrintStatement(_print, item, _sc) {
-    return new PrintStatement(item.ast());
+  PrintStatement(_p, i, _sc) {
+    return new PrintStatement(i.ast());
   },
-  ReturnStatement(_r, item, _sc) {
-    return new ReturnStatement(item.ast());
+  ReturnStatement(_r, i, _sc) {
+    return new ReturnStatement(i.ast());
   },
-  List(_open, elements, _close) {
-    return new ListExpression(elements.ast());
+  List(_o, e, _c) {
+    return new ListExpression(e.ast());
   },
-  Dict(_open, pair, _close) {
-    return new DictionaryExpression(pair.ast());
+  Dict(_o, p, _c) {
+    return new DictionaryExpression(p.ast());
   },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === "true");
   },
-  numlit(_first, _, _last) {
+  numlit(f, _, _l) {
     return new NumericLiteral(+this.sourceString);
   },
-  charlit(_openQuote, char, _closeQuote) {
+  charlit(_o, char, _c) {
     return new CharacterLiteral(this.sourceString.slice(1, -1));
   },
-  strlit(_openQuote, str, _closeQuote) {
+  strlit(_o, str, _c) {
     return new StringLiteral(this.sourceString.slice(1, -1));
   },
-  id(_first, _rest) {
+  id(_f, _r) {
     return new IdExpression(this.sourceString);
   },
-  nonemptyListOf(first, _, rest) {
-    return [first.ast(), ...rest.ast()];
+  nonemptyListOf(f, _, r) {
+    return [f.ast(), ...r.ast()];
   },
-  NonemptyListOf(first, _, rest) {
-    return [first.ast(), ...rest.ast()];
+  NonemptyListOf(f, _, r) {
+    return [f.ast(), ...r.ast()];
   },
   KeyValuePair(key, _colon, value) {
     return new KeyValuePair(key.ast(), value.ast());
