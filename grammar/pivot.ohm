@@ -8,6 +8,7 @@ Pivot {
                       | CallStatement
                       | PrintStatement
                       | Assignment
+                      | ReturnStatement
   VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"   -- multi
                       | Type id "<-" (CallStatement | IfShort | Exp) ";"                        -- single
                       |  "(" Type id ("," Type id)+ ")"
@@ -22,10 +23,10 @@ Pivot {
                       | "for" VarDeclaration (Exp | CallStatement)
                       	";" (CallStatement | Assignment) "do" Block ends                        -- for
   PrintStatement      = print (CallStatement | Exp)  ";"
-  FunctionDeclaration = id "(" Params ")" "->" Type Block? ReturnStatement ends                 -- func
-                      | "task" id "(" Params ")" Block ends                                     -- task
-  Params              = (Type id ("," Type id)*)?
-  CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                                        -- function
+  FunctionDeclaration = id "(" Parameters ")" "->" Type Block+ ends                             -- regular
+                      | "task" id "(" Parameters ")" Block ends                                 -- void
+  Parameters          = (Type id ("," Type id)*)?
+  CallStatement       = id "(" listOf<Exp, ","> ")" ";"                                         -- function
                       | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
