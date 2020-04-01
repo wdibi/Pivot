@@ -7,7 +7,7 @@
  * may have semantic errors.
  */
 
-const parse = require("../parser");
+const parse = require('../parser');
 
 const {
   Program,
@@ -20,7 +20,7 @@ const {
   AssignmentStatement,
   IfStatement,
   VariableDeclaration,
-  BasicType,
+  PrimitiveType,
   DictType,
   ListType,
   WhileStatement,
@@ -38,16 +38,16 @@ const {
   ReturnStatement,
   TaskDeclaration,
   UnaryExpression,
-} = require("..");
+} = require('..');
 
 const fixture = {
   SimpleAssignment: [
     String.raw`x <- 5;`,
     new Program(
       new Block([
-        new AssignmentStatement(new IdExpression("x"), new NumericLiteral(5))
+        new AssignmentStatement(new IdExpression('x'), new NumericLiteral(5)),
       ])
-    )
+    ),
   ],
 
   IfStatement: [
@@ -57,17 +57,17 @@ const fixture = {
     new Program(
       new Block([
         new IfStatement(
-          new IdExpression("x"),
+          new IdExpression('x'),
           [
             new AssignmentStatement(
-              new IdExpression("y"),
+              new IdExpression('y'),
               new NumericLiteral(5)
-            )
+            ),
           ],
           null
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   IfElseStatement: [
@@ -77,22 +77,22 @@ const fixture = {
     new Program(
       new Block([
         new IfStatement(
-          new IdExpression("x"),
+          new IdExpression('x'),
           [
             new AssignmentStatement(
-              new IdExpression("y"),
+              new IdExpression('y'),
               new NumericLiteral(5)
-            )
+            ),
           ],
           [
             new AssignmentStatement(
-              new IdExpression("y"),
+              new IdExpression('y'),
               new NumericLiteral(4)
-            )
+            ),
           ]
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   VariableDeclaration: [
@@ -100,12 +100,12 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("a"),
-          new BasicType("char"),
-          new CharacterLiteral("a")
-        )
+          new IdExpression('a'),
+          new PrimitiveType('char'),
+          new CharacterLiteral('a')
+        ),
       ])
-    )
+    ),
   ],
 
   MultiVariableDeclaration: [
@@ -113,16 +113,16 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          [new IdExpression("x"), new IdExpression("y"), new IdExpression("z")],
-          new BasicType("bool"),
+          [new IdExpression('x'), new IdExpression('y'), new IdExpression('z')],
+          new PrimitiveType('bool'),
           [
             new BooleanLiteral(true),
             new BooleanLiteral(false),
-            new BooleanLiteral(true)
+            new BooleanLiteral(true),
           ]
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   WhileLoop: [
@@ -134,16 +134,16 @@ const fixture = {
     new Program(
       new Block([
         new WhileStatement(
-          new IdExpression("x"),
+          new IdExpression('x'),
           new Block([
             new AssignmentStatement(
-              new IdExpression("x"),
+              new IdExpression('x'),
               new NumericLiteral(1)
-            )
+            ),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   RepeatLoop: [
@@ -157,18 +157,18 @@ const fixture = {
         new RepeatStatement(
           new Block([
             new AssignmentStatement(
-              new IdExpression("x"),
+              new IdExpression('x'),
               new BinaryExpression(
-                "+",
-                new UnaryExpression("-", new IdExpression("x")),
+                '+',
+                new UnaryExpression('-', new IdExpression('x')),
                 new NumericLiteral(5)
               )
-            )
+            ),
           ]),
-          new IdExpression("y")
-        )
+          new IdExpression('y')
+        ),
       ])
-    )
+    ),
   ],
 
   ForLoop: [
@@ -181,36 +181,36 @@ const fixture = {
       new Block([
         new ForStatement(
           new VariableDeclaration(
-            new IdExpression("a"),
-            new BasicType("num"),
+            new IdExpression('a'),
+            new PrimitiveType('num'),
             new NumericLiteral(0)
           ),
           new BinaryExpression(
-            "<",
-            new IdExpression("a"),
+            '<',
+            new IdExpression('a'),
             new NumericLiteral(2)
           ),
           new AssignmentStatement(
-            new IdExpression("a"),
+            new IdExpression('a'),
             new BinaryExpression(
-              "+",
-              new IdExpression("a"),
+              '+',
+              new IdExpression('a'),
               new NumericLiteral(1)
             )
           ),
           new Block([
             new AssignmentStatement(
-              new IdExpression("y"),
+              new IdExpression('y'),
               new BinaryExpression(
-                "/",
-                new IdExpression("y"),
-                new IdExpression("a")
+                '/',
+                new IdExpression('y'),
+                new IdExpression('a')
               )
-            )
+            ),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   OrOperator: [
@@ -221,25 +221,25 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("a"),
-          new BasicType("bool"),
+          new IdExpression('a'),
+          new PrimitiveType('bool'),
           new BinaryExpression(
-            "or",
-            new IdExpression("x"),
-            new IdExpression("y")
+            'or',
+            new IdExpression('x'),
+            new IdExpression('y')
           )
         ),
         new VariableDeclaration(
-          new IdExpression("b"),
-          new BasicType("bool"),
+          new IdExpression('b'),
+          new PrimitiveType('bool'),
           new BinaryExpression(
-            "||",
-            new IdExpression("y"),
-            new IdExpression("z")
+            '||',
+            new IdExpression('y'),
+            new IdExpression('z')
           )
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   AndOperator: [
@@ -250,25 +250,25 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("a"),
-          new BasicType("bool"),
+          new IdExpression('a'),
+          new PrimitiveType('bool'),
           new BinaryExpression(
-            "and",
-            new IdExpression("x"),
-            new IdExpression("y")
+            'and',
+            new IdExpression('x'),
+            new IdExpression('y')
           )
         ),
         new VariableDeclaration(
-          new IdExpression("b"),
-          new BasicType("auto"),
+          new IdExpression('b'),
+          new PrimitiveType('auto'),
           new BinaryExpression(
-            "&&",
-            new IdExpression("y"),
-            new IdExpression("z")
+            '&&',
+            new IdExpression('y'),
+            new IdExpression('z')
           )
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   FunctionCall: [
@@ -277,17 +277,17 @@ const fixture = {
     `,
     new Program(
       new Block([
-        new FunctionCall(new IdExpression("gcd"), [
+        new FunctionCall(new IdExpression('gcd'), [
           new NumericLiteral(1),
           new BinaryExpression(
-            "**",
-            new IdExpression("x"),
+            '**',
+            new IdExpression('x'),
             new NumericLiteral(5)
           ),
-          new NumericLiteral(3)
-        ])
+          new NumericLiteral(3),
+        ]),
       ])
-    )
+    ),
   ],
 
   Chain: [
@@ -297,24 +297,24 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("loc"),
-          new BasicType("num"),
+          new IdExpression('loc'),
+          new PrimitiveType('num'),
           new CallChain(
             new ListExpression([
               new NumericLiteral(4),
               new NumericLiteral(5),
               new NumericLiteral(2),
-              new NumericLiteral(6)
+              new NumericLiteral(6),
             ]),
             [
-              new FunctionCall(new IdExpression("find"), [
-                new NumericLiteral(5)
-              ])
+              new FunctionCall(new IdExpression('find'), [
+                new NumericLiteral(5),
+              ]),
             ]
           )
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   Print: [
@@ -322,8 +322,8 @@ const fixture = {
       print("Hello World!");
     `,
     new Program(
-      new Block([new PrintStatement(new StringLiteral("Hello World!"))])
-    )
+      new Block([new PrintStatement(new StringLiteral('Hello World!'))])
+    ),
   ],
 
   Dictionary: [
@@ -333,15 +333,15 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("count"),
-          new DictType(new BasicType("string"), new BasicType("num")),
+          new IdExpression('count'),
+          new DictType(new PrimitiveType('string'), new PrimitiveType('num')),
           new DictionaryExpression([
-            new KeyValuePair(new StringLiteral("cows"), new NumericLiteral(1)),
-            new KeyValuePair(new StringLiteral("pigs"), new NumericLiteral(3))
+            new KeyValuePair(new StringLiteral('cows'), new NumericLiteral(1)),
+            new KeyValuePair(new StringLiteral('pigs'), new NumericLiteral(3)),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   FunctionDeclaration: [
@@ -353,21 +353,21 @@ const fixture = {
     new Program(
       new Block([
         new FunctionDeclaration(
-          new IdExpression("addFive"),
-          new BasicType("num"),
-          [new Parameter(new BasicType("num"), new IdExpression("a"))],
+          new IdExpression('addFive'),
+          new PrimitiveType('num'),
+          [new Parameter(new PrimitiveType('num'), new IdExpression('a'))],
           new Block([
             new ReturnStatement(
               new BinaryExpression(
-                "+",
-                new IdExpression("a"),
+                '+',
+                new IdExpression('a'),
                 new NumericLiteral(5)
               )
-            )
+            ),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   TaskDeclaration: [
@@ -379,24 +379,27 @@ const fixture = {
     new Program(
       new Block([
         new TaskDeclaration(
-          new IdExpression("updateX"),
+          new IdExpression('updateX'),
           [
-            new Parameter(new BasicType("num"), new IdExpression("value")),
-            new Parameter(new BasicType("num"), new IdExpression("valueTwo"))
+            new Parameter(new PrimitiveType('num'), new IdExpression('value')),
+            new Parameter(
+              new PrimitiveType('num'),
+              new IdExpression('valueTwo')
+            ),
           ],
           new Block([
             new AssignmentStatement(
-              new IdExpression("x"),
+              new IdExpression('x'),
               new BinaryExpression(
-                "*",
-                new IdExpression("value"),
-                new IdExpression("valueTwo")
+                '*',
+                new IdExpression('value'),
+                new IdExpression('valueTwo')
               )
-            )
+            ),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 
   List: [
@@ -406,21 +409,21 @@ const fixture = {
     new Program(
       new Block([
         new VariableDeclaration(
-          new IdExpression("myList"),
-          new ListType(new BasicType("string")),
+          new IdExpression('myList'),
+          new ListType(new PrimitiveType('string')),
           new ListExpression([
-            new StringLiteral("Will"),
-            new StringLiteral("Manny"),
-            new StringLiteral("Nico"),
-            new StringLiteral("Jigar")
+            new StringLiteral('Will'),
+            new StringLiteral('Manny'),
+            new StringLiteral('Nico'),
+            new StringLiteral('Jigar'),
           ])
-        )
+        ),
       ])
-    )
+    ),
   ],
 };
 
-describe("The parser", () => {
+describe('The parser', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
     test(`produces the correct AST for ${name}`, done => {
       expect(parse(source)).toEqual(expected);
@@ -428,10 +431,10 @@ describe("The parser", () => {
     });
   });
 
-  test("throws an exception on a syntax error", done => {
+  test('throws an exception on a syntax error', done => {
     // We only need one test here that an exception is thrown.
     // Specific syntax errors are tested in the grammar test.
-    expect(() => parse("as$df^&%*$&")).toThrow();
+    expect(() => parse('as$df^&%*$&')).toThrow();
     done();
   });
 });

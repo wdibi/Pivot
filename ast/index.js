@@ -92,17 +92,17 @@ class Parameter {
   }
 }
 
-class BasicType {
+class PrimitiveType {
   constructor(name) {
     this.name = name;
   }
 }
 
-const BoolType = new BasicType("bool");
-const CharType = new BasicType("char");
-const StringType = new BasicType("string");
-const NumType = new BasicType("num");
-const AutoType = new BasicType("auto");
+const BoolType = new PrimitiveType('bool');
+const CharType = new PrimitiveType('char');
+const StringType = new PrimitiveType('string');
+const NumType = new PrimitiveType('num');
+const AutoType = new PrimitiveType('auto');
 
 class ListType {
   constructor(type) {
@@ -195,7 +195,7 @@ module.exports = {
   IfStatement,
   ForStatement,
   RepeatStatement,
-  BasicType,
+  PrimitiveType,
   BoolType,
   CharType,
   StringType,
