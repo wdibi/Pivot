@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/NavBar";
 import Nav from "react-bootstrap/Nav";
 
 import "./AppHeader.css";
-import pivot from "./Images/Pivot/pivot.png";
+// import pivot from "./Images/Pivot/pivot.png";
 
 const AppHeader = ({ setCurrDisplay }) => {
   return (

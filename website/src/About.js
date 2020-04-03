@@ -1,5 +1,4 @@
 import React from "react";
-import Fade from "react-reveal/Fade";
 
 import "./About.css";
 import nico from "./Images/Team/nico.jpg";
@@ -23,6 +22,7 @@ const About = () => {
           <a
             href="https://github.com/wdibi/Pivot"
             target="_blank"
+            rel="noopener noreferrer"
             className="repo-button"
           >
             Visit our GitHub!
@@ -30,6 +30,7 @@ const About = () => {
           <a
             href="https://github.com/wdibi/Pivot/blob/master/grammar/pivot.ohm"
             target="_blank"
+            rel="noopener noreferrer"
             className="repo-button"
           >
             See Our Grammar!
