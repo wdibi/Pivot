@@ -1,0 +1,60 @@
+.navbar {
+  /* position: fixed !important; */
+  width: 100vw;
+  /* height: 150px; */
+  /* background-image: linear-gradient(to right, #040404, #151616); */
+}
+
+.logo {
+  /* font-family: "Bebas Neue", sans-serif; */
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 40px !important;
+  margin-left: 40px;
+  /* color: #bababa !important; */
+  color: #6b6b6b !important;
+}
+
+.logo:hover {
+  color: black !important;
+}
+
+.toggle {
+  margin-right: 50px;
+}
+
+.navcontent {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  /* font-family: "Bebas Neue", sans-serif; */
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+  /* width: 30%; */
+  font-size: 15px;
+}
+
+.NavLink {
+  color: #6b6b6b !important;
+  /* padding-bottom: 1px !important; */
+}
+
+.NavLink:hover {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #c09891;
+}
+
+.NavLink:focus {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #c09891;
+}
+
+.ResumeLink {
+  color: #6b6b6b !important;
+  /* padding-bottom: 1px !important; */
+}
+
+.ResumeLink:hover {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #c09891;
+}

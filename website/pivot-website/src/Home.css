@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Ogg";
+  src: url("http://db.onlinewebfonts.com/t/2596224269750e00c3ad5356299a3b9f.ttf")
+    format("truetype");
+}
+
+.main-paragraph {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-content {
+  /* display: flex;
+    justify-content: center; */
+  height: 50%;
+  width: 50%;
+  color: #6b6b6b;
+  font-family: "Ogg";
+  font-size: 40px;
+}
+
+.mainParagraph p {
+  width: 50vw;
+  /* display: flex;
+    justify-content: center; */
+  color: #6b6b6b;
+  font-family: "Ogg";
+  font-size: 40px;
+}
+
+.intext-hyperlink {
+  color: #ab0c2f;
+  /* font-family: "Helvetica", sans-serif; */
+}
+
+.intext-hyperlink:hover {
+  color: #0076a5;
+  text-decoration: none;
+  /* font-family: "Helvetica", sans-serif; */
+}

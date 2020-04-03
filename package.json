@@ -32,6 +32,8 @@
   "dependencies": {
     "chai": "^4.2.0",
     "ohm-js": "^0.14.0",
+    "react-bootstrap": "^1.0.0",
+    "react-reveal": "^1.2.2",
     "yargs": "^13.3.0"
   }
 }
