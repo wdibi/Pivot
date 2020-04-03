@@ -1,3 +1,8 @@
+.About {
+  width: 100%;
+  height: 100%;
+}
+
 .about-container {
   width: 100vw;
   height: 100%;
@@ -9,6 +14,9 @@
 .about-me-container {
   margin-top: 5%;
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .skills-container {
@@ -21,19 +29,51 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 35px;
+  width: 100%;
+  color: black;
 }
 
 .horizontal-line {
   margin-top: -2px;
   border: 1px solid black;
+  width: 100%;
 }
 
 .about-me-content {
   display: flex;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
+}
+
+.about-buttons {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.repo-button {
+  width: 230px;
+  height: 70px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 7px;
+  transition: 0.3s;
+  margin: 5px;
+}
+
+.repo-button:hover {
+  background-color: #3f3f3f;
+  color: white;
+  width: 230px;
+  height: 70px;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 7px;
 }
 
 .skills-content {
@@ -41,6 +81,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-top: 3%;
 }
 
 .about-profile {
@@ -48,12 +89,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: space-evenly; */
 }
 
 .list-title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 20px;
+  /* font-size: 1.5vw; */
+  font-size: 17px;
 }
 
 .list-content {
@@ -63,8 +106,9 @@
 }
 
 .playroll-img {
-  width: 20%;
-  /* height: 40%; */
+  width: 70%;
+  height: 80%;
   object-fit: cover;
-  object-position: 0% 50%;
+  object-position: 40% 50%;
+  border-radius: 5%;
 }
