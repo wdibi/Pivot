@@ -42,19 +42,19 @@ const About = () => {
         <div className="team-content">
           <div className="member-profile">
             <img src={manny} alt="manny" className="member-img" />
-            <h2 className="list-title">Manny Barreto</h2>
+            <h2 className="member-name">Manny Barreto</h2>
           </div>
           <div className="member-profile">
             <img src={will} alt="will" className="member-img" />
-            <h2 className="list-title">Will DiBiagio</h2>
+            <h2 className="member-name">Will DiBiagio</h2>
           </div>
           <div className="member-profile">
             <img src={nico} alt="nico" className="member-img" />
-            <h2 className="list-title">Nicolas Raymundo</h2>
+            <h2 className="member-name">Nicolas Raymundo</h2>
           </div>
           <div className="member-profile">
             <img src={jigar} alt="jigar" className="member-img" />
-            <h2 className="list-title">Jigar Swaminarayan</h2>
+            <h2 className="member-name">Jigar Swaminarayan</h2>
           </div>
         </div>
       </div>
