@@ -8,7 +8,7 @@ const AppHeader = ({ setCurrDisplay }) => {
   return (
     <Navbar>
       <Nav.Link onClick={() => setCurrDisplay("intro")} className="logo">
-        N/CO
+        Pivot
       </Nav.Link>
       <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
         <Nav className="navcontent">
@@ -22,7 +22,7 @@ const AppHeader = ({ setCurrDisplay }) => {
             onClick={() => setCurrDisplay("projects")}
             className="NavLink"
           >
-            Projects
+            Sample Programs
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

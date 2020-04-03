@@ -1,0 +1,70 @@
+.about-container {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-me-container {
+  margin-top: 5%;
+  width: 70%;
+}
+
+.skills-container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 70%;
+}
+
+.about-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.horizontal-line {
+  margin-top: -2px;
+  border: 1px solid black;
+}
+
+.about-me-content {
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.skills-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.about-profile {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.list-content {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.playroll-img {
+  width: 20%;
+  /* height: 40%; */
+  object-fit: cover;
+  object-position: 0% 50%;
+}

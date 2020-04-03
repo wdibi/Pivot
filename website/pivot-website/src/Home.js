@@ -7,14 +7,7 @@ const Home = () => {
   return (
     <Fade clear duration={4000}>
       <div className="main-paragraph">
-        <p className="intro-content">
-          Hello, my name is Nico. I am a developer and photographer currently
-          studying computer science at{" "}
-          <a class="intext-hyperlink" href="http://lmu.edu" target="_blank">
-            Loyola Marymount University
-          </a>
-          .
-        </p>
+        <p className="intro-content">A new spin on programming</p>
       </div>
     </Fade>
   );

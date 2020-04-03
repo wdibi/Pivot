@@ -4,9 +4,7 @@ import "./App.css";
 
 import AppHeader from "./AppHeader";
 import Home from "./Home";
-// import Education from "./Education";
-// import Experience from "./Experience";
-// import About from "./About";
+import About from "./About";
 // import Projects from "./Projects";
 // import Contact from "./Buttons";
 
@@ -20,10 +18,8 @@ const App = () => {
       </div>
       <div className="contentTest">
         {currDisplay === "home" && <Home />}
-        {/* {currDisplay === "education" && <Education />}
-        {currDisplay === "experience" && <Experience />}
         {currDisplay === "about" && <About />}
-        {currDisplay === "projects" && <Projects />} */}
+        {/* {currDisplay === "projects" && <Projects />} */}
       </div>
     </div>
   );

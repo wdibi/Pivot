@@ -1,17 +1,16 @@
 .navbar {
   /* position: fixed !important; */
   width: 100vw;
+  /* margin-top: 1vh; */
   /* height: 150px; */
   /* background-image: linear-gradient(to right, #040404, #151616); */
 }
 
 .logo {
-  /* font-family: "Bebas Neue", sans-serif; */
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 40px !important;
   margin-left: 40px;
-  /* color: #bababa !important; */
   color: #6b6b6b !important;
 }
 
