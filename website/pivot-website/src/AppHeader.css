@@ -10,12 +10,18 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 40px !important;
-  margin-left: 40px;
+  margin-left: 3%;
   color: black !important;
 }
 
 .logo:hover {
   color: black !important;
+}
+
+.header-logo {
+  margin-left: 10px;
+  width: 40px;
+  margin-bottom: 5px;
 }
 
 .toggle {
@@ -28,7 +34,7 @@
   /* font-family: "Bebas Neue", sans-serif; */
   display: flex;
   justify-content: space-between;
-  margin-right: 50px;
+  margin-right: 3%;
   /* width: 30%; */
   font-size: 13px;
 }
