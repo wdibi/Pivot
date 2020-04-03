@@ -5,8 +5,7 @@ import "./App.css";
 import AppHeader from "./AppHeader";
 import Home from "./Home";
 import About from "./About";
-// import Projects from "./Projects";
-// import Contact from "./Buttons";
+import Code from "./Code";
 
 const App = () => {
   let [currDisplay, setCurrDisplay] = useState("home");
@@ -19,7 +18,7 @@ const App = () => {
       <div className="contentTest">
         {currDisplay === "home" && <Home />}
         {currDisplay === "about" && <About />}
-        {/* {currDisplay === "projects" && <Projects />} */}
+        {currDisplay === "code" && <Code />}
       </div>
     </div>
   );

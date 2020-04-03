@@ -18,11 +18,8 @@ const AppHeader = ({ setCurrDisplay }) => {
           <Nav.Link onClick={() => setCurrDisplay("about")} className="NavLink">
             About
           </Nav.Link>
-          <Nav.Link
-            onClick={() => setCurrDisplay("projects")}
-            className="NavLink"
-          >
-            Sample Programs
+          <Nav.Link onClick={() => setCurrDisplay("code")} className="NavLink">
+            Code Examples
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

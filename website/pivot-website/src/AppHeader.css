@@ -11,7 +11,7 @@
   font-weight: 400;
   font-size: 40px !important;
   margin-left: 40px;
-  color: #6b6b6b !important;
+  color: black !important;
 }
 
 .logo:hover {
@@ -24,28 +24,28 @@
 
 .navcontent {
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   /* font-family: "Bebas Neue", sans-serif; */
   display: flex;
   justify-content: space-between;
   margin-right: 50px;
   /* width: 30%; */
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .NavLink {
-  color: #6b6b6b !important;
+  color: black !important;
   /* padding-bottom: 1px !important; */
 }
 
 .NavLink:hover {
   padding-bottom: 1px !important;
-  border-bottom: 2px solid #c09891;
+  border-bottom: 2px solid #85ca77;
 }
 
 .NavLink:focus {
   padding-bottom: 1px !important;
-  border-bottom: 2px solid #c09891;
+  border-bottom: 2px solid #85ca77;
 }
 
 .ResumeLink {
@@ -55,5 +55,5 @@
 
 .ResumeLink:hover {
   padding-bottom: 1px !important;
-  border-bottom: 2px solid #c09891;
+  border-bottom: 2px solid #85ca77;
 }
