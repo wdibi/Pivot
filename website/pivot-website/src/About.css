@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.about-me-container {
+.about-pivot-container {
   margin-top: 5%;
   width: 70%;
   display: flex;
@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.skills-container {
+.team-container {
   margin-top: 5%;
   margin-bottom: 5%;
   width: 70%;
@@ -39,7 +39,7 @@
   width: 100%;
 }
 
-.about-me-content {
+.about-pivot-content {
   display: flex;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
@@ -60,10 +60,15 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 20px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px solid black;
   border-radius: 7px;
   transition: 0.3s;
   margin: 5px;
+  text-decoration: none;
 }
 
 .repo-button:hover {
@@ -74,9 +79,10 @@
   font-size: 20px;
   border: 2px solid black;
   border-radius: 7px;
+  text-decoration: none;
 }
 
-.skills-content {
+.team-content {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -84,7 +90,7 @@
   margin-top: 3%;
 }
 
-.about-profile {
+.member-profile {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -93,9 +99,9 @@
 }
 
 .list-title {
+  margin-top: 5px;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  /* font-size: 1.5vw; */
+  font-weight: 600;
   font-size: 17px;
 }
 
@@ -105,7 +111,7 @@
   font-size: 15px;
 }
 
-.playroll-img {
+.member-img {
   width: 70%;
   height: 80%;
   object-fit: cover;

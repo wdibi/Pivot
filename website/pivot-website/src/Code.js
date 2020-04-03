@@ -4,14 +4,14 @@ import "./Code.css";
 
 const Code = () => {
   return (
-    <div className="projects-container">
-      <div className="projects-header">
-        <h1 className="projects-title">Code Examples</h1>
+    <div className="code-container">
+      <div className="code-header">
+        <h1 className="code-main-title">Code Examples</h1>
         <hr className="horizontal-line" />
       </div>
-      <div className="projects-list">
-        <div className="project-individual-container">
-          <h1 className="project-individual-title">Even or Odd</h1>
+      <div className="code-list">
+        <div className="snippet-container">
+          <h1 className="snippet-title">Even or Odd</h1>
           {/* <hr className="horizontal-line-projects" /> */}
           <pre>{`
             evenOdd(num x) -> bool
@@ -19,8 +19,8 @@ const Code = () => {
             end
           `}</pre>
         </div>
-        <div className="project-individual-container">
-          <h1 className="project-individual-title">Greatest Common Divisor</h1>
+        <div className="snippet-container">
+          <h1 className="snippet-title">Greatest Common Divisor</h1>
           {/* <hr className="horizontal-line-projects" /> */}
           <pre>
             {`
@@ -30,8 +30,8 @@ const Code = () => {
             `}
           </pre>
         </div>
-        <div className="project-individual-container">
-          <h1 className="project-individual-title">Fibonacci</h1>
+        <div className="snippet-container">
+          <h1 className="snippet-title">Fibonacci</h1>
           {/* <hr className="horizontal-line-projects" /> */}
           <pre>
             {`
@@ -48,8 +48,8 @@ const Code = () => {
             `}
           </pre>
         </div>
-        <div className="project-individual-container">
-          <h1 className="project-individual-title">First Factorial</h1>
+        <div className="snippet-container">
+          <h1 className="snippet-title">First Factorial</h1>
           {/* <hr className="horizontal-line-projects" /> */}
           <pre>
             {`

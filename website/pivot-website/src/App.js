@@ -15,7 +15,7 @@ const App = () => {
       <div className="AppHeader">
         <AppHeader setCurrDisplay={setCurrDisplay} />
       </div>
-      <div className="contentTest">
+      <div className="content">
         {currDisplay === "home" && <Home />}
         {currDisplay === "about" && <About />}
         {currDisplay === "code" && <Code />}
