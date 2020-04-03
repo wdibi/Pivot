@@ -13,5 +13,7 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "rules": {}
+  "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }]
+  }
 }

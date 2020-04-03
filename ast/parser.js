@@ -3,8 +3,8 @@
 //   const parse = require('./parser');
 //   const ast = parse(sourceCodeString);
 
-const ohm = require("ohm-js");
-const fs = require("fs");
+const ohm = require('ohm-js');
+const fs = require('fs');
 
 const {
   Program,
@@ -39,16 +39,16 @@ const {
   Parameter,
   ReturnStatement,
   TaskDeclaration,
-} = require(".");
+} = require('.');
 
-const grammar = ohm.grammar(fs.readFileSync("./grammar/pivot.ohm"));
+const grammar = ohm.grammar(fs.readFileSync('./grammar/pivot.ohm'));
 
 function arrayToNullable(a) {
   return a.length === 0 ? null : a[0];
 }
 
 /* eslint-disable no-unused-vars */
-const astBuilder = grammar.createSemantics().addOperation("ast", {
+const astBuilder = grammar.createSemantics().addOperation('ast', {
   Program(b) {
     return new Program(b.ast());
   },
@@ -117,11 +117,11 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     return new DictType(keyType.ast(), valueType.ast());
   },
   Exp_binary(e1, _, e2) {
-    let op = this.sourceString.includes("or") ? "or" : "||";
+    let op = this.sourceString.includes('or') ? 'or' : '||';
     return new BinaryExpression(op, e1.ast(), e2.ast());
   },
   Exp1_binary(e1, _, e2) {
-    let op = this.sourceString.includes("and") ? "and" : "&&";
+    let op = this.sourceString.includes('and') ? 'and' : '&&';
     return new BinaryExpression(op, e1.ast(), e2.ast());
   },
   Exp2_binary(e1, op, e2) {
@@ -164,7 +164,7 @@ const astBuilder = grammar.createSemantics().addOperation("ast", {
     return new DictionaryExpression(p.ast());
   },
   boollit(_) {
-    return new BooleanLiteral(this.sourceString === "true");
+    return new BooleanLiteral(this.sourceString === 'true');
   },
   numlit(f, _, _l) {
     return new NumericLiteral(+this.sourceString);
