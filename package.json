@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "jest --collect-coverage",
-    "lint": "eslint ."
+    "lint": "eslint --ignore-pattern '/website' ."
   },
   "repository": {
     "type": "git",

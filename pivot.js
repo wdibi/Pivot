@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-const { argv } = require("yargs")
-  .usage("$0 [-a] [-o] [-i] filename")
-  .boolean(["a", "o", "i"])
-  .describe("a", "show abstract syntax tree after parsing then stop")
-  .describe("o", "do optimizations")
-  .describe("i", "generate and show the intermediate code then stop")
+const { argv } = require('yargs')
+  .usage('$0 [-a] [-o] [-i] filename')
+  .boolean(['a', 'o', 'i'])
+  .describe('a', 'show abstract syntax tree after parsing then stop')
+  .describe('o', 'do optimizations')
+  .describe('i', 'generate and show the intermediate code then stop')
   .demand(1);
 
-const fs = require("fs");
-const util = require("util");
-const parse = require("./ast/parser");
+const fs = require('fs');
+const util = require('util');
+const parse = require('./ast/parser');
 // require("./semantics/analyzer");
 // require("./semantics/optimizer");
 // require(`./backend/${argv.target}generator`);
 
-fs.readFile(argv._[0], "utf-8", (error, text) => {
+fs.readFile(argv._[0], 'utf-8', (error, text) => {
   if (error) {
     console.error(error);
     return;

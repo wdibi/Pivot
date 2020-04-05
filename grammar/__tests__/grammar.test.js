@@ -5,7 +5,7 @@
  * syntactic forms of the language.
  */
 
-const syntaxCheck = require("../syntax-checker");
+const syntaxCheck = require('../syntax-checker');
 
 const program = String.raw`
 str name <- "Jigar";
@@ -54,8 +54,8 @@ while x do
 end 
 `;
 
-describe("The syntax checker", () => {
-  test("accepts the full program with all syntactic forms", done => {
+describe('The syntax checker', () => {
+  test('accepts the full program with all syntactic forms', done => {
     expect(syntaxCheck(program)).toBe(true);
     done();
   });

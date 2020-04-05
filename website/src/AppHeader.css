@@ -1,0 +1,65 @@
+.navbar {
+  /* position: fixed !important; */
+  width: 100vw;
+  /* margin-top: 1vh; */
+  /* height: 150px; */
+  /* background-image: linear-gradient(to right, #040404, #151616); */
+}
+
+.logo {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 40px !important;
+  margin-left: 3%;
+  color: black !important;
+}
+
+.logo:hover {
+  color: black !important;
+}
+
+.header-logo {
+  margin-left: 10px;
+  width: 40px;
+  margin-bottom: 5px;
+}
+
+.toggle {
+  margin-right: 50px;
+}
+
+.navcontent {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  /* font-family: "Bebas Neue", sans-serif; */
+  display: flex;
+  justify-content: space-between;
+  margin-right: 3%;
+  /* width: 30%; */
+  font-size: 13px;
+}
+
+.NavLink {
+  color: black !important;
+  /* padding-bottom: 1px !important; */
+}
+
+.NavLink:hover {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #85ca77;
+}
+
+.NavLink:focus {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #85ca77;
+}
+
+.ResumeLink {
+  color: #6b6b6b !important;
+  /* padding-bottom: 1px !important; */
+}
+
+.ResumeLink:hover {
+  padding-bottom: 1px !important;
+  border-bottom: 2px solid #85ca77;
+}

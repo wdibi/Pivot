@@ -1,0 +1,26 @@
+.Home {
+  width: 100%;
+  height: 100%;
+}
+
+.main-paragraph {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-content {
+  text-align: center;
+  width: 70%;
+  color: #6b6b6b;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+}
+
+.home-logo {
+  width: 17%;
+}
