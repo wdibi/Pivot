@@ -11,6 +11,7 @@ const { argv } = require("yargs")
 const fs = require("fs");
 const util = require("util");
 const parse = require("./ast/parser");
+const view = require("./semantics/viewer");
 // require("./semantics/analyzer");
 // require("./semantics/optimizer");
 // require(`./backend/${argv.target}generator`);
@@ -24,6 +25,9 @@ fs.readFile(argv._[0], "utf-8", (error, text) => {
   if (argv.a) {
     console.log(util.inspect(program, { depth: null }));
     return;
+  }
+  if (argv.i) {
+    return view(program);
   }
   // program.analyze();
   // if (argv.o) {
