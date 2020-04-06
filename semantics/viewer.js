@@ -8,20 +8,24 @@ module.exports = root => {
   return dataset; 
 };
 
-function addReachableEntities(node, dataset, parentIndex) {
+
+function addReachableEntities(node, dataset, parentIndex, label) {
   if (node === null || typeof node !== 'object' || dataset.entities.includes(node)) {
     return;
   }
+
   dataset.entities.push(node);
-  nodeIndex = dataset.entities.length - 1;
+  const nodeIndex = dataset.entities.length - 1;
 
-  if (parentIndex >= 0) { dataset.edges.push({ source: parentIndex, target: nodeIndex }) }
+  if (parentIndex >= 0) {
+    dataset.edges.push({ source: parentIndex, target: nodeIndex, label: label });
+  }
 
-  Object.values(node).forEach(value => {
+  Object.entries(node).forEach(([prop, value]) => {
     if (Array.isArray(value)) {
-      value.forEach(n => addReachableEntities(n, dataset, nodeIndex));
+      value.forEach((n, i) => addReachableEntities(n, dataset, nodeIndex, `${prop}[${i}]`));
     } else {
-      addReachableEntities(value, dataset, nodeIndex);
+      addReachableEntities(value, dataset, nodeIndex, prop);
     }
   });
 }
