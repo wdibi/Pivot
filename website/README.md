@@ -9,8 +9,15 @@
 </h1>
 <p align="center"><strong>A new spin on programming</strong><br><br></p>
 
+<p align="center">Home</p>
 <p align="center">
-  <img src="src/Images/Stills/Home.png" width="80%">
-  <img src="src/Images/Stills/About.png" width="80%">
-  <img src="src/Images/Stills/Code.png" width="80%">
+    <img src="src/Images/Stills/Home.png" width="80%">
+</p>
+<p align="center">About</p>
+<p align="center">
+    <img src="src/Images/Stills/About.png" width="80%">
+</p>
+<p align="center">Code Examples</p>
+<p align="center">
+    <img src="src/Images/Stills/Code.png" width="80%">
 </p>
