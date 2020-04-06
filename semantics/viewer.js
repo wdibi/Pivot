@@ -42,14 +42,14 @@ function addReachableEntities(node, dataset, parentIndex, label) {
 
 function visualizeAST(dataset) {
   const width = 1920, height = 1080;
-  const document = new JSDOM(`<!DOCTYPE html><html><body></body></html>`).window.document;
+  const document = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
 
   const simulation = d3.forceSimulation(dataset.entities)
     .force("link", d3.forceLink(dataset.edges).id((d, i) => i))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-  const svg = d3.select(document).select('body')
+  const svg = d3.select(document.window.document).select('body')
     .append('div')
     .attr('class', 'container')
       .append("svg")
@@ -108,7 +108,7 @@ function visualizeAST(dataset) {
       .attr("cy", d => d.y);
   });
 
-  fs.writeFileSync('test.svg', d3.select(document).select('body').select('.container').html()) //using sync to keep the code simple
-
+  fs.writeFileSync('test.html', document.serialize()) //using sync to keep the code simple
+  
   return;
 }
