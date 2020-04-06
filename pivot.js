@@ -28,7 +28,7 @@ fs.readFile(argv._[0], "utf-8", (error, text) => {
   }
   if (argv.i) {
     console.log(view(program));
-    return view(program);
+    return;
   }
   // program.analyze();
   // if (argv.o) {
