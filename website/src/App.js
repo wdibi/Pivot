@@ -12,10 +12,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="AppHeader">
+      <div className="app-header">
         <AppHeader setCurrDisplay={setCurrDisplay} />
       </div>
-      <div className="content">
+      <div className="app-content">
         {currDisplay === "home" && <Home />}
         {currDisplay === "about" && <About />}
         {currDisplay === "code" && <Code />}

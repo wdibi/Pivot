@@ -5,11 +5,11 @@
   flex-direction: column;
 }
 
-.AppHeader {
+.app-eader {
   height: auto;
 }
 
-.content {
+.app-content {
   display: flex;
   justify-content: center;
   align-items: center;
