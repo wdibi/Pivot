@@ -194,7 +194,7 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
 
 /* eslint-enable no-unused-vars */
 
-module.exports = text => {
+module.exports = (text) => {
   const match = grammar.match(text);
   if (!match.succeeded()) {
     throw match.message;

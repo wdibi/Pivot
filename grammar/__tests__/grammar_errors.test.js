@@ -59,7 +59,7 @@ let x = 25;
 
 describe('The syntax checker', () => {
   errors.forEach(([scenario, program]) => {
-    test(`detects the error ${scenario}`, done => {
+    test(`detects the error ${scenario}`, (done) => {
       expect(syntaxCheck(program)).toBe(false);
       done();
     });
@@ -67,8 +67,8 @@ describe('The syntax checker', () => {
 });
 
 describe('Check full program for failure', () => {
-  test(`detects the error ${programFail}`, done => {
+  test(`detects the error ${programFail}`, (done) => {
     expect(syntaxCheck(programFail)).toBe(false);
     done();
-    });
+  });
 });

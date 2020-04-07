@@ -425,13 +425,13 @@ const fixture = {
 
 describe('The parser', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
-    test(`produces the correct AST for ${name}`, done => {
+    test(`produces the correct AST for ${name}`, (done) => {
       expect(parse(source)).toEqual(expected);
       done();
     });
   });
 
-  test('throws an exception on a syntax error', done => {
+  test('throws an exception on a syntax error', (done) => {
     // We only need one test here that an exception is thrown.
     // Specific syntax errors are tested in the grammar test.
     expect(() => parse('as$df^&%*$&')).toThrow();
