@@ -5,7 +5,7 @@ const Context = require('./context');
 module.exports = (exp) => exp.analyze(Context.INITIAL);
 
 Program.prototype.analyze = function(context) {
-  console.log(this);
+  this.block.analyze(context);
 };
 
 Block.prototype.analyze = function(context) {
