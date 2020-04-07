@@ -4,8 +4,11 @@ const Context = require('./context');
 
 module.exports = (exp) => exp.analyze(Context.INITIAL);
 
-Program.prototype.analyze = (context) => this.block.analyze(context);
-Block.prototype.analyze = (context) => {
+Program.prototype.analyze = function(context) {
+  console.log(this);
+};
+
+Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements.forEach((s) => s.analyze(localContext));
 };
