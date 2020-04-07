@@ -3,6 +3,7 @@ const analyze = require('../analyzer');
 
 const program = String.raw`
 num x <- 2;
+x <- 5;
 `;
 
 describe('The semantic analyzer', () => {

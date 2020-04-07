@@ -4,6 +4,8 @@ const Context = require('../context');
 const errors = [
   ['type mismatch in declaration', 'num x <- a;'],
   ['variable already declared', 'bool x <- true; bool x <- false;'],
+  ['variable assignment type mismatch', 'bool x <- true; bool x <- "true";'],
+  ['variable not yet declared', 'x <- "hello";'],
 ];
 
 describe('The semantic analyzer', () => {
