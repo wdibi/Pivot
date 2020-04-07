@@ -1,4 +1,13 @@
-const { Program, Block, VariableDeclaration } = require('../ast');
+const {
+  Program,
+  Block,
+  VariableDeclaration,
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
+} = require('../ast');
+const { NumType, StringType, BoolType, CharType } = require('../ast');
 const check = require('./check');
 const Context = require('./context');
 
@@ -14,6 +23,23 @@ Block.prototype.analyze = function(context) {
 };
 
 VariableDeclaration.prototype.analyze = function(context) {
+  this.init.analyze(context);
   check.isNotVariableTypeMismatch(this.type, this.init);
   context.add(this);
+};
+
+NumericLiteral.prototype.analyze = function() {
+  this.type = NumType;
+};
+
+StringLiteral.prototype.analyze = function() {
+  this.type = StringType;
+};
+
+BooleanLiteral.prototype.analyze = function() {
+  this.type = BoolType;
+};
+
+CharacterLiteral.prototype.analyze = function() {
+  this.type = CharType;
 };
