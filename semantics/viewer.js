@@ -14,7 +14,6 @@ module.exports = (root) => {
     (async () => {
       await open('http://localhost:5000/');
     })();
-    appServer.close();
   });
   
   return 'success';
@@ -38,7 +37,7 @@ function addReachableEntities(node, dataset, parentIndex, label) {
     dataset.edges.push({
       source: parentIndex,
       target: dataset.entities.indexOf(node),
-      label,
+      label: label,
     });
     return;
   }
