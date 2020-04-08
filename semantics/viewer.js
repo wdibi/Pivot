@@ -9,7 +9,7 @@ module.exports = (root) => {
   writeData(dataset);
 
   const app = require('../graph/server');
-  const appServer = app.listen(PORT, async function() {    
+  app.listen(PORT, async function() {    
     console.log(`Server started on port ${PORT}`);
     (async () => {
       await open('http://localhost:5000/');
