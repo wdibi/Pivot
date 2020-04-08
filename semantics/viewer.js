@@ -1,8 +1,5 @@
 const fs = require('fs');
 
-const width = 1920,
-  height = 1080;
-
 module.exports = (root) => {
   const dataset = { entities: [], edges: [] };
   addReachableEntities(root, dataset, -1);
@@ -21,8 +18,6 @@ function nodeText(node, index) {
   return {
     name: text,
     id: index,
-    x: Math.floor(Math.random() * width),
-    y: Math.floor(Math.random() * height),
   };
 }
 
