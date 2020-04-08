@@ -8,9 +8,10 @@ const { argv } = require('yargs')
   .describe('i', 'generate and show the intermediate code then stop')
   .demand(1);
 
-const fs = require('fs');
-const util = require('util');
-const parse = require('./ast/parser');
+const fs = require("fs");
+const util = require("util");
+const parse = require("./ast/parser");
+const view = require("./semantics/viewer");
 // require("./semantics/analyzer");
 // require("./semantics/optimizer");
 // require(`./backend/${argv.target}generator`);
@@ -23,6 +24,10 @@ fs.readFile(argv._[0], 'utf-8', (error, text) => {
   let program = parse(text);
   if (argv.a) {
     console.log(util.inspect(program, { depth: null }));
+    return;
+  }
+  if (argv.i) {
+    view(program);
     return;
   }
   // program.analyze();
