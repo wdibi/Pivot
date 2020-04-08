@@ -11,28 +11,28 @@
   const data = JSON.parse(<%-JSON.stringify(data)%>);
 
   const simulation = d3
-    .forceSimulation(data.nodes)
+    .forceSimulation(data.entities)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('center', d3.forceCenter(width / 2, height / 2))
     .force(
       'link',
-      d3.forceLink(data.links).id((d) => d.id)
+      d3.forceLink(data.edges).id((d) => d.id)
     )
     .on('tick', tick);
 
-  const links = svg
+  const edges = svg
     .append('g')
     .selectAll('line')
-    .data(data.links)
+    .data(data.edges)
     .enter()
     .append('line')
     .attr('stroke-width', 3)
     .style('stroke', 'orange');
 
-  const nodes = svg
+  const entities = svg
     .append('g')
     .selectAll('circle')
-    .data(data.nodes)
+    .data(data.entities)
     .enter()
     .append('circle')
     .attr('r', 15)
@@ -41,7 +41,7 @@
   const entityLabels = svg
     .append('g')
     .selectAll('.entityLabel')
-    .data(data.nodes)
+    .data(data.entities)
     .enter()
     .append('text')
     .attr('x', (d) => d.x + 10)
@@ -64,12 +64,12 @@
       [d.fx, d.fy] = [null, null];
     });
 
-  nodes.call(drag);
+  entities.call(drag);
 
   function tick() {
-    nodes.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
+    entities.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
     entityLabels.attr('x', (d) => d.x).attr('y', (d) => d.y);
-    links
+    edges
       .attr('x1', (d) => d.source.x)
       .attr('y1', (d) => d.source.y)
       .attr('x2', (d) => d.target.x)
