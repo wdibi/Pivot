@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<svg width="960" height="600"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+  const svg = d3.select('svg');
+  const width = svg.attr('width');
+  const height = svg.attr('height');
+
+  // Weird I know...
+  const data = JSON.parse(<%-JSON.stringify(data)%>);
+
+  const simulation = d3
+    .forceSimulation(data.nodes)
+    .force('charge', d3.forceManyBody().strength(-1000))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force(
+      'link',
+      d3.forceLink(data.links).id((d) => d.id)
+    )
+    .on('tick', tick);
+
+  const links = svg
+    .append('g')
+    .selectAll('line')
+    .data(data.links)
+    .enter()
+    .append('line')
+    .attr('stroke-width', 3)
+    .style('stroke', 'orange');
+
+  const nodes = svg
+    .append('g')
+    .selectAll('circle')
+    .data(data.nodes)
+    .enter()
+    .append('circle')
+    .attr('r', 15)
+    .attr('fill', 'red');
+
+  const entityLabels = svg
+    .append('g')
+    .selectAll('.entityLabel')
+    .data(data.nodes)
+    .enter()
+    .append('text')
+    .attr('x', (d) => d.x + 10)
+    .attr('y', (d) => d.y)
+    .attr('class', 'entityLabel')
+    .text((d) => d.name)
+    .attr('font-family', 'monospace')
+    .attr('font-size', '14px')
+    .attr('fill', 'black');
+
+  const drag = d3
+    .drag()
+    .on('drag', (d) => ([d.fx, d.fy] = [d3.event.x, d3.event.y]))
+    .on('start', (d) => {
+      simulation.alphaTarget(0.3).restart();
+      [d.fx, d.fy] = [d3.event.x, d3.event.y];
+    })
+    .on('end', (d) => {
+      simulation.alphaTarget(0);
+      [d.fx, d.fy] = [null, null];
+    });
+
+  nodes.call(drag);
+
+  function tick() {
+    nodes.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
+    entityLabels.attr('x', (d) => d.x).attr('y', (d) => d.y);
+    links
+      .attr('x1', (d) => d.source.x)
+      .attr('y1', (d) => d.source.y)
+      .attr('x2', (d) => d.target.x)
+      .attr('y2', (d) => d.target.y);
+  }
+</script>
