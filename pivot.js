@@ -8,10 +8,10 @@ const { argv } = require('yargs')
   .describe('i', 'generate and show the intermediate code then stop')
   .demand(1);
 
-const fs = require("fs");
-const util = require("util");
-const parse = require("./ast/parser");
-const view = require("./semantics/viewer");
+const fs = require('fs');
+const util = require('util');
+const parse = require('./ast/parser');
+const view = require('./semantics/viewer');
 // require("./semantics/analyzer");
 // require("./semantics/optimizer");
 // require(`./backend/${argv.target}generator`);
