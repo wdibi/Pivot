@@ -13,9 +13,9 @@ module.exports = (root) => {
     console.log(`Server started on port ${PORT}`);
     (async () => {
       await open('http://localhost:5000/');
-    })().catch(console.error);
+    })();
+    appServer.close();
   });
-  appServer.close();
   
   return 'success';
 };
