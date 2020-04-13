@@ -187,14 +187,11 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   KeyValuePair(key, _colon, value) {
     return new KeyValuePair(key.ast(), value.ast());
   },
-  // _terminal() {
-  //   return this.sourceString;
-  // },
 });
 
 /* eslint-enable no-unused-vars */
 
-module.exports = (text) => {
+module.exports = text => {
   const match = grammar.match(text);
   if (!match.succeeded()) {
     throw match.message;
