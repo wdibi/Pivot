@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "98ac1c51c5a3c52c602324329abd3e4e",
+    "revision": "894444781523a0d83dd66537a738f9ea",
     "url": "/Pivot/index.html"
   },
   {
-    "revision": "5c6001360412e7ad95c4",
+    "revision": "82df147502c72779ae18",
     "url": "/Pivot/static/css/2.de424728.chunk.css"
   },
   {
-    "revision": "30a880866e7821e613bc",
+    "revision": "79715d40522edfe5a2e6",
     "url": "/Pivot/static/css/main.a0aebacd.chunk.css"
   },
   {
-    "revision": "5c6001360412e7ad95c4",
-    "url": "/Pivot/static/js/2.a9cb2a7c.chunk.js"
+    "revision": "82df147502c72779ae18",
+    "url": "/Pivot/static/js/2.c3c56f39.chunk.js"
   },
   {
     "revision": "4d47ffde3dc69784e8e23fd910817ef8",
-    "url": "/Pivot/static/js/2.a9cb2a7c.chunk.js.LICENSE.txt"
+    "url": "/Pivot/static/js/2.c3c56f39.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "30a880866e7821e613bc",
-    "url": "/Pivot/static/js/main.c6e2a43b.chunk.js"
+    "revision": "79715d40522edfe5a2e6",
+    "url": "/Pivot/static/js/main.471a3885.chunk.js"
   },
   {
-    "revision": "3d838f68cc236fbe1b73",
-    "url": "/Pivot/static/js/runtime-main.a6a574a8.js"
+    "revision": "f9ee93b47efd854cbc4a",
+    "url": "/Pivot/static/js/runtime-main.1d6f5f83.js"
   },
   {
     "revision": "31d986118ee86d0bf9885ab43b61cab1",

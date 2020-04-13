@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Pivot/static/css/main.a0aebacd.chunk.css",
-    "main.js": "/Pivot/static/js/main.c6e2a43b.chunk.js",
-    "main.js.map": "/Pivot/static/js/main.c6e2a43b.chunk.js.map",
-    "runtime-main.js": "/Pivot/static/js/runtime-main.a6a574a8.js",
-    "runtime-main.js.map": "/Pivot/static/js/runtime-main.a6a574a8.js.map",
+    "main.js": "/Pivot/static/js/main.471a3885.chunk.js",
+    "main.js.map": "/Pivot/static/js/main.471a3885.chunk.js.map",
+    "runtime-main.js": "/Pivot/static/js/runtime-main.1d6f5f83.js",
+    "runtime-main.js.map": "/Pivot/static/js/runtime-main.1d6f5f83.js.map",
     "static/css/2.de424728.chunk.css": "/Pivot/static/css/2.de424728.chunk.css",
-    "static/js/2.a9cb2a7c.chunk.js": "/Pivot/static/js/2.a9cb2a7c.chunk.js",
-    "static/js/2.a9cb2a7c.chunk.js.map": "/Pivot/static/js/2.a9cb2a7c.chunk.js.map",
+    "static/js/2.c3c56f39.chunk.js": "/Pivot/static/js/2.c3c56f39.chunk.js",
+    "static/js/2.c3c56f39.chunk.js.map": "/Pivot/static/js/2.c3c56f39.chunk.js.map",
     "index.html": "/Pivot/index.html",
-    "precache-manifest.e6790927ef9981264024c41dc3b37607.js": "/Pivot/precache-manifest.e6790927ef9981264024c41dc3b37607.js",
+    "precache-manifest.02b3883fa03abbd1952793cdcc9d8ab5.js": "/Pivot/precache-manifest.02b3883fa03abbd1952793cdcc9d8ab5.js",
     "service-worker.js": "/Pivot/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/Pivot/static/css/2.de424728.chunk.css.map",
     "static/css/main.a0aebacd.chunk.css.map": "/Pivot/static/css/main.a0aebacd.chunk.css.map",
-    "static/js/2.a9cb2a7c.chunk.js.LICENSE.txt": "/Pivot/static/js/2.a9cb2a7c.chunk.js.LICENSE.txt",
+    "static/js/2.c3c56f39.chunk.js.LICENSE.txt": "/Pivot/static/js/2.c3c56f39.chunk.js.LICENSE.txt",
     "static/media/jigar.jpg": "/Pivot/static/media/jigar.31d98611.jpg",
     "static/media/manny.jpg": "/Pivot/static/media/manny.f40355bb.jpg",
     "static/media/nico.jpg": "/Pivot/static/media/nico.8b382cf3.jpg",
@@ -21,10 +21,10 @@
     "static/media/will.jpg": "/Pivot/static/media/will.9aca70c0.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a6a574a8.js",
+    "static/js/runtime-main.1d6f5f83.js",
     "static/css/2.de424728.chunk.css",
-    "static/js/2.a9cb2a7c.chunk.js",
+    "static/js/2.c3c56f39.chunk.js",
     "static/css/main.a0aebacd.chunk.css",
-    "static/js/main.c6e2a43b.chunk.js"
+    "static/js/main.471a3885.chunk.js"
   ]
 }
