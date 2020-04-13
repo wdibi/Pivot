@@ -1,4 +1,5 @@
 {
+  "homepage": "http://{wdibi}.github.io/{pivot}",
   "name": "pivot-website",
   "version": "0.1.0",
   "private": true,
@@ -15,6 +16,8 @@
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -34,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
