@@ -10,5 +10,5 @@ semantics/graph/data.json
 # Tests 
 coverage
 
-# website
-/build
+# Website
+build
