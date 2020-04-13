@@ -6,7 +6,7 @@ const {
   NumType,
   AutoType,
   ListType,
-  DictType,
+  DictType
 } = require('./builtins');
 
 require('./analyzer');
@@ -17,7 +17,7 @@ class Context {
       parent,
       currentFunction,
       inLoop,
-      locals: new Map(),
+      locals: new Map()
     });
   }
 
@@ -31,7 +31,7 @@ class Context {
     return new Context({
       parent: this,
       currentFunction: this.currentFunction,
-      inLoop: true,
+      inLoop: true
     });
   }
 
@@ -40,7 +40,7 @@ class Context {
     return new Context({
       parent: this,
       currentFunction: this.currentFunction,
-      inLoop: this.inLoop,
+      inLoop: this.inLoop
     });
   }
 
@@ -74,10 +74,8 @@ Context.INITIAL = new Context();
   StringType,
   NumType,
   AutoType,
-  // ListType,
-  // DictType,
-  ...standardFunctions,
-].forEach((entity) => {
+  ...standardFunctions
+].forEach(entity => {
   Context.INITIAL.add(entity);
 });
 
