@@ -1,6 +1,6 @@
 {
-  "homepage": "http://wdibi.github.io/Pivot",
-  "name": "pivot-website",
+  "homepage": "http://wdibi.github.io/Pivot/",
+  "name": "pivot",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
