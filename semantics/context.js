@@ -4,9 +4,7 @@ const {
   CharType,
   StringType,
   NumType,
-  AutoType,
-  ListType,
-  DictType
+  AutoType
 } = require('./builtins');
 
 require('./analyzer');
