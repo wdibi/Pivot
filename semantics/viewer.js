@@ -8,7 +8,7 @@ module.exports = (root) => {
   dataset.entities = dataset.entities.map((e, i) => nodeText(e, i));
   writeData(dataset);
 
-  const app = require('../graph/server');
+  const app = require('./graph/server');
   app.listen(PORT, async function() {    
     console.log(`Server started on port ${PORT}`);
     (async () => {
@@ -62,5 +62,5 @@ function addReachableEntities(node, dataset, parentIndex, label) {
 }
 
 function writeData(data) {
-  fs.writeFileSync('./graph/data.json', JSON.stringify(data));
+  fs.writeFileSync('./semantics/graph/data.json', JSON.stringify(data));
 }
