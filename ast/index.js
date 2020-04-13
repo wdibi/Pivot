@@ -93,8 +93,8 @@ class Parameter {
 }
 
 class PrimitiveType {
-  constructor(name) {
-    this.name = name;
+  constructor(id) {
+    this.id = id;
   }
 }
 
@@ -147,9 +147,9 @@ class CharacterLiteral extends Expression {
 }
 
 class IdExpression extends Expression {
-  constructor(name) {
+  constructor(id) {
     super();
-    this.name = name;
+    this.id = id;
   }
 }
 
