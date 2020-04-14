@@ -55,7 +55,7 @@ end
 `;
 
 describe('The syntax checker', () => {
-  test('accepts the full program with all syntactic forms', (done) => {
+  test('accepts the full program with all syntactic forms', done => {
     expect(syntaxCheck(program)).toBe(true);
     done();
   });

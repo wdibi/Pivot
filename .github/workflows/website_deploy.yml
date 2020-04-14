@@ -1,4 +1,4 @@
-name: Test
+name: Website Deploy
 
 on:
   # Trigger the workflow on push or pull request,
@@ -6,23 +6,15 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - 'website/**'
-  pull_request:
-    branches:
-      - master
-    paths-ignore:
-      - 'website/**'
+    paths:
+    - 'website/**'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node: [ '13', '12' ]
-
+        node: [ '12' ]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -30,6 +22,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm test
-      env:
-        CI: true
+    - run: npm run deploy
