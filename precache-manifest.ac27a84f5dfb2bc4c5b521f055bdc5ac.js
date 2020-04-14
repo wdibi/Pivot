@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5f7f5bbe30c59c0f1b70d9f4d33e2155",
+    "revision": "21bef60569bc69121a5154cef623461c",
     "url": "/Pivot/index.html"
   },
   {
-    "revision": "82df147502c72779ae18",
+    "revision": "492ed87870c9319a27f2",
     "url": "/Pivot/static/css/2.de424728.chunk.css"
   },
   {
-    "revision": "28ed065f63f74dd9b0c8",
+    "revision": "193734511a778feb4c63",
     "url": "/Pivot/static/css/main.a0aebacd.chunk.css"
   },
   {
-    "revision": "82df147502c72779ae18",
-    "url": "/Pivot/static/js/2.c3c56f39.chunk.js"
+    "revision": "492ed87870c9319a27f2",
+    "url": "/Pivot/static/js/2.ebc330c7.chunk.js"
   },
   {
     "revision": "4d47ffde3dc69784e8e23fd910817ef8",
-    "url": "/Pivot/static/js/2.c3c56f39.chunk.js.LICENSE.txt"
+    "url": "/Pivot/static/js/2.ebc330c7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "28ed065f63f74dd9b0c8",
-    "url": "/Pivot/static/js/main.1384aa40.chunk.js"
+    "revision": "193734511a778feb4c63",
+    "url": "/Pivot/static/js/main.7a718150.chunk.js"
   },
   {
     "revision": "f9ee93b47efd854cbc4a",
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pivot/static/media/manny.f40355bb.jpg"
   },
   {
-    "revision": "8b382cf3d3c34cf3a6a45085a5cc5773",
-    "url": "/Pivot/static/media/nico.8b382cf3.jpg"
+    "revision": "e3b4b5fa743b5e1591e8e55752a05982",
+    "url": "/Pivot/static/media/nico.e3b4b5fa.jpg"
   },
   {
     "revision": "b9c79696eab8103059b7b85efb666640",
