@@ -7,7 +7,6 @@ import Home from "./Home";
 import About from "./About";
 import Code from "./Code";
 
-// TEST Deply Script
 const App = () => {
   let [currDisplay, setCurrDisplay] = useState("home");
 
