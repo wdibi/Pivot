@@ -31,27 +31,29 @@ end
 num y <- 8 ** 8;
 
 fibonacci(num x) -> num
-    (num a, num b, num temp) <- (1, 0, 0);
+    all num a, b, temp <- 1, 0, 0;
     repeat
         temp <- a;
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    until num < 0;
-
+    when num < 0 end
     return b;
 end
 
 num x <- 25;
 
-for num a <- 0; a < 2; a <- a + 1; do
+for num a <- 0; a < 2; a <- a + 1 do
     print a;
 end
 
 while x do
     print x;
     x <- x - 1;
-end 
+end
+
+x <- addFive(3);
+_ z <- sqrt(24) << round();
 `;
 
 describe('The syntax checker', () => {

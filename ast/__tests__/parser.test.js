@@ -150,7 +150,7 @@ const fixture = {
     String.raw`
     repeat
       x <- -x + 5;
-    until y;
+    when y end
     `,
     new Program(
       new Block([
@@ -173,7 +173,7 @@ const fixture = {
 
   ForLoop: [
     String.raw`
-    for num a <- 0; a < 2; a <- a + 1; do
+    for num a <- 0; a < 2; a <- a + 1 do
       y <- y / a;
     end
     `,
