@@ -55,28 +55,31 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   Block(s) {
     return new Block(s.ast());
   },
-  VarDeclaration_single(t, i, _a, init, _sc) {
+  Statement(s, _) {
+    return s.ast();
+  },
+  VarDeclaration_single(t, i, _a, init) {
     return new VariableDeclaration(i.ast(), t.ast(), init.ast());
   },
-  VarDeclaration_multi(_all, t, i, _a, init, _sc) {
+  VarDeclaration_multi(_all, t, i, _a, init) {
     return new VariableDeclaration(i.ast(), t.ast(), init.ast());
   },
-  IterationStatement_while(_while, t, _do, b, _end) {
+  IterationStatement_while(_while, t, _do, b) {
     return new WhileStatement(t.ast(), b.ast());
   },
-  IterationStatement_repeat(_repeat, b, _until, exp, _sc) {
+  IterationStatement_repeat(_repeat, b, _until, exp) {
     return new RepeatStatement(b.ast(), exp.ast());
   },
-  IterationStatement_for(_for, initial, test, _sc, exp, _do, body, _end) {
+  IterationStatement_for(_for, initial, _sc1, test, _sc2, exp, _do, body) {
     return new ForStatement(initial.ast(), test.ast(), exp.ast(), body.ast());
   },
-  CallExpression_function(i, _openParen, args, _closeParen, _sc) {
-    return new FunctionCall(i.ast(), args.ast());
+  CallExpression_function(c) {
+    return c.ast();
   },
-  FunctionDeclaration_regular(i, _o, a, _c, _a, t, b, _end) {
+  FunctionDeclaration_regular(i, _o, a, _c, _a, t, b) {
     return new FunctionDeclaration(i.ast(), t.ast(), a.ast(), b.ast());
   },
-  FunctionDeclaration_task(_t, i, _o, a, _c, b, _e) {
+  FunctionDeclaration_task(_t, i, _o, a, _c, b) {
     return new TaskDeclaration(i.ast(), a.ast(), b.ast());
   },
   FunctionCall(i, _openParen, args, _closeParen) {
@@ -85,14 +88,14 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   CallExpression_chain(item, _a, methods) {
     return new CallChain(item.ast(), methods.ast());
   },
-  IfStatement(_if, t, _then, consequent, _e, alternate, _end) {
+  IfStatement(_if, t, _then, consequent, _e, alternate) {
     return new IfStatement(
       t.ast(),
       consequent.ast(),
       arrayToNullable(alternate.ast())
     );
   },
-  Assignment(i, _a, e, _) {
+  Assignment(i, _a, e) {
     return new AssignmentStatement(i.ast(), e.ast());
   },
   BooleanType(_) {
@@ -151,10 +154,10 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   Parameter(t, i) {
     return new Parameter(t.ast(), i.ast());
   },
-  PrintStatement(_p, i, _sc) {
+  PrintStatement(_p, i) {
     return new PrintStatement(i.ast());
   },
-  ReturnStatement(_r, i, _sc) {
+  ReturnStatement(_r, i) {
     return new ReturnStatement(i.ast());
   },
   List(_o, e, _c) {
@@ -186,6 +189,9 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   },
   KeyValuePair(key, _colon, value) {
     return new KeyValuePair(key.ast(), value.ast());
+  },
+  _terminal() {
+    return this.sourceString;
   },
 });
 
