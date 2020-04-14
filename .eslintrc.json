@@ -14,15 +14,9 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "quotes": [2, "single", { "avoidEscape": true }],
-    "comma-dangle":  ["warn",
-       {
-        "arrays": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "never",
-        "imports": "always-multiline",
-        "objects": "always-multiline"
-      }
-    ]
-  }
+    "prettier/prettier": "error"
+  },
+  "plugins": [
+    "prettier"
+  ]
 }
