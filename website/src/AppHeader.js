@@ -1,6 +1,5 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/NavBar';
-import Nav from 'react-bootstrap/Nav';
+import { Navbar, Nav } from 'react-bootstrap';
 
 import './AppHeader.css';
 
