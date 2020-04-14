@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'website/**'
+      - '.github/workflows/**'
 
 jobs:
   build:
@@ -19,6 +20,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
     - run: npm install
       working-directory: ./website
     - run: npm run deploy
