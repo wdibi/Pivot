@@ -1,21 +1,21 @@
 const fs = require('fs');
-const open = require('open')
+const open = require('open');
 const PORT = 5000;
 
-module.exports = (root) => {
+module.exports = root => {
   const dataset = { entities: [], edges: [] };
   addReachableEntities(root, dataset, -1);
   dataset.entities = dataset.entities.map((e, i) => nodeText(e, i));
   writeData(dataset);
 
   const app = require('./graph/server');
-  app.listen(PORT, async function() {    
+  app.listen(PORT, async function() {
     console.log(`Server started on port ${PORT}`);
     (async () => {
       await open('http://localhost:5000/');
     })();
   });
-  
+
   return 'success';
 };
 

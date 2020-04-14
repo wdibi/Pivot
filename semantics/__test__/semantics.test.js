@@ -7,7 +7,7 @@ x <- 5;
 `;
 
 describe('The semantic analyzer', () => {
-  test('accepts the mega program with all syntactic forms', (done) => {
+  test('accepts the mega program with all syntactic forms', done => {
     const astRoot = parse(program);
     expect(astRoot).toBeTruthy();
     analyze(astRoot);

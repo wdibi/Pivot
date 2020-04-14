@@ -17,7 +17,7 @@ const standardFunctions = [
 ];
 
 /* eslint-disable no-param-reassign */
-standardFunctions.forEach((f) => {
+standardFunctions.forEach(f => {
   f.builtin = true;
 });
 /* eslint-enable no-param-reassign */

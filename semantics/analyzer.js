@@ -18,7 +18,7 @@ const {
 const check = require('./check');
 const Context = require('./context');
 
-module.exports = (exp) => exp.analyze(Context.INITIAL);
+module.exports = exp => exp.analyze(Context.INITIAL);
 
 Program.prototype.analyze = function(context) {
   this.block.analyze(context);
@@ -26,7 +26,7 @@ Program.prototype.analyze = function(context) {
 
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
-  this.statements.forEach((s) => s.analyze(localContext));
+  this.statements.forEach(s => s.analyze(localContext));
 };
 
 Object.assign(PrimitiveType.prototype, {
