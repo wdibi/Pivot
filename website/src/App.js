@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import "./App.css";
-// Issue here
+import "./App.css"
 import AppHeader from "./AppHeader";
 import Home from "./Home";
 import About from "./About";
