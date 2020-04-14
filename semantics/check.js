@@ -9,7 +9,7 @@ function doCheck(condition, message) {
 module.exports = {
   isNotVariableTypeMismatch(type, expression) {
     doCheck(
-      type.id === expression.type.id,
+      type.id === 'auto' || type.id === expression.type.id,
       `Expression of type ${util.format(
         expression.type
       )} not compatible with type ${util.format(type)}`

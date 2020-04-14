@@ -6,6 +6,7 @@ const errors = [
   ['variable already declared', 'bool x <- true; bool x <- false;'],
   ['variable assignment type mismatch', 'bool x <- true; bool x <- "true";'],
   ['variable not yet declared', 'x <- "hello";'],
+  ['invalid auto declaration', '_ x <- asdfasdfe;'],
 ];
 
 describe('The semantic analyzer', () => {
