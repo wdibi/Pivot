@@ -81,6 +81,7 @@ FunctionDeclaration.prototype.analyzeSignature = function(context) {
 
 FunctionDeclaration.prototype.analyze = function() {
   this.body.analyze(this.bodyContext);
+  check.bodyContainsReturn(this.body);
 };
 
 FunctionCall.prototype.analyze = function(context) {

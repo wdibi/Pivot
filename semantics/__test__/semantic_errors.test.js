@@ -19,6 +19,12 @@ const errors = [
     'expression of type char not compatible with type num',
     `add(num a, num b) -> num return 5; end add('a');`,
   ],
+  [
+    'no return statement found within function',
+    `add(num a, num b) -> num 
+      a <- 5; 
+    end`
+  ]
 ];
 
 describe('The semantic analyzer', () => {

@@ -1,5 +1,5 @@
 const util = require('util');
-const { FunctionDeclaration } = require('../ast');
+const { FunctionDeclaration, ReturnStatement } = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -36,6 +36,11 @@ module.exports = {
 
   withinFunction(context) {
     doCheck(context.currentFunction !== null, `not within a function`);
+  },
+
+  bodyContainsReturn(body) {
+    doCheck(body.statements.filter(d => d.constructor === ReturnStatement).length > 0,
+      'no return statement found within function')
   },
 
   returnMatchesFunctionReturnType(returnExpression, functionContext) {
