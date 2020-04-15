@@ -18,8 +18,8 @@ Pivot {
   IfShort             = Exp when (CallExpression | Exp)
                         otherwise (CallExpression | IfShort | Exp)
   ReturnStatement     = return (IfShort | Exp)
-  IterationStatement  = while Exp "do" Block                                                  -- while
-                      | repeat Block when Exp                                               -- repeat
+  IterationStatement  = while Exp "do" Block                                                    -- while
+                      | repeat Block when Exp                                                   -- repeat
                       | "for" VarDeclaration ";" (Exp | CallExpression)
                         ";" (CallExpression | Assignment) "do" Block                            -- for
   PrintStatement      = print (CallExpression | Exp)
@@ -42,7 +42,8 @@ Pivot {
                       | Exp6
   Exp6                = Exp6 "**" Exp7                                                          -- binary
                       | Exp7
-  Exp7                = id
+  Exp7                = FunctionCall
+                      | id
                       | boollit
                       | numlit
                       | strlit
