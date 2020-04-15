@@ -38,6 +38,7 @@ const {
   FunctionDeclaration,
   Parameter,
   ReturnStatement,
+  BreakStatement,
   TaskDeclaration,
 } = require('.');
 
@@ -159,6 +160,9 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   },
   ReturnStatement(_r, i) {
     return new ReturnStatement(i.ast());
+  },
+  BreakStatement(_b) {
+    return new BreakStatement();
   },
   List(_o, e, _c) {
     return new ListExpression(e.ast());
