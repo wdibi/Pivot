@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "21bef60569bc69121a5154cef623461c",
+    "revision": "dc17ffa2079f12b589bb17ba0f9b7c5c",
     "url": "/Pivot/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pivot/static/css/2.de424728.chunk.css"
   },
   {
-    "revision": "193734511a778feb4c63",
+    "revision": "68dc29a81bb175bc89c1",
     "url": "/Pivot/static/css/main.a0aebacd.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pivot/static/js/2.ebc330c7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "193734511a778feb4c63",
-    "url": "/Pivot/static/js/main.7a718150.chunk.js"
+    "revision": "68dc29a81bb175bc89c1",
+    "url": "/Pivot/static/js/main.ada2ba70.chunk.js"
   },
   {
     "revision": "f9ee93b47efd854cbc4a",
