@@ -48,6 +48,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
     - [Fibonacci Pivot:](#fibonacci-pivot)
     - [Even or Odd:](#even-or-odd)
     - [Greatest Common Divisor:](#greatest-common-divisor)
+    - [First Factorial:](#first-factorial)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
@@ -309,7 +310,7 @@ num x <- 30;
 repeat
     print x;
     x <- x - 5;
-until x == -30;
+when x == -30 end
 ```
 
   </td>
@@ -403,7 +404,7 @@ fibonacci(num x) -> num
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    until num < 0;
+    until num < 0 end
 
     return b;
 end
@@ -488,6 +489,45 @@ end
 ```javascript
 function gcd(a, b) {
   return !b ? a : gcd(b, a % b);
+}
+```
+
+  </td>
+
+</table>
+
+#### First Factorial:
+
+<table style="table-layout: fixed; width: 100vw">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```text
+firstFactorial(num x) -> num
+    if x == 0 or x == 1 then
+        return 1;
+    else
+        return x * firstFactorial(x - 1);
+    end
+end
+```
+
+  </td>
+
+  <td>
+
+```javascript
+function firstFactorial(x) {
+  if (x == 0 || x == 1) {
+    return 1;
+  } else {
+    return x * firstFactorial(x - 1);
+  }
 }
 ```
 
