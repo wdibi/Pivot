@@ -39,8 +39,10 @@ module.exports = {
   },
 
   bodyContainsReturn(body) {
-    doCheck(body.statements.filter(d => d.constructor === ReturnStatement).length > 0,
-      'no return statement found within function')
+    doCheck(
+      body.statements.filter(d => d.constructor === ReturnStatement).length > 0,
+      'no return statement found within function'
+    );
   },
 
   returnMatchesFunctionReturnType(returnExpression, functionContext) {

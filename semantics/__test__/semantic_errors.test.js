@@ -23,8 +23,8 @@ const errors = [
     'no return statement found within function',
     `add(num a, num b) -> num 
       a <- 5; 
-    end`
-  ]
+    end`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
