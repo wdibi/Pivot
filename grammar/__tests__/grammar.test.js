@@ -31,6 +31,10 @@ end
 
 num y <- 8 ** 8;
 
+/* This is a 
+
+Multiline comment */
+
 fibonacci(num x) -> num
     all num a, b, temp <- 1, 0, 0;
     repeat
@@ -46,6 +50,8 @@ end
 num x <- 25;
 
 for num a <- 0; a < 2; a <- a + 1 do
+  /* This is a 
+  Multiline comment within a for loop */
     print a;
 end
 
