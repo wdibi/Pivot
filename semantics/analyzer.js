@@ -126,14 +126,21 @@ Parameter.prototype.analyze = function(context) {
 };
 
 BinaryExpression.prototype.analyze = function(context) {
+  // Primitive Types First
+  // Later consider something like [3,2,1] + [0] = [3,2,1,0]
+  this.left.analyze(context);
+  this.right.analyze(context);
   switch (this.op) {
     case '+':
-      this.left.analyze(context);
-      this.right.analyze(context);
       check.isNumOrString(this.left);
       check.isNumOrString(this.right);
+      break;
+    case '-':
+      check.isNum(this.left);
+      check.isNum(this.right);
   }
 };
+
 PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
 };
