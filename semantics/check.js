@@ -1,5 +1,5 @@
 const util = require('util');
-const { FunctionDeclaration, ReturnStatement } = require('../ast');
+const { FunctionDeclaration, ReturnStatement, BreakStatement } = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -52,5 +52,9 @@ module.exports = {
         returnExpression.type
       )}, but function expects ${util.format(functionContext.returnType)}`
     );
+  },
+
+  withinValidBody(context) {
+    doCheck(context.currentTask != null || context.currentLoop != null, `not within task or body`)
   },
 };
