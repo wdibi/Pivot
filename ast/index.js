@@ -63,9 +63,7 @@ class ReturnStatement {
 }
 
 class BreakStatement {
-  constructor() {
-
-  }
+  constructor() {}
 }
 
 class ForStatement {

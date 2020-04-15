@@ -164,7 +164,7 @@ const fixture = {
               new IdExpression('x'),
               new NumericLiteral(1)
             ),
-            new BreakStatement()
+            new BreakStatement(),
           ])
         ),
       ])
