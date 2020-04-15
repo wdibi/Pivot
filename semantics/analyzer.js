@@ -132,10 +132,22 @@ BinaryExpression.prototype.analyze = function(context) {
   this.right.analyze(context);
   switch (this.op) {
     case '+':
-      check.isNumOrString(this.left);
-      check.isNumOrString(this.right);
+      console.log(this.left.type);
+      check.isNumStringOrChar(this.left);
+      check.isNumStringOrChar(this.right);
       break;
-    default:
+    case '<=':
+    case '<':
+    case '==':
+    case '!=':
+    case '>=':
+    case '>':
+      check.isNumStringOrChar(this.left);
+      check.isNumStringOrChar(this.right);
+      break;
+    case '-':
+    case '*':
+    case '/':
       check.isNum(this.left);
       check.isNum(this.right);
   }
