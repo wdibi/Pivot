@@ -138,6 +138,7 @@ BinaryExpression.prototype.analyze = function(context) {
     case '-' || '*' || '/':
       check.isNum(this.left);
       check.isNum(this.right);
+      break;
   }
 };
 
