@@ -9,10 +9,10 @@ Pivot {
                       | PrintStatement ";"
                       | Assignment ";"
                       | ReturnStatement ";"
-  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
-                      | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">       -- multi
+                      | Type id "<-" (CallExpression | IfShort | Exp)                           -- single
                       | "(" Type id ("," Type id)+ ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
+                        "<-" "(" NonemptyListOf<Exp, ","> ")"                                   -- multidec
   Assignment          = id "<-" (CallExpression | Exp)
   IfStatement         = if Exp then Statement+ (else Statement+)?
   IfShort             = Exp when (CallExpression | Exp)
