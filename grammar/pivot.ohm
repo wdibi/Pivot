@@ -86,7 +86,6 @@ Pivot {
   ends                = "\n"* "end"
   print               = "print" ~alnum
   space              +=  " " | "\t" | comment
-  comment             =  "//" (~"\n" any)*                                                 -- singleline
-                      | "/*" (~"*/" any)* "*/"                                             -- multiline
-                      
+  comment             =  "//" (~"\n" any)*                                                      -- singleline
+                      | "/*" (~"*/" any)* "*/"                                                  -- multiline
 }
