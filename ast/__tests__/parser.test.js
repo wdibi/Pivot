@@ -36,6 +36,7 @@ const {
   FunctionDeclaration,
   Parameter,
   ReturnStatement,
+  BreakStatement,
   TaskDeclaration,
   UnaryExpression,
 } = require('..');
@@ -140,6 +141,29 @@ const fixture = {
               new IdExpression('x'),
               new NumericLiteral(1)
             ),
+          ])
+        ),
+      ])
+    ),
+  ],
+
+  WhileLoopWithBreak: [
+    String.raw`
+    while x do
+      x <- 1;
+      break;
+    end
+    `,
+    new Program(
+      new Block([
+        new WhileStatement(
+          new IdExpression('x'),
+          new Block([
+            new AssignmentStatement(
+              new IdExpression('x'),
+              new NumericLiteral(1)
+            ),
+            new BreakStatement()
           ])
         ),
       ])

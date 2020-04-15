@@ -62,6 +62,12 @@ class ReturnStatement {
   }
 }
 
+class BreakStatement {
+  constructor() {
+
+  }
+}
+
 class ForStatement {
   constructor(init, condition, exp, body) {
     Object.assign(this, { init, condition, exp, body });
@@ -215,5 +221,6 @@ module.exports = {
   DictionaryExpression,
   KeyValuePair,
   ReturnStatement,
+  BreakStatement,
   Parameter,
 };
