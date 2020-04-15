@@ -2,17 +2,18 @@ const {
   Program,
   Block,
   VariableDeclaration,
+  IdExpression,
   NumericLiteral,
   StringLiteral,
   BooleanLiteral,
   CharacterLiteral,
   AssignmentStatement,
   FunctionDeclaration,
+  TaskDeclaration,
   FunctionCall,
   Parameter,
   ReturnStatement,
   BreakStatement,
-  TaskDeclaration,
 } = require('../ast');
 const {
   NumType,
@@ -33,11 +34,15 @@ Program.prototype.analyze = function(context) {
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements
-    .filter(d => d.constructor === FunctionDeclaration)
-    .map(d => d.analyzeSignature(localContext));
-  this.statements
-    .filter(d => d.constructor === FunctionDeclaration)
-    .map(d => localContext.add(d));
+    .filter(
+      d =>
+        d.constructor === FunctionDeclaration ||
+        d.constructor === TaskDeclaration
+    )
+    .map(d => {
+      d.analyzeSignature(localContext);
+      localContext.add(d);
+    });
   this.statements.forEach(s => s.analyze(localContext));
 };
 
@@ -57,6 +62,11 @@ AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   this.target.type.isCompatibleWith(this.source.type);
+};
+
+IdExpression.prototype.analyze = function(context) {
+  this.ref = context.lookup(this.id);
+  this.type = this.ref.type;
 };
 
 NumericLiteral.prototype.analyze = function() {
@@ -86,6 +96,15 @@ FunctionDeclaration.prototype.analyze = function() {
   check.bodyContainsReturn(this.body);
 };
 
+TaskDeclaration.prototype.analyzeSignature = function(context) {
+  this.bodyContext = context.createChildContextForTaskBody(this);
+  this.params.forEach(p => p.analyze(this.bodyContext));
+};
+
+TaskDeclaration.prototype.analyze = function() {
+  this.body.analyze(this.bodyContext);
+};
+
 FunctionCall.prototype.analyze = function(context) {
   this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
@@ -95,7 +114,7 @@ FunctionCall.prototype.analyze = function(context) {
 };
 
 TaskDeclaration.prototype.analyzeSignature = function(context) {
-  this.bodyContext = context.createChildContextForFunctionBody(this);
+  this.bodyContext = context.createChildContextForTaskBody(this);
   this.params.forEach(p => p.analyze(this.bodyContext));
 };
 
@@ -105,6 +124,7 @@ TaskDeclaration.prototype.analyze = function() {
 
 ReturnStatement.prototype.analyze = function(context) {
   check.withinFunction(context);
+  check.returnIsNotInTask(context.currentFunction);
   this.item.analyze(context);
   check.returnMatchesFunctionReturnType(this.item, context.currentFunction);
 };
@@ -115,4 +135,4 @@ Parameter.prototype.analyze = function(context) {
 
 BreakStatement.prototype.analyze = function(context) {
   check.withinValidBody(context);
-}
+};

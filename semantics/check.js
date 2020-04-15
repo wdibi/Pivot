@@ -1,5 +1,10 @@
 const util = require('util');
-const { FunctionDeclaration, ReturnStatement, BreakStatement } = require('../ast');
+
+const {
+  FunctionDeclaration,
+  TaskDeclaration,
+  ReturnStatement,
+} = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -29,7 +34,8 @@ module.exports = {
 
   isFunction(value) {
     doCheck(
-      value.constructor === FunctionDeclaration,
+      value.constructor === FunctionDeclaration ||
+        value.constructor === TaskDeclaration,
       `non-existing function called`
     );
   },
@@ -55,6 +61,16 @@ module.exports = {
   },
 
   withinValidBody(context) {
-    doCheck(context.currentTask != null || context.currentLoop != null, `not within task or body`)
+    doCheck(
+      context.currentFunction.functionType === 'task' || context.inLoop,
+      `not within task or loop`
+    );
+  },
+
+  returnIsNotInTask(functionContext) {
+    doCheck(
+      functionContext.functionType !== 'task',
+      'return statement not valid in task'
+    );
   },
 };

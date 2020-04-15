@@ -20,7 +20,14 @@ class Context {
   }
 
   createChildContextForFunctionBody(currentFunction) {
+    currentFunction.functionType = 'function';
     // When entering a new function, we're not in a loop anymore
+    return new Context({ parent: this, currentFunction, inLoop: false });
+  }
+
+  createChildContextForTaskBody(currentFunction) {
+    currentFunction.functionType = 'task';
+    // When entering a new task, we're not in a loop anymore
     return new Context({ parent: this, currentFunction, inLoop: false });
   }
 
