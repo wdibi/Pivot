@@ -1,6 +1,6 @@
 Pivot {
   Program             = Block
-  Block               = Statement+
+  Block               = Statement*
   Statement           = FunctionDeclaration ends
                       | VarDeclaration ";"
                       | IfStatement ends
@@ -9,15 +9,17 @@ Pivot {
                       | PrintStatement ";"
                       | Assignment ";"
                       | ReturnStatement ";"
-  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">       -- multi
-                      | Type id "<-" (CallExpression | IfShort | Exp)                           -- single
+                      | BreakStatement ";"
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
+                      | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
                       | "(" Type id ("," Type id)+ ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")"                                   -- multidec
+                        "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
   Assignment          = id "<-" (CallExpression | Exp)
   IfStatement         = if Exp then Statement+ (else Statement+)?
   IfShort             = Exp when (CallExpression | Exp)
                         otherwise (CallExpression | IfShort | Exp)
   ReturnStatement     = return (IfShort | Exp)
+  BreakStatement      = "break"
   IterationStatement  = while Exp "do" Block                                                    -- while
                       | repeat Block when Exp                                                   -- repeat
                       | "for" VarDeclaration ";" (Exp | CallExpression)
@@ -97,4 +99,7 @@ Pivot {
   print               = "print" ~alnum
   true                = "true" ~alnum
   false               = "false" ~alnum
+  space              +=  " " | "\t" | comment
+  comment             =  "//" (~"\n" any)*                                                      -- singleline
+                      | "/*" (~"*/" any)* "*/"                                                  -- multiline
 }
