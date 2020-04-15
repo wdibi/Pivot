@@ -13,6 +13,7 @@ const {
   FunctionCall,
   Parameter,
   ReturnStatement,
+  BreakStatement,
 } = require('../ast');
 const {
   NumType,
@@ -112,6 +113,15 @@ FunctionCall.prototype.analyze = function(context) {
   this.type = this.callee.returnType;
 };
 
+TaskDeclaration.prototype.analyzeSignature = function(context) {
+  this.bodyContext = context.createChildContextForTaskBody(this);
+  this.params.forEach(p => p.analyze(this.bodyContext));
+};
+
+TaskDeclaration.prototype.analyze = function() {
+  this.body.analyze(this.bodyContext);
+};
+
 ReturnStatement.prototype.analyze = function(context) {
   check.withinFunction(context);
   check.returnIsNotInTask(context.currentFunction);
@@ -121,4 +131,8 @@ ReturnStatement.prototype.analyze = function(context) {
 
 Parameter.prototype.analyze = function(context) {
   context.add(this);
+};
+
+BreakStatement.prototype.analyze = function(context) {
+  check.withinValidBody(context);
 };

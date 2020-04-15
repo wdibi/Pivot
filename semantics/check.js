@@ -1,4 +1,5 @@
 const util = require('util');
+
 const {
   FunctionDeclaration,
   TaskDeclaration,
@@ -56,6 +57,13 @@ module.exports = {
       `returns ${util.format(
         returnExpression.type
       )}, but function expects ${util.format(functionContext.returnType)}`
+    );
+  },
+
+  withinValidBody(context) {
+    doCheck(
+      context.currentFunction.functionType === 'task' || context.inLoop,
+      `not within task or loop`
     );
   },
 

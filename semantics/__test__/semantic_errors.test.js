@@ -28,10 +28,11 @@ const errors = [
   [
     'return statement not valid in task',
     `task updateX(num value)
-      x <- value;
+      num x <- value;
       return value;
     end`,
   ],
+  ['break is not valid outside of task or loop', 'num x <- 4; break;'],
 ];
 
 describe('The semantic analyzer', () => {
