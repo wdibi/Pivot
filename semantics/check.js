@@ -74,4 +74,8 @@ module.exports = {
       'expression not num or string'
     );
   },
+
+  isNum(exp) {
+    doCheck(exp.type === NumType, 'expression not num');
+  },
 };

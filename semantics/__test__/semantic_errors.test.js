@@ -33,6 +33,9 @@ const errors = [
     end`,
   ],
   ['can only add strings and numbers', 'print false + 3;'],
+  ['can only subtract numbers', 'print "hi" - 3;'],
+  ['can only multiply numbers', 'print false * 3;'],
+  ['can only divide numbers', 'print "abc" / 3;'],
 ];
 
 describe('The semantic analyzer', () => {

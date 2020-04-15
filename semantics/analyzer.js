@@ -132,8 +132,18 @@ BinaryExpression.prototype.analyze = function(context) {
       this.right.analyze(context);
       check.isNumOrString(this.left);
       check.isNumOrString(this.right);
+      break;
+    case '-':
+    case '*':
+    case '/':
+      this.left.analyze(context);
+      this.right.analyze(context);
+      check.isNum(this.left);
+      check.isNum(this.right);
+      break;
   }
 };
+
 PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
 };
