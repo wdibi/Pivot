@@ -32,6 +32,7 @@ const errors = [
       return value;
     end`,
   ],
+  ['break is not valid outside of task or loop', 'num x <- 4; break;'],
 ];
 
 describe('The semantic analyzer', () => {
