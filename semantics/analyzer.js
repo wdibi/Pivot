@@ -97,6 +97,6 @@ ReturnStatement.prototype.analyze = function(context) {
   check.returnMatchesFunctionReturnType(this.item, context.currentFunction);
 };
 
-Parameter.prototype.analyze = function() {
-  // this.type = context.lookup(this.type);
+Parameter.prototype.analyze = function(context) {
+  context.add(this);
 };
