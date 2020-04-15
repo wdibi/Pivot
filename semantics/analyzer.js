@@ -135,7 +135,7 @@ BinaryExpression.prototype.analyze = function(context) {
       check.isNumOrString(this.left);
       check.isNumOrString(this.right);
       break;
-    case '-':
+    case '-' || '*' || '/':
       check.isNum(this.left);
       check.isNum(this.right);
   }
