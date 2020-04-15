@@ -1,33 +1,33 @@
 Pivot {
   Program             = Block
   Block               = Statement+
-  Statement           = FunctionDeclaration
-                      | VarDeclaration
-                      | IfStatement
-                      | IterationStatement
-                      | CallExpression
-                      | PrintStatement
-                      | Assignment
-                      | ReturnStatement
-  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ","> ";"    -- multi
-                      | Type id "<-" (CallExpression | IfShort | Exp) ";"                        -- single
-                      |  "(" Type id ("," Type id)+ ")"
-                        "<-" "(" NonemptyListOf<Exp, ","> ")" ";"                                -- multidec
-  Assignment          = id "<-" (CallExpression | Exp) ";"
-  IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)? ends
-  IfShort             = Exp "when" (CallExpression | Exp )
-                        "otherwise" (CallExpression | IfShort | Exp )
-  ReturnStatement     = "return" (Exp | IfShort) ";"
-  IterationStatement  = "while" Exp "do" Block ends                                             -- while
-                      | "repeat" Block "until" Exp ";"                                          -- repeat
-                      | "for" VarDeclaration (Exp | CallExpression)
-                      	";" (CallExpression | Assignment) "do" Block ends                       -- for
-  PrintStatement      = print (CallExpression | Exp)  ";"
-  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block  ends                 -- regular
-                      | "task" id "(" listOf<Parameter, ","> ")" Block ends                     -- task
+  Statement           = FunctionDeclaration ends
+                      | VarDeclaration ";"
+                      | IfStatement ends
+                      | IterationStatement ends
+                      | CallExpression ";"
+                      | PrintStatement ";"
+                      | Assignment ";"
+                      | ReturnStatement ";"
+  VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
+                      | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
+                      | "(" Type id ("," Type id)+ ")"
+                        "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
+  Assignment          = id "<-" (CallExpression | Exp)
+  IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)?
+  IfShort             = Exp "when" (CallExpression | Exp)
+                        "otherwise" (CallExpression | IfShort | Exp)
+  ReturnStatement     = "return" (Exp | IfShort)
+  IterationStatement  = "while" Exp "do" Block                                                  -- while
+                      | "repeat" Block "when" Exp                                               -- repeat
+                      | "for" VarDeclaration ";" (Exp | CallExpression)
+                        ";" (CallExpression | Assignment) "do" Block                            -- for
+  PrintStatement      = print (CallExpression | Exp)
+  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block                       -- regular
+                      | "task" id "(" listOf<Parameter, ","> ")" Block                          -- task
   Parameter           = Type id
-  CallExpression       = id "(" listOf<Exp, ","> ")" ";"                                        -- function
-                      | (id | List | Dict) "<<" NonemptyListOf<FunctionCall, "<<">              -- chain
+  CallExpression      = (FunctionCall | Exp) "<<" NonemptyListOf<FunctionCall, "<<">            -- chain
+                      | FunctionCall                                                            -- function
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
   Exp1                = Exp1 andop Exp2                                                         -- binary
