@@ -68,7 +68,7 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   IterationStatement_while(_while, t, _do, b) {
     return new WhileStatement(t.ast(), b.ast());
   },
-  IterationStatement_repeat(_repeat, b, _until, exp) {
+  IterationStatement_repeat(_repeat, b, _when, exp) {
     return new RepeatStatement(b.ast(), exp.ast());
   },
   IterationStatement_for(_for, initial, _sc1, test, _sc2, exp, _do, body) {

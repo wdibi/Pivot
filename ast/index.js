@@ -93,8 +93,8 @@ class KeyValuePair {
 }
 
 class Parameter {
-  constructor(type, value) {
-    Object.assign(this, { type, value });
+  constructor(type, id) {
+    Object.assign(this, { type, id });
   }
 }
 

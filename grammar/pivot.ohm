@@ -15,13 +15,12 @@ Pivot {
                       | "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
   Assignment          = id "<-" (CallExpression | Exp)
-  IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)?
-  IfShort             = Exp "when" (CallExpression | Exp)
-                        "otherwise" (CallExpression | IfShort | Exp)
-  ReturnStatement     = "return" (Exp | IfShort)
-  BreakStatement      = "break"
-  IterationStatement  = "while" Exp "do" Block                                                  -- while
-                      | "repeat" Block "when" Exp                                               -- repeat
+  IfStatement         = if Exp then Statement+ (else Statement+)?
+  IfShort             = Exp when (CallExpression | Exp)
+                        otherwise (CallExpression | IfShort | Exp)
+  ReturnStatement     = return (IfShort | Exp)
+  IterationStatement  = while Exp "do" Block                                                    -- while
+                      | repeat Block when Exp                                                   -- repeat
                       | "for" VarDeclaration ";" (Exp | CallExpression)
                         ";" (CallExpression | Assignment) "do" Block                            -- for
   PrintStatement      = print (CallExpression | Exp)
@@ -44,7 +43,8 @@ Pivot {
                       | Exp6
   Exp6                = Exp6 "**" Exp7                                                          -- binary
                       | Exp7
-  Exp7                = id
+  Exp7                = FunctionCall
+                      | id
                       | boollit
                       | numlit
                       | strlit
@@ -70,21 +70,34 @@ Pivot {
   id                  = ~keyword ("_" | letter | "$") idrest*
   idrest              = "_" | alnum
   numlit              = digit+ ("." digit+)?
-  boollit             = "true" | "false"
+  boollit             = true | false
   char                = escape
                       | ~"\\" ~"\"" ~"'" ~"\n" any
   charlit             = "'" (char | "\"") "'"
   strlit              = "\"" (char | "\'")* "\""
   escape              = "\\\\" | "\\\"" | "\\'" | "\\n"
-  andop               = "and" | "AND" | "&&"
-  orop                = "or" | "OR" | "||"
+  andop               = and | "AND" | "&&"
+  orop                = or | "OR" | "||"
   addop               = "+" | "-"
   relop               = "<=" | "<" | "==" | "!=" | ">=" | ">"
   mulop               = "*" | "/" | "%"
   prefixop            = "-" | "not" | "!"
   newline             = "\n"+
   ends                = "\n"* "end"
+  all                 = "all" ~alnum
+  while               = "while" ~alnum
+  repeat              = "repeat" ~alnum
+  if                  = "if" ~alnum
+  else                = "else" ~alnum
+  return              = "return" ~alnum
+  then                = "then" ~alnum
+  and                 = "and" ~alnum
+  or                  = "or" ~alnum
+  when                = "when" ~alnum
+  otherwise           = "otherwise" ~alnum
   print               = "print" ~alnum
+  true                = "true" ~alnum
+  false               = "false" ~alnum
   space              +=  " " | "\t" | comment
   comment             =  "//" (~"\n" any)*                                                      -- singleline
                       | "/*" (~"*/" any)* "*/"                                                  -- multiline

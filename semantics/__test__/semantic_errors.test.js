@@ -6,7 +6,25 @@ const errors = [
   ['variable already declared', 'bool x <- true; bool x <- false;'],
   ['variable assignment type mismatch', 'bool x <- true; bool x <- "true";'],
   ['variable not yet declared', 'x <- "hello";'],
-  ['invalid auto declaration', '_ x <- asdfasdfe;'],
+  ['non-existing function called', 'gcd(1,2,3);'],
+  [
+    'function expects 2 args, but received 1',
+    'add(num a, num b) -> num return 5; end add(5);',
+  ],
+  [
+    'returns num, but function expects str',
+    'hello(str a) -> str return 5; end',
+  ],
+  [
+    'expression of type char not compatible with type num',
+    `add(num a, num b) -> num return 5; end add('a');`,
+  ],
+  [
+    'no return statement found within function',
+    `add(num a, num b) -> num 
+      a <- 5; 
+    end`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
