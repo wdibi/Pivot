@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">
-  <a href="https://github.com/wdibi/Pivot/">
+  <a href="https://wdibi.github.io/Pivot/">
     Pivot
   </a>
 </h1>
