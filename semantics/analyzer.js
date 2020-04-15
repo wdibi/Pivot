@@ -31,7 +31,7 @@ Program.prototype.analyze = function(context) {
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements
-    .filter(d=> d.constructor === FunctionDeclaration)
+    .filter(d => d.constructor === FunctionDeclaration)
     .map(d => d.analyzeSignature(localContext));
   this.statements
     .filter(d => d.constructor === FunctionDeclaration)
@@ -76,12 +76,12 @@ CharacterLiteral.prototype.analyze = function() {
 FunctionDeclaration.prototype.analyzeSignature = function(context) {
   this.bodyContext = context.createChildContextForFunctionBody(this);
   this.params.forEach(p => p.analyze(this.bodyContext));
-  this.returnType = this.type
-}
+  this.returnType = this.type;
+};
 
 FunctionDeclaration.prototype.analyze = function() {
   this.body.analyze(this.bodyContext);
-}
+};
 
 FunctionCall.prototype.analyze = function(context) {
   this.callee = context.lookup(this.id.id);
@@ -89,14 +89,14 @@ FunctionCall.prototype.analyze = function(context) {
   this.params.forEach(arg => arg.analyze(context));
   check.argsMatchParameters(this.params, this.callee.params);
   this.type = this.callee.returnType;
-}
+};
 
 ReturnStatement.prototype.analyze = function(context) {
   check.withinFunction(context);
   this.item.analyze(context);
   check.returnMatchesFunctionReturnType(this.item, context.currentFunction);
-}
+};
 
-Parameter.prototype.analyze = function(context) {
+Parameter.prototype.analyze = function() {
   // this.type = context.lookup(this.type);
-}
+};

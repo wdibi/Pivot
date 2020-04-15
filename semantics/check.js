@@ -1,5 +1,5 @@
 const util = require('util');
-const { FunctionDeclaration } = require('../ast')
+const { FunctionDeclaration } = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -22,7 +22,9 @@ module.exports = {
       args.length === params.length,
       `function expects ${params.length} args, but received ${args.length}`
     );
-    args.forEach((arg, i) => this.isNotVariableTypeMismatch(params[i].type, arg));
+    args.forEach((arg, i) =>
+      this.isNotVariableTypeMismatch(params[i].type, arg)
+    );
   },
 
   isFunction(value) {
@@ -33,18 +35,15 @@ module.exports = {
   },
 
   withinFunction(context) {
-    doCheck(
-      context.currentFunction !== null,
-      `not within a function`
-    );
+    doCheck(context.currentFunction !== null, `not within a function`);
   },
 
   returnMatchesFunctionReturnType(returnExpression, functionContext) {
     doCheck(
       returnExpression.type === functionContext.returnType,
       `returns ${util.format(
-        returnExpression.type)}, but function expects ${util.format(
-          functionContext.returnType)}`
+        returnExpression.type
+      )}, but function expects ${util.format(functionContext.returnType)}`
     );
   },
 };
