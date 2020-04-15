@@ -33,6 +33,13 @@ const errors = [
     end`,
   ],
   ['break is not valid outside of task or loop', 'num x <- 4; break;'],
+  [
+    'statement is unreachable',
+    `add(num a, num b) -> num 
+      return b;
+      a <- 5; 
+    end`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

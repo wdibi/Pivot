@@ -73,4 +73,16 @@ module.exports = {
       'return statement not valid in task'
     );
   },
+
+  statementsAreReachable(statements, context) {
+    statementTypes = statements.map(statement => statement.constructor);
+
+    if (context.currentFunction !== null && statementTypes.includes(ReturnStatement)) {
+      doCheck(
+        statementTypes[statementTypes.length - 1] === ReturnStatement,
+        'statement is unreachable',
+      );
+    }
+  },
+  
 };
