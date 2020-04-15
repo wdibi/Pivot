@@ -30,8 +30,8 @@ const errors = [
     `task updateX(num value)
       x <- value;
       return value;
-    end`
-  ]
+    end`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

@@ -33,10 +33,18 @@ Program.prototype.analyze = function(context) {
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements
-    .filter(d => d.constructor === FunctionDeclaration || d.constructor === TaskDeclaration)
+    .filter(
+      d =>
+        d.constructor === FunctionDeclaration ||
+        d.constructor === TaskDeclaration
+    )
     .map(d => d.analyzeSignature(localContext));
   this.statements
-    .filter(d => d.constructor === FunctionDeclaration || d.constructor === TaskDeclaration)
+    .filter(
+      d =>
+        d.constructor === FunctionDeclaration ||
+        d.constructor === TaskDeclaration
+    )
     .map(d => localContext.add(d));
   this.statements.forEach(s => s.analyze(localContext));
 };
@@ -62,7 +70,7 @@ AssignmentStatement.prototype.analyze = function(context) {
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
   this.type = this.ref.type;
-}
+};
 
 NumericLiteral.prototype.analyze = function() {
   this.type = NumType;
@@ -94,11 +102,11 @@ FunctionDeclaration.prototype.analyze = function() {
 TaskDeclaration.prototype.analyzeSignature = function(context) {
   this.bodyContext = context.createChildContextForTaskBody(this);
   this.params.forEach(p => p.analyze(this.bodyContext));
-}
+};
 
 TaskDeclaration.prototype.analyze = function() {
   this.body.analyze(this.bodyContext);
-}
+};
 
 FunctionCall.prototype.analyze = function(context) {
   this.callee = context.lookup(this.id.id);

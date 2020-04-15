@@ -1,5 +1,9 @@
 const util = require('util');
-const { FunctionDeclaration, TaskDeclaration, ReturnStatement } = require('../ast');
+const {
+  FunctionDeclaration,
+  TaskDeclaration,
+  ReturnStatement,
+} = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -29,7 +33,8 @@ module.exports = {
 
   isFunction(value) {
     doCheck(
-      value.constructor === FunctionDeclaration || value.constructor === TaskDeclaration,
+      value.constructor === FunctionDeclaration ||
+        value.constructor === TaskDeclaration,
       `non-existing function called`
     );
   },
@@ -55,6 +60,9 @@ module.exports = {
   },
 
   returnIsNotInTask(functionContext) {
-    doCheck(functionContext.functionType !== 'task', 'return statement not valid in task')
-  }
+    doCheck(
+      functionContext.functionType !== 'task',
+      'return statement not valid in task'
+    );
+  },
 };
