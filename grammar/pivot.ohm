@@ -9,6 +9,7 @@ Pivot {
                       | PrintStatement ";"
                       | Assignment ";"
                       | ReturnStatement ";"
+                      | BreakStatement ";"
   VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
                       | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
                       | "(" Type id ("," Type id)+ ")"
@@ -18,6 +19,7 @@ Pivot {
   IfShort             = Exp "when" (CallExpression | Exp)
                         "otherwise" (CallExpression | IfShort | Exp)
   ReturnStatement     = "return" (Exp | IfShort)
+  BreakStatement      = "break"
   IterationStatement  = "while" Exp "do" Block                                                  -- while
                       | "repeat" Block "when" Exp                                               -- repeat
                       | "for" VarDeclaration ";" (Exp | CallExpression)
@@ -84,6 +86,7 @@ Pivot {
   ends                = "\n"* "end"
   print               = "print" ~alnum
   space              +=  " " | "\t" | comment
-  comment             =  "//" (~"\n" any)*                                               -- singleline
-                      | "/*" (~"*/" any)* "*/"                                           -- multiline
+  comment             =  "//" (~"\n" any)*                                                 -- singleline
+                      | "/*" (~"*/" any)* "*/"                                             -- multiline
+                      
 }
