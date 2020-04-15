@@ -210,9 +210,9 @@ if x > 5 then print x; end
 
 ```javascript
 if (x > 5) {
-  console.log("hello");
+  console.log('hello');
 } else {
-  console.log("bye");
+  console.log('bye');
 }
 
 if (x > 5) {
@@ -236,7 +236,7 @@ if (x > 5) {
   <td>
 
 ```text
-for num a <- 0; a < 2; a <- a + 1; do
+for num a <- 0; a < 2; a <- a + 1 do
     print a;
 end
 ```
@@ -267,7 +267,7 @@ for (let i = 0; i < 2; i++) {
   <td>
 
 ```text
-let x <- 25;
+num x <- 25;
 
 while x do
     print x;
@@ -304,7 +304,7 @@ while (x) {
   <td>
 
 ```text
-let x <- 30;
+num x <- 30;
 
 repeat
     print x;
@@ -374,7 +374,7 @@ let ages = { john: 5, tim: 6 };
   <td>
 
 ```javascript
-let friends = ["john", "tim"];
+let friends = ['john', 'tim'];
 ```
 
   </td>
