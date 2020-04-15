@@ -9,7 +9,13 @@ addFive(num a) -> num
   return 5;
 end
 
-num y <- addFive(5);`;
+task updateX(num value)
+  x <- value;
+end
+
+num y <- addFive(5);
+updateX(3);
+`;
 
 describe('The semantic analyzer', () => {
   test('accepts the mega program with all syntactic forms', done => {

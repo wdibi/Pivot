@@ -25,6 +25,13 @@ const errors = [
       a <- 5; 
     end`,
   ],
+  [
+    'return statement not valid in task',
+    `task updateX(num value)
+      x <- value;
+      return value;
+    end`
+  ]
 ];
 
 describe('The semantic analyzer', () => {
