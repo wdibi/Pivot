@@ -32,6 +32,7 @@ const errors = [
       return value;
     end`,
   ],
+  ['can only add strings and numbers', 'print false + 3;'],
 ];
 
 describe('The semantic analyzer', () => {

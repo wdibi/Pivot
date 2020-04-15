@@ -15,6 +15,7 @@ end
 
 num y <- addFive(5);
 updateX(3);
+print "hello" + 5;
 `;
 
 describe('The semantic analyzer', () => {

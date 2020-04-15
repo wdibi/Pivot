@@ -5,6 +5,8 @@ const {
   ReturnStatement,
 } = require('../ast');
 
+const { NumType, StringType } = require('../ast');
+
 function doCheck(condition, message) {
   if (!condition) {
     throw new Error(message);
@@ -63,6 +65,13 @@ module.exports = {
     doCheck(
       functionContext.functionType !== 'task',
       'return statement not valid in task'
+    );
+  },
+
+  isNumOrString(exp) {
+    doCheck(
+      exp.type === NumType || exp.type === StringType,
+      'expression not num or string'
     );
   },
 };

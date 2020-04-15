@@ -13,6 +13,8 @@ const {
   FunctionCall,
   Parameter,
   ReturnStatement,
+  BinaryExpression,
+  PrintStatement,
 } = require('../ast');
 const {
   NumType,
@@ -121,4 +123,17 @@ ReturnStatement.prototype.analyze = function(context) {
 
 Parameter.prototype.analyze = function(context) {
   context.add(this);
+};
+
+BinaryExpression.prototype.analyze = function(context) {
+  switch (this.op) {
+    case '+':
+      this.left.analyze(context);
+      this.right.analyze(context);
+      check.isNumOrString(this.left);
+      check.isNumOrString(this.right);
+  }
+};
+PrintStatement.prototype.analyze = function(context) {
+  this.item.analyze(context);
 };
