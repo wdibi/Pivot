@@ -129,6 +129,7 @@ const fixture = {
   WhileLoop: [
     String.raw`
     while x do
+      // comment added
       x <- 1;
     end
     `,
