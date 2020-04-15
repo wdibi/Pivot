@@ -31,10 +31,6 @@ fibonacci(num x) -> num
     return b;
 end
 num x <- 25;
-<<<<<<< HEAD
-=======
-
->>>>>>> 5fd07df1eedc9e4a8e99a8685b5ea64a741cd96d
 for num a <- 0; a < 2; a <- a + 1 do
     print a;
 end
@@ -42,10 +38,6 @@ while x do
     print x;
     x <- x - 1;
 end
-<<<<<<< HEAD
-=======
-
->>>>>>> 5fd07df1eedc9e4a8e99a8685b5ea64a741cd96d
 x <- addFive(3);
 _ z <- sqrt(24) << round();
 `;
