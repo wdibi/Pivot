@@ -8,6 +8,7 @@
 const syntaxCheck = require('../syntax-checker');
 
 const program = String.raw`
+// a comment at the beginning of a program
 str name <- "Jigar";
 num a <- 5;
 bool over20 <- true;
@@ -22,9 +23,9 @@ print name;
 
 num x <- 30;
 
+// this is a comment
 
-
-task updateX(num value)
+task updateX(num value) // this is a comment on the same line as a task declaration
   x <- value;
 end
 
@@ -35,6 +36,7 @@ fibonacci(num x) -> num
     repeat
         temp <- a;
         a <- a + b;
+        // a comment in the middle of a function
         b <- temp;
         x <- x - 1;
     when num < 0 end
@@ -54,6 +56,7 @@ end
 
 x <- addFive(3);
 _ z <- sqrt(24) << round();
+// a comment at the end of the program
 `;
 
 describe('The syntax checker', () => {

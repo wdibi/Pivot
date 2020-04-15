@@ -1,6 +1,6 @@
 Pivot {
   Program             = Block
-  Block               = Statement+
+  Block               = Statement*
   Statement           = FunctionDeclaration ends
                       | VarDeclaration ";"
                       | IfStatement ends
@@ -83,4 +83,7 @@ Pivot {
   newline             = "\n"+
   ends                = "\n"* "end"
   print               = "print" ~alnum
+  space              +=  " " | "\t" | comment
+  comment             =  "//" (~"\n" any)*                                                 -- singleline
+                      
 }
