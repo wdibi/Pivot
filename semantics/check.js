@@ -22,7 +22,6 @@ module.exports = {
       )} not compatible with type ${util.format(type.id)}`
     );
   },
-
   argsMatchParameters(args, params) {
     doCheck(
       args.length === params.length,
@@ -32,7 +31,6 @@ module.exports = {
       this.isNotVariableTypeMismatch(params[i].type, arg)
     );
   },
-
   isFunction(value) {
     doCheck(
       value.constructor === FunctionDeclaration ||
@@ -40,18 +38,15 @@ module.exports = {
       `non-existing function called`
     );
   },
-
   withinFunction(context) {
     doCheck(context.currentFunction !== null, `not within a function`);
   },
-
   bodyContainsReturn(body) {
     doCheck(
       body.statements.filter(d => d.constructor === ReturnStatement).length > 0,
       'no return statement found within function'
     );
   },
-
   returnMatchesFunctionReturnType(returnExpression, functionContext) {
     doCheck(
       returnExpression.type === functionContext.returnType,
@@ -60,18 +55,19 @@ module.exports = {
       )}, but function expects ${util.format(functionContext.returnType)}`
     );
   },
-
   returnIsNotInTask(functionContext) {
     doCheck(
       functionContext.functionType !== 'task',
       'return statement not valid in task'
     );
   },
-
   isNumOrString(exp) {
     doCheck(
       exp.type === NumType || exp.type === StringType,
-      'expression not num or string'
+      `${util.format(exp)} is not num or string`
     );
+  },
+  isNum(exp) {
+    doCheck(exp.type === NumType, `${util.format(exp)} is not a num`);
   },
 };
