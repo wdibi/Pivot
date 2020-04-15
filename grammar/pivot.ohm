@@ -17,7 +17,7 @@ Pivot {
   IfStatement         = "if" Exp "then" Statement+ ("else" Statement+)?
   IfShort             = Exp "when" (CallExpression | Exp)
                         "otherwise" (CallExpression | IfShort | Exp)
-  ReturnStatement     = "return" (Exp | IfShort)
+  ReturnStatement     = "return" (IfShort | Exp)
   IterationStatement  = "while" Exp "do" Block                                                  -- while
                       | "repeat" Block "when" Exp                                               -- repeat
                       | "for" VarDeclaration ";" (Exp | CallExpression)
