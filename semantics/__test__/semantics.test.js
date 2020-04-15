@@ -16,7 +16,7 @@ end
 num y <- addFive(5);
 updateX(3);
 print "hello" + 5;
-print y + 9;
+print x + 5;
 print 10 - 6;
 print 25 * 2;
 print 20 / 4;
