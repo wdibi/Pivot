@@ -38,14 +38,10 @@ Block.prototype.analyze = function(context) {
         d.constructor === FunctionDeclaration ||
         d.constructor === TaskDeclaration
     )
-    .map(d => d.analyzeSignature(localContext));
-  this.statements
-    .filter(
-      d =>
-        d.constructor === FunctionDeclaration ||
-        d.constructor === TaskDeclaration
-    )
-    .map(d => localContext.add(d));
+    .map(d => {
+      d.analyzeSignature(localContext);
+      localContext.add(d);
+    });
   this.statements.forEach(s => s.analyze(localContext));
 };
 
