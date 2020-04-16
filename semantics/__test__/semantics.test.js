@@ -14,15 +14,15 @@ task updateX(num value)
     x <- 100;
   end
 end
-num y <- addFive(5);
 updateX(3);
-num z <- 5;
+num z <- addFive(5);
 task updateByZ(num x)
-  z <- x;
+  x <- z;
   break;
 end
 for num a <- 0; a < 2; a <- 5 do
-  num x <- 5;
+  num y <- 5;
+  x <- y;
 end
 `;
 

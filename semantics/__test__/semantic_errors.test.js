@@ -69,6 +69,10 @@ const errors = [
     end
     `,
   ],
+  [
+    'variable ${variable.id} was declared but not used',
+    'num x <- 5;'
+  ]
 ];
 
 describe('The semantic analyzer', () => {

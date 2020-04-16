@@ -50,6 +50,8 @@ Block.prototype.analyze = function(context) {
       localContext.add(d);
     });
   this.statements.forEach(s => s.analyze(localContext));
+  this.statements.filter(s => s.constructor === VariableDeclaration)
+    .map(d => check.varWasUsed(d));
   check.statementsAreReachable(this.statements, localContext);
 };
 
@@ -62,6 +64,7 @@ Object.assign(PrimitiveType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
   check.isNotVariableTypeMismatch(this.type, this.init);
+  this.used = false;
   context.add(this);
 };
 
@@ -73,6 +76,9 @@ AssignmentStatement.prototype.analyze = function(context) {
 
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
+  if (this.ref.constructor === VariableDeclaration) {
+    this.ref.used = true;
+  }
   this.type = this.ref.type;
 };
 
