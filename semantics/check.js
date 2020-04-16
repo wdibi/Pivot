@@ -4,6 +4,7 @@ const {
   FunctionDeclaration,
   TaskDeclaration,
   ReturnStatement,
+  BreakStatement,
   UnaryExpression,
   BinaryExpression,
   NumericLiteral,
@@ -91,6 +92,12 @@ module.exports = {
 
   statementsAreReachable(statements, context) {
     let statementTypes = statements.map(statement => statement.constructor);
+
+    doCheck(
+      statementTypes.filter(s => s === ReturnStatement || s === BreakStatement).length <= 1,
+      `statement is unreachable`
+    )
+
     if (
       context.currentFunction !== null &&
       statementTypes.includes(ReturnStatement)
@@ -99,6 +106,10 @@ module.exports = {
         statementTypes[statementTypes.length - 1] === ReturnStatement,
         'statement is unreachable'
       );
+    }
+
+    if (context.inLoop && statementTypes.includes(BreakStatement)) {
+      doCheck(statementTypes[statementTypes.length - 1] === BreakStatement)
     }
   },
 
