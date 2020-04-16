@@ -14,7 +14,9 @@ task updateX(num value)
     x <- 100;
   end
 end
+
 num y <- addFive(5);
+
 updateX(3);
 print "hello" + 5;
 print x + 5;
@@ -39,6 +41,16 @@ task updateByZ(num x)
 end
 for num a <- 0; a < 2; a <- 5 do
   num x <- 5;
+
+x <- 3 * 2 / 9 + 8 - 200;
+num z <- addFive(5);
+task updateByZ(num x)
+  x <- z;
+  break;
+end
+for num a <- 0; a < 2; a <- 5 do
+  num y <- 5;
+  x <- y;
 end
 `;
 

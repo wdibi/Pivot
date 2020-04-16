@@ -17,11 +17,13 @@ const {
   IfStatement,
   BinaryExpression,
   UnaryExpression,
+  PrintStatement,
+  ListExpression,
+  BreakStatement,
+  IfStatement,
   WhileStatement,
   RepeatStatement,
   ForStatement,
-  PrintStatement,
-  ListExpression,
 } = require('../ast');
 const {
   NumType,
@@ -52,6 +54,9 @@ Block.prototype.analyze = function(context) {
       localContext.add(d);
     });
   this.statements.forEach(s => s.analyze(localContext));
+  this.statements
+    .filter(s => s.constructor === VariableDeclaration)
+    .map(d => check.varWasUsed(d));
   check.statementsAreReachable(this.statements, localContext);
 };
 
@@ -64,17 +69,22 @@ Object.assign(PrimitiveType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
   check.isNotVariableTypeMismatch(this.type, this.init);
+  this.used = false;
   context.add(this);
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  this.target.type.isCompatibleWith(this.source.type);
+  check.hasType(this.source);
+  check.hasEquivalentTypes(this.target, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
+  if (this.ref.constructor === VariableDeclaration) {
+    this.ref.used = true;
+  }
   this.type = this.ref.type;
 };
 
@@ -176,18 +186,16 @@ BinaryExpression.prototype.analyze = function(context) {
   this.left.analyze(context);
   this.right.analyze(context);
 
-  if (this.left.value !== undefined && this.right.value !== undefined) {
-    if (this.op === '+') {
-      check.isNumStringOrChar(this.right);
-      check.isNumStringOrChar(this.left);
-      // this.type = this.left.type.isCompatibleWith(this.right.type)
-      //   ? this.left.type
-      //   : StringType;
-    } else {
-      check.isNum(this.right);
-      check.isNum(this.left);
-      // this.type = NumType;
-    }
+  if (this.op === '+') {
+    check.isNumStringOrChar(this.right);
+    check.isNumStringOrChar(this.left);
+    this.type = this.left.type.isCompatibleWith(this.right.type)
+      ? this.left.type
+      : StringType;
+  } else {
+    check.isNum(this.right);
+    check.isNum(this.left);
+    this.type = NumType;
   }
 };
 
@@ -215,5 +223,33 @@ ListExpression.prototype.analyze = function(context) {
       this.elements.forEach(element =>
         check.isSameConstructor(this.type, element.constructor)
       );
+  };
+};
+
+BreakStatement.prototype.analyze = function(context) {
+  check.breakWithinValidBody(context);
+};
+
+WhileStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+RepeatStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+ForStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+IfStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.body.analyze(context);
+  if (this.elseBody) {
+    this.elseBody.analyze(context);
   }
 };

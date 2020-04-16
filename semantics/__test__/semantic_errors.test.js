@@ -4,7 +4,7 @@ const Context = require('../context');
 const errors = [
   ['type mismatch in declaration', 'num x <- a;'],
   ['variable already declared', 'bool x <- true; bool x <- false;'],
-  ['variable assignment type mismatch', 'bool x <- true; bool x <- "true";'],
+  ['variable assignment type mismatch', 'bool x <- true; x <- 4;'],
   ['variable not yet declared', 'x <- "hello";'],
   ['non-existing function called', 'gcd(1,2,3);'],
   [
@@ -21,8 +21,8 @@ const errors = [
   ],
   [
     'no return statement found within function',
-    `add(num a, num b) -> num 
-      a <- 5; 
+    `add(num a, num b) -> num
+      a <- 5;
     end`,
   ],
   [
@@ -39,9 +39,11 @@ const errors = [
   ['can only divide numbers', 'print "abc" / 3;'],
   ['can only use bang or not operators with booleans', 'str x <- !12;'],
   ['can only use the negation operator with booleans or nums', 'print -"hi";'],
-  [
-    'cannot have different types in the same list',
-    '[str] friends <- [ "john", 12, false ];',
+  ['cannot have different types in the same list', '[str] friends <- [ "john", 12, false ];'],
+  ['invalid inferred string exp assign to num variable',
+    `num x <- 2;
+      x <- 3 / 2 + 3 + "string";
+    `,
   ],
   [
     'break is not valid outside of task or loop',
@@ -80,6 +82,24 @@ const errors = [
     end
     `,
   ],
+  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
+  [
+    'statement is unreachable',
+    `add(num a, num b) -> num 
+      return b;
+      a <- 5;
+      return a;
+    end`,
+  ],
+  [
+    'statement is unreachable',
+    `num x <- 0;
+    task updateX(num value)
+      break;
+      x <- value;
+    end`,
+  ],
+  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
 ];
 
 describe('The semantic analyzer', () => {

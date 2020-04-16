@@ -4,6 +4,7 @@ const {
   FunctionDeclaration,
   TaskDeclaration,
   ReturnStatement,
+  BreakStatement,
   UnaryExpression,
   BinaryExpression,
   NumericLiteral,
@@ -13,6 +14,12 @@ const {
 } = require('../ast');
 
 const { NumType, StringType, CharType, BoolType } = require('../ast');
+const literals = [
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
+];
 
 const literals = [
   NumericLiteral,
@@ -112,8 +119,27 @@ module.exports = {
       )}`
     );
   },
+  hasType(item) {
+    doCheck(
+      item.type,
+      `${util.format(item.constructor.name)} does not have a type`
+    );
+  },
+  hasEquivalentTypes(item1, item2) {
+    doCheck(
+      item1.type === item2.type,
+      `${item1} does not have the same type as ${item2}`
+    );
+  },
   statementsAreReachable(statements, context) {
     let statementTypes = statements.map(statement => statement.constructor);
+    
+    doCheck(
+      statementTypes.filter(s => s === ReturnStatement || s === BreakStatement)
+        .length <= 1,
+      `statement is unreachable`
+    );
+    
     if (
       context.currentFunction !== null &&
       statementTypes.includes(ReturnStatement)
@@ -122,6 +148,10 @@ module.exports = {
         statementTypes[statementTypes.length - 1] === ReturnStatement,
         'statement is unreachable'
       );
+    }
+
+    if (context.inLoop && statementTypes.includes(BreakStatement)) {
+      doCheck(statementTypes[statementTypes.length - 1] === BreakStatement);
     }
   },
   conditionIsDetermistic(condition) {
@@ -146,5 +176,9 @@ module.exports = {
         'condition is deterministic'
       );
     }
+  },
+
+  varWasUsed(variable) {
+    doCheck(variable.used, `variable ${variable.id} was declared but not used`);
   },
 };
