@@ -1,1 +1,1 @@
-if x then print y; else x <-5; print x; end
+    if x then y <- 5; else y <- 4; end
