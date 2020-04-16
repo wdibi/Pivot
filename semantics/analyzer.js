@@ -162,7 +162,6 @@ UnaryExpression.prototype.analyze = function(context) {
       break;
     case '-':
       check.isNumOrBool(this.operand);
-    default:
       break;
   }
 };
