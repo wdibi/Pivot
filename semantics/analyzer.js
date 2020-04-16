@@ -72,8 +72,8 @@ VariableDeclaration.prototype.analyze = function(context) {
     this.init.pairs.map(p => {
       p.key.analyze();
       p.value.analyze();
-    })
-    check.checkValidPairs(this.type, this.init.pairs)
+    });
+    check.checkValidPairs(this.type, this.init.pairs);
   } else if (this.type.constructor === ListType) {
     // placeholder
   } else {
@@ -268,6 +268,6 @@ DictionaryExpression.prototype.analyze = function() {
   this.pairs.map(p => {
     p.key.analyze();
     p.value.analyze();
-  })
+  });
   check.dictHasConsistentTypes(this.pairs);
 };

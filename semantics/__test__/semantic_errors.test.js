@@ -79,10 +79,7 @@ const errors = [
     end
     `,
   ],
-  [
-    'invalid dict types',
-    `{str : num} count <- {"cows":"1", "pigs":3};`
-  ],
+  ['invalid dict types', `{str : num} count <- {"cows":"1", "pigs":3};`],
   [
     'statement is unreachable',
     `add(num a, num b) -> num 
@@ -109,8 +106,8 @@ const errors = [
   ],
   [
     'Inconsistent dict expression types',
-    `print { "john" : 5, "tim" : false };`
-  ]
+    `print { "john" : 5, "tim" : false };`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

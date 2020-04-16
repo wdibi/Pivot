@@ -175,7 +175,12 @@ module.exports = {
   },
 
   checkValidPairs(type, pairs) {
-    doCheck(pairs.every(p => p.key.type === type.keyType && p.value.type === type.valueType), `Invalid Dictionary Pairs`)
+    doCheck(
+      pairs.every(
+        p => p.key.type === type.keyType && p.value.type === type.valueType
+      ),
+      `Invalid Dictionary Pairs`
+    );
   },
 
   varWasUsed(variable) {
@@ -184,9 +189,14 @@ module.exports = {
 
   dictHasConsistentTypes(pairs) {
     if (pairs) {
-      firstKeyType = pairs[0].key.type;
-      firstValueType = pairs[0].value.type;
-      doCheck(pairs.every(p => p.key.type === firstKeyType && p.value.type === firstValueType), `Incosistent Dictionary Types`)
+      const firstKeyType = pairs[0].key.type;
+      const firstValueType = pairs[0].value.type;
+      doCheck(
+        pairs.every(
+          p => p.key.type === firstKeyType && p.value.type === firstValueType
+        ),
+        `Incosistent Dictionary Types`
+      );
     }
-  }
+  },
 };
