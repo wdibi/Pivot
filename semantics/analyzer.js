@@ -213,7 +213,7 @@ PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
 };
 
-ListExpression.prototype.analyze = function(context) {
+ListExpression.prototype.analyze = function() {
   if (this.elements.length > 0) {
     this.type = this.elements[0].constructor;
     this.elements.length &&
