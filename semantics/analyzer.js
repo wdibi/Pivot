@@ -86,6 +86,7 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
+  check.notAssigningTask(this.source);
   check.hasType(this.source);
   check.hasEquivalentTypes(this.target, this.source);
 };

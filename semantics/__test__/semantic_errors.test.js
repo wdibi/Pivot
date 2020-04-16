@@ -108,6 +108,14 @@ const errors = [
     'Inconsistent dict expression types',
     `print { "john" : 5, "tim" : false };`,
   ],
+  [
+    'cannot assign task',
+    `num x <- 5;
+    task updateX(num value)
+      x <- value;
+    end
+    x <- updateX(x);`
+  ]
 ];
 
 describe('The semantic analyzer', () => {
