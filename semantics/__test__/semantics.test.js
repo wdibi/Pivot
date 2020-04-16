@@ -21,6 +21,9 @@ task updateByZ(num x)
   z <- x;
   break;
 end
+for num a <- 0; a < 2; a <- 5 do
+  num x <- 5;
+end
 `;
 
 describe('The semantic analyzer', () => {
