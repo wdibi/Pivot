@@ -82,24 +82,23 @@ const errors = [
     end
     `,
   ],
-  [
-    'variable ${variable.id} was declared but not used',
-    'num x <- 5;'
-  ],
+  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
   [
     'statement is unreachable',
     `add(num a, num b) -> num 
       return b;
       a <- 5;
       return a;
-    end`
+    end`,
   ],
-  ['statement is unreachable',
+  [
+    'statement is unreachable',
     `num x <- 0;
     task updateX(num value)
       break;
       x <- value;
-    end`],
+    end`,
+  ],
   ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
 ];
 

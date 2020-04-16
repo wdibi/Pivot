@@ -121,9 +121,10 @@ module.exports = {
     let statementTypes = statements.map(statement => statement.constructor);
 
     doCheck(
-      statementTypes.filter(s => s === ReturnStatement || s === BreakStatement).length <= 1,
+      statementTypes.filter(s => s === ReturnStatement || s === BreakStatement)
+        .length <= 1,
       `statement is unreachable`
-    )
+    );
 
     if (
       context.currentFunction !== null &&
@@ -136,7 +137,7 @@ module.exports = {
     }
 
     if (context.inLoop && statementTypes.includes(BreakStatement)) {
-      doCheck(statementTypes[statementTypes.length - 1] === BreakStatement)
+      doCheck(statementTypes[statementTypes.length - 1] === BreakStatement);
     }
   },
   conditionIsDetermistic(condition) {
