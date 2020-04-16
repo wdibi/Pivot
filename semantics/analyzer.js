@@ -131,25 +131,19 @@ BinaryExpression.prototype.analyze = function(context) {
   // Later consider something like [3,2,1] + [0] = [3,2,1,0]
   this.left.analyze(context);
   this.right.analyze(context);
-  switch (this.op) {
-    case '+':
-      check.isNumStringOrChar(this.left);
+
+  if (this.left.value !== undefined && this.right.value !== undefined) {
+    if (this.op === '+') {
       check.isNumStringOrChar(this.right);
-      break;
-    case '<=':
-    case '<':
-    case '==':
-    case '!=':
-    case '>=':
-    case '>':
       check.isNumStringOrChar(this.left);
-      check.isNumStringOrChar(this.right);
-      break;
-    case '-':
-    case '*':
-    case '/':
-      check.isNum(this.left);
+      // this.type = this.left.type.isCompatibleWith(this.right.type)
+      //   ? this.left.type
+      //   : StringType;
+    } else {
       check.isNum(this.right);
+      check.isNum(this.left);
+      // this.type = NumType;
+    }
   }
 };
 
