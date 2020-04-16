@@ -64,8 +64,6 @@ AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   check.hasType(this.source);
-  // console.log(this.source.type);
-  // console.log(this.target.type);
   check.hasEquivalentTypes(this.target, this.source);
 };
 
@@ -146,7 +144,6 @@ BinaryExpression.prototype.analyze = function(context) {
     check.isNum(this.left);
     this.type = NumType;
   }
-  // console.log(this);
 };
 
 UnaryExpression.prototype.analyze = function(context) {
