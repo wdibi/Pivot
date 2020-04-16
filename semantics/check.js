@@ -75,8 +75,7 @@ module.exports = {
   },
 
   statementsAreReachable(statements, context) {
-    statementTypes = statements.map(statement => statement.constructor);
-
+    let statementTypes = statements.map(statement => statement.constructor);
     if (
       context.currentFunction !== null &&
       statementTypes.includes(ReturnStatement)

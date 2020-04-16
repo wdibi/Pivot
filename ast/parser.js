@@ -45,7 +45,7 @@ const {
 const grammar = ohm.grammar(fs.readFileSync('./grammar/pivot.ohm'));
 
 function arrayToNullable(a) {
-  return a.length === 0 ? null : a[0];
+  return a.length === 0 ? null : new Block(a[0]);
 }
 
 /* eslint-disable no-unused-vars */
@@ -92,7 +92,7 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   IfStatement(_if, t, _then, consequent, _e, alternate) {
     return new IfStatement(
       t.ast(),
-      consequent.ast(),
+      new Block(consequent.ast()),
       arrayToNullable(alternate.ast())
     );
   },
