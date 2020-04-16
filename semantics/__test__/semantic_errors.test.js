@@ -28,7 +28,7 @@ const errors = [
   [
     'return statement not valid in task',
     `task updateX(num value)
-      x <- value;
+      num x <- value;
       return value;
     end`,
   ],
@@ -45,6 +45,44 @@ const errors = [
      x <- 3 / 2 + 3 + "string";
     `,
   ],
+  [
+    'break is not valid outside of task or loop',
+    `num j <- 25;
+   break;
+   while j do
+    j <- 1;
+   end
+  `,
+  ],
+  [
+    'statement is unreachable',
+    `add(num a, num b) -> num 
+      return b;
+      a <- 5; 
+    end`,
+  ],
+  [
+    'condition is deterministic',
+    `if 5 > 2 then
+      num x <- 5;
+    end
+    `,
+  ],
+  [
+    'condition is deterministic',
+    `if true then
+      num x <- 5;
+    end
+    `,
+  ],
+  [
+    'condition is deterministic',
+    `if !true then
+      num x <- 5;
+    end
+    `,
+  ],
+  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
 ];
 
 describe('The semantic analyzer', () => {

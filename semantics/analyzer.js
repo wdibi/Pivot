@@ -16,6 +16,11 @@ const {
   BinaryExpression,
   PrintStatement,
   UnaryExpression,
+  BreakStatement,
+  IfStatement,
+  WhileStatement,
+  RepeatStatement,
+  ForStatement,
 } = require('../ast');
 const {
   NumType,
@@ -46,6 +51,10 @@ Block.prototype.analyze = function(context) {
       localContext.add(d);
     });
   this.statements.forEach(s => s.analyze(localContext));
+  this.statements
+    .filter(s => s.constructor === VariableDeclaration)
+    .map(d => check.varWasUsed(d));
+  check.statementsAreReachable(this.statements, localContext);
 };
 
 Object.assign(PrimitiveType.prototype, {
@@ -57,6 +66,7 @@ Object.assign(PrimitiveType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
   check.isNotVariableTypeMismatch(this.type, this.init);
+  this.used = false;
   context.add(this);
 };
 
@@ -69,6 +79,9 @@ AssignmentStatement.prototype.analyze = function(context) {
 
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
+  if (this.ref.constructor === VariableDeclaration) {
+    this.ref.used = true;
+  }
   this.type = this.ref.type;
 };
 
@@ -116,6 +129,15 @@ FunctionCall.prototype.analyze = function(context) {
   this.type = this.callee.returnType;
 };
 
+TaskDeclaration.prototype.analyzeSignature = function(context) {
+  this.bodyContext = context.createChildContextForTaskBody(this);
+  this.params.forEach(p => p.analyze(this.bodyContext));
+};
+
+TaskDeclaration.prototype.analyze = function() {
+  this.body.analyze(this.bodyContext);
+};
+
 ReturnStatement.prototype.analyze = function(context) {
   check.withinFunction(context);
   check.returnIsNotInTask(context.currentFunction);
@@ -161,4 +183,32 @@ UnaryExpression.prototype.analyze = function(context) {
 
 PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
+};
+
+BreakStatement.prototype.analyze = function(context) {
+  check.breakWithinValidBody(context);
+};
+
+WhileStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+RepeatStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+ForStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+IfStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.body.analyze(context);
+  if (this.elseBody) {
+    this.elseBody.analyze(context);
+  }
 };

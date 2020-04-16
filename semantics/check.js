@@ -1,11 +1,24 @@
 const util = require('util');
+
 const {
   FunctionDeclaration,
   TaskDeclaration,
   ReturnStatement,
+  UnaryExpression,
+  BinaryExpression,
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
 } = require('../ast');
 
 const { NumType, StringType, CharType, BoolType } = require('../ast');
+const literals = [
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
+];
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -55,6 +68,15 @@ module.exports = {
       )}, but function expects ${util.format(functionContext.returnType)}`
     );
   },
+
+  breakWithinValidBody(context) {
+    doCheck(
+      context.inLoop ||
+        (context.currentFunction &&
+          context.currentFunction.functionType === 'task'),
+      `not within task or loop`
+    );
+  },
   returnIsNotInTask(functionContext) {
     doCheck(
       functionContext.functionType !== 'task',
@@ -93,5 +115,44 @@ module.exports = {
       item1.type === item2.type,
       `${item1} does not have the same type as ${item2}`
     );
+  },
+  statementsAreReachable(statements, context) {
+    let statementTypes = statements.map(statement => statement.constructor);
+    if (
+      context.currentFunction !== null &&
+      statementTypes.includes(ReturnStatement)
+    ) {
+      doCheck(
+        statementTypes[statementTypes.length - 1] === ReturnStatement,
+        'statement is unreachable'
+      );
+    }
+  },
+  conditionIsDetermistic(condition) {
+    doCheck(
+      !literals.includes(condition.constructor),
+      'condition is deterministic'
+    );
+
+    if (condition.constructor === UnaryExpression) {
+      doCheck(
+        !literals.includes(this.operand.constructor),
+        'condition is deterministic'
+      );
+    }
+
+    if (condition.constructor === BinaryExpression) {
+      doCheck(
+        !(
+          literals.includes(condition.left.constructor) &&
+          literals.includes(condition.right.constructor)
+        ),
+        'condition is deterministic'
+      );
+    }
+  },
+
+  varWasUsed(variable) {
+    doCheck(variable.used, `variable ${variable.id} was declared but not used`);
   },
 };
