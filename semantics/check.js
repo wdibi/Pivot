@@ -209,4 +209,11 @@ module.exports = {
       );
     }
   },
+
+  checkValidElements(type, elements) {
+    doCheck(
+      elements.every(e => e.type === type.type),
+      `invalid list elements`
+    );
+  },
 };

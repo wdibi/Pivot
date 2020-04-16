@@ -31,8 +31,9 @@ print !false;
 
 print -12;
 
+[str] friends <- [ "john", "tim" ];
+
 print [ "john", "tim" ];
-print [ false, true, false ];
 
 num z <- 5;
 task updateByZ(num x)

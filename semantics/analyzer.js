@@ -78,6 +78,7 @@ VariableDeclaration.prototype.analyze = function(context) {
     this.init.elements.map(e => {
       e.analyze();
     });
+    check.checkValidElements(this.type, this.init.elements);
   } else {
     check.isNotVariableTypeMismatch(this.type, this.init);
   }
@@ -229,7 +230,6 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  console.log(this.elements);
   this.elements.map(e => {
     e.analyze();
   });
