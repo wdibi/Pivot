@@ -181,4 +181,12 @@ module.exports = {
   varWasUsed(variable) {
     doCheck(variable.used, `variable ${variable.id} was declared but not used`);
   },
+
+  dictHasConsistentTypes(pairs) {
+    if (pairs) {
+      firstKeyType = pairs[0].key.type;
+      firstValueType = pairs[0].value.type;
+      doCheck(pairs.every(p => p.key.type === firstKeyType && p.value.type === firstValueType), `Incosistent Dictionary Types`)
+    }
+  }
 };

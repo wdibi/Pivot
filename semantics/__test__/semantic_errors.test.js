@@ -107,6 +107,10 @@ const errors = [
     end
     `,
   ],
+  [
+    'Inconsistent dict expression types',
+    `print { "john" : 5, "tim" : false };`
+  ]
 ];
 
 describe('The semantic analyzer', () => {

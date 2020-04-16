@@ -264,6 +264,10 @@ IfStatement.prototype.analyze = function(context) {
   }
 };
 
-DictionaryExpression.prototype.analyze = function(context) {
-  console.log("DICT EXP", this)
+DictionaryExpression.prototype.analyze = function() {
+  this.pairs.map(p => {
+    p.key.analyze();
+    p.value.analyze();
+  })
+  check.dictHasConsistentTypes(this.pairs);
 };
