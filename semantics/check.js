@@ -12,7 +12,12 @@ const {
   CharacterLiteral,
 } = require('../ast');
 
-const literals= [NumericLiteral, StringLiteral, BooleanLiteral, CharacterLiteral]
+const literals = [
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
+];
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -98,7 +103,10 @@ module.exports = {
   },
 
   conditionIsDetermistic(condition) {
-    doCheck(!literals.includes(condition.constructor), 'condition is deterministic');
+    doCheck(
+      !literals.includes(condition.constructor),
+      'condition is deterministic'
+    );
 
     if (condition.constructor === UnaryExpression) {
       doCheck(
@@ -109,9 +117,12 @@ module.exports = {
 
     if (condition.constructor === BinaryExpression) {
       doCheck(
-        !(literals.includes(condition.left.constructor) && literals.includes(condition.right.constructor)),
+        !(
+          literals.includes(condition.left.constructor) &&
+          literals.includes(condition.right.constructor)
+        ),
         'condition is deterministic'
-      )
+      );
     }
   },
 };

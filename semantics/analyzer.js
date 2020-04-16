@@ -171,7 +171,7 @@ IfStatement.prototype.analyze = function(context) {
 BinaryExpression.prototype.analyze = function(context) {
   this.left.analyze(context);
   this.right.analyze(context);
-}
+};
 UnaryExpression.prototype.analyze = function(context) {
   this.operand.analyze(context);
-}
+};
