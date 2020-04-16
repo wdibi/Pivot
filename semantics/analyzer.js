@@ -47,6 +47,7 @@ Block.prototype.analyze = function(context) {
       localContext.add(d);
     });
   this.statements.forEach(s => s.analyze(localContext));
+  check.statementsAreReachable(this.statements, localContext);
 };
 
 Object.assign(PrimitiveType.prototype, {

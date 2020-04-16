@@ -41,6 +41,13 @@ const errors = [
    end
   `
   ],
+  [
+    'statement is unreachable',
+    `add(num a, num b) -> num 
+      return b;
+      a <- 5; 
+    end`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
