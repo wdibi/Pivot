@@ -21,6 +21,13 @@ const literals = [
   CharacterLiteral,
 ];
 
+const literals = [
+  NumericLiteral,
+  StringLiteral,
+  BooleanLiteral,
+  CharacterLiteral,
+];
+
 function doCheck(condition, message) {
   if (!condition) {
     throw new Error(message);
@@ -69,7 +76,6 @@ module.exports = {
       )}, but function expects ${util.format(functionContext.returnType)}`
     );
   },
-
   breakWithinValidBody(context) {
     doCheck(
       context.inLoop ||
@@ -105,6 +111,14 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
+  isSameConstructor(defaultConstructor, elementConstructor) {
+    doCheck(
+      elementConstructor == defaultConstructor,
+      `${util.format(elementConstructor)} is not of the type ${util.format(
+        defaultConstructor
+      )}`
+    );
+  },
   hasType(item) {
     doCheck(
       item.type,
@@ -119,13 +133,13 @@ module.exports = {
   },
   statementsAreReachable(statements, context) {
     let statementTypes = statements.map(statement => statement.constructor);
-
+    
     doCheck(
       statementTypes.filter(s => s === ReturnStatement || s === BreakStatement)
         .length <= 1,
       `statement is unreachable`
     );
-
+    
     if (
       context.currentFunction !== null &&
       statementTypes.includes(ReturnStatement)

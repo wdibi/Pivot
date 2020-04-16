@@ -13,9 +13,12 @@ const {
   FunctionCall,
   Parameter,
   ReturnStatement,
+  BreakStatement,
+  IfStatement,
   BinaryExpression,
-  PrintStatement,
   UnaryExpression,
+  PrintStatement,
+  ListExpression,
   BreakStatement,
   IfStatement,
   WhileStatement,
@@ -149,6 +152,34 @@ Parameter.prototype.analyze = function(context) {
   context.add(this);
 };
 
+BreakStatement.prototype.analyze = function(context) {
+  check.breakWithinValidBody(context);
+};
+
+WhileStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+RepeatStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+ForStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+};
+
+IfStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.body.analyze(context);
+  if (this.elseBody) {
+    this.elseBody.analyze(context);
+  }
+};
+
 BinaryExpression.prototype.analyze = function(context) {
   // Primitive Types First
   // Later consider something like [3,2,1] + [0] = [3,2,1,0]
@@ -183,6 +214,16 @@ UnaryExpression.prototype.analyze = function(context) {
 
 PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
+};
+
+ListExpression.prototype.analyze = function(context) {
+  if (this.elements.length > 0) {
+    this.type = this.elements[0].constructor;
+    this.elements.length &&
+      this.elements.forEach(element =>
+        check.isSameConstructor(this.type, element.constructor)
+      );
+  };
 };
 
 BreakStatement.prototype.analyze = function(context) {
