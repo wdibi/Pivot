@@ -10,6 +10,9 @@ const {
   StringLiteral,
   BooleanLiteral,
   CharacterLiteral,
+  PrimitiveType,
+  DictType,
+  StringType,
 } = require('../ast');
 
 const literals = [
@@ -125,4 +128,9 @@ module.exports = {
       );
     }
   },
+  
+  checkValidPairs(type, pairs) {
+    console.log("PAIRS", pairs[0].key.type === type.keyType);
+    doCheck(pairs.every(p => p.key.type === type.keyType && p.value.type === type.valueType), `Invalid Dictionary Pairs`)
+  }
 };

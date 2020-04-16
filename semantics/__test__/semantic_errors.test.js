@@ -69,6 +69,10 @@ const errors = [
     end
     `,
   ],
+  [
+    'invalid dict types',
+    `{str : num} count <- {"cows":"1", "pigs":3};`
+  ],
 ];
 
 describe('The semantic analyzer', () => {
