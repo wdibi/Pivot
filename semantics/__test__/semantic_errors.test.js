@@ -39,10 +39,7 @@ const errors = [
   ['can only divide numbers', 'print "abc" / 3;'],
   ['can only use bang or not operators with booleans', 'str x <- !12;'],
   ['can only use the negation operator with booleans or nums', 'print -"hi";'],
-  [
-    'cannot have different types in the same list',
-    '[str] friends <- [ "john", 12, false ];',
-  ],
+  ['invalid string types', 'print [ "john", 12, false ];'],
   [
     'invalid inferred string exp assign to num variable',
     `num x <- 2;

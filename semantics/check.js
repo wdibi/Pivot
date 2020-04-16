@@ -199,4 +199,14 @@ module.exports = {
       );
     }
   },
+
+  listHasConsistentTypes(elements) {
+    if (elements) {
+      const firstElementType = elements[0].type;
+      doCheck(
+        elements.every(e => e.type === firstElementType),
+        `inconsistent list types`
+      );
+    }
+  },
 };

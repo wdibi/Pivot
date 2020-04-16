@@ -75,7 +75,9 @@ VariableDeclaration.prototype.analyze = function(context) {
     });
     check.checkValidPairs(this.type, this.init.pairs);
   } else if (this.type.constructor === ListType) {
-    // placeholder
+    this.init.elements.map(e => {
+      e.analyze();
+    });
   } else {
     check.isNotVariableTypeMismatch(this.type, this.init);
   }
@@ -227,13 +229,11 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  if (this.elements.length > 0) {
-    this.type = this.elements[0].constructor;
-    this.elements.length &&
-      this.elements.forEach(element =>
-        check.isSameConstructor(this.type, element.constructor)
-      );
-  }
+  console.log(this.elements);
+  this.elements.map(e => {
+    e.analyze();
+  });
+  check.listHasConsistentTypes(this.elements);
 };
 
 BreakStatement.prototype.analyze = function(context) {
