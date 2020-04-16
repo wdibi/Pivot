@@ -33,13 +33,13 @@ const errors = [
     end`,
   ],
   [
-  'break is not valid outside of task or loop',
-  `num j <- 25;
+    'break is not valid outside of task or loop',
+    `num j <- 25;
    break;
    while j do
     j <- 1;
    end
-  `
+  `,
   ],
   [
     'statement is unreachable',

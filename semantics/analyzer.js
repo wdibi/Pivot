@@ -144,14 +144,14 @@ BreakStatement.prototype.analyze = function(context) {
 WhileStatement.prototype.analyze = function(context) {
   this.bodyContext = context.createChildContextForLoop();
   this.body.analyze(this.bodyContext);
-}
+};
 
 RepeatStatement.prototype.analyze = function(context) {
   this.bodyContext = context.createChildContextForLoop();
   this.body.analyze(this.bodyContext);
-}
+};
 
 ForStatement.prototype.analyze = function(context) {
   this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext)
-}
+  this.body.analyze(this.bodyContext);
+};
