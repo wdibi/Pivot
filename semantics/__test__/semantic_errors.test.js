@@ -108,6 +108,18 @@ const errors = [
     'Inconsistent dict expression types',
     `print { "john" : 5, "tim" : false };`,
   ],
+  [
+    'wrong number of params with function call',
+    `equal(num x, num y) -> bool return x == y; end 
+     equal(1,2,3);
+    `,
+  ],
+  [
+    'wrong number of params with function call',
+    `isNoon() -> bool return false; end 
+     isNoon(1300);
+    `,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

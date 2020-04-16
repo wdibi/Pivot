@@ -25,6 +25,7 @@ const {
   DictType,
   ListType,
   DictionaryExpression,
+  CallChain,
 } = require('../ast');
 const {
   NumType,
@@ -116,7 +117,7 @@ CharacterLiteral.prototype.analyze = function() {
 
 FunctionDeclaration.prototype.analyzeSignature = function(context) {
   this.bodyContext = context.createChildContextForFunctionBody(this);
-  this.params.forEach(p => p.analyze(this.bodyContext));
+  this.params && this.params.forEach(p => p.analyze(this.bodyContext));
   this.returnType = this.type;
 };
 
@@ -137,7 +138,9 @@ TaskDeclaration.prototype.analyze = function() {
 FunctionCall.prototype.analyze = function(context) {
   this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
-  this.params.forEach(arg => arg.analyze(context));
+
+  this.params && this.params.forEach(arg => arg.analyze(context));
+
   check.argsMatchParameters(this.params, this.callee.params);
   this.type = this.callee.returnType;
 };
@@ -270,4 +273,9 @@ DictionaryExpression.prototype.analyze = function() {
     p.value.analyze();
   });
   check.dictHasConsistentTypes(this.pairs);
+};
+
+CallChain.prototype.analyze = function(context) {
+  this.item.analyze(context);
+  this.methods.map(m => m.analyze(context));
 };

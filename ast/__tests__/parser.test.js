@@ -446,6 +446,28 @@ const fixture = {
       ])
     ),
   ],
+
+  Empty: [
+    String.raw`print time();`,
+    new Program(
+      new Block([
+        new PrintStatement(new FunctionCall(new IdExpression('time'), null)),
+      ])
+    ),
+  ],
+
+  EmptyListDec: [
+    String.raw`[num] x <- [];`,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression('x'),
+          new ListType(new PrimitiveType('num')),
+          new ListExpression(null)
+        ),
+      ])
+    ),
+  ],
 };
 
 describe('The parser', () => {
