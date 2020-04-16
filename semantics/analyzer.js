@@ -14,6 +14,9 @@ const {
   Parameter,
   ReturnStatement,
   BreakStatement,
+  WhileStatement,
+  RepeatStatement,
+  ForStatement,
 } = require('../ast');
 const {
   NumType,
@@ -134,5 +137,20 @@ Parameter.prototype.analyze = function(context) {
 };
 
 BreakStatement.prototype.analyze = function(context) {
-  check.withinValidBody(context);
+  check.breakWithinValidBody(context);
 };
+
+WhileStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+}
+
+RepeatStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext);
+}
+
+ForStatement.prototype.analyze = function(context) {
+  this.bodyContext = context.createChildContextForLoop();
+  this.body.analyze(this.bodyContext)
+}
