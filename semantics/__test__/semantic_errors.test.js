@@ -32,7 +32,15 @@ const errors = [
       return value;
     end`,
   ],
-  ['break is not valid outside of task or loop', 'num x <- 4; break;'],
+  [
+    'break is not valid outside of task or loop',
+    `num j <- 25;
+   break;
+   while j do
+    j <- 1;
+   end
+  `,
+  ],
   [
     'statement is unreachable',
     `add(num a, num b) -> num 
