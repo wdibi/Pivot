@@ -82,4 +82,16 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
+  hasType(item) {
+    doCheck(
+      item.type,
+      `${util.format(item.constructor.name)} does not have a type`
+    );
+  },
+  hasEquivalentTypes(item1, item2) {
+    doCheck(
+      item1.type === item2.type,
+      `${item1} does not have the same type as ${item2}`
+    );
+  },
 };

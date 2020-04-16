@@ -27,6 +27,8 @@ print !false;
 
 print -12;
 print -false;
+
+x <- 3 * 2 / 9 + 8 - 200 ;
 `;
 
 describe('The semantic analyzer', () => {

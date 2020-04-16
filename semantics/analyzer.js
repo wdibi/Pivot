@@ -63,7 +63,10 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  this.target.type.isCompatibleWith(this.source.type);
+  check.hasType(this.source);
+  // console.log(this.source.type);
+  // console.log(this.target.type);
+  check.hasEquivalentTypes(this.target, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
@@ -132,19 +135,18 @@ BinaryExpression.prototype.analyze = function(context) {
   this.left.analyze(context);
   this.right.analyze(context);
 
-  if (this.left.value !== undefined && this.right.value !== undefined) {
-    if (this.op === '+') {
-      check.isNumStringOrChar(this.right);
-      check.isNumStringOrChar(this.left);
-      // this.type = this.left.type.isCompatibleWith(this.right.type)
-      //   ? this.left.type
-      //   : StringType;
-    } else {
-      check.isNum(this.right);
-      check.isNum(this.left);
-      // this.type = NumType;
-    }
+  if (this.op === '+') {
+    check.isNumStringOrChar(this.right);
+    check.isNumStringOrChar(this.left);
+    this.type = this.left.type.isCompatibleWith(this.right.type)
+      ? this.left.type
+      : StringType;
+  } else {
+    check.isNum(this.right);
+    check.isNum(this.left);
+    this.type = NumType;
   }
+  // console.log(this);
 };
 
 UnaryExpression.prototype.analyze = function(context) {
