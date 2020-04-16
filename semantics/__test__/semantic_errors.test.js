@@ -60,16 +60,16 @@ const errors = [
   ],
   [
     'condition is deterministic',
-    `if 5 > 2 then
+    `while 5 > 2 do
       num x <- 5;
     end
     `,
   ],
   [
     'condition is deterministic',
-    `if true then
+    `repeat
       num x <- 5;
-    end
+    when true end
     `,
   ],
   [
@@ -119,6 +119,14 @@ const errors = [
     `isNoon() -> bool return false; end 
      isNoon(1300);
     `,
+  ],
+  [
+    'cannot assign task',
+    `num x <- 5;
+    task updateX(num value)
+      x <- value;
+    end
+    x <- updateX(x);`,
   ],
 ];
 

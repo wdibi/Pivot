@@ -204,4 +204,8 @@ module.exports = {
       );
     }
   },
+
+  notAssigningTask(source) {
+    doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task')
+  }
 };
