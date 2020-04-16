@@ -59,12 +59,12 @@ const fixture = {
       new Block([
         new IfStatement(
           new IdExpression('x'),
-          [
+          new Block([
             new AssignmentStatement(
               new IdExpression('y'),
               new NumericLiteral(5)
             ),
-          ],
+          ]),
           null
         ),
       ])
@@ -79,18 +79,18 @@ const fixture = {
       new Block([
         new IfStatement(
           new IdExpression('x'),
-          [
+          new Block([
             new AssignmentStatement(
               new IdExpression('y'),
               new NumericLiteral(5)
             ),
-          ],
-          [
+          ]),
+          new Block([
             new AssignmentStatement(
               new IdExpression('y'),
               new NumericLiteral(4)
             ),
-          ]
+          ])
         ),
       ])
     ),
