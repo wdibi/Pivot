@@ -22,6 +22,9 @@ const {
   WhileStatement,
   RepeatStatement,
   ForStatement,
+  DictType,
+  ListType,
+  DictionaryExpression,
 } = require('../ast');
 const {
   NumType,
@@ -65,7 +68,17 @@ Object.assign(PrimitiveType.prototype, {
 
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
-  check.isNotVariableTypeMismatch(this.type, this.init);
+  if (this.type.constructor === DictType) {
+    this.init.pairs.map(p => {
+      p.key.analyze();
+      p.value.analyze();
+    });
+    check.checkValidPairs(this.type, this.init.pairs);
+  } else if (this.type.constructor === ListType) {
+    // placeholder
+  } else {
+    check.isNotVariableTypeMismatch(this.type, this.init);
+  }
   // this.used = false;
   context.add(this);
 };
@@ -249,4 +262,12 @@ IfStatement.prototype.analyze = function(context) {
   if (this.elseBody) {
     this.elseBody.analyze(context);
   }
+};
+
+DictionaryExpression.prototype.analyze = function() {
+  this.pairs.map(p => {
+    p.key.analyze();
+    p.value.analyze();
+  });
+  check.dictHasConsistentTypes(this.pairs);
 };

@@ -45,6 +45,10 @@ for num a <- 0; a < 2; a <- 5 do
 end
 
 x <- 3 * 2 / 9 + 8 - 200;
+
+{str:num} adultAges <- { "john" : 5, "tim" : 6 };
+
+print { "john" : 5, "tim" : 6 };
 `;
 
 describe('The semantic analyzer', () => {

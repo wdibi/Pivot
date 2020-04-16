@@ -79,6 +79,7 @@ const errors = [
     end
     `,
   ],
+  ['invalid dict types', `{str : num} count <- {"cows":"1", "pigs":3};`],
   [
     'statement is unreachable',
     `add(num a, num b) -> num 
@@ -102,6 +103,10 @@ const errors = [
       x <- value;
     end
     `,
+  ],
+  [
+    'Inconsistent dict expression types',
+    `print { "john" : 5, "tim" : false };`,
   ],
 ];
 

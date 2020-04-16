@@ -11,9 +11,11 @@ const {
   StringLiteral,
   BooleanLiteral,
   CharacterLiteral,
+  StringType,
+  NumType,
+  CharType,
+  BoolType,
 } = require('../ast');
-
-const { NumType, StringType, CharType, BoolType } = require('../ast');
 
 const literals = [
   NumericLiteral,
@@ -172,7 +174,29 @@ module.exports = {
     }
   },
 
+  checkValidPairs(type, pairs) {
+    doCheck(
+      pairs.every(
+        p => p.key.type === type.keyType && p.value.type === type.valueType
+      ),
+      `Invalid Dictionary Pairs`
+    );
+  },
+
   varWasUsed(variable) {
     doCheck(variable.used, `variable ${variable.id} was declared but not used`);
+  },
+
+  dictHasConsistentTypes(pairs) {
+    if (pairs) {
+      const firstKeyType = pairs[0].key.type;
+      const firstValueType = pairs[0].value.type;
+      doCheck(
+        pairs.every(
+          p => p.key.type === firstKeyType && p.value.type === firstValueType
+        ),
+        `Incosistent Dictionary Types`
+      );
+    }
   },
 };
