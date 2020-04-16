@@ -4,7 +4,7 @@ const Context = require('../context');
 const errors = [
   ['type mismatch in declaration', 'num x <- a;'],
   ['variable already declared', 'bool x <- true; bool x <- false;'],
-  ['variable assignment type mismatch', 'bool x <- true; bool x <- "true";'],
+  ['variable assignment type mismatch', 'bool x <- true; x <- 4;'],
   ['variable not yet declared', 'x <- "hello";'],
   ['non-existing function called', 'gcd(1,2,3);'],
   [
@@ -21,8 +21,8 @@ const errors = [
   ],
   [
     'no return statement found within function',
-    `add(num a, num b) -> num 
-      a <- 5; 
+    `add(num a, num b) -> num
+      a <- 5;
     end`,
   ],
   [
@@ -31,6 +31,19 @@ const errors = [
       num x <- value;
       return value;
     end`,
+  ],
+  ['invalid addition with undefined variable', 'print x + 3;'],
+  ['can only add strings and numbers', 'print false + 3;'],
+  ['can only subtract numbers', 'print "hi" - 3;'],
+  ['can only multiply numbers', 'print false * 3;'],
+  ['can only divide numbers', 'print "abc" / 3;'],
+  ['can only use bang or not operators with booleans', 'str x <- !12;'],
+  ['can only use the negation operator with booleans or nums', 'print -"hi";'],
+  [
+    'invalid inferred string exp assign to num variable',
+    `num x <- 2;
+     x <- 3 / 2 + 3 + "string";
+    `,
   ],
   [
     'break is not valid outside of task or loop',
@@ -69,10 +82,7 @@ const errors = [
     end
     `,
   ],
-  [
-    'variable ${variable.id} was declared but not used',
-    'num x <- 5;'
-  ]
+  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
 ];
 
 describe('The semantic analyzer', () => {

@@ -13,10 +13,11 @@ const {
   FunctionCall,
   Parameter,
   ReturnStatement,
+  BinaryExpression,
+  PrintStatement,
+  UnaryExpression,
   BreakStatement,
   IfStatement,
-  BinaryExpression,
-  UnaryExpression,
   WhileStatement,
   RepeatStatement,
   ForStatement,
@@ -50,7 +51,8 @@ Block.prototype.analyze = function(context) {
       localContext.add(d);
     });
   this.statements.forEach(s => s.analyze(localContext));
-  this.statements.filter(s => s.constructor === VariableDeclaration)
+  this.statements
+    .filter(s => s.constructor === VariableDeclaration)
     .map(d => check.varWasUsed(d));
   check.statementsAreReachable(this.statements, localContext);
 };
@@ -71,7 +73,8 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  this.target.type.isCompatibleWith(this.source.type);
+  check.hasType(this.source);
+  check.hasEquivalentTypes(this.target, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
@@ -146,6 +149,42 @@ Parameter.prototype.analyze = function(context) {
   context.add(this);
 };
 
+BinaryExpression.prototype.analyze = function(context) {
+  // Primitive Types First
+  // Later consider something like [3,2,1] + [0] = [3,2,1,0]
+  this.left.analyze(context);
+  this.right.analyze(context);
+
+  if (this.op === '+') {
+    check.isNumStringOrChar(this.right);
+    check.isNumStringOrChar(this.left);
+    this.type = this.left.type.isCompatibleWith(this.right.type)
+      ? this.left.type
+      : StringType;
+  } else {
+    check.isNum(this.right);
+    check.isNum(this.left);
+    this.type = NumType;
+  }
+};
+
+UnaryExpression.prototype.analyze = function(context) {
+  this.operand.analyze(context);
+  switch (this.op) {
+    case '!':
+    case 'not':
+      check.isBool(this.operand);
+      break;
+    case '-':
+      check.isNumOrBool(this.operand);
+      break;
+  }
+};
+
+PrintStatement.prototype.analyze = function(context) {
+  this.item.analyze(context);
+};
+
 BreakStatement.prototype.analyze = function(context) {
   check.breakWithinValidBody(context);
 };
@@ -172,12 +211,4 @@ IfStatement.prototype.analyze = function(context) {
   if (this.elseBody) {
     this.elseBody.analyze(context);
   }
-};
-
-BinaryExpression.prototype.analyze = function(context) {
-  this.left.analyze(context);
-  this.right.analyze(context);
-};
-UnaryExpression.prototype.analyze = function(context) {
-  this.operand.analyze(context);
 };

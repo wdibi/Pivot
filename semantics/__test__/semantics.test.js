@@ -15,6 +15,20 @@ task updateX(num value)
   end
 end
 updateX(3);
+print "hello" + 5;
+print x + 5;
+print 'a' + 5;
+// print 7 + 5 / 3 * 2;
+print 10 - 6;
+print 25 * 2;
+print 20 / 4;
+
+print !false;
+
+print -12;
+print -false;
+
+x <- 3 * 2 / 9 + 8 - 200;
 num z <- addFive(5);
 task updateByZ(num x)
   x <- z;
