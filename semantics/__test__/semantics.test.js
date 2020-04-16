@@ -17,6 +17,7 @@ task updateX(num value)
 end
 
 num y <- addFive(5);
+updateX(y);
 
 updateX(3);
 print "hello" + 5;
