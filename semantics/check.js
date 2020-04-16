@@ -144,7 +144,7 @@ module.exports = {
       );
     }
 
-    if (context.inLoop && statementTypes.includes(BreakStatement)) {
+    if (statementTypes.includes(BreakStatement)) {
       doCheck(statementTypes[statementTypes.length - 1] === BreakStatement);
     }
   },

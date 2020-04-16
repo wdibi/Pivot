@@ -5,7 +5,8 @@ const program = String.raw`
 num x <- 2;
 x <- 5;
 addFive(num a) -> num
-  return 5;
+  a <- a + 5;
+  return a;
 end
 task updateX(num value)
   if x < 2 then
@@ -44,7 +45,6 @@ for num a <- 0; a < 2; a <- 5 do
 end
 
 x <- 3 * 2 / 9 + 8 - 200;
-num z <- addFive(5);
 `;
 
 describe('The semantic analyzer', () => {

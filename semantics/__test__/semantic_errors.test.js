@@ -39,7 +39,10 @@ const errors = [
   ['can only divide numbers', 'print "abc" / 3;'],
   ['can only use bang or not operators with booleans', 'str x <- !12;'],
   ['can only use the negation operator with booleans or nums', 'print -"hi";'],
-  ['cannot have different types in the same list', '[str] friends <- [ "john", 12, false ];'],
+  [
+    'cannot have different types in the same list',
+    '[str] friends <- [ "john", 12, false ];',
+  ],
   [
     'invalid inferred string exp assign to num variable',
     `num x <- 2;
@@ -54,13 +57,6 @@ const errors = [
     j <- 1;
    end
   `,
-  ],
-  [
-    'statement is unreachable',
-    `add(num a, num b) -> num 
-      return b;
-      a <- 5; 
-    end`,
   ],
   [
     'condition is deterministic',
@@ -83,10 +79,16 @@ const errors = [
     end
     `,
   ],
-  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
   [
     'statement is unreachable',
     `add(num a, num b) -> num 
+      return b;
+      a <- 5; 
+    end`,
+  ],
+  [
+    'statement is unreachable',
+    `add(num a, num b) -> num
       return b;
       a <- 5;
       return a;
@@ -98,9 +100,9 @@ const errors = [
     task updateX(num value)
       break;
       x <- value;
-    end`,
+    end
+    `,
   ],
-  ['variable ${variable.id} was declared but not used', 'num x <- 5;'],
 ];
 
 describe('The semantic analyzer', () => {
