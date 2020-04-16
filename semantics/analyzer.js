@@ -16,6 +16,7 @@ const {
   BinaryExpression,
   PrintStatement,
   UnaryExpression,
+  ListExpression,
 } = require('../ast');
 const {
   NumType,
@@ -162,4 +163,14 @@ UnaryExpression.prototype.analyze = function(context) {
 
 PrintStatement.prototype.analyze = function(context) {
   this.item.analyze(context);
+};
+
+ListExpression.prototype.analyze = function(context) {
+  if (this.elements.length > 0) {
+    this.type = this.elements[0].constructor;
+    this.elements.length &&
+      this.elements.forEach(element =>
+        check.isSameConstructor(this.type, element.constructor)
+      );
+  }
 };

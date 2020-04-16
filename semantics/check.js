@@ -82,4 +82,12 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
+  isSameConstructor(defaultConstructor, elementConstructor) {
+    doCheck(
+      elementConstructor == defaultConstructor,
+      `${util.format(elementConstructor)} is not of the type ${util.format(
+        defaultConstructor
+      )}`
+    );
+  },
 };

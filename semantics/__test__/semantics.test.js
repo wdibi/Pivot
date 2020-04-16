@@ -27,6 +27,10 @@ print !false;
 
 print -12;
 print -false;
+
+[str] friends <- [ "john", "tim" ];
+[bool] values <- [ false, true, false ];
+[num] ages <- [ 12, 24 ];
 `;
 
 describe('The semantic analyzer', () => {
