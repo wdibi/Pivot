@@ -47,6 +47,15 @@ end
 
 x <- 3 * 2 / 9 + 8 - 200;
 
+x <- 10;
+while x > 10 do
+  x <- x - 1;
+end
+
+repeat
+  x <- x + 1;
+when x > 10 end
+
 {str:num} adultAges <- { "john" : 5, "tim" : 6 };
 
 print { "john" : 5, "tim" : 6 };
