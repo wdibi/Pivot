@@ -106,6 +106,14 @@ const errors = [
     'Inconsistent dict expression types',
     `print { "john" : 5, "tim" : false };`,
   ],
+  [
+    'invalid list assignment',
+    '[num] listOfNums <- [1,2,3,4]; listOfNums <- [ "hi", "bye" ];',
+  ],
+  [
+    'Declared dictionary types do not match the types of the keys and/or the values',
+    '{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 }; dogAges <- { "boomer" : "5", "bucky" : "2" };',
+  ],
 ];
 
 describe('The semantic analyzer', () => {

@@ -89,8 +89,23 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  check.hasType(this.source);
-  check.hasEquivalentTypes(this.target, this.source);
+  if (this.source.constructor === ListExpression) {
+    this.source.elements.map(e => {
+      check.hasType(e);
+      check.hasEquivalentTypes(this.target.type, e);
+    });
+  } else if (this.source.constructor === DictionaryExpression) {
+    this.source.pairs.map(p => {
+      check.hasType(p.key);
+      check.hasType(p.value);
+      check.hasEquivalentTypesDictionary(this.target.type, p.key, p.value);
+    });
+  } else {
+    check.hasType(this.source);
+    check.hasEquivalentTypes(this.target, this.source);
+  }
+  // console.log(this.source.elements);
+  // check.hasType(this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {

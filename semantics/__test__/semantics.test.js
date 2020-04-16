@@ -49,6 +49,12 @@ x <- 3 * 2 / 9 + 8 - 200;
 {str:num} adultAges <- { "john" : 5, "tim" : 6 };
 
 print { "john" : 5, "tim" : 6 };
+
+[num] listOfNums <- [1,2,3,4]; 
+listOfNums <- [ 2, 3, 4 ];
+
+{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
+dogAges <- { "boomer" : 5, "bucky" : 2 };
 `;
 
 describe('The semantic analyzer', () => {

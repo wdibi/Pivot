@@ -124,7 +124,15 @@ module.exports = {
   hasEquivalentTypes(item1, item2) {
     doCheck(
       item1.type === item2.type,
-      `${item1} does not have the same type as ${item2}`
+      `${util.format(item1.type)} does not have the same type as ${util.format(
+        item2.type
+      )}`
+    );
+  },
+  hasEquivalentTypesDictionary(item1, item2key, item2value) {
+    doCheck(
+      item1.keyType === item2key.type && item1.valueType === item2value.type,
+      `Declared dictionary types do not match the types of the keys and/or the values.`
     );
   },
   statementsAreReachable(statements, context) {
