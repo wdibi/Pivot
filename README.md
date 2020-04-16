@@ -44,6 +44,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
   - [Repeat](#repeat)
   - [Dictionary](#dictionary)
   - [List](#list)
+  - [Types of Semantic Errors](#semantics)
   - [Sample Program:](#sample-program)
     - [Fibonacci Pivot:](#fibonacci-pivot)
     - [Even or Odd:](#even-or-odd)
@@ -381,6 +382,8 @@ let friends = ['john', 'tim'];
   </td>
 
 </table>
+
+
 
 ### Sample Program:
 
