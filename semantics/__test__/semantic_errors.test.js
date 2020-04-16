@@ -114,8 +114,8 @@ const errors = [
     task updateX(num value)
       x <- value;
     end
-    x <- updateX(x);`
-  ]
+    x <- updateX(x);`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
