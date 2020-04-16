@@ -224,4 +224,8 @@ module.exports = {
       `invalid list elements`
     );
   },
+  
+  notAssigningTask(source) {
+    doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task')
+  }
 };

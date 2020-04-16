@@ -17,6 +17,7 @@ task updateX(num value)
 end
 
 num y <- addFive(5);
+updateX(y);
 
 updateX(3);
 print "hello" + 5;
@@ -45,6 +46,15 @@ for num a <- 0; a < 2; a <- 5 do
 end
 
 x <- 3 * 2 / 9 + 8 - 200;
+
+x <- 10;
+while x > 10 do
+  x <- x - 1;
+end
+
+repeat
+  x <- x + 1;
+when x > 10 end
 
 {str:num} adultAges <- { "john" : 5, "tim" : 6 };
 

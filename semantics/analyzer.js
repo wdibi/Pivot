@@ -101,11 +101,10 @@ AssignmentStatement.prototype.analyze = function(context) {
       check.hasEquivalentTypesDictionary(this.target.type, p.key, p.value);
     });
   } else {
+    check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
     check.hasType(this.source);
     check.hasEquivalentTypes(this.target, this.source);
   }
-  // console.log(this.source.elements);
-  // check.hasType(this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
@@ -256,18 +255,26 @@ BreakStatement.prototype.analyze = function(context) {
 };
 
 WhileStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
   this.bodyContext = context.createChildContextForLoop();
   this.body.analyze(this.bodyContext);
 };
 
 RepeatStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
   this.bodyContext = context.createChildContextForLoop();
   this.body.analyze(this.bodyContext);
 };
 
 ForStatement.prototype.analyze = function(context) {
+  this.init.analyze(context);
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.exp.analyze(context);
+  this.body.analyze(context);
   this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
 };
 
 IfStatement.prototype.analyze = function(context) {
