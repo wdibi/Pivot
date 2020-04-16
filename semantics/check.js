@@ -5,7 +5,7 @@ const {
   ReturnStatement,
 } = require('../ast');
 
-const { NumType, StringType, CharType } = require('../ast');
+const { NumType, StringType, CharType, BoolType } = require('../ast');
 
 function doCheck(condition, message) {
   if (!condition) {
@@ -61,13 +61,25 @@ module.exports = {
       'return statement not valid in task'
     );
   },
+  isNumOrBool(exp) {
+    doCheck(
+      exp.type === NumType || exp.type === BoolType,
+      `${util.format(exp.value)} is not a num or bool`
+    );
+  },
   isNumStringOrChar(exp) {
     doCheck(
       exp.type === NumType || exp.type === StringType || exp.type == CharType,
-      `${util.format(exp)} is not num, string, or char`
+      `${util.format(exp.value)} is not num, string, or char`
     );
   },
   isNum(exp) {
-    doCheck(exp.type === NumType, `${util.format(exp)} is not a num`);
+    doCheck(exp.type === NumType, `${util.format(exp.value)} is not a num`);
+  },
+  isBool(exp) {
+    doCheck(
+      exp.type === BoolType,
+      `${util.format(exp.value)} is not a boolean`
+    );
   },
 };

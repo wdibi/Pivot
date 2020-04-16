@@ -15,6 +15,7 @@ const {
   ReturnStatement,
   BinaryExpression,
   PrintStatement,
+  UnaryExpression,
 } = require('../ast');
 const {
   NumType,
@@ -132,7 +133,6 @@ BinaryExpression.prototype.analyze = function(context) {
   this.right.analyze(context);
   switch (this.op) {
     case '+':
-      console.log(this.left.type);
       check.isNumStringOrChar(this.left);
       check.isNumStringOrChar(this.right);
       break;
@@ -150,6 +150,20 @@ BinaryExpression.prototype.analyze = function(context) {
     case '/':
       check.isNum(this.left);
       check.isNum(this.right);
+  }
+};
+
+UnaryExpression.prototype.analyze = function(context) {
+  this.operand.analyze(context);
+  switch (this.op) {
+    case '!':
+    case 'not':
+      check.isBool(this.operand);
+      break;
+    case '-':
+      check.isNumOrBool(this.operand);
+    default:
+      break;
   }
 };
 

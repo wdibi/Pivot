@@ -37,6 +37,8 @@ const errors = [
   ['can only subtract numbers', 'print "hi" - 3;'],
   ['can only multiply numbers', 'print false * 3;'],
   ['can only divide numbers', 'print "abc" / 3;'],
+  ['can only use bang or not operators with booleans', 'str x <- !12;'],
+  ['can only use the negation operator with booleans or nums', 'print -"hi";'],
 ];
 
 describe('The semantic analyzer', () => {

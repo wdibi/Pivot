@@ -18,9 +18,15 @@ updateX(3);
 print "hello" + 5;
 print x + 5;
 print 'a' + 5;
+// print 7 + 5 / 3 * 2;
 print 10 - 6;
 print 25 * 2;
 print 20 / 4;
+
+print !false;
+
+print -12;
+print -false;
 `;
 
 describe('The semantic analyzer', () => {
