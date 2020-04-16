@@ -14,12 +14,6 @@ const {
 } = require('../ast');
 
 const { NumType, StringType, CharType, BoolType } = require('../ast');
-const literals = [
-  NumericLiteral,
-  StringLiteral,
-  BooleanLiteral,
-  CharacterLiteral,
-];
 
 const literals = [
   NumericLiteral,
@@ -133,13 +127,13 @@ module.exports = {
   },
   statementsAreReachable(statements, context) {
     let statementTypes = statements.map(statement => statement.constructor);
-    
+
     doCheck(
       statementTypes.filter(s => s === ReturnStatement || s === BreakStatement)
         .length <= 1,
       `statement is unreachable`
     );
-    
+
     if (
       context.currentFunction !== null &&
       statementTypes.includes(ReturnStatement)

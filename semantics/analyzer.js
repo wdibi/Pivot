@@ -19,8 +19,6 @@ const {
   UnaryExpression,
   PrintStatement,
   ListExpression,
-  BreakStatement,
-  IfStatement,
   WhileStatement,
   RepeatStatement,
   ForStatement,
@@ -223,7 +221,7 @@ ListExpression.prototype.analyze = function(context) {
       this.elements.forEach(element =>
         check.isSameConstructor(this.type, element.constructor)
       );
-  };
+  }
 };
 
 BreakStatement.prototype.analyze = function(context) {
