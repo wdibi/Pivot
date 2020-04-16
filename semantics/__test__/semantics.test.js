@@ -8,7 +8,11 @@ addFive(num a) -> num
   return 5;
 end
 task updateX(num value)
-  x <- value;
+  if x < 2 then
+    x <- value;
+  else
+    x <- 100;
+  end
 end
 num y <- addFive(5);
 updateX(3);

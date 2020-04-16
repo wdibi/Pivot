@@ -40,6 +40,20 @@ const errors = [
       a <- 5; 
     end`,
   ],
+  [
+    'condition is deterministic',
+    `if 5 > 2 then
+      num x <- 5;
+    end
+    `
+  ],
+  [
+    'condition is deterministic',
+    `if true then
+      num x <- 5;
+    end
+    `
+  ],
 ];
 
 describe('The semantic analyzer', () => {

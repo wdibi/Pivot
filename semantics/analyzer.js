@@ -14,6 +14,9 @@ const {
   Parameter,
   ReturnStatement,
   BreakStatement,
+  IfStatement,
+  BinaryExpression,
+  UnaryExpression,
 } = require('../ast');
 const {
   NumType,
@@ -137,3 +140,20 @@ Parameter.prototype.analyze = function(context) {
 BreakStatement.prototype.analyze = function(context) {
   check.withinValidBody(context);
 };
+
+IfStatement.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.body.analyze(context);
+  if (this.elseBody) {
+    this.elseBody.analyze(context);
+  }
+};
+
+BinaryExpression.prototype.analyze = function(context) {
+  this.left.analyze(context);
+  this.right.analyze(context);
+}
+UnaryExpression.prototype.analyze = function(context) {
+  this.operand.analyze(context);
+}
