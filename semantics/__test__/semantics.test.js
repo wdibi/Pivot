@@ -64,7 +64,8 @@ print { "john" : 5, "tim" : 6 };
 listOfNums <- [ 2, 3, 4 ];
 
 {str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
-dogAges <- { "boomer" : 5, "bucky" : 2 };
+dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
+
 `;
 
 describe('The semantic analyzer', () => {

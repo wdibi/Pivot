@@ -66,22 +66,25 @@ Object.assign(PrimitiveType.prototype, {
   },
 });
 
+Object.assign(DictType.prototype, {
+  isCompatibleWithPairs(pairs) {
+    return pairs.every(
+      p =>
+        this.keyType.isCompatibleWith(p.key.type) &&
+        this.valueType.isCompatibleWith(p.value.type)
+    );
+  },
+});
+
+Object.assign(ListType.prototype, {
+  isCompatibleWithElements(elements) {
+    return elements.every(e => this.type.isCompatibleWith(e.type));
+  },
+});
+
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
-  if (this.type.constructor === DictType) {
-    this.init.pairs.map(p => {
-      p.key.analyze();
-      p.value.analyze();
-    });
-    check.checkValidPairs(this.type, this.init.pairs);
-  } else if (this.type.constructor === ListType) {
-    this.init.elements.map(e => {
-      e.analyze();
-    });
-    check.checkValidElements(this.type, this.init.elements);
-  } else {
-    check.isNotVariableTypeMismatch(this.type, this.init);
-  }
+  check.hasEquivalentTypes(this.type, this.init);
   // this.used = false;
   context.add(this);
 };
@@ -89,22 +92,8 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  if (this.source.constructor === ListExpression) {
-    this.source.elements.map(e => {
-      check.hasType(e);
-      check.hasEquivalentTypes(this.target.type, e);
-    });
-  } else if (this.source.constructor === DictionaryExpression) {
-    this.source.pairs.map(p => {
-      check.hasType(p.key);
-      check.hasType(p.value);
-      check.hasEquivalentTypesDictionary(this.target.type, p.key, p.value);
-    });
-  } else {
-    check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
-    check.hasType(this.source);
-    check.hasEquivalentTypes(this.target, this.source);
-  }
+  //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
+  check.hasEquivalentTypes(this.target.type, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
@@ -244,9 +233,7 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  this.elements.map(e => {
-    e.analyze();
-  });
+  this.elements.map(e => e.analyze());
   check.listHasConsistentTypes(this.elements);
 };
 

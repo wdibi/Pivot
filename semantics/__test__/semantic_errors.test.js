@@ -122,6 +122,16 @@ const errors = [
     end
     x <- updateX(x);`,
   ],
+  [
+    'pairs do not match DictTpe',
+    `{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
+      dogAges <- { "boomer" : false, "bucky" : true };`,
+  ],
+  [
+    'elements do not match DictTpe',
+    `num randomNums <- [1,2,3,4,5];
+     randomNums <- [true, false, false, true];`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
