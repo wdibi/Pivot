@@ -41,18 +41,18 @@ module.exports = {
       )} not compatible with type ${util.format(type.id)}`
     );
   },
-  argsMatchParameters(args, params) {
+  paramsMatchDeclaration(decParams, callParams) {
     doCheck(
-      !args && !params
+      !callParams && !decParams
         ? true
-        : args && params
-        ? args.length === params.length
+        : callParams && decParams
+        ? callParams.length === decParams.length
         : false,
-      `number of params: ${params} don't match args: ${args}`
+      `number of params: ${decParams} don't match args: ${callParams}`
     );
-    args &&
-      args.forEach((arg, i) =>
-        this.isNotVariableTypeMismatch(params[i].type, arg)
+    callParams &&
+      callParams.forEach((arg, i) =>
+        this.isNotVariableTypeMismatch(decParams[i].type, arg)
       );
   },
   isFunction(value) {

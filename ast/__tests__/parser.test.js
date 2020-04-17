@@ -483,11 +483,12 @@ const fixture = {
   ],
 
   NoParamFuncDec: [
-    String.raw`task five() return 5; end`,
+    String.raw`five() -> num return 5; end`,
     new Program(
       new Block([
-        new TaskDeclaration(
+        new FunctionDeclaration(
           new IdExpression('five'),
+          new PrimitiveType('num'),
           null,
           new Block([new ReturnStatement(new NumericLiteral(5))])
         ),

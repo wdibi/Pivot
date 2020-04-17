@@ -129,7 +129,7 @@ FunctionDeclaration.prototype.analyze = function() {
 
 TaskDeclaration.prototype.analyzeSignature = function(context) {
   this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params.forEach(p => p.analyze(this.bodyContext));
+  this.params && this.params.forEach(p => p.analyze(this.bodyContext));
 };
 
 TaskDeclaration.prototype.analyze = function() {
@@ -142,13 +142,9 @@ FunctionCall.prototype.analyze = function(context) {
 
   this.params && this.params.forEach(arg => arg.analyze(context));
 
-  check.argsMatchParameters(this.params, this.callee.params);
-  this.type = this.callee.returnType;
-};
+  check.paramsMatchDeclaration(this.params, this.callee.params);
 
-TaskDeclaration.prototype.analyzeSignature = function(context) {
-  this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params.forEach(p => p.analyze(this.bodyContext));
+  this.type = this.callee.returnType;
 };
 
 TaskDeclaration.prototype.analyze = function() {

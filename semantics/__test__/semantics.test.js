@@ -68,6 +68,10 @@ dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
 
 add(num x) -> num return x; end
 print [1,2,3,4,5] << add(5);
+
+five() -> num return 5; end
+
+five();
 `;
 
 describe('The semantic analyzer', () => {
