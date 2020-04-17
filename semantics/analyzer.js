@@ -199,9 +199,23 @@ BinaryExpression.prototype.analyze = function(context) {
       ? this.left.type
       : StringType;
   } else {
-    check.isNum(this.right);
-    check.isNum(this.left);
-    this.type = /[-*/%|==]/.test(this.op) ? NumType : BoolType;
+    if (['-', '/', '*', '%', '**'].includes(this.op)) {
+      check.isNum(this.right);
+      check.isNum(this.left);
+      this.type = NumType;
+    } else {
+      if (['!=', '=='].includes(this.op)) {
+        check.isNumStringOrChar(this.right);
+        check.isNumStringOrChar(this.left);
+      } else if (['<=', '<', '>=', '>'].includes(this.op)) {
+        check.isNum(this.right);
+        check.isNum(this.left);
+      } else {
+        check.isBool(this.right);
+        check.isBool(this.left);
+      }
+      this.type = BoolType;
+    }
   }
 };
 

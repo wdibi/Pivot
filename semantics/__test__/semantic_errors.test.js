@@ -80,9 +80,9 @@ const errors = [
   ['invalid dict types', `{str : num} count <- {"cows":"1", "pigs":3};`],
   [
     'statement is unreachable',
-    `add(num a, num b) -> num 
+    `add(num a, num b) -> num
       return b;
-      a <- 5; 
+      a <- 5;
     end`,
   ],
   [
@@ -116,19 +116,19 @@ const errors = [
   ],
   [
     'wrong number of params with function call',
-    `equal(num x, num y) -> bool return x == y; end 
+    `equal(num x, num y) -> bool return x == y; end
      equal(1);
     `,
   ],
   [
     'wrong number of params with function call',
-    `isNoon() -> bool return false; end 
+    `isNoon() -> bool return false; end
      isNoon(1300);
     `,
   ],
   [
     'wrong function call type',
-    `addFive(num x) -> num return x + 5; end 
+    `addFive(num x) -> num return x + 5; end
      addFive(false);
     `,
   ],

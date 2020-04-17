@@ -127,6 +127,14 @@ cc <- 20;
 all _ day, isYear2020 <- "04162020", true;
 str double <- day + day;
 isYear2020 <- false;
+
+
+firstFactorial(num x) -> num
+    if x == 0 or x == 1 then
+        return 1;
+    end
+    return x * firstFactorial(x - 1);
+end
 `;
 
 describe('The semantic analyzer', () => {
