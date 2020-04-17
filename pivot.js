@@ -39,7 +39,11 @@ fs.readFile(argv._[0], 'utf-8', (error, text) => {
     return;
   }
   if (argv.o) {
-    console.log(util.inspect(analyzer(program), { depth: null }));
+    try {
+      analyzer(program);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
   // if (argv.i) {
   //   console.log(util.inspect(program, { depth: null }));
