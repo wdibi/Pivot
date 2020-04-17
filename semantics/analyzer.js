@@ -57,7 +57,6 @@ Block.prototype.analyze = function(context) {
     });
   this.statements.forEach(s => s.analyze(localContext));
   this.statements.filter(s => s.constructor === VariableDeclaration);
-  // .map(d => check.varWasUsed(d));
   check.statementsAreReachable(this.statements, localContext);
 };
 
@@ -69,24 +68,27 @@ Object.assign(PrimitiveType.prototype, {
 
 Object.assign(DictType.prototype, {
   isCompatibleWithPairs(pairs) {
-    return pairs.every(
-      p =>
-        this.keyType.isCompatibleWith(p.key.type) &&
-        this.valueType.isCompatibleWith(p.value.type)
-    );
+    return pairs
+      ? pairs.every(
+          p =>
+            this.keyType.isCompatibleWith(p.key.type) &&
+            this.valueType.isCompatibleWith(p.value.type)
+        )
+      : true;
   },
 });
 
 Object.assign(ListType.prototype, {
   isCompatibleWithElements(elements) {
-    return elements.every(e => this.type.isCompatibleWith(e.type));
+    return elements
+      ? elements.every(e => this.type.isCompatibleWith(e.type))
+      : true;
   },
 });
 
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
   check.hasEquivalentTypes(this.type, this.init);
-  // this.used = false;
   context.add(this);
 };
 
@@ -99,9 +101,6 @@ AssignmentStatement.prototype.analyze = function(context) {
 
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
-  // if (this.ref.constructor === VariableDeclaration) {
-  //   this.ref.used = true;
-  // }
   this.type = this.ref.type;
 };
 
@@ -134,11 +133,7 @@ FunctionDeclaration.prototype.analyze = function() {
 
 TaskDeclaration.prototype.analyzeSignature = function(context) {
   this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params.forEach(p => p.analyze(this.bodyContext));
-};
-
-TaskDeclaration.prototype.analyze = function() {
-  this.body.analyze(this.bodyContext);
+  this.params && this.params.forEach(p => p.analyze(this.bodyContext));
 };
 
 FunctionCall.prototype.analyze = function(context) {
@@ -147,13 +142,9 @@ FunctionCall.prototype.analyze = function(context) {
 
   this.params && this.params.forEach(arg => arg.analyze(context));
 
-  check.argsMatchParameters(this.params, this.callee.params);
-  this.type = this.callee.returnType;
-};
+  check.paramsMatchDeclaration(this.params, this.callee.params);
 
-TaskDeclaration.prototype.analyzeSignature = function(context) {
-  this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params.forEach(p => p.analyze(this.bodyContext));
+  this.type = this.callee.returnType;
 };
 
 TaskDeclaration.prototype.analyze = function() {
@@ -173,30 +164,6 @@ Parameter.prototype.analyze = function(context) {
 
 BreakStatement.prototype.analyze = function(context) {
   check.breakWithinValidBody(context);
-};
-
-WhileStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-RepeatStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-ForStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-IfStatement.prototype.analyze = function(context) {
-  this.condition.analyze(context);
-  check.conditionIsDetermistic(this.condition);
-  this.body.analyze(context);
-  if (this.elseBody) {
-    this.elseBody.analyze(context);
-  }
 };
 
 BinaryExpression.prototype.analyze = function(context) {
@@ -236,12 +203,8 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  this.elements.map(e => e.analyze());
+  this.elements && this.elements.map(e => e.analyze());
   check.listHasConsistentTypes(this.elements);
-};
-
-BreakStatement.prototype.analyze = function(context) {
-  check.breakWithinValidBody(context);
 };
 
 WhileStatement.prototype.analyze = function(context) {
@@ -271,16 +234,15 @@ IfStatement.prototype.analyze = function(context) {
   this.condition.analyze(context);
   check.conditionIsDetermistic(this.condition);
   this.body.analyze(context);
-  if (this.elseBody) {
-    this.elseBody.analyze(context);
-  }
+  this.elseBody && this.elseBody.analyze(context);
 };
 
 DictionaryExpression.prototype.analyze = function() {
-  this.pairs.map(p => {
-    p.key.analyze();
-    p.value.analyze();
-  });
+  this.pairs &&
+    this.pairs.map(p => {
+      p.key.analyze();
+      p.value.analyze();
+    });
   check.dictHasConsistentTypes(this.pairs);
 };
 

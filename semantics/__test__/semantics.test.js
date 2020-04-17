@@ -16,6 +16,7 @@ task updateX(num value)
   end
 end
 
+
 num y <- addFive(5);
 updateX(y);
 
@@ -62,12 +63,17 @@ print { "john" : 5, "tim" : 6 };
 
 [num] listOfNums <- [1,2,3,4]; 
 listOfNums <- [ 2, 3, 4 ];
+listOfNums <- [];
 
 {str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
 dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
+dogAges <- {};
 
 add(num x) -> num return x; end
 print [1,2,3,4,5] << add(5);
+
+five() -> num return 5; end
+five();
 `;
 
 describe('The semantic analyzer', () => {

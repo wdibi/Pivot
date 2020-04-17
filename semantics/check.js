@@ -41,18 +41,18 @@ module.exports = {
       )} not compatible with type ${util.format(type.id)}`
     );
   },
-  argsMatchParameters(args, params) {
+  paramsMatchDeclaration(decParams, callParams) {
     doCheck(
-      !args && !params
+      !callParams && !decParams
         ? true
-        : args && params
-        ? args.length === params.length
+        : callParams && decParams
+        ? callParams.length === decParams.length
         : false,
-      `number of params: ${params} don't match args: ${args}`
+      `number of params: ${decParams} don't match args: ${callParams}`
     );
-    args &&
-      args.forEach((arg, i) =>
-        this.isNotVariableTypeMismatch(params[i].type, arg)
+    callParams &&
+      callParams.forEach((arg, i) =>
+        this.isNotVariableTypeMismatch(decParams[i].type, arg)
       );
   },
   isFunction(value) {
@@ -156,18 +156,6 @@ module.exports = {
     }
   },
   conditionIsDetermistic(condition) {
-    doCheck(
-      !literals.includes(condition.constructor),
-      'condition is deterministic'
-    );
-
-    if (condition.constructor === UnaryExpression) {
-      doCheck(
-        !literals.includes(this.operand.constructor),
-        'condition is deterministic'
-      );
-    }
-
     if (condition.constructor === BinaryExpression) {
       doCheck(
         !(
@@ -176,10 +164,17 @@ module.exports = {
         ),
         'condition is deterministic'
       );
+    } else if (condition.constructor === UnaryExpression) {
+      doCheck(
+        !literals.includes(this.operand.constructor),
+        'condition is deterministic'
+      );
+    } else {
+      doCheck(
+        !literals.includes(condition.constructor),
+        'condition is deterministic'
+      );
     }
-  },
-  varWasUsed(variable) {
-    doCheck(variable.used, `variable ${variable.id} was declared but not used`);
   },
   dictHasConsistentTypes(pairs) {
     if (pairs) {
@@ -202,7 +197,7 @@ module.exports = {
       );
     }
   },
-  notAssigningTask(source) {
-    doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
-  },
+  // notAssigningTask(source) {
+  //   doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
+  // },
 };
