@@ -75,26 +75,23 @@ print [1,2,3,4,5] << add(5);
 five() -> num return 5; end
 five();
 
-
-
 str name <- "Jigar";
-// _ age <- 21;
+_ age <- 21;
 bool below6ft <- true;
 [str] animals <- ["dog", "cat", "pig"];
-{str:num} friendsAges <- { "john" : 5, "tim" : 6 };
+all num q,w,s <- 1,2,3;
+{str:num} ages <- { "john" : 5, "tim" : 6 };
 
-num equation <- 0;
-equation <- 3*2 + (5 ** 6) / 7;
-
-num b <- 0;
-b <- 12 - 17 + 8;
+q <- 3*2 + (5 ** 6) / 7;
+w <- 12 - 17 + 8;
 
 add5(num x) -> num
     return x+5;
 end
-num testParam <- 5;
+
+num t <- 5;
 task updateNum(num value)
-  testParam <- value;
+    t <- value;
 end
 
 if x > 5
@@ -105,22 +102,24 @@ end
 
 if x > 5 then print x; end
 
-for num i <- 0; i < 2; i <- i + 1 do
-    print i;
+for num l <- 0; l < 2; l <- l + 1 do
+    print l;
 end
 
-num g <- 25;
+num testNum <- 25;
 
-while g do
-    print g;
-    g <- g - 1;
+while testNum do
+    print testNum;
+    testNum <- testNum - 1;
 end
 
-num p <- 30;
+num k <- 30;
+
 repeat
-    print p;
-    p <- p - 5;
-when p == -30 end
+    print k;
+    k <- k - 5;
+when k == -30 end
+
 all num aa, bb, cc <- 1, 2, 3;
 cc <- 20;
 
@@ -128,12 +127,28 @@ all _ day, isYear2020 <- "04162020", true;
 str double <- day + day;
 isYear2020 <- false;
 
-
 firstFactorial(num x) -> num
     if x == 0 or x == 1 then
         return 1;
     end
     return x * firstFactorial(x - 1);
+end
+
+fibonacci(num x) -> num
+    all num a,b,temp <- 1,0,0;
+
+    repeat
+        temp <- a;
+        a <- a + b;
+        b <- temp;
+        x <- x - 1;
+    when x < 0 end
+
+    return b;
+end
+
+evenOdd(num x) -> bool
+    return x % 2 == 0;
 end
 `;
 
