@@ -87,18 +87,14 @@ Object.assign(ListType.prototype, {
 });
 
 VariableDeclaration.prototype.analyze = function(context) {
-  VariableDeclaration.prototype.analyze = function(context) {
-    if (this.init.length) {
-      this.init.forEach(element => element.analyze(context));
-      this.init.forEach(element =>
-        check.hasEquivalentTypes(this.type, element)
-      );
-    } else {
-      this.init.analyze(context);
-      check.hasEquivalentTypes(this.type, this.init);
-    }
-    context.add(this);
-  };
+  if (this.init.length) {
+    this.init.forEach(element => element.analyze(context));
+    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
+  } else {
+    this.init.analyze(context);
+    check.hasEquivalentTypes(this.type, this.init);
+  }
+  context.add(this);
 };
 
 AssignmentStatement.prototype.analyze = function(context) {

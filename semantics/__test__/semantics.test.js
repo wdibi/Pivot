@@ -117,11 +117,11 @@ while g do
     g <- g - 1;
 end
 
-// num p <- 30;
-// repeat
-//     print p;
-//     p <- p - 5;
-// when p == -30 end
+num p <- 30;
+repeat
+    print p;
+    p <- p - 5;
+when p == -30 end
 `;
 
 describe('The semantic analyzer', () => {
