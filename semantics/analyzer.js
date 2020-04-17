@@ -26,6 +26,7 @@ const {
   ListType,
   DictionaryExpression,
   CallChain,
+  AutoType,
 } = require('../ast');
 const {
   NumType,
@@ -62,7 +63,7 @@ Block.prototype.analyze = function(context) {
 
 Object.assign(PrimitiveType.prototype, {
   isCompatibleWith(otherType) {
-    return this === otherType;
+    return this.id === 'auto' ? true : this === otherType;
   },
 });
 
@@ -93,6 +94,9 @@ VariableDeclaration.prototype.analyze = function(context) {
   } else {
     this.init.analyze(context);
     check.hasEquivalentTypes(this.type, this.init);
+  }
+  if (this.type instanceof PrimitiveType) {
+    this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
   }
   context.add(this);
 };
