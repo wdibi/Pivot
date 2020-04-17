@@ -94,8 +94,9 @@ Operators
 str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
-(num a, num b, num c) <- (1,2,3);
 [str] animals <- ["dog", "cat", "pig"];
+all num a,b,c <- 1,2,3;
+{str:num} ages <- { "john" : 5, "tim" : 6 };
 ```
 
   </td>
@@ -397,14 +398,14 @@ let friends = ['john', 'tim'];
 
 ```text
 fibonacci(num x) -> num
-    all num a, b, temp <- 1, 0, 0;
+    all num a,b,temp <- 1,0,0;
 
     repeat
         temp <- a;
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    until num < 0 end
+    when num < 0 end
 
     return b;
 end
@@ -509,11 +510,8 @@ function gcd(a, b) {
 
 ```text
 firstFactorial(num x) -> num
-    if x == 0 or x == 1 then
-        return 1;
-    else
-        return x * firstFactorial(x - 1);
-    end
+    if x == 0 or x == 1 then return 1; end
+    return x * firstFactorial(x - 1);
 end
 ```
 

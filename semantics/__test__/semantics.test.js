@@ -74,6 +74,80 @@ print [1,2,3,4,5] << add(5);
 
 five() -> num return 5; end
 five();
+
+str name <- "Jigar";
+_ age <- 21;
+bool below6ft <- true;
+[str] animals <- ["dog", "cat", "pig"];
+all num q,w,s <- 1,2,3;
+{str:num} ages <- { "john" : 5, "tim" : 6 };
+
+q <- 3*2 + (5 ** 6) / 7;
+w <- 12 - 17 + 8;
+
+add5(num x) -> num
+    return x+5;
+end
+
+num t <- 5;
+task updateNum(num value)
+    t <- value;
+end
+
+if x > 5
+    then print "hello";
+else
+    print "bye";
+end
+
+if x > 5 then print x; end
+
+for num l <- 0; l < 2; l <- l + 1 do
+    print l;
+end
+
+num testNum <- 25;
+
+while testNum do
+    print testNum;
+    testNum <- testNum - 1;
+end
+
+num k <- 30;
+
+repeat
+    print k;
+    k <- k - 5;
+when k == -30 end
+
+all num aa, bb, cc <- 1, 2, 3;
+cc <- 20;
+
+all _ day, isYear2020 <- "04162020", true;
+str double <- day + day;
+isYear2020 <- false;
+
+firstFactorial(num x) -> num
+    if x == 0 or x == 1 then return 1; end
+    return x * firstFactorial(x - 1);
+end
+
+fibonacci(num x) -> num
+    all num a,b,temp <- 1,0,0;
+
+    repeat
+        temp <- a;
+        a <- a + b;
+        b <- temp;
+        x <- x - 1;
+    when x < 0 end
+
+    return b;
+end
+
+evenOdd(num x) -> bool
+    return x % 2 == 0;
+end
 `;
 
 describe('The semantic analyzer', () => {

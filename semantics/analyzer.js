@@ -26,6 +26,7 @@ const {
   ListType,
   DictionaryExpression,
   CallChain,
+  AutoType,
 } = require('../ast');
 const {
   NumType,
@@ -62,7 +63,7 @@ Block.prototype.analyze = function(context) {
 
 Object.assign(PrimitiveType.prototype, {
   isCompatibleWith(otherType) {
-    return this === otherType;
+    return this.id === 'auto' ? true : this === otherType;
   },
 });
 
@@ -87,9 +88,28 @@ Object.assign(ListType.prototype, {
 });
 
 VariableDeclaration.prototype.analyze = function(context) {
-  this.init.analyze(context);
-  check.hasEquivalentTypes(this.type, this.init);
-  context.add(this);
+  if (this.init.length) {
+    this.init.forEach(element => element.analyze(context));
+    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
+    this.id.map((id, index) =>
+      context.add(
+        new VariableDeclaration(
+          id.id,
+          this.type.isCompatibleWith(AutoType)
+            ? this.init[index].type
+            : this.type,
+          this.init[index]
+        )
+      )
+    );
+  } else {
+    this.init.analyze(context);
+    check.hasEquivalentTypes(this.type, this.init);
+    if (this.type instanceof PrimitiveType) {
+      this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
+    }
+    context.add(this);
+  }
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
@@ -179,9 +199,23 @@ BinaryExpression.prototype.analyze = function(context) {
       ? this.left.type
       : StringType;
   } else {
-    check.isNum(this.right);
-    check.isNum(this.left);
-    this.type = NumType;
+    if (['-', '/', '*', '%', '**'].includes(this.op)) {
+      check.isNum(this.right);
+      check.isNum(this.left);
+      this.type = NumType;
+    } else {
+      if (['!=', '=='].includes(this.op)) {
+        check.isNumStringOrChar(this.right);
+        check.isNumStringOrChar(this.left);
+      } else if (['<=', '<', '>=', '>'].includes(this.op)) {
+        check.isNum(this.right);
+        check.isNum(this.left);
+      } else {
+        check.isBool(this.right);
+        check.isBool(this.left);
+      }
+      this.type = BoolType;
+    }
   }
 };
 
@@ -191,9 +225,11 @@ UnaryExpression.prototype.analyze = function(context) {
     case '!':
     case 'not':
       check.isBool(this.operand);
+      this.type = BoolType;
       break;
     case '-':
-      check.isNumOrBool(this.operand);
+      check.isNum(this.operand);
+      this.type = NumType;
       break;
   }
 };
