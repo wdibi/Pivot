@@ -176,11 +176,11 @@ BinaryExpression.prototype.optimize = function() {
     return new BooleanLiteral(true);
 
   // And
-  if (isAndOp(op) && isFalse(this.left || isFalse(this.right)))
+  if (isAndOp() && isFalse(this.left || isFalse(this.right)))
     return new BooleanLiteral(false);
 
   // Or
-  if (isOrOp(or) && (isTrue(this.left) || isTrue(this.right)))
+  if (isOrOp() && (isTrue(this.left) || isTrue(this.right)))
     return new BooleanLiteral(true);
 
   if (bothNumericLiterals(this)) {

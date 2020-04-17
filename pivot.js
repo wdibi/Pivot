@@ -14,7 +14,7 @@ const { exec } = require('child_process');
 const parse = require('./ast/parser');
 const view = require('./semantics/viewer');
 const analyzer = require('./semantics/analyzer');
-const optimizer = require('./semantics/optimizer');
+// const optimizer = require('./semantics/optimizer');
 // require(`./backend/${argv.target}generator`);
 
 fs.readFile(argv._[0], 'utf-8', (error, text) => {
@@ -38,9 +38,8 @@ fs.readFile(argv._[0], 'utf-8', (error, text) => {
     });
     return;
   }
-  analyzer(program);
   if (argv.o) {
-    // program = optimizer(program);
+    console.log(util.inspect(analyzer(program), { depth: null }));
   }
   // if (argv.i) {
   //   console.log(util.inspect(program, { depth: null }));
