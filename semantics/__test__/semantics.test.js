@@ -123,6 +123,10 @@ repeat
 when p == -30 end
 all num aa, bb, cc <- 1, 2, 3;
 cc <- 20;
+
+all _ day, isYear2020 <- "04162020", true;
+str double <- day + day;
+isYear2020 <- false;
 `;
 
 describe('The semantic analyzer', () => {

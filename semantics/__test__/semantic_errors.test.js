@@ -152,6 +152,15 @@ const errors = [
   ],
   ['binary exp that is deterministic', 'if 3 > 2 then print "duh"; end'],
   ['break outside of valid body', 'break;'],
+  [
+    'var day is a auto type that is inferred as a str and is invalid to be used as a num',
+    `
+    all _ day, isYear2020 <- "04162020", true;
+    num double <- day + day;
+    day <- "04172020";
+    isYear2020 <- false;
+  `,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

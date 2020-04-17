@@ -92,17 +92,24 @@ VariableDeclaration.prototype.analyze = function(context) {
     this.init.forEach(element => element.analyze(context));
     this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
     this.id.map((id, index) =>
-      context.add(new VariableDeclaration(id.id, this.type, this.init[index]))
+      context.add(
+        new VariableDeclaration(
+          id.id,
+          this.type.isCompatibleWith(AutoType)
+            ? this.init[index].type
+            : this.type,
+          this.init[index]
+        )
+      )
     );
   } else {
     this.init.analyze(context);
     check.hasEquivalentTypes(this.type, this.init);
+    if (this.type instanceof PrimitiveType) {
+      this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
+    }
+    context.add(this);
   }
-
-  if (this.type instanceof PrimitiveType) {
-    this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
-  }
-  !this.init.length && context.add(this);
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
