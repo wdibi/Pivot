@@ -156,24 +156,22 @@ module.exports = {
     }
   },
   conditionIsDetermistic(condition) {
-    doCheck(
-      !literals.includes(condition.constructor),
-      'condition is deterministic'
-    );
-
-    if (condition.constructor === UnaryExpression) {
-      doCheck(
-        !literals.includes(this.operand.constructor),
-        'condition is deterministic'
-      );
-    }
-
     if (condition.constructor === BinaryExpression) {
       doCheck(
         !(
           literals.includes(condition.left.constructor) &&
           literals.includes(condition.right.constructor)
         ),
+        'condition is deterministic'
+      );
+    } else if (condition.constructor === UnaryExpression) {
+      doCheck(
+        !literals.includes(this.operand.constructor),
+        'condition is deterministic'
+      );
+    } else {
+      doCheck(
+        !literals.includes(condition.constructor),
         'condition is deterministic'
       );
     }
@@ -199,7 +197,7 @@ module.exports = {
       );
     }
   },
-  notAssigningTask(source) {
-    doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
-  },
+  // notAssigningTask(source) {
+  //   doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
+  // },
 };
