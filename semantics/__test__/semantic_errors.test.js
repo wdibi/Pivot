@@ -39,10 +39,8 @@ const errors = [
   ['can only divide numbers', 'print "abc" / 3;'],
   ['can only use bang or not operators with booleans', 'str x <- !12;'],
   ['can only use the negation operator with booleans or nums', 'print -"hi";'],
-  [
-    'cannot have different types in the same list',
-    '[str] friends <- [ "john", 12, false ];',
-  ],
+  ['inconsistent list expression types', 'print [ "john", 12, false ];'],
+  ['invalid list types', '[str] friends <- [ "john", 12, false ];'],
   [
     'invalid inferred string exp assign to num variable',
     `num x <- 2;
@@ -109,6 +107,12 @@ const errors = [
     `print { "john" : 5, "tim" : false };`,
   ],
   [
+    'invalid list assignment',
+    '[num] listOfNums <- [1,2,3,4]; listOfNums <- [ "hi", "bye" ];',
+  ],
+  [
+    'Declared dictionary types do not match the types of the keys and/or the values',
+    '{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 }; dogAges <- { "boomer" : "5", "bucky" : "2" };',
     'wrong number of params with function call',
     `equal(num x, num y) -> bool return x == y; end 
      equal(1,2,3);
@@ -127,6 +131,16 @@ const errors = [
       x <- value;
     end
     x <- updateX(x);`,
+  ],
+  [
+    'pairs do not match DictTpe',
+    `{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
+      dogAges <- { "boomer" : false, "bucky" : true };`,
+  ],
+  [
+    'elements do not match DictTpe',
+    `num randomNums <- [1,2,3,4,5];
+     randomNums <- [true, false, false, true];`,
   ],
 ];
 

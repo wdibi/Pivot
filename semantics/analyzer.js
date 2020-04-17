@@ -67,19 +67,25 @@ Object.assign(PrimitiveType.prototype, {
   },
 });
 
+Object.assign(DictType.prototype, {
+  isCompatibleWithPairs(pairs) {
+    return pairs.every(
+      p =>
+        this.keyType.isCompatibleWith(p.key.type) &&
+        this.valueType.isCompatibleWith(p.value.type)
+    );
+  },
+});
+
+Object.assign(ListType.prototype, {
+  isCompatibleWithElements(elements) {
+    return elements.every(e => this.type.isCompatibleWith(e.type));
+  },
+});
+
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
-  if (this.type.constructor === DictType) {
-    this.init.pairs.map(p => {
-      p.key.analyze();
-      p.value.analyze();
-    });
-    check.checkValidPairs(this.type, this.init.pairs);
-  } else if (this.type.constructor === ListType) {
-    // placeholder
-  } else {
-    check.isNotVariableTypeMismatch(this.type, this.init);
-  }
+  check.hasEquivalentTypes(this.type, this.init);
   // this.used = false;
   context.add(this);
 };
@@ -87,9 +93,8 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  check.notAssigningTask(this.source);
-  check.hasType(this.source);
-  check.hasEquivalentTypes(this.target, this.source);
+  //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
+  check.hasEquivalentTypes(this.target.type, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
@@ -231,13 +236,8 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  if (this.elements.length > 0) {
-    this.type = this.elements[0].constructor;
-    this.elements.length &&
-      this.elements.forEach(element =>
-        check.isSameConstructor(this.type, element.constructor)
-      );
-  }
+  this.elements.map(e => e.analyze());
+  check.listHasConsistentTypes(this.elements);
 };
 
 BreakStatement.prototype.analyze = function(context) {

@@ -15,6 +15,8 @@ const {
   NumType,
   CharType,
   BoolType,
+  DictType,
+  ListType,
 } = require('../ast');
 
 const literals = [
@@ -46,7 +48,7 @@ module.exports = {
         : args && params
         ? args.length === params.length
         : false,
-      `${params} does not much ${args}`
+      `number of params: ${params} don't match args: ${args}`
     );
     args &&
       args.forEach((arg, i) =>
@@ -112,25 +114,23 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
-  isSameConstructor(defaultConstructor, elementConstructor) {
-    doCheck(
-      elementConstructor == defaultConstructor,
-      `${util.format(elementConstructor)} is not of the type ${util.format(
-        defaultConstructor
-      )}`
-    );
-  },
-  hasType(item) {
-    doCheck(
-      item.type,
-      `${util.format(item.constructor.name)} does not have a type`
-    );
-  },
-  hasEquivalentTypes(item1, item2) {
-    doCheck(
-      item1.type === item2.type,
-      `${item1} does not have the same type as ${item2}`
-    );
+  hasEquivalentTypes(baseType, item) {
+    if (baseType.constructor === DictType) {
+      doCheck(
+        baseType.isCompatibleWithPairs(item.pairs),
+        `pairs do not match DictType`
+      );
+    } else if (baseType.constructor === ListType) {
+      doCheck(
+        baseType.isCompatibleWithElements(item.elements),
+        `elements do not match ListType`
+      );
+    } else {
+      doCheck(
+        baseType.isCompatibleWith(item.type),
+        `PrimitiveTypes do not match: ${baseType.id} is not ${item.type.id}`
+      );
+    }
   },
   statementsAreReachable(statements, context) {
     let statementTypes = statements.map(statement => statement.constructor);
@@ -178,20 +178,9 @@ module.exports = {
       );
     }
   },
-
-  checkValidPairs(type, pairs) {
-    doCheck(
-      pairs.every(
-        p => p.key.type === type.keyType && p.value.type === type.valueType
-      ),
-      `Invalid Dictionary Pairs`
-    );
-  },
-
   varWasUsed(variable) {
     doCheck(variable.used, `variable ${variable.id} was declared but not used`);
   },
-
   dictHasConsistentTypes(pairs) {
     if (pairs) {
       const firstKeyType = pairs[0].key.type;
@@ -204,7 +193,15 @@ module.exports = {
       );
     }
   },
-
+  listHasConsistentTypes(elements) {
+    if (elements) {
+      const firstElementType = elements[0].type;
+      doCheck(
+        elements.every(e => e.type === firstElementType),
+        `inconsistent list types`
+      );
+    }
+  },
   notAssigningTask(source) {
     doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
   },

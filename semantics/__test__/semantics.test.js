@@ -33,8 +33,8 @@ print !false;
 print -12;
 
 [str] friends <- [ "john", "tim" ];
-[bool] values <- [ false, true, false ];
-[num] ages <- [ 12, 24 ];
+
+print [ "john", "tim" ];
 
 num z <- 5;
 task updateByZ(num x)
@@ -59,6 +59,12 @@ when x > 10 end
 {str:num} adultAges <- { "john" : 5, "tim" : 6 };
 
 print { "john" : 5, "tim" : 6 };
+
+[num] listOfNums <- [1,2,3,4]; 
+listOfNums <- [ 2, 3, 4 ];
+
+{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
+dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
 
 add(num x) -> num return x; end
 print [1,2,3,4,5] << add(5);
