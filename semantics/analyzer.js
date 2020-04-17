@@ -68,17 +68,21 @@ Object.assign(PrimitiveType.prototype, {
 
 Object.assign(DictType.prototype, {
   isCompatibleWithPairs(pairs) {
-    return pairs.every(
-      p =>
-        this.keyType.isCompatibleWith(p.key.type) &&
-        this.valueType.isCompatibleWith(p.value.type)
-    );
+    return pairs
+      ? pairs.every(
+          p =>
+            this.keyType.isCompatibleWith(p.key.type) &&
+            this.valueType.isCompatibleWith(p.value.type)
+        )
+      : true;
   },
 });
 
 Object.assign(ListType.prototype, {
   isCompatibleWithElements(elements) {
-    return elements.every(e => this.type.isCompatibleWith(e.type));
+    return elements
+      ? elements.every(e => this.type.isCompatibleWith(e.type))
+      : true;
   },
 });
 
@@ -224,7 +228,7 @@ PrintStatement.prototype.analyze = function(context) {
 };
 
 ListExpression.prototype.analyze = function() {
-  this.elements.map(e => e.analyze());
+  this.elements && this.elements.map(e => e.analyze());
   check.listHasConsistentTypes(this.elements);
 };
 
@@ -263,10 +267,11 @@ IfStatement.prototype.analyze = function(context) {
 };
 
 DictionaryExpression.prototype.analyze = function() {
-  this.pairs.map(p => {
-    p.key.analyze();
-    p.value.analyze();
-  });
+  this.pairs &&
+    this.pairs.map(p => {
+      p.key.analyze();
+      p.value.analyze();
+    });
   check.dictHasConsistentTypes(this.pairs);
 };
 
