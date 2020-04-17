@@ -468,6 +468,32 @@ const fixture = {
       ])
     ),
   ],
+
+  EmptyDictDec: [
+    String.raw`{num:bool} alpha <- {};`,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression('alpha'),
+          new DictType(new PrimitiveType('num'), new PrimitiveType('bool')),
+          new DictionaryExpression(null)
+        ),
+      ])
+    ),
+  ],
+
+  NoParamFuncDec: [
+    String.raw`task five() return 5; end`,
+    new Program(
+      new Block([
+        new TaskDeclaration(
+          new IdExpression('five'),
+          null,
+          new Block([new ReturnStatement(new NumericLiteral(5))])
+        ),
+      ])
+    ),
+  ],
 };
 
 describe('The parser', () => {
