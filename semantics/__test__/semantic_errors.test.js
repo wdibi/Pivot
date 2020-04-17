@@ -151,6 +151,7 @@ const errors = [
      randomNums <- [true, false, false, true];`,
   ],
   ['binary exp that is deterministic', 'if 3 > 2 then print "duh"; end'],
+  ['break outside of valid body', 'break;'],
 ];
 
 describe('The semantic analyzer', () => {

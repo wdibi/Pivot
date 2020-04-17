@@ -136,10 +136,6 @@ TaskDeclaration.prototype.analyzeSignature = function(context) {
   this.params && this.params.forEach(p => p.analyze(this.bodyContext));
 };
 
-TaskDeclaration.prototype.analyze = function() {
-  this.body.analyze(this.bodyContext);
-};
-
 FunctionCall.prototype.analyze = function(context) {
   this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
@@ -168,27 +164,6 @@ Parameter.prototype.analyze = function(context) {
 
 BreakStatement.prototype.analyze = function(context) {
   check.breakWithinValidBody(context);
-};
-
-WhileStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-RepeatStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-ForStatement.prototype.analyze = function(context) {
-  this.bodyContext = context.createChildContextForLoop();
-  this.body.analyze(this.bodyContext);
-};
-
-IfStatement.prototype.analyze = function(context) {
-  this.condition.analyze(context);
-  check.conditionIsDetermistic(this.condition);
-  this.body.analyze(context);
 };
 
 BinaryExpression.prototype.analyze = function(context) {
@@ -230,10 +205,6 @@ PrintStatement.prototype.analyze = function(context) {
 ListExpression.prototype.analyze = function() {
   this.elements && this.elements.map(e => e.analyze());
   check.listHasConsistentTypes(this.elements);
-};
-
-BreakStatement.prototype.analyze = function(context) {
-  check.breakWithinValidBody(context);
 };
 
 WhileStatement.prototype.analyze = function(context) {
