@@ -482,8 +482,8 @@ const fixture = {
     ),
   ],
 
-  NoParamFuncDec: [
-    String.raw`five() -> num return 5; end`,
+  NoParamFuncAndTaskDec: [
+    String.raw`five() -> num return 5; end task fun() print true; end`,
     new Program(
       new Block([
         new FunctionDeclaration(
@@ -491,6 +491,11 @@ const fixture = {
           new PrimitiveType('num'),
           null,
           new Block([new ReturnStatement(new NumericLiteral(5))])
+        ),
+        new TaskDeclaration(
+          new IdExpression('fun'),
+          null,
+          new Block([new PrintStatement(new BooleanLiteral(true))])
         ),
       ])
     ),
