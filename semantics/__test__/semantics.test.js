@@ -80,7 +80,6 @@ five();
 str name <- "Jigar";
 // _ age <- 21;
 bool below6ft <- true;
-all num a,b,c <- 1,2,3;
 [str] animals <- ["dog", "cat", "pig"];
 {str:num} friendsAges <- { "john" : 5, "tim" : 6 };
 
@@ -122,6 +121,8 @@ repeat
     print p;
     p <- p - 5;
 when p == -30 end
+all num aa, bb, cc <- 1, 2, 3;
+cc <- 20;
 `;
 
 describe('The semantic analyzer', () => {
