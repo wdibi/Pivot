@@ -66,6 +66,8 @@ listOfNums <- [ 2, 3, 4 ];
 {str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
 dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
 
+add(num x) -> num return x; end
+print [1,2,3,4,5] << add(5);
 `;
 
 describe('The semantic analyzer', () => {
