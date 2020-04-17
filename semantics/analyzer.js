@@ -57,7 +57,6 @@ Block.prototype.analyze = function(context) {
     });
   this.statements.forEach(s => s.analyze(localContext));
   this.statements.filter(s => s.constructor === VariableDeclaration);
-  // .map(d => check.varWasUsed(d));
   check.statementsAreReachable(this.statements, localContext);
 };
 
@@ -86,7 +85,6 @@ Object.assign(ListType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   this.init.analyze(context);
   check.hasEquivalentTypes(this.type, this.init);
-  // this.used = false;
   context.add(this);
 };
 
@@ -99,9 +97,6 @@ AssignmentStatement.prototype.analyze = function(context) {
 
 IdExpression.prototype.analyze = function(context) {
   this.ref = context.lookup(this.id);
-  // if (this.ref.constructor === VariableDeclaration) {
-  //   this.ref.used = true;
-  // }
   this.type = this.ref.type;
 };
 
@@ -194,9 +189,6 @@ IfStatement.prototype.analyze = function(context) {
   this.condition.analyze(context);
   check.conditionIsDetermistic(this.condition);
   this.body.analyze(context);
-  if (this.elseBody) {
-    this.elseBody.analyze(context);
-  }
 };
 
 BinaryExpression.prototype.analyze = function(context) {
@@ -271,9 +263,7 @@ IfStatement.prototype.analyze = function(context) {
   this.condition.analyze(context);
   check.conditionIsDetermistic(this.condition);
   this.body.analyze(context);
-  if (this.elseBody) {
-    this.elseBody.analyze(context);
-  }
+  this.elseBody && this.elseBody.analyze(context);
 };
 
 DictionaryExpression.prototype.analyze = function() {

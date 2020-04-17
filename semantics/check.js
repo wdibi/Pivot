@@ -178,9 +178,6 @@ module.exports = {
       );
     }
   },
-  varWasUsed(variable) {
-    doCheck(variable.used, `variable ${variable.id} was declared but not used`);
-  },
   dictHasConsistentTypes(pairs) {
     if (pairs) {
       const firstKeyType = pairs[0].key.type;
