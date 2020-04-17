@@ -190,7 +190,7 @@ BinaryExpression.prototype.analyze = function(context) {
   } else {
     check.isNum(this.right);
     check.isNum(this.left);
-    this.type = NumType;
+    this.type = /[-*/|]/.test(this.op) ? NumType : BoolType;
   }
 };
 
@@ -200,9 +200,11 @@ UnaryExpression.prototype.analyze = function(context) {
     case '!':
     case 'not':
       check.isBool(this.operand);
+      this.type = BoolType;
       break;
     case '-':
-      check.isNumOrBool(this.operand);
+      check.isNum(this.operand);
+      this.type = NumType;
       break;
   }
 };
