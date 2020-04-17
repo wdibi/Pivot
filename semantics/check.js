@@ -41,12 +41,17 @@ module.exports = {
   },
   argsMatchParameters(args, params) {
     doCheck(
-      args.length === params.length,
-      `function expects ${params.length} args, but received ${args.length}`
+      !args && !params
+        ? true
+        : args && params
+        ? args.length === params.length
+        : false,
+      `${params} does not much ${args}`
     );
-    args.forEach((arg, i) =>
-      this.isNotVariableTypeMismatch(params[i].type, arg)
-    );
+    args &&
+      args.forEach((arg, i) =>
+        this.isNotVariableTypeMismatch(params[i].type, arg)
+      );
   },
   isFunction(value) {
     doCheck(

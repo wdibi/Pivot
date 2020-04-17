@@ -59,6 +59,9 @@ when x > 10 end
 {str:num} adultAges <- { "john" : 5, "tim" : 6 };
 
 print { "john" : 5, "tim" : 6 };
+
+add(num x) -> num return x; end
+print [1,2,3,4,5] << add(5);
 `;
 
 describe('The semantic analyzer', () => {

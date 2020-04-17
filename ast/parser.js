@@ -44,10 +44,6 @@ const {
 
 const grammar = ohm.grammar(fs.readFileSync('./grammar/pivot.ohm'));
 
-function arrayToNullable(a) {
-  return a.length === 0 ? null : new Block(a[0]);
-}
-
 /* eslint-disable no-unused-vars */
 const astBuilder = grammar.createSemantics().addOperation('ast', {
   Program(b) {
@@ -78,13 +74,25 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
     return c.ast();
   },
   FunctionDeclaration_regular(i, _o, a, _c, _a, t, b) {
-    return new FunctionDeclaration(i.ast(), t.ast(), a.ast(), b.ast());
+    return new FunctionDeclaration(
+      i.ast(),
+      t.ast(),
+      a._node.matchLength > 0 ? a.ast() : null,
+      b.ast()
+    );
   },
   FunctionDeclaration_task(_t, i, _o, a, _c, b) {
-    return new TaskDeclaration(i.ast(), a.ast(), b.ast());
+    return new TaskDeclaration(
+      i.ast(),
+      a._node.matchLength > 0 ? a.ast() : null,
+      b.ast()
+    );
   },
   FunctionCall(i, _openParen, args, _closeParen) {
-    return new FunctionCall(i.ast(), args.ast());
+    return new FunctionCall(
+      i.ast(),
+      args._node.matchLength > 0 ? args.ast() : null
+    );
   },
   CallExpression_chain(item, _a, methods) {
     return new CallChain(item.ast(), methods.ast());
@@ -93,7 +101,7 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
     return new IfStatement(
       t.ast(),
       new Block(consequent.ast()),
-      arrayToNullable(alternate.ast())
+      alternate.ast().length ? new Block(alternate.ast()[0]) : null
     );
   },
   Assignment(i, _a, e) {
@@ -165,21 +173,21 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
     return new BreakStatement();
   },
   List(_o, e, _c) {
-    return new ListExpression(e.ast());
+    return new ListExpression(e._node.matchLength > 0 ? e.ast() : null);
   },
   Dict(_o, p, _c) {
-    return new DictionaryExpression(p.ast());
+    return new DictionaryExpression(p._node.matchLength > 0 ? p.ast() : null);
   },
   boollit(_) {
     return new BooleanLiteral(this.sourceString === 'true');
   },
-  numlit(f, _, _l) {
+  numlit(_f, _, _l) {
     return new NumericLiteral(+this.sourceString);
   },
-  charlit(_o, char, _c) {
+  charlit(_o, _char, _c) {
     return new CharacterLiteral(this.sourceString.slice(1, -1));
   },
-  strlit(_o, str, _c) {
+  strlit(_o, _str, _c) {
     return new StringLiteral(this.sourceString.slice(1, -1));
   },
   id(_f, _r) {
