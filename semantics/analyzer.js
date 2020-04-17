@@ -201,7 +201,7 @@ BinaryExpression.prototype.analyze = function(context) {
   } else {
     check.isNum(this.right);
     check.isNum(this.left);
-    this.type = /[-*/%|]/.test(this.op) ? NumType : BoolType;
+    this.type = /[-*/%|==]/.test(this.op) ? NumType : BoolType;
   }
 };
 
