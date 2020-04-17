@@ -94,8 +94,9 @@ Operators
 str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
-(num a, num b, num c) <- (1,2,3);
 [str] animals <- ["dog", "cat", "pig"];
+all num a,b,c <- 1,2,3;
+{str:num} ages <- { "john" : 5, "tim" : 6 };
 ```
 
   </td>

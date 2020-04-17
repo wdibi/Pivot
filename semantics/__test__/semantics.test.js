@@ -74,6 +74,54 @@ print [1,2,3,4,5] << add(5);
 
 five() -> num return 5; end
 five();
+
+
+
+str name <- "Jigar";
+// _ age <- 21;
+bool below6ft <- true;
+all num a,b,c <- 1,2,3;
+[str] animals <- ["dog", "cat", "pig"];
+{str:num} friendsAges <- { "john" : 5, "tim" : 6 };
+
+num equation <- 0;
+equation <- 3*2 + (5 ** 6) / 7;
+
+num b <- 0;
+b <- 12 - 17 + 8;
+
+add5(num x) -> num
+    return x+5;
+end
+num testParam <- 5;
+task updateNum(num value)
+  testParam <- value;
+end
+
+if x > 5
+    then print "hello";
+else
+    print "bye";
+end
+
+if x > 5 then print x; end
+
+for num i <- 0; i < 2; i <- i + 1 do
+    print i;
+end
+
+num g <- 25;
+
+while g do
+    print g;
+    g <- g - 1;
+end
+
+// num p <- 30;
+// repeat
+//     print p;
+//     p <- p - 5;
+// when p == -30 end
 `;
 
 describe('The semantic analyzer', () => {
