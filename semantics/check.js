@@ -33,6 +33,14 @@ function doCheck(condition, message) {
 }
 
 module.exports = {
+  isNotVariableTypeMismatch(type, expression) {
+    doCheck(
+      type.id === expression.type.id,
+      `expression of type ${util.format(
+        expression.type.id
+      )} not compatible with type ${util.format(type.id)}`
+    );
+  },
   argsMatchParameters(args, params) {
     doCheck(
       !args && !params
@@ -40,7 +48,7 @@ module.exports = {
         : args && params
         ? args.length === params.length
         : false,
-      `${params} does not much ${args}`
+      `number of params: ${params} don't match args: ${args}`
     );
     args &&
       args.forEach((arg, i) =>
