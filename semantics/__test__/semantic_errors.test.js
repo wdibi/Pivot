@@ -113,15 +113,22 @@ const errors = [
   [
     'Declared dictionary types do not match the types of the keys and/or the values',
     '{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 }; dogAges <- { "boomer" : "5", "bucky" : "2" };',
+  [
     'wrong number of params with function call',
     `equal(num x, num y) -> bool return x == y; end 
-     equal(1,2,3);
+     equal(1);
     `,
   ],
   [
     'wrong number of params with function call',
     `isNoon() -> bool return false; end 
      isNoon(1300);
+    `,
+  ],
+  [
+    'wrong function call type',
+    `addFive(num x) -> num return x + 5; end 
+     addFive(false);
     `,
   ],
   [
