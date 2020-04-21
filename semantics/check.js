@@ -33,13 +33,18 @@ function doCheck(condition, message) {
 }
 
 function hasReturnStatement(body) {
-  if (body.statements.filter(d => d.constructor === ReturnStatement).length > 0) return true;
+  if (body.statements.filter(d => d.constructor === ReturnStatement).length > 0)
+    return true;
 
   let foundReturn = false;
 
   body.statements.forEach(statement => {
-    if (statement.body) { foundReturn = foundReturn || hasReturnStatement(statement.body) }
-    if (statement.elseBody) { foundReturn = foundReturn || hasReturnStatement(statement.elseBody) }
+    if (statement.body) {
+      foundReturn = foundReturn || hasReturnStatement(statement.body);
+    }
+    if (statement.elseBody) {
+      foundReturn = foundReturn || hasReturnStatement(statement.elseBody);
+    }
   });
 
   return foundReturn;
@@ -80,10 +85,7 @@ module.exports = {
   },
   bodyContainsReturn(body) {
     let foundReturn = hasReturnStatement(body);
-    doCheck(
-      foundReturn,
-      'no return statement found within function'
-    );
+    doCheck(foundReturn, 'no return statement found within function');
   },
   returnMatchesFunctionReturnType(returnExpression, functionContext) {
     doCheck(
