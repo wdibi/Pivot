@@ -128,8 +128,11 @@ str double <- day + day;
 isYear2020 <- false;
 
 firstFactorial(num x) -> num
-    if x == 0 or x == 1 then return 1; end
-    return x * firstFactorial(x - 1);
+    if x == 0 or x == 1 then
+        return 1;
+    else
+        return x * firstFactorial(x - 1);
+    end
 end
 
 fibonacci(num x) -> num

@@ -32,6 +32,19 @@ function doCheck(condition, message) {
   }
 }
 
+function hasReturnStatement(body) {
+  if (body.statements.filter(d => d.constructor === ReturnStatement).length > 0) return true;
+
+  let foundReturn = false;
+
+  body.statements.forEach(statement => {
+    if (statement.body) { foundReturn = foundReturn || hasReturnStatement(statement.body) }
+    if (statement.elseBody) { foundReturn = foundReturn || hasReturnStatement(statement.elseBody) }
+  });
+
+  return foundReturn;
+}
+
 module.exports = {
   isNotVariableTypeMismatch(type, expression) {
     doCheck(
@@ -66,8 +79,9 @@ module.exports = {
     doCheck(context.currentFunction !== null, `not within a function`);
   },
   bodyContainsReturn(body) {
+    let foundReturn = hasReturnStatement(body);
     doCheck(
-      body.statements.filter(d => d.constructor === ReturnStatement).length > 0,
+      foundReturn,
       'no return statement found within function'
     );
   },
