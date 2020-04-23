@@ -7,6 +7,20 @@
   const width = +svg.attr('width');
   const height = +svg.attr('height');
 
+  svg.append('defs').append('marker')
+    .attr("id",'arrowhead')
+    .attr('viewBox','-0 -5 10 10')
+    .attr('refX',13)
+    .attr('refY',0)
+    .attr('orient','auto')
+    .attr('markerWidth',5)
+    .attr('markerHeight',5)
+    .attr('xoverflow','visible')
+    .append('svg:path')
+    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    .attr('fill', 'orange')
+    .style('stroke','none');
+
   // Weird I know...
   const data = JSON.parse(<%-JSON.stringify(data)%>);
 
@@ -27,7 +41,8 @@
     .enter()
     .append('line')
     .attr('stroke-width', 3)
-    .style('stroke', 'orange');
+    .style('stroke', 'orange')
+    .attr('marker-end','url(#arrowhead)');
 
   const edgePaths = svg.selectAll(".edgepath")
     .data(data.edges)
