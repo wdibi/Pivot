@@ -4,8 +4,8 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
   const svg = d3.select('svg');
-  const width = svg.attr('width');
-  const height = svg.attr('height');
+  const width = +svg.attr('width');
+  const height = +svg.attr('height');
 
   // Weird I know...
   const data = JSON.parse(<%-JSON.stringify(data)%>);
@@ -29,13 +29,38 @@
     .attr('stroke-width', 3)
     .style('stroke', 'orange');
 
+  const edgePaths = svg.selectAll(".edgepath")
+    .data(data.edges)
+    .enter()
+    .append('path')
+    .attr('class', 'edgepath')
+    .attr('fill-opacity', 0)
+    .attr('stroke-opacity', 0)
+    .attr('id', (d, i) => 'edgepath' + i)
+    .style("pointer-events", "none");
+
+  const edgeLabels = svg.selectAll(".edgelabel")
+    .data(data.edges)
+    .enter()
+    .append('text')
+    .style("pointer-events", "none")
+    .attr('class', 'edgelabel')
+    .attr('font-size', 10)
+
+  edgeLabels.append('textPath') 
+    .attr('xlink:href', (d, i) => '#edgepath' + i)
+    .style("text-anchor", "middle")
+    .style("pointer-events", "none")
+    .attr("startOffset", "50%")
+    .text(d => d.label);
+
   const entities = svg
     .append('g')
     .selectAll('circle')
     .data(data.entities)
     .enter()
     .append('circle')
-    .attr('r', 15)
+    .attr('r', 10)
     .attr('fill', 'red');
 
   const entityLabels = svg
@@ -74,5 +99,7 @@
       .attr('y1', (d) => d.source.y)
       .attr('x2', (d) => d.target.x)
       .attr('y2', (d) => d.target.y);
+    edgePaths
+      .attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
   }
 </script>
