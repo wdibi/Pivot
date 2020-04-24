@@ -34,6 +34,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
 
 - [Contents](#contents)
 - [Types](#types)
+- [Types of Semantic Errors](#types-of-semantic-errors)
 - [Examples:](#examples)
   - [Variable Declarations](#variable-declarations)
   - [Arithmetic](#arithmetic)
@@ -44,7 +45,6 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
   - [Repeat](#repeat)
   - [Dictionary](#dictionary)
   - [List](#list)
-  - [Types of Semantic Errors](#types-of-semantic-errors)
   - [Sample Program:](#sample-program)
     - [Fibonacci Pivot:](#fibonacci-pivot)
     - [Even or Odd:](#even-or-odd)
@@ -77,6 +77,31 @@ Operators
 - Greater than or equal `>=`
 - Logical AND `and`, `&&`
 - Logical OR `or`, `||`
+
+### Types of Semantic Errors
+- Type mismatch in declaration
+- Variable already declared
+- Variable assignment type mismatch
+- Variable not yet declared
+- Non-existing function call
+- Incorrect number of function arguments
+- Mismatched function return type
+- Types are not compatable
+- Function missing return statement
+- Tasks cannot have return statement
+- Arithmetic with undefined variable
+- Invalid types used with addition
+- Invalid types used with multiplcation
+- Invalid types used with subtraction
+- Invalid types used with division
+- Incorrect use of unary operator
+- Inconsistent list types
+- Invalid variable type
+- Break outside of loops or task
+- Deterministic condition
+- Invalid dict types
+- Unreachable statement
+- Inconsistent dict expression types
 
 ## Examples:
 
@@ -382,31 +407,6 @@ let friends = ['john', 'tim'];
   </td>
 
 </table>
-
-### Types of Semantic Errors
-- Type mismatch in declaration
-- Variable already declared
-- Variable assignment type mismatch
-- Variable not yet declared
-- Non-existing function call
-- Incorrect number of function arguments
-- Mismatched function return type
-- Types are not compatable
-- Function missing return statement
-- Tasks cannot have return statement
-- Arithmetic with undefined variable
-- Invalid types used with addition
-- Invalid types used with multiplcation
-- Invalid types used with subtraction
-- Invalid types used with division
-- Incorrect use of unary operator
-- Inconsistent list types
-- Invalid variable type
-- Break outside of loops or task
-- Deterministic condition
-- Invalid dict types
-- Unreachable statement
-- Inconsistent dict expression types
 
 
 ### Sample Program:
