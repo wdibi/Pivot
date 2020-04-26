@@ -14,7 +14,7 @@ const { exec } = require('child_process');
 const parse = require('./ast/parser');
 const view = require('./semantics/viewer');
 const analyzer = require('./semantics/analyzer');
-// const optimizer = require('./semantics/optimizer');
+const optimizer = require('./semantics/optimizer');
 // require(`./backend/${argv.target}generator`);
 
 fs.readFile(argv._[0], 'utf-8', (error, text) => {
@@ -41,6 +41,7 @@ fs.readFile(argv._[0], 'utf-8', (error, text) => {
   if (argv.o) {
     try {
       analyzer(program);
+      program = optimizer(program);
     } catch (error) {
       console.error(error.message);
     }

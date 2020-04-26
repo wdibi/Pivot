@@ -20,6 +20,7 @@ const {
   RepeatStatement,
   ForStatement,
   BinaryExpression,
+  UnaryExpression,
   ListExpression,
   DictionaryExpression,
   KeyValuePair,
@@ -29,15 +30,15 @@ const {
 module.exports = program => program.optimize();
 
 function isZero(e) {
-  return e instanceof NumericLiteral && e.value === 0;
+  return isNumericLiteral(e) && e.value === 0;
 }
 
 function isOne(e) {
-  return e instanceof NumericLiteral && e.value === 1;
+  return isNumericLiteral(e) && e.value === 1;
 }
 
 function isTrue(e) {
-  return e instanceof BooleanLiteral && e.value;
+  return isBooleanLiteral(e) && e.value;
 }
 
 function areEqual(left, right) {
@@ -49,7 +50,15 @@ function areEqual(left, right) {
 }
 
 function bothNumericLiterals(b) {
-  return b.left instanceof NumericLiteral && b.right instanceof NumericLiteral;
+  return isNumericLiteral(b.left) && isNumericLiteral(b.right);
+}
+
+function isNumericLiteral(e) {
+  return e instanceof NumericLiteral;
+}
+
+function isBooleanLiteral(e) {
+  return e instanceof BooleanLiteral;
 }
 
 function isFalse(e) {
@@ -112,7 +121,7 @@ FunctionCall.prototype.optimize = function() {
   return this;
 };
 
-CallChain.protype.optimize = function() {
+CallChain.prototype.optimize = function() {
   // this.item ?
   this.methods = this.methods.map(m => m.optimize());
   return this;
@@ -151,6 +160,20 @@ ForStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.exp = this.exp.optimize();
   this.body = this.body.optimize();
+  return this;
+};
+
+UnaryExpression.prototype.optimize = function() {
+  this.operand = this.operand.optimize();
+
+  // Negative
+  if (this.op === '-' && isNumericLiteral(this.operand))
+    return new NumericLiteral(-this.operand);
+
+  // Negation
+  if ((this.op === '!' || this.op === 'not') && isBooleanLiteral(this.operand))
+    return new BooleanLiteral(!this.operand);
+
   return this;
 };
 
@@ -213,6 +236,8 @@ BinaryExpression.prototype.optimize = function() {
     if (this.op === '<=') return new BooleanLiteral(x <= y);
     if (this.op === '>=') return new BooleanLiteral(x >= y);
   }
+
+  return this;
 };
 
 ListExpression.prototype.optimize = function() {
