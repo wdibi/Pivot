@@ -109,13 +109,7 @@ module.exports = {
       'return statement not valid in task'
     );
   },
-  isNumOrBool(exp) {
-    doCheck(
-      exp.type === NumType || exp.type === BoolType,
-      `${util.format(exp.value)} is not a num or bool`
-    );
-  },
-  isNumStringOrChar(exp) {
+ isNumStringOrChar(exp) {
     doCheck(
       exp.type === NumType || exp.type === StringType || exp.type == CharType,
       `${util.format(exp.value)} is not num, string, or char`
