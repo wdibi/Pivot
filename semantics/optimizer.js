@@ -13,12 +13,17 @@ const {
   CharacterLiteral,
   Parameter,
   FunctionCall,
+  CallChain,
   IdExpression,
   IfStatement,
   WhileStatement,
   RepeatStatement,
   ForStatement,
   BinaryExpression,
+  ListExpression,
+  DictionaryExpression,
+  KeyValuePair,
+  PrintStatement,
 } = require('../ast');
 
 module.exports = program => program.optimize();
@@ -92,6 +97,11 @@ ReturnStatement.prototype.optimize = function() {
   return this;
 };
 
+PrintStatement.prototype.optimize = function() {
+  this.item = this.item.optimize();
+  return this;
+};
+
 FunctionDeclaration.prototype.optimize = function() {
   this.body = this.body.optimize();
   return this;
@@ -99,6 +109,12 @@ FunctionDeclaration.prototype.optimize = function() {
 
 FunctionCall.prototype.optimize = function() {
   this.params = this.params.map(p => p.optimize());
+  return this;
+};
+
+CallChain.protype.optimize = function() {
+  // this.item ?
+  this.methods = this.methods.map(m => m.optimize());
   return this;
 };
 
@@ -197,6 +213,22 @@ BinaryExpression.prototype.optimize = function() {
     if (this.op === '<=') return new BooleanLiteral(x <= y);
     if (this.op === '>=') return new BooleanLiteral(x >= y);
   }
+};
+
+ListExpression.prototype.optimize = function() {
+  this.elements = this.elements.map(e => e.optimize());
+  return this;
+};
+
+DictionaryExpression.prototype.optimize = function() {
+  this.pairs = this.pairs.map(p => p.optimize());
+  return this;
+};
+
+KeyValuePair.prototype.optimize = function() {
+  this.key = this.key.optimize();
+  this.value = this.value.optimize();
+  return this;
 };
 
 IdExpression.prototype.optimize = function() {
