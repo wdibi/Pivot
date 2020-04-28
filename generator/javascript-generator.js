@@ -111,8 +111,7 @@ BinaryExpression.prototype.gen = function() {
 };
 
 UnaryExpression.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `${makeOp(this.op)}${this.operand.gen()}`;
 };
 
 ListExpression.prototype.gen = function() {
