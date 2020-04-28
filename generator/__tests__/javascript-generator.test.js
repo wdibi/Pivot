@@ -42,6 +42,10 @@ const fixture = {
     `bool flag <- false; task negateFlag() flag <- !flag; end`,
     prettyJs(`let flag = false; function negateFlag() { flag = !flag;}`),
   ],
+  for: [
+    `for num a <- 0; a < 10; a <- a + 1 do print a; end`,
+    prettyJs(`for (let a = 0; a < 10; a = a + 1) { console.log(a); };`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
