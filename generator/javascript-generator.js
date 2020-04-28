@@ -83,8 +83,8 @@ TaskDeclaration.prototype.gen = function() {
 };
 
 FunctionCall.prototype.gen = function() {
-  // TODO
-  return ``;
+  let params = this.params.map(p => p.gen());
+  return `${this.id.gen()}(${params.join(', ')})`;
 };
 
 Parameter.prototype.gen = function() {

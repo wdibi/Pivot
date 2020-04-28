@@ -13,8 +13,10 @@ const fixture = {
     prettyJs(`let x = 5; let y = !false; let z = "a"; x = -12;`),
   ],
   func: [
-    `addFive(num x) -> num return x + 5; end`,
-    prettyJs(`function addFive(x) { return x + 5; }`),
+    `addFive(num x) -> num return x + 5; end num newValue <- addFive(13);`,
+    prettyJs(
+      `function addFive(x) { return x + 5; }; let newValue = addFive(13);`
+    ),
   ],
   if: [
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,
