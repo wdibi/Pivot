@@ -7,9 +7,11 @@ const fixture = {
     String.raw`print "Hello World\n";`,
     String.raw`console.log("Hello World\n");`,
   ],
-  varDec: [String.raw`num x <- 5;`, String.raw`let x = 5;`],
+  varDec: [
+    String.raw`num x <- 5; bool y <- false;`,
+    /let x = 5;\s+let y = false;/,
+  ],
 };
-
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
     test(`produces the correct output for ${name}`, done => {

@@ -59,11 +59,12 @@ StringLiteral.prototype.gen = function() {
 };
 
 BooleanLiteral.prototype.gen = function() {
-  return `'${this.value}'`;
+  return this.value;
+  // return `'${this.value}'`;
 };
 
 CharacterLiteral.prototype.gen = function() {
-  return `'${this.value}'`;
+  // return `'${this.value}'`;
 };
 
 PrintStatement.prototype.gen = function() {
