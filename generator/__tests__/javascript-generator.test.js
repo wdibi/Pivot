@@ -18,7 +18,7 @@ const fixture = {
   ],
   if: [
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,
-    prettyJs(`  if (x > 5) { console.log(x); } else { console.log('nope'); }`),
+    prettyJs(`if (x > 5) { console.log(x); } else { console.log('nope'); }`),
   ],
 };
 describe('The JavaScript generator', () => {
