@@ -1,5 +1,5 @@
 const {
-  standardFunctions,
+  mathFunctions,
   BoolType,
   CharType,
   StringType,
@@ -73,15 +73,10 @@ class Context {
 
 Context.INITIAL = new Context();
 
-[
-  BoolType,
-  CharType,
-  StringType,
-  NumType,
-  AutoType,
-  ...standardFunctions,
-].forEach(entity => {
-  Context.INITIAL.add(entity);
-});
+[BoolType, CharType, StringType, NumType, AutoType, ...mathFunctions].forEach(
+  entity => {
+    Context.INITIAL.add(entity);
+  }
+);
 
 module.exports = Context;
