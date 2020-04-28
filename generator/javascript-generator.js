@@ -1,5 +1,4 @@
 const prettyJs = require('pretty-js');
-const util = require('util');
 
 const {
   VariableDeclaration,
@@ -139,7 +138,7 @@ ForStatement.prototype.gen = function() {
 };
 
 DictionaryExpression.prototype.gen = function() {
-  let pairs = this.pairs ? this.pairs.map(p => p.gen()) : '';
+  let pairs = this.pairs ? this.pairs.map(p => p.gen()) : [];
   return `{${pairs.join(', ')}}`;
 };
 
