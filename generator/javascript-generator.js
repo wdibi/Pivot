@@ -115,8 +115,8 @@ UnaryExpression.prototype.gen = function() {
 };
 
 ListExpression.prototype.gen = function() {
-  // TODO
-  return ``;
+  const listContents = this.elements.map(e => e.gen());
+  return `[${listContents.join(', ')}]`;
 };
 
 WhileStatement.prototype.gen = function() {
@@ -126,8 +126,10 @@ WhileStatement.prototype.gen = function() {
 };
 
 RepeatStatement.prototype.gen = function() {
-  // TODO
-  return ``;
+  // TODO TEST
+  return `do {
+    ${generateBlock(this.body)}
+  } while (!${this.condition.gen()})`;
 };
 
 ForStatement.prototype.gen = function() {

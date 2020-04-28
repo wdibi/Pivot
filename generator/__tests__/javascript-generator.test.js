@@ -24,6 +24,10 @@ const fixture = {
     `num x <- 3; while x > 0 do if x < 1 then break; end x <- x - 1; end`,
     prettyJs(`let x = 3; while(x>0) {if(x < 1) {break;}; x = x - 1;};`),
   ],
+  listDec: [
+    `[str] names <- ["steve", "apple"];`,
+    prettyJs(`let names = ["steve", "apple"];`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
