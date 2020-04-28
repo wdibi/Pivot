@@ -5,8 +5,9 @@ const analyze = require('../../semantics/analyzer');
 const fixture = {
   hello: [
     String.raw`print "Hello World\n";`,
-    String.raw`console.log('Hello World\n')`,
+    String.raw`console.log("Hello World\n");`,
   ],
+  varDec: [String.raw`num x <- 5;`, String.raw`let x = 5;`],
 };
 
 describe('The JavaScript generator', () => {
@@ -14,7 +15,6 @@ describe('The JavaScript generator', () => {
     test(`produces the correct output for ${name}`, done => {
       const ast = parse(source);
       analyze(ast);
-      console.log('GENERATE AST', generate(ast));
       expect(generate(ast)).toMatch(expected);
       done();
     });

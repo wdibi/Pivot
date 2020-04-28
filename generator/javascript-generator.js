@@ -21,90 +21,20 @@ const {
   UnaryExpression,
   ListExpression,
   WhileStatement,
-  RepeatStatement, // check
+  RepeatStatement,
   ForStatement,
   DictionaryExpression,
   CallChain,
 } = require('../ast');
-
-const { NumType, StringType, BooleanType } = require('../semantics/builtins');
 
 function makeOp(op) {
   return (
     { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op // add <, >, <=, >=
   );
 }
-// how to do these with dot functions (e.g: string.substring(start, end))
-const builtin = {
-  exit([code]) {
-    return `process.exit(${code})`;
-  },
-  len([s]) {
-    return `${s}.length`;
-  },
-  substring([s, start, end]) {
-    return `${s}.substring(${start}, ${end})`;
-  },
-  charAt([s, i]) {
-    return `${s}.charAt(${i})`;
-  },
-  // ord([c]) {
-  //   return `${c}.charCodeAt(0)`;
-  // },
-  abs([n]) {
-    return `Math.abs(${n})`;
-  },
-  sqrt([n]) {
-    return `Math.sqrt(${n})`;
-  },
-  pi() {
-    return `Math.PI`;
-  },
-  random([s, e]) {
-    return `Math.floor(Math.random(${s}) * ${e})`;
-    // return `Math.floor(Math.random() * (Math.max(${s}, ${e}) - Math.min(${s}, ${e}) + 1) + Math.min(${s}, ${e}))`;
-  },
-  pow([x, y]) {
-    return `Math.pow(${x}, ${y})`;
-  },
-  add([d, n]) {
-    // not sure how to go about this one
-    return ``;
-  },
-  remove([d, k]) {
-    return `delete ${d}.${k}`;
-  },
-  update([d, k, v]) {
-    return `${d}.${k} = ${v}`;
-  },
-  getValue([d, k]) {
-    return `${d}.${k}`;
-  },
-  keys([d]) {
-    return `Object.keys(${d})`;
-  },
-  values([d]) {
-    return `Object.values(${d})`;
-  },
-  items([d]) {
-    return `Object.entries(${d})`;
-  },
-  prepend([l, element]) {
-    return `${l}.unshift(${element})`;
-  },
-  append([l, element]) {
-    return `${l}.push(${element})`;
-  },
-  insert([l, index, element]) {
-    return `${l}.splice(${index}, 0, ${element})`;
-  },
-  remove([l, index]) {
-    return `${l}.splice(${index}, 1)`;
-  },
-};
+// const builtin = {};
 
 function generateBlock(block) {
-  console.log(block.statements.map(s => `${s.gen()};`).join(''));
   return block.statements.map(s => `${s.gen()};`).join('');
 }
 
@@ -113,7 +43,7 @@ module.exports = function(exp) {
 };
 
 VariableDeclaration.prototype.gen = function() {
-  return `let ${this.id.gen()} = ${this.init.gen()}`;
+  return `let ${this.id} = ${this.init.gen()}`;
 };
 
 IdExpression.prototype.gen = function() {
@@ -121,7 +51,7 @@ IdExpression.prototype.gen = function() {
 };
 
 NumericLiteral.prototype.gen = function() {
-  return `${this.value}`;
+  return this.value;
 };
 
 StringLiteral.prototype.gen = function() {
@@ -129,11 +59,11 @@ StringLiteral.prototype.gen = function() {
 };
 
 BooleanLiteral.prototype.gen = function() {
-  return `${this.value}`;
+  return `'${this.value}'`;
 };
 
 CharacterLiteral.prototype.gen = function() {
-  return `${this.value}`;
+  return `'${this.value}'`;
 };
 
 PrintStatement.prototype.gen = function() {
@@ -141,93 +71,77 @@ PrintStatement.prototype.gen = function() {
 };
 
 AssignmentStatement.prototype.gen = function() {
-  return `${this.target.gen()} = ${this.source.gen()}`;
+  return `${this.target} = ${this.source}`;
 };
 
 FunctionDeclaration.prototype.gen = function() {
-  const name = javaScriptId(this);
-  const params = this.params.map(javaScriptId);
-  const body = makeReturn(this.body);
-  return `function ${name} (${params.join(',')}) {${body}}`;
+  // TODO
+  return ``;
 };
 
 TaskDeclaration.prototype.gen = function() {
-  const name = javaScriptId(this);
-  const params = this.params.map(javaScriptId);
-  const body = this.body.gen();
-  return `function ${name} (${params.join(',')}) {${body}}`;
+  // TODO
+  return ``;
 };
 
 FunctionCall.prototype.gen = function() {
-  const name = javascriptId(this);
-  const params = this.params.map(javaScriptId);
-  return `${name}()`;
+  // TODO
+  return ``;
 };
 
-// This is how Pivot does it. I do not understand their jsName function
 Parameter.prototype.gen = function() {
-  // return jsName(this);
+  // TODO
+  return ``;
 };
 
 ReturnStatement.prototype.gen = function() {
-  return `return ${this.item.gen()}`;
+  // TODO
+  return ``;
 };
 
 BreakStatement.prototype.gen = function() {
-  return 'break';
+  // TODO
+  return ``;
 };
 
 IfStatement.prototype.gen = function() {
-  const thenPart = this.body.gen();
-  const elsePart = this.elseBody ? this.elseBody.gen() : 'null';
-  return `((${this.condition.gen()}) ? (${thenPart}) : (${elsePart}))`;
+  // TODO
+  return ``;
 };
 
 BinaryExpression.prototype.gen = function() {
-  return `(${this.left.gen()} ${makeOp(this.op)} ${this.right.gen()})`;
+  // TODO
+  return ``;
 };
 
 UnaryExpression.prototype.gen = function() {
-  return `(${makeOp(this.op)} ${this.operand.gen()})`;
+  // TODO
+  return ``;
 };
 
 ListExpression.prototype.gen = function() {
-  const jsElements = this.elements.map(e => e.gen());
-  return `[${jsElements.join(',')}]`;
+  // TODO
+  return ``;
 };
 
 WhileStatement.prototype.gen = function() {
-  return `while (${this.condition.gen()} { ${this.body.gen()} })`;
+  // TODO
+  return ``;
 };
 
 RepeatStatement.prototype.gen = function() {
-  // Check this
-  const condition = this.condition.gen();
-  const body = this.body.gen();
-  return `do {
-    ${body}
-  } while ${condition}
-  `;
+  // TODO
+  return ``;
 };
 
 ForStatement.prototype.gen = function() {
-  // check this
-  const i = javaScriptId(this.index);
-  const low = this.low.gen();
-  const hi = javaScriptId(new VariableDeclaration('hi'));
-  const preAssign = `let ${hi} = ${this.condition.gen()};`;
-  const loopControl = `for (let ${i} = ${low}; ${i} <= ${hi}; ${i}++)`;
-  const body = this.body.gen();
-  return `${preAssign} ${loopControl} {${body}}`;
+  // TODO
+  return ``;
 };
 
 DictionaryExpression.prototype.gen = function() {
-  const formattedKeysValues = [];
-  const keyValues = this.exp.map(kv => kv.gen());
-  for (let i = 0; i < this.exp.length; i++) {
-    formattedKeysValues.push(keyValues[i]);
-  }
-  return `{ ${formattedKeysValues.join(', ')} }`;
+  // TODO
+  return ``;
 };
 
 CallChain.prototype.gen = function() {
