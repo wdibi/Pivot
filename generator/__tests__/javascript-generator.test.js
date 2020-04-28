@@ -1,15 +1,20 @@
 const parse = require('../../ast/parser');
 const generate = require('../javascript-generator');
 const analyze = require('../../semantics/analyzer');
+const prettyJs = require('pretty-js');
 
 const fixture = {
   hello: [
     String.raw`print "Hello World\n";`,
     String.raw`console.log("Hello World\n");`,
   ],
-  varDec: [
-    `num x <- 5; bool y <- false; char z <- 'a';`,
-    `let x = 5;\nlet y = false;\nlet z = "a";`,
+  vars: [
+    `num x <- 5; bool y <- false; char z <- 'a'; x <- 12;`,
+    prettyJs(`let x = 5; let y = false; let z = "a"; x = 12;`),
+  ],
+  func: [
+    `addFive(num x) -> num return x + 5; end`,
+    prettyJs(`function addFive(x) { return x + 5; }`),
   ],
 };
 describe('The JavaScript generator', () => {

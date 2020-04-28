@@ -28,11 +28,8 @@ const {
 } = require('../ast');
 
 function makeOp(op) {
-  return (
-    { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op // add <, >, <=, >=
-  );
+  return { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op;
 }
-// const builtin = {};
 
 function generateBlock(block) {
   return block.statements.map(s => `${s.gen()};`).join('');
@@ -75,8 +72,9 @@ AssignmentStatement.prototype.gen = function() {
 };
 
 FunctionDeclaration.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `function ${this.id}(${this.params.map(p =>
+    p.gen()
+  )}) { ${generateBlock(this.body)} }`;
 };
 
 TaskDeclaration.prototype.gen = function() {
@@ -90,18 +88,16 @@ FunctionCall.prototype.gen = function() {
 };
 
 Parameter.prototype.gen = function() {
-  // TODO
-  return ``;
+  return this.id;
 };
 
 ReturnStatement.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `return ${this.item.gen()}`;
 };
 
 BreakStatement.prototype.gen = function() {
   // TODO
-  return ``;
+  return `break`;
 };
 
 IfStatement.prototype.gen = function() {
@@ -110,8 +106,7 @@ IfStatement.prototype.gen = function() {
 };
 
 BinaryExpression.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `${this.left.gen()} ${makeOp(this.op)} ${this.right.gen()}`;
 };
 
 UnaryExpression.prototype.gen = function() {
