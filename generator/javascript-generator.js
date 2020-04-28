@@ -55,7 +55,7 @@ NumericLiteral.prototype.gen = function() {
 };
 
 StringLiteral.prototype.gen = function() {
-  return `${this.value}`;
+  return `'${this.value}'`;
 };
 
 BooleanLiteral.prototype.gen = function() {
@@ -63,15 +63,15 @@ BooleanLiteral.prototype.gen = function() {
 };
 
 CharacterLiteral.prototype.gen = function() {
-  // return `'${this.value}'`;
+  return `'${this.value}'`;
 };
 
 PrintStatement.prototype.gen = function() {
-  return `console.log('${this.item.gen()}')`;
+  return `console.log(${this.item.gen()})`;
 };
 
 AssignmentStatement.prototype.gen = function() {
-  return `${this.target} = ${this.source}`;
+  return `${this.target.gen()} = ${this.source.gen()}`;
 };
 
 FunctionDeclaration.prototype.gen = function() {

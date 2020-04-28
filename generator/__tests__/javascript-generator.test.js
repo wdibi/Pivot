@@ -8,8 +8,8 @@ const fixture = {
     String.raw`console.log("Hello World\n");`,
   ],
   varDec: [
-    String.raw`num x <- 5; bool y <- false;`,
-    /let x = 5;\s+let y = false;/,
+    `num x <- 5; bool y <- false; char z <- 'a';`,
+    `let x = 5;\nlet y = false;\nlet z = "a";`,
   ],
 };
 describe('The JavaScript generator', () => {
@@ -17,6 +17,7 @@ describe('The JavaScript generator', () => {
     test(`produces the correct output for ${name}`, done => {
       const ast = parse(source);
       analyze(ast);
+      // console.log(generate(ast));
       expect(generate(ast)).toMatch(expected);
       done();
     });
