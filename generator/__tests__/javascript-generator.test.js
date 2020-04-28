@@ -36,12 +36,17 @@ const fixture = {
       `let y = 10; do { console.log(y); y = y + 2; } while (!(y === 30));`
     ),
   ],
+  task: [
+    `bool flag <- false; task negateFlag() flag <- !flag; end`,
+    prettyJs(`let flag = false; function negateFlag() { flag = !flag;}`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
     test(`produces the correct output for ${name}`, done => {
       const ast = parse(source);
       analyze(ast);
+      // console.log(generate(ast));
       expect(generate(ast)).toMatch(expected);
       done();
     });

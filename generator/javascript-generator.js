@@ -72,18 +72,21 @@ AssignmentStatement.prototype.gen = function() {
 };
 
 FunctionDeclaration.prototype.gen = function() {
-  return `function ${this.id}(${this.params.map(p =>
-    p.gen()
-  )}) { ${generateBlock(this.body)} }`;
+  let params = this.params ? this.params.map(p => p.gen()) : [];
+  return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
+    this.body
+  )} }`;
 };
 
 TaskDeclaration.prototype.gen = function() {
-  // TODO
-  return ``;
+  let params = this.params ? this.params.map(p => p.gen()) : [];
+  return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
+    this.body
+  )} }`;
 };
 
 FunctionCall.prototype.gen = function() {
-  let params = this.params.map(p => p.gen());
+  let params = this.params ? this.params.map(p => p.gen()) : '';
   return `${this.id.gen()}(${params.join(', ')})`;
 };
 
