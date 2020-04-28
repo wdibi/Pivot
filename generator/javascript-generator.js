@@ -120,8 +120,9 @@ ListExpression.prototype.gen = function() {
 };
 
 WhileStatement.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `while (${this.condition.gen()}) {
+    ${generateBlock(this.body)}
+  }`;
 };
 
 RepeatStatement.prototype.gen = function() {

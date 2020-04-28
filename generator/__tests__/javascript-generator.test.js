@@ -20,6 +20,10 @@ const fixture = {
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,
     prettyJs(`if (x > 5) { console.log(x); } else { console.log('nope'); }`),
   ],
+  while: [
+    `num x <- 3; while x > 0 do if x < 1 then break; end x <- x - 1; end`,
+    prettyJs(`let x = 3; while(x>0) {if(x < 1) {break;}; x = x - 1;};`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
