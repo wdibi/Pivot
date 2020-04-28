@@ -133,9 +133,9 @@ RepeatStatement.prototype.gen = function() {
 };
 
 ForStatement.prototype.gen = function() {
-  return `for (${this.init.gen()};${this.condition.gen()};${this.exp.gen()}) {${generateBlock(
-    this.body
-  )}}`;
+  return `for (${this.init.gen()};${this.condition.gen()};${this.exp.gen()}) {
+    ${generateBlock(this.body)}
+  }`;
 };
 
 DictionaryExpression.prototype.gen = function() {
