@@ -96,13 +96,14 @@ ReturnStatement.prototype.gen = function() {
 };
 
 BreakStatement.prototype.gen = function() {
-  // TODO
   return `break`;
 };
 
 IfStatement.prototype.gen = function() {
-  // TODO
-  return ``;
+  let elsePart = this.elseBody ? `else {${generateBlock(this.elseBody)}}` : '';
+  return `if (${this.condition.gen()}) {
+    ${generateBlock(this.body)}
+  }${elsePart}`;
 };
 
 BinaryExpression.prototype.gen = function() {
