@@ -25,6 +25,7 @@ const {
   ForStatement,
   DictionaryExpression,
   CallChain,
+  KeyValuePair,
 } = require('../ast');
 
 function makeOp(op) {
@@ -138,8 +139,12 @@ ForStatement.prototype.gen = function() {
 };
 
 DictionaryExpression.prototype.gen = function() {
-  // TODO
-  return ``;
+  let pairs = this.pairs ? this.pairs.map(p => p.gen()) : '';
+  return `{${pairs.join(', ')}}`;
+};
+
+KeyValuePair.prototype.gen = function() {
+  return `${this.key.gen()}:${this.value.gen()}`;
 };
 
 CallChain.prototype.gen = function() {

@@ -9,8 +9,10 @@ const fixture = {
     String.raw`console.log("Hello World\n");`,
   ],
   vars: [
-    `num x <- 5; bool y <- !false; char z <- 'a'; x <- -12;`,
-    prettyJs(`let x = 5; let y = !false; let z = "a"; x = -12;`),
+    `num x <- 5; bool y <- !false; char z <- 'a'; x <- -12; {str:num} age <- {"steve": 21, "luke": 32};`,
+    prettyJs(
+      `let x = 5; let y = !false; let z = "a"; x = -12; let age = {"steve": 21, "luke": 32};`
+    ),
   ],
   func: [
     `addFive(num x) -> num return x + 5; end num newValue <- addFive(13);`,
