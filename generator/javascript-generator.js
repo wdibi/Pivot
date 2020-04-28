@@ -8,6 +8,7 @@ const {
   StringLiteral,
   BooleanLiteral,
   CharacterLiteral,
+  PrintStatement,
   AssignmentStatement,
   FunctionDeclaration,
   TaskDeclaration,
@@ -26,7 +27,6 @@ const {
   CallChain,
 } = require('../ast');
 
-const Context = require('../semantics/context');
 const { NumType, StringType, BooleanType } = require('../semantics/builtins');
 
 function makeOp(op) {
@@ -36,10 +36,6 @@ function makeOp(op) {
 }
 // how to do these with dot functions (e.g: string.substring(start, end))
 const builtin = {
-  print([s]) {
-    // Wondering about the use of brackets here, is this just how its done? We looked at Casper for some help here
-    return `console.log(${s})`;
-  },
   exit([code]) {
     return `process.exit(${code})`;
   },
@@ -108,19 +104,20 @@ const builtin = {
 };
 
 function generateBlock(block) {
-  return block.map(s => `${s.gen()};`).join('');
+  console.log(block.statements.map(s => `${s.gen()};`).join(''));
+  return block.statements.map(s => `${s.gen()};`).join('');
 }
 
 module.exports = function(exp) {
-  return prettyJs(generateBlock(exp.statements), { indent: '  ' });
+  return prettyJs(generateBlock(exp.block));
 };
 
 VariableDeclaration.prototype.gen = function() {
-  return `let ${javaScriptId(this)} = ${this.init.gen()}`;
+  return `let ${this.id.gen()} = ${this.init.gen()}`;
 };
 
 IdExpression.prototype.gen = function() {
-  return `${javascriptId(this)}`;
+  return `${this.id}`;
 };
 
 NumericLiteral.prototype.gen = function() {
@@ -128,7 +125,7 @@ NumericLiteral.prototype.gen = function() {
 };
 
 StringLiteral.prototype.gen = function() {
-  return `${this.value}`;
+  return `'${this.value}'`;
 };
 
 BooleanLiteral.prototype.gen = function() {
@@ -137,6 +134,10 @@ BooleanLiteral.prototype.gen = function() {
 
 CharacterLiteral.prototype.gen = function() {
   return `${this.value}`;
+};
+
+PrintStatement.prototype.gen = function() {
+  return `console.log(${this.item.gen()})`;
 };
 
 AssignmentStatement.prototype.gen = function() {

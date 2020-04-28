@@ -6,6 +6,7 @@ const { argv } = require('yargs')
   .describe('a', 'show abstract syntax tree after parsing then stop')
   .describe('o', 'do optimizations')
   .describe('i', 'generate and show the intermediate code then stop')
+  // TOOD: Add generator command line
   .demand(1);
 
 const fs = require('fs');
