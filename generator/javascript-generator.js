@@ -126,10 +126,7 @@ WhileStatement.prototype.gen = function() {
 };
 
 RepeatStatement.prototype.gen = function() {
-  // TODO TEST
-  return `do {
-    ${generateBlock(this.body)}
-  } while (!${this.condition.gen()})`;
+  return `do {${generateBlock(this.body)}} while (!(${this.condition.gen()}))`;
 };
 
 ForStatement.prototype.gen = function() {

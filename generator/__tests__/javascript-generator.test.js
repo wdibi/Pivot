@@ -28,13 +28,18 @@ const fixture = {
     `[str] names <- ["steve", "apple"];`,
     prettyJs(`let names = ["steve", "apple"];`),
   ],
+  repeat: [
+    `num y <- 10; repeat print y; y <- y + 2; when y == 30 end`,
+    prettyJs(
+      `let y = 10; do { console.log(y); y = y + 2; } while (!(y === 30));`
+    ),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
     test(`produces the correct output for ${name}`, done => {
       const ast = parse(source);
       analyze(ast);
-      // console.log(generate(ast));
       expect(generate(ast)).toMatch(expected);
       done();
     });
