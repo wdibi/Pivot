@@ -55,12 +55,11 @@ NumericLiteral.prototype.gen = function() {
 };
 
 StringLiteral.prototype.gen = function() {
-  return `'${this.value}'`;
+  return `${this.value}`;
 };
 
 BooleanLiteral.prototype.gen = function() {
   return this.value;
-  // return `'${this.value}'`;
 };
 
 CharacterLiteral.prototype.gen = function() {
@@ -68,7 +67,7 @@ CharacterLiteral.prototype.gen = function() {
 };
 
 PrintStatement.prototype.gen = function() {
-  return `console.log(${this.item.gen()})`;
+  return `console.log('${this.item.gen()}')`;
 };
 
 AssignmentStatement.prototype.gen = function() {
