@@ -26,12 +26,6 @@ class Context {
     return new Context({ parent: this, currentFunction, inLoop: false });
   }
 
-  createChildContextForTaskBody(currentFunction) {
-    currentFunction.functionType = 'task';
-    // When entering a new task, we're not in a loop anymore
-    return new Context({ parent: this, currentFunction, inLoop: false });
-  }
-
   createChildContextForLoop() {
     // When entering a loop body, just set the inLoop field, retain others
     return new Context({
