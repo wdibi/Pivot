@@ -2,7 +2,6 @@ const util = require('util');
 
 const {
   FunctionDeclaration,
-  TaskStatement,
   ReturnStatement,
   BreakStatement,
   UnaryExpression,
@@ -17,7 +16,6 @@ const {
   BoolType,
   DictType,
   ListType,
-  AutoType,
   FieldExp,
   PrimitiveType,
 } = require('../ast');

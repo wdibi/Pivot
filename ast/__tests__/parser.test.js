@@ -29,7 +29,6 @@ const {
   ForStatement,
   BinaryExpression,
   FunctionCall,
-  CallChain,
   ListExpression,
   PrintStatement,
   DictionaryExpression,
