@@ -20,6 +20,10 @@ const fixture = {
       `function addFive(x) { return x + 5; }; let newValue = addFive(13);`
     ),
   ],
+  task: [
+    `num task pow4 -> num default ** 4;`,
+    prettyJs(`const pow4 = (default) => default ** 4`), 
+  ],
   if: [
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,
     prettyJs(`if (x > 5) { console.log(x); } else { console.log('nope'); }`),
