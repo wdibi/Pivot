@@ -15,6 +15,7 @@ const {
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   PrintStatement,
@@ -271,6 +272,15 @@ IfStatement.prototype.analyze = function(context) {
   check.conditionIsDetermistic(this.condition);
   this.body.analyze(context);
   this.elseBody && this.elseBody.analyze(context);
+};
+
+// Where does context come from / what is it?
+IfShort.prototype.analyze = function(context) {
+  // Check this
+  this.condition.analyze(context);
+  this.exp.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.otherwise && this.otherwise.analayze(context);
 };
 
 DictionaryExpression.prototype.analyze = function() {
