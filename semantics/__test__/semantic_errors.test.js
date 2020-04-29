@@ -141,6 +141,11 @@ const errors = [
     'can not use num task with a str variable',
     `num task pow3 -> num default ** 3; str hello <- ("HELLO THERE") >> pow3;`,
   ],
+  ['can not use boolean when indexing a list', 'num x <- [1,2,3]:true;'],
+  [
+    'can not have end index be greater than start index',
+    '[num] dogAges <- [4,3,2,5,74]:3...1;',
+  ],
 ];
 
 describe('The semantic analyzer', () => {
