@@ -44,6 +44,15 @@ class IfStatement {
   }
 }
 
+// Check
+class IfShort {
+  constructor(body, condition, otherwiseBody) {
+    Object.assign(this, { body, condition, otherwiseBody });
+  }
+}
+// num x <- 5 when (y > 5) otherwise (x <- 7);
+// Grammar -> AST/Parser -> Semantics -> Generator -> JavaScript
+
 class WhileStatement {
   constructor(condition, body) {
     Object.assign(this, { condition, body });
@@ -197,6 +206,7 @@ module.exports = {
   FunctionDeclaration,
   TaskDeclaration,
   IfStatement,
+  IfShort,
   ForStatement,
   RepeatStatement,
   PrimitiveType,
