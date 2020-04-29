@@ -64,7 +64,7 @@ Block.prototype.analyze = function(context) {
 
 Object.assign(PrimitiveType.prototype, {
   isCompatibleWith(otherType) {
-    return this.id === 'auto' ? true : this === otherType;
+    return this.id === 'auto' ? true : this.id === otherType.id;
   },
 });
 
@@ -319,5 +319,6 @@ NumRange.prototype.analyze = function(context) {
 
 FieldExp.prototype.analyze = function(context) {
   this.item.analyze(context);
-  this.functionCall.analyze(context);
+  // TODO: Check list type
+  this.type = context.lookup(this.functionCall.id.id).type;
 };

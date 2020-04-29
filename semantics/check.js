@@ -17,6 +17,8 @@ const {
   BoolType,
   DictType,
   ListType,
+  AutoType,
+  FieldExp,
 } = require('../ast');
 
 const literals = [
@@ -130,10 +132,17 @@ module.exports = {
         `pairs do not match DictType`
       );
     } else if (baseType.constructor === ListType) {
-      doCheck(
-        baseType.isCompatibleWithElements(item.elements),
-        `elements do not match ListType`
-      );
+      if (item.constructor === FieldExp) {
+        doCheck(
+          baseType === item.type,
+          `The list of type  is not equal to its expression`
+        );
+      } else {
+        doCheck(
+          baseType.isCompatibleWithElements(item.elements),
+          `elements do not match ListType`
+        );
+      }
     } else {
       doCheck(
         baseType.isCompatibleWith(item.type),
