@@ -17,9 +17,9 @@ const fixture = {
     ),
   ],
   func: [
-    `addFive(num x) -> num return x + 5; end num newValue <- addFive(13);`,
+    `addFive(num x) -> num return x + 5; end num newValue <- addFive(13); hello() -> str return "hello world"; end`,
     prettyJs(
-      `function addFive(x) { return x + 5; }; let newValue = addFive(13);`
+      `function addFive(x) { return x + 5; }; let newValue = addFive(13); function hello() { return "hello world"; };`
     ),
   ],
   task: [
@@ -34,10 +34,6 @@ const fixture = {
     `num x <- 3; while x > 0 do if x < 1 then break; end x <- x - 1; end`,
     prettyJs(`let x = 3; while(x>0) {if(x < 1) {break;}; x = x - 1;};`),
   ],
-  // listDec: [
-  //   `[str] names <- ["steve", "apple"];`,
-  //   prettyJs(`let names = ["steve", "apple"];`),
-  // ],
   listDec: [
     `[str] names <- ["steve", "apple", "john"]:0...1;`,
     prettyJs(`let names = ["steve", "apple", "john"].slice(0,2);`),
