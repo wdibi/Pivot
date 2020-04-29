@@ -39,6 +39,8 @@ const {
   BreakStatement,
   UnaryExpression,
   TaskStatement,
+  FieldExp,
+  SubscriptedExp,
 } = require('..');
 
 const fixture = {
@@ -315,32 +317,35 @@ const fixture = {
     ),
   ],
 
-  // ListMethod: [
-  //   String.raw`
-  //     num loc <- [4,5,2,6]::find(5);
-  //   `,
-  //   new Program(
-  //     new Block([
-  //       new VariableDeclaration(
-  //         new IdExpression('loc'),
-  //         new PrimitiveType('num'),
-  //         new CallChain(
-  //           new ListExpression([
-  //             new NumericLiteral(4),
-  //             new NumericLiteral(5),
-  //             new NumericLiteral(2),
-  //             new NumericLiteral(6),
-  //           ]),
-  //           [
-  //             new FunctionCall(new IdExpression('find'), [
-  //               new NumericLiteral(5),
-  //             ]),
-  //           ]
-  //         )
-  //       ),
-  //     ])
-  //   ),
-  // ],
+  FieldExpAndSubscriptedExp: [
+    String.raw`
+      num loc <- [4,5,2,6]::find(5);
+      print names:"adam";
+    `,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression('loc'),
+          new PrimitiveType('num'),
+          new FieldExp(
+            new ListExpression([
+              new NumericLiteral(4),
+              new NumericLiteral(5),
+              new NumericLiteral(2),
+              new NumericLiteral(6),
+            ]),
+            new FunctionCall(new IdExpression('find'), [new NumericLiteral(5)])
+          )
+        ),
+        new PrintStatement(
+          new SubscriptedExp(
+            new IdExpression('names'),
+            new StringLiteral('adam')
+          )
+        ),
+      ])
+    ),
+  ],
 
   Print: [
     String.raw`
