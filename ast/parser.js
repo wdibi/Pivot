@@ -40,6 +40,8 @@ const {
   ReturnStatement,
   BreakStatement,
   TaskStatement,
+  FieldExp,
+  SubscriptedExp,
 } = require('.');
 
 const grammar = ohm.grammar(fs.readFileSync('./grammar/pivot.ohm'));
@@ -155,6 +157,12 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   },
   Exp7_parens(_1, e, _2) {
     return e.ast();
+  },
+  Lvalue_field(i, _c, f) {
+    return new FieldExp(i.ast(), f.ast());
+  },
+  Lvalue_subscripted(i, _c, n) {
+    return new SubscriptedExp(i.ast(), n.ast());
   },
   Parameter(t, i) {
     return new Parameter(t.ast(), i.ast());

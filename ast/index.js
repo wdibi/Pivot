@@ -164,6 +164,20 @@ class ListExpression extends Expression {
   }
 }
 
+class FieldExp extends Expression {
+  constructor(item, functionCall) {
+    super();
+    Object.assign(this, { item, functionCall });
+  }
+}
+
+class SubscriptedExp extends Expression {
+  constructor(item, index) {
+    super();
+    Object.assign(this, { item, index });
+  }
+}
+
 class DictionaryExpression extends Expression {
   constructor(pairs) {
     super();
@@ -221,4 +235,6 @@ module.exports = {
   ReturnStatement,
   BreakStatement,
   Parameter,
+  FieldExp,
+  SubscriptedExp,
 };
