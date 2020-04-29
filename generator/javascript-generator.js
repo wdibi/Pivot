@@ -16,6 +16,7 @@ const {
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   ListExpression,
@@ -166,4 +167,8 @@ SubscriptedExp.prototype.gen = function() {
   } else {
     return `${this.item.gen()}[${this.index.gen()}]`;
   }
+};
+
+IfShort.prototype.gen = function() {
+  return `${this.condition.gen()} ? ${this.exp.gen()} : ${this.alternate.gen()}`;
 };

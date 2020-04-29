@@ -15,6 +15,7 @@ const {
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   PrintStatement,
@@ -276,6 +277,15 @@ IfStatement.prototype.analyze = function(context) {
   check.conditionIsDetermistic(this.condition);
   this.body.analyze(context);
   this.elseBody && this.elseBody.analyze(context);
+};
+
+IfShort.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  this.exp.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.alternate.analyze(context);
+  check.hasEquivalentTypes(this.exp, this.alternate);
+  this.type = this.exp.type;
 };
 
 DictionaryExpression.prototype.analyze = function() {

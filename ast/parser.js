@@ -13,6 +13,7 @@ const {
   RepeatStatement,
   ForStatement,
   IfStatement,
+  IfShort,
   WhileStatement,
   VariableDeclaration,
   FunctionCall,
@@ -102,6 +103,9 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
       new Block(consequent.ast()),
       alternate.ast().length ? new Block(alternate.ast()[0]) : null
     );
+  },
+  IfShort(e, _when, c, _otherwise, a) {
+    return new IfShort(e.ast(), c.ast(), a.ast());
   },
   Assignment(i, _a, e) {
     return new AssignmentStatement(i.ast(), e.ast());

@@ -19,6 +19,7 @@ const {
   ListType,
   AutoType,
   FieldExp,
+  PrimitiveType,
 } = require('../ast');
 
 const literals = [
@@ -143,11 +144,13 @@ module.exports = {
           `elements do not match ListType`
         );
       }
-    } else {
+    } else if (baseType.constructor === PrimitiveType) {
       doCheck(
         baseType.isCompatibleWith(item.type),
         `PrimitiveTypes do not match: ${baseType.id} is not ${item.type.id}`
       );
+    } else {
+      doCheck(baseType.type.id === item.type.id, `error message`);
     }
   },
   statementsAreReachable(statements, context) {

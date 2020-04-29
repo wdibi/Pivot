@@ -116,6 +116,14 @@ firstFactorial(num x) -> num
     end
 end
 
+recurse(num x) -> num
+    if x != 0 then
+        recurse(x - 1);
+    else
+        return 1;
+    end
+end
+
 fibonacci(num x) -> num
     all num a,b,temp <- 1,0,0;
 
@@ -143,6 +151,8 @@ num myDogAge <- [1,2,3]:firstFactorial(2);
 
 num yy <- [4,3,2,5,74]::find(3);
 
+num ifShortY <- 18;
+num ifShortX <- 5 when ifShortY > 5 otherwise 7;
 `;
 
 describe('The semantic analyzer', () => {
