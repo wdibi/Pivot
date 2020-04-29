@@ -120,6 +120,13 @@ class DictType {
   }
 }
 
+class NumRange {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+}
+
 class Expression {}
 
 class BooleanLiteral extends Expression {
@@ -237,4 +244,5 @@ module.exports = {
   Parameter,
   FieldExp,
   SubscriptedExp,
+  NumRange,
 };
