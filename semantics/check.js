@@ -2,7 +2,7 @@ const util = require('util');
 
 const {
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   ReturnStatement,
   BreakStatement,
   UnaryExpression,
@@ -75,8 +75,7 @@ module.exports = {
   },
   isFunction(value) {
     doCheck(
-      value.constructor === FunctionDeclaration ||
-        value.constructor === TaskDeclaration,
+      value.constructor === FunctionDeclaration,
       `non-existing function called`
     );
   },
@@ -207,7 +206,27 @@ module.exports = {
       );
     }
   },
-  // notAssigningTask(source) {
-  //   doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
-  // },
+  taskEvaluatesCorrectReturnType(exp, returnType) {
+    doCheck(
+      exp.type === returnType,
+      `${exp} does not evaluate to a ${returnType}`
+    );
+  },
+  isValidTaskChain(item, tasks) {
+    if (tasks.length === 1) {
+      doCheck(
+        item.type === tasks.defaultType,
+        `item type does not match single default task`
+      );
+    }
+
+    let nextType = item.type;
+    for (let i = 1; i < tasks.length; i++) {
+      doCheck(
+        nextType === tasks[i].defaultType,
+        `broken task types in pos ${i}`
+      );
+      nextType = tasks[i].returnType;
+    }
+  },
 };

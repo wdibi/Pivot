@@ -10,7 +10,7 @@ const {
   PrintStatement,
   AssignmentStatement,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   FunctionCall,
   Parameter,
   ReturnStatement,
@@ -78,12 +78,13 @@ FunctionDeclaration.prototype.gen = function() {
   )} }`;
 };
 
-TaskDeclaration.prototype.gen = function() {
-  let params = this.params ? this.params.map(p => p.gen()) : [];
-  return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
-    this.body
-  )} }`;
-};
+// Fix
+// TaskStatement.prototype.gen = function() {
+//   let params = this.params ? this.params.map(p => p.gen()) : [];
+//   return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
+//     this.body
+//   )} }`;
+// };
 
 FunctionCall.prototype.gen = function() {
   let params = this.params ? this.params.map(p => p.gen()) : '';

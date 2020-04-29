@@ -90,8 +90,8 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
       args._node.matchLength > 0 ? args.ast() : null
     );
   },
-  CallExpression_chain(item, _a, methods) {
-    return new CallChain(item.ast(), methods.ast());
+  CallExpression_chain(_s, exp, _e, _a, tasks) {
+    return new CallChain(exp.ast(), tasks.ast());
   },
   IfStatement(_if, t, _then, consequent, _e, alternate) {
     return new IfStatement(

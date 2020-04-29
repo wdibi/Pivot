@@ -38,10 +38,6 @@ const fixture = {
       `let y = 10; do { console.log(y); y = y + 2; } while (!(y === 30));`
     ),
   ],
-  task: [
-    `bool flag <- false; task negateFlag() flag <- !flag; end`,
-    prettyJs(`let flag = false; function negateFlag() { flag = !flag;}`),
-  ],
   for: [
     `for num a <- 0; a < 10; a <- a + 1 do print a; end`,
     prettyJs(`for (let a = 0; a < 10; a = a + 1) { console.log(a); };`),

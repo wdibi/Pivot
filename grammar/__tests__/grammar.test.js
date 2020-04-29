@@ -14,7 +14,7 @@ num a <- 5;
 bool over20 <- true;
 all str a, b, c <- "hi", "bye", "goodnight";
 {str:num} ages <- { "john" : 5, "tim" : 6 };
-[num] sorted <- [1, 5, 2, 4] >> sort >> addFive;
+[num] sorted <- ([1, 5, 2, 4]) >> sort >> addFive;
 print name;
 num x <- 30;
 
@@ -22,7 +22,7 @@ num x <- 30;
 
 num task addFive -> num default + 5;
 num x <- 0;
-x <- 5 >> addFive >> addFive;
+x <- (5) >> addFive >> addFive;
 
 /* This is a 
 
@@ -50,7 +50,7 @@ while x do
     x <- x - 1;
 end
 x <- addFive(3);
-_ z <- sqrt >> round;
+_ z <- (29.3) >> round;
 // a comment at the end of the program
 `;
 

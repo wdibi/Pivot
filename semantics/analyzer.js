@@ -9,7 +9,7 @@ const {
   CharacterLiteral,
   AssignmentStatement,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   FunctionCall,
   Parameter,
   ReturnStatement,
@@ -47,16 +47,14 @@ Program.prototype.analyze = function(context) {
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements
-    .filter(
-      d =>
-        d.constructor === FunctionDeclaration ||
-        d.constructor === TaskDeclaration
-    )
+    .filter(d => d.constructor === FunctionDeclaration)
     .map(d => {
       d.analyzeSignature(localContext);
       localContext.add(d);
     });
-  this.statements.forEach(s => s.analyze(localContext));
+  this.statements.forEach(s => {
+    s.analyze(localContext);
+  });
   this.statements.filter(s => s.constructor === VariableDeclaration);
   check.statementsAreReachable(this.statements, localContext);
 };
@@ -119,9 +117,13 @@ AssignmentStatement.prototype.analyze = function(context) {
   check.hasEquivalentTypes(this.target.type, this.source);
 };
 
-IdExpression.prototype.analyze = function(context) {
-  this.ref = context.lookup(this.id);
-  this.type = this.ref.type;
+IdExpression.prototype.analyze = function(context, defaultType = undefined) {
+  if (defaultType) {
+    this.type = defaultType;
+  } else {
+    this.ref = context.lookup(this.id);
+    this.type = this.ref.type;
+  }
 };
 
 NumericLiteral.prototype.analyze = function() {
@@ -151,9 +153,10 @@ FunctionDeclaration.prototype.analyze = function() {
   check.bodyContainsReturn(this.body);
 };
 
-TaskDeclaration.prototype.analyzeSignature = function(context) {
-  this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params && this.params.forEach(p => p.analyze(this.bodyContext));
+TaskStatement.prototype.analyze = function(context) {
+  this.exp.analyze(context, this.defaultType);
+  check.taskEvaluatesCorrectReturnType(this.exp, this.returnType);
+  context.add(this);
 };
 
 FunctionCall.prototype.analyze = function(context) {
@@ -165,10 +168,6 @@ FunctionCall.prototype.analyze = function(context) {
   check.paramsMatchDeclaration(this.params, this.callee.params);
 
   this.type = this.callee.returnType;
-};
-
-TaskDeclaration.prototype.analyze = function() {
-  this.body.analyze(this.bodyContext);
 };
 
 ReturnStatement.prototype.analyze = function(context) {
@@ -186,11 +185,14 @@ BreakStatement.prototype.analyze = function(context) {
   check.breakWithinValidBody(context);
 };
 
-BinaryExpression.prototype.analyze = function(context) {
+BinaryExpression.prototype.analyze = function(
+  context,
+  defaultType = undefined
+) {
   // Primitive Types First
   // Later consider something like [3,2,1] + [0] = [3,2,1,0]
-  this.left.analyze(context);
-  this.right.analyze(context);
+  this.left.analyze(context, defaultType);
+  this.right.analyze(context, defaultType);
 
   if (this.op === '+') {
     check.isNumStringOrChar(this.right);
@@ -284,5 +286,11 @@ DictionaryExpression.prototype.analyze = function() {
 
 CallChain.prototype.analyze = function(context) {
   this.item.analyze(context);
-  this.methods.map(m => m.analyze(context));
+  this.tasks.map(task => {
+    let foundTask = context.lookup(task.id);
+    task.defaultType = foundTask.defaultType;
+    task.returnType = foundTask.returnType;
+  });
+  check.isValidTaskChain(this.item, this.tasks);
+  this.type = this.tasks[this.tasks.length - 1].returnType;
 };
