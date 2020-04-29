@@ -25,6 +25,9 @@ const {
   DictionaryExpression,
   CallChain,
   KeyValuePair,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 } = require('../ast');
 
 function makeOp(op) {
@@ -79,13 +82,13 @@ FunctionDeclaration.prototype.gen = function() {
 };
 
 TaskStatement.prototype.gen = function() {
-  return `const ${this.id} = (default) =>  ${ this.exp.gen() }`;
+  return `const ${this.id} = (default) =>  ${this.exp.gen()}`;
 };
 
 CallChain.prototype.gen = function() {
-  let statement = `${this.item.gen()}`
+  let statement = `${this.item.gen()}`;
   this.tasks.forEach(task => {
-    statement = `${task.gen()}(${statement})`
+    statement = `${task.gen()}(${statement})`;
   });
   return statement + ';';
 };
@@ -152,3 +155,15 @@ KeyValuePair.prototype.gen = function() {
   return `${this.key.gen()}:${this.value.gen()}`;
 };
 
+FieldExp.prototype.gen = function() {
+  return `${this.item.gen()}.${this.functionCall.gen()}`;
+};
+
+SubscriptedExp.prototype.gen = function() {
+  if (this.index.constructor === NumRange) {
+    return `${this.item.gen()}.slice(${this.index.start.value}, ${this.index.end
+      .value + 1})`;
+  } else {
+    return `${this.item.gen()}[${this.index.gen()}]`;
+  }
+};

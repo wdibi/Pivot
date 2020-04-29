@@ -9,9 +9,11 @@ const fixture = {
     String.raw`console.log("Hello World\n");`,
   ],
   vars: [
-    `num x <- 5; bool y <- !false; char z <- 'a'; x <- -12; {str:num} age <- {} ; age <- {"steve": 21, "luke": 32};`,
+    `num x <- 5; bool y <- !false; char z <- 'a'; x <- -12; {str:num} age <- {} ; 
+    age <- {"steve": 21, "luke": 32}; num j <- [1,2,3]::find(2); num a <- [3,4,5]:2;`,
     prettyJs(
-      `let x = 5; let y = !false; let z = "a"; x = -12; let age = {}; age = {"steve": 21, "luke": 32};`
+      `let x = 5; let y = !false; let z = "a"; x = -12; let age = {}; age = {"steve": 21, "luke": 32}; 
+      let j = [1,2,3].find(2); let a = [3,4,5][2];`
     ),
   ],
   func: [
@@ -22,7 +24,7 @@ const fixture = {
   ],
   task: [
     `num task pow4 -> num default ** 4; num y <- (5) >> pow4 >> pow4;`,
-    prettyJs(`const pow4 = (default) => default ** 4; let y = pow4(pow4(5));`), 
+    prettyJs(`const pow4 = (default) => default ** 4; let y = pow4(pow4(5));`),
   ],
   if: [
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,
@@ -32,9 +34,13 @@ const fixture = {
     `num x <- 3; while x > 0 do if x < 1 then break; end x <- x - 1; end`,
     prettyJs(`let x = 3; while(x>0) {if(x < 1) {break;}; x = x - 1;};`),
   ],
+  // listDec: [
+  //   `[str] names <- ["steve", "apple"];`,
+  //   prettyJs(`let names = ["steve", "apple"];`),
+  // ],
   listDec: [
-    `[str] names <- ["steve", "apple"];`,
-    prettyJs(`let names = ["steve", "apple"];`),
+    `[str] names <- ["steve", "apple", "john"]:0...1;`,
+    prettyJs(`let names = ["steve", "apple", "john"].slice(0,2);`),
   ],
   repeat: [
     `num y <- 10; repeat print y; y <- y + 2; when y == 30 end`,
