@@ -225,7 +225,7 @@ module.exports = {
   isValidTaskChain(item, tasks) {
     if (tasks.length === 1) {
       doCheck(
-        item.type === tasks.defaultType,
+        item.type === tasks[0].defaultType,
         `item type does not match single default task`
       );
     }
