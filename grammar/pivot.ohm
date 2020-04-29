@@ -45,7 +45,7 @@ Pivot {
                       | Exp6
   Exp6                = Exp6 "**" Exp7                                                          -- binary
                       | Exp7
-  Exp7                = IndexList
+  Exp7                = Lvalue
                       | FunctionCall
                       | id
                       | boollit
@@ -56,11 +56,14 @@ Pivot {
                       | Dict                                                                    -- dict
                       | "(" Exp ")"                                                             -- parens
   FunctionCall        = id "(" listOf<Exp, ","> ")"
-  IndexList           = (id | List ) ":" (FunctionCall | numlit)
+  Lvalue              = (id | List | Dict)  "::" FunctionCall                                  -- field
+                      | (id | List | Dict) ":" (PrimLits | NumRange | FunctionCall)            -- subscripted
+  NumRange            = numlit ("..." numlit)?
   TaskCall            = id
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
   Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
+  PrimLits            = ( numlit | strlit | charlit | boollit )
   NumType             = "num"
   StringType          = "str"
   CharType            = "char"
@@ -68,7 +71,7 @@ Pivot {
   ListType            = "[" Type "]"
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
-  KeyValuePair        = Exp ":" Exp
+  KeyValuePair        = PrimLits ":" Exp
   keyword             = ("all" | "while" | "repeat" | "if" | "else"
                       | "return" | "then" | "and" | "or" | "when" 
                       | "otherwise" | "print" | "true" | "false") ~idrest

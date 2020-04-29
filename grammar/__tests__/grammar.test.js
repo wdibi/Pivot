@@ -28,6 +28,14 @@ x <- (5) >> addFive >> addFive;
 
 Multiline comment */
 
+num x <- [1,2,3,4]:random();
+print [1,2,3]:2;
+print x:2;
+[num] x <- list();
+print x:3;
+x <- [2,31,12,4,53]::sort();
+{num:str} z <- {5:"john"}:5;
+
 fibonacci(num x) -> num
     all num a, b, temp <- 1, 0, 0;
     repeat
