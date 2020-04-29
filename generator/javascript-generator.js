@@ -95,7 +95,7 @@ CallChain.prototype.gen = function() {
 };
 
 FunctionCall.prototype.gen = function() {
-  let params = this.params ? this.params.map(p => p.gen()) : '';
+  let params = this.params ? this.params.map(p => p.gen()) : [];
   return `${this.id.gen()}(${params.join(', ')})`;
 };
 

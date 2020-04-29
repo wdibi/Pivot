@@ -17,9 +17,9 @@ const fixture = {
     ),
   ],
   func: [
-    `addFive(num x) -> num return x + 5; end num newValue <- addFive(13); hello() -> str return "hello world"; end`,
+    `addFive(num x) -> num return x + 5; end num newValue <- addFive(13); hello() -> str return "hello world"; end hello();`,
     prettyJs(
-      `function addFive(x) { return x + 5; }; let newValue = addFive(13); function hello() { return "hello world"; };`
+      `function addFive(x) { return x + 5; }; let newValue = addFive(13); function hello() { return "hello world"; }; hello();`
     ),
   ],
   task: [
