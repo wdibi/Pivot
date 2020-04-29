@@ -202,7 +202,7 @@ module.exports = {
         pairs.every(
           p => p.key.type === firstKeyType && p.value.type === firstValueType
         ),
-        `Incosistent Dictionary Types`
+        `Inconsistent Dictionary Types`
       );
     }
   },
