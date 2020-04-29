@@ -298,6 +298,7 @@ DictionaryExpression.prototype.analyze = function() {
 };
 
 CallChain.prototype.analyze = function(context) {
+  // TODO: Check for builtin tasks
   this.item.analyze(context);
   this.tasks.map(task => {
     let foundTask = context.lookup(task.id);
