@@ -146,6 +146,10 @@ const errors = [
     'can not have end index be greater than start index',
     '[num] dogAges <- [4,3,2,5,74]:3...1;',
   ],
+  [
+    'FieldExp does not match var dec type',
+    `[num] yy <- [4,3,2,5,74]::find(3);`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
