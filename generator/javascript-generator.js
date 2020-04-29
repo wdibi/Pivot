@@ -91,7 +91,7 @@ CallChain.prototype.gen = function() {
   this.tasks.forEach(task => {
     statement = `${task.gen()}(${statement})`;
   });
-  return statement + ';';
+  return statement;
 };
 
 FunctionCall.prototype.gen = function() {
