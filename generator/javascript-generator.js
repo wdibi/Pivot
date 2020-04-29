@@ -16,6 +16,7 @@ const {
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   ListExpression,
@@ -150,4 +151,8 @@ KeyValuePair.prototype.gen = function() {
 CallChain.prototype.gen = function() {
   // TODO
   return ``;
+};
+
+IfShort.prototype.gen = function() {
+  return `${this.condition.gen()} ? ${this.exp.gen()} : ${this.alternate.gen()}`;
 };

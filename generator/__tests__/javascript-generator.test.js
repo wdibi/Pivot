@@ -46,6 +46,10 @@ const fixture = {
     `for num a <- 0; a < 10; a <- a + 1 do print a; end`,
     prettyJs(`for (let a = 0; a < 10; a = a + 1) { console.log(a); };`),
   ],
+  ifShort: [
+    `num y <- 18; num x <- 5 when y > 5 otherwise 7;`,
+    prettyJs(`let y = 18; let x = y > 5 ? 5 : 7`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
