@@ -62,7 +62,6 @@ describe('The JavaScript generator', () => {
     test(`produces the correct output for ${name}`, done => {
       const ast = parse(source);
       analyze(ast);
-      // console.log(generate(ast));
       expect(generate(ast)).toMatch(expected);
       done();
     });
