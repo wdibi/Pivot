@@ -37,8 +37,8 @@ const {
   Parameter,
   ReturnStatement,
   BreakStatement,
-  TaskDeclaration,
   UnaryExpression,
+  TaskStatement,
 } = require('..');
 
 const fixture = {
@@ -315,32 +315,32 @@ const fixture = {
     ),
   ],
 
-  Chain: [
-    String.raw`
-      num loc <- [4,5,2,6] << find(5);
-    `,
-    new Program(
-      new Block([
-        new VariableDeclaration(
-          new IdExpression('loc'),
-          new PrimitiveType('num'),
-          new CallChain(
-            new ListExpression([
-              new NumericLiteral(4),
-              new NumericLiteral(5),
-              new NumericLiteral(2),
-              new NumericLiteral(6),
-            ]),
-            [
-              new FunctionCall(new IdExpression('find'), [
-                new NumericLiteral(5),
-              ]),
-            ]
-          )
-        ),
-      ])
-    ),
-  ],
+  // ListMethod: [
+  //   String.raw`
+  //     num loc <- [4,5,2,6]::find(5);
+  //   `,
+  //   new Program(
+  //     new Block([
+  //       new VariableDeclaration(
+  //         new IdExpression('loc'),
+  //         new PrimitiveType('num'),
+  //         new CallChain(
+  //           new ListExpression([
+  //             new NumericLiteral(4),
+  //             new NumericLiteral(5),
+  //             new NumericLiteral(2),
+  //             new NumericLiteral(6),
+  //           ]),
+  //           [
+  //             new FunctionCall(new IdExpression('find'), [
+  //               new NumericLiteral(5),
+  //             ]),
+  //           ]
+  //         )
+  //       ),
+  //     ])
+  //   ),
+  // ],
 
   Print: [
     String.raw`
@@ -395,33 +395,21 @@ const fixture = {
     ),
   ],
 
-  TaskDeclaration: [
+  TaskStatement: [
     String.raw`
-      task updateX(num value, num valueTwo)
-        x <- value * valueTwo;
-      end
+    num task addFive -> num default + 5;
     `,
     new Program(
       new Block([
-        new TaskDeclaration(
-          new IdExpression('updateX'),
-          [
-            new Parameter(new PrimitiveType('num'), new IdExpression('value')),
-            new Parameter(
-              new PrimitiveType('num'),
-              new IdExpression('valueTwo')
-            ),
-          ],
-          new Block([
-            new AssignmentStatement(
-              new IdExpression('x'),
-              new BinaryExpression(
-                '*',
-                new IdExpression('value'),
-                new IdExpression('valueTwo')
-              )
-            ),
-          ])
+        new TaskStatement(
+          new PrimitiveType('num'),
+          new IdExpression('addFive'),
+          new PrimitiveType('num'),
+          new BinaryExpression(
+            '+',
+            new IdExpression('default'),
+            new NumericLiteral(5)
+          )
         ),
       ])
     ),
@@ -483,7 +471,7 @@ const fixture = {
   ],
 
   NoParamFuncAndTaskDec: [
-    String.raw`five() -> num return 5; end task fun() print true; end`,
+    String.raw`five() -> num return 5; end`,
     new Program(
       new Block([
         new FunctionDeclaration(
@@ -491,11 +479,6 @@ const fixture = {
           new PrimitiveType('num'),
           null,
           new Block([new ReturnStatement(new NumericLiteral(5))])
-        ),
-        new TaskDeclaration(
-          new IdExpression('fun'),
-          null,
-          new Block([new PrintStatement(new BooleanLiteral(true))])
         ),
       ])
     ),

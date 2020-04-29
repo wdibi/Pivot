@@ -22,13 +22,13 @@ class FunctionCall {
 }
 
 class CallChain {
-  constructor(item, methods) {
-    Object.assign(this, { item, methods });
+  constructor(item, task) {
+    Object.assign(this, { item, tasks });
   }
 }
-class TaskDeclaration {
-  constructor(id, params, body) {
-    Object.assign(this, { id, params, body });
+class TaskStatement {
+  constructor(defaultType, id, returnType, exp) {
+    Object.assign(this, { defaultType, id, returnType, exp });
   }
 }
 
@@ -41,6 +41,12 @@ class VariableDeclaration {
 class IfStatement {
   constructor(condition, body, elseBody) {
     Object.assign(this, { condition, body, elseBody });
+  }
+}
+
+class IfShort {
+  constructor(condition, body) {
+
   }
 }
 
@@ -195,8 +201,9 @@ module.exports = {
   UnaryExpression,
   BinaryExpression,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   IfStatement,
+  IfShort,
   ForStatement,
   RepeatStatement,
   PrimitiveType,
@@ -222,3 +229,6 @@ module.exports = {
   BreakStatement,
   Parameter,
 };
+
+
+// Grammar -> AST/Parser -> Semantics -> Generator -> JavaScript
