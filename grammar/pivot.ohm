@@ -57,8 +57,8 @@ Pivot {
                       | "(" Exp ")"                                                             -- parens
   FunctionCall        = id "(" listOf<Exp, ","> ")"
   Lvalue              = (id | List | Dict)  "::" FunctionCall                                  -- field
-                      | (id | List | Dict) ":" (PrimLits | NumRange | FunctionCall)            -- subscripted
-  NumRange            = numlit ("..." numlit)?
+                      | (id | List | Dict) ":" (NumRange | PrimLits | FunctionCall)            -- subscripted
+  NumRange            = numlit "..." numlit
   TaskCall            = id
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
