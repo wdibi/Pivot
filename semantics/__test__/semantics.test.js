@@ -116,14 +116,6 @@ firstFactorial(num x) -> num
     end
 end
 
-recurse(num x) -> num
-    if x != 0 then
-        recurse(x - 1);
-    else
-        return 1;
-    end
-end
-
 fibonacci(num x) -> num
     all num a,b,temp <- 1,0,0;
 

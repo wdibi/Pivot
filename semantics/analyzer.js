@@ -91,11 +91,11 @@ Object.assign(ListType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   if (this.init.length) {
     this.init.forEach(element => element.analyze(context));
-    this.init.forEach(element => check.hasCompatibleTypes(this.type, element));
+    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
     this.id.map((id, index) =>
       context.add(
         new VariableDeclaration(
-          id.ref,
+          id.id,
           this.type.isCompatibleWith(AutoType)
             ? this.init[index].type
             : this.type,
@@ -105,7 +105,7 @@ VariableDeclaration.prototype.analyze = function(context) {
     );
   } else {
     this.init.analyze(context);
-    check.hasCompatibleTypes(this.type, this.init);
+    check.hasEquivalentTypes(this.type, this.init);
     if (this.type instanceof PrimitiveType) {
       this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
     }
@@ -114,17 +114,17 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  this.target.type = context.lookup(this.target.ref).type;
+  this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
-  check.hasCompatibleTypes(this.target.type, this.source);
+  check.hasEquivalentTypes(this.target.type, this.source);
 };
 
 IdExpression.prototype.analyze = function(context, defaultType = undefined) {
   if (defaultType) {
     this.type = defaultType;
   } else {
-    this.ref = context.lookup(this.ref);
+    this.ref = context.lookup(this.id);
     this.type = this.ref.type;
   }
 };
@@ -163,7 +163,7 @@ TaskStatement.prototype.analyze = function(context) {
 };
 
 FunctionCall.prototype.analyze = function(context) {
-  this.callee = context.lookup(this.id.ref);
+  this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
 
   this.params && this.params.forEach(arg => arg.analyze(context));

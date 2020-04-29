@@ -160,7 +160,7 @@ class CharacterLiteral extends Expression {
 class IdExpression extends Expression {
   constructor(id) {
     super();
-    this.ref = id;
+    this.id = id;
   }
 }
 
