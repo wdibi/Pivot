@@ -2,6 +2,7 @@ Pivot {
   Program             = Block
   Block               = Statement*
   Statement           = FunctionDeclaration ends
+                      | TaskStatement ";"
                       | VarDeclaration ";"
                       | IfStatement ends
                       | IterationStatement ends
@@ -25,10 +26,10 @@ Pivot {
                       | "for" VarDeclaration ";" (Exp | CallExpression)
                         ";" (CallExpression | Assignment) "do" Block                            -- for
   PrintStatement      = print (CallExpression | Exp)
-  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block                       -- regular
-                      | "task" id "(" listOf<Parameter, ","> ")" Block                          -- task
+  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block
+  TaskStatement       = Type "task" id "->" Type Exp
   Parameter           = Type id
-  CallExpression      = (FunctionCall | Exp) "<<" NonemptyListOf<FunctionCall, "<<">            -- chain
+  CallExpression      = "(" Exp ")"  ">>" NonemptyListOf<TaskCall, ">>">                        -- chain
                       | FunctionCall                                                            -- function
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
@@ -44,7 +45,8 @@ Pivot {
                       | Exp6
   Exp6                = Exp6 "**" Exp7                                                          -- binary
                       | Exp7
-  Exp7                = FunctionCall
+  Exp7                = Lvalue
+                      | FunctionCall
                       | id
                       | boollit
                       | numlit
@@ -54,9 +56,14 @@ Pivot {
                       | Dict                                                                    -- dict
                       | "(" Exp ")"                                                             -- parens
   FunctionCall        = id "(" listOf<Exp, ","> ")"
+  Lvalue              = (id | List | Dict)  "::" FunctionCall                                  -- field
+                      | (id | List | Dict) ":" (NumRange | PrimLits | FunctionCall)            -- subscripted
+  NumRange            = numlit "..." numlit
+  TaskCall            = id
   List                = "[" ListOf<Exp, ","> "]"
   Dict                = "{" ListOf<KeyValuePair, ","> "}"
   Type                = ( NumType | StringType | CharType | BooleanType | ListType | DictType | AutoType )
+  PrimLits            = ( numlit | strlit | charlit | boollit )
   NumType             = "num"
   StringType          = "str"
   CharType            = "char"
@@ -64,7 +71,7 @@ Pivot {
   ListType            = "[" Type "]"
   DictType            = "{" Type ":" Type "}"
   AutoType            = "_"
-  KeyValuePair        = Exp ":" Exp
+  KeyValuePair        = PrimLits ":" Exp
   keyword             = ("all" | "while" | "repeat" | "if" | "else"
                       | "return" | "then" | "and" | "or" | "when" 
                       | "otherwise" | "print" | "true" | "false") ~idrest

@@ -8,19 +8,9 @@ addFive(num a) -> num
   a <- a + 5;
   return a;
 end
-task updateX(num value)
-  if x < 2 then
-    x <- value;
-  else
-    x <- 100;
-  end
-end
 
 
-num y <- addFive(5);
-updateX(y);
 
-updateX(3);
 print "hello" + 5;
 print x + 5;
 print 'a' + 5;
@@ -38,10 +28,6 @@ print -12;
 print [ "john", "tim" ];
 
 num z <- 5;
-task updateByZ(num x)
-  z <- x;
-  break;
-end
 for num a <- 0; a < 2; a <- 5 do
   num x <- 5;
 end
@@ -70,7 +56,6 @@ dogAges <- { "boomer" : 99, "bucky" : 2, "buck": 20 };
 dogAges <- {};
 
 add(num x) -> num return x; end
-print [1,2,3,4,5] << add(5);
 
 five() -> num return 5; end
 five();
@@ -90,9 +75,6 @@ add5(num x) -> num
 end
 
 num t <- 5;
-task updateNum(num value)
-    t <- value;
-end
 
 if x > 5
     then print "hello";
@@ -120,8 +102,7 @@ repeat
     k <- k - 5;
 when k == -30 end
 
-all num aa, bb, cc <- 1, 2, 3;
-cc <- 20;
+
 
 all _ day, isYear2020 <- "04162020", true;
 str double <- day + day;
@@ -159,6 +140,19 @@ end
 evenOdd(num x) -> bool
     return x % 2 == 0;
 end
+
+all num aa, bb, cc <- 1, 2, 3;
+cc <- 20;
+num task pow4 -> num default ** 4;
+aa <- (44) >> pow4 >> pow4 >> pow4;
+
+num myDogAge <- [1,2,3]:firstFactorial(2);
+[num] dogAges2 <- [4,3,2,5,74]:0...3;
+
+num yy <- [4,3,2,5,74]::find(3);
+
+num ifShortY <- 18;
+num ifShortX <- 5 when ifShortY > 5 otherwise 7;
 `;
 
 describe('The semantic analyzer', () => {

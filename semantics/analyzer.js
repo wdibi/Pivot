@@ -9,12 +9,13 @@ const {
   CharacterLiteral,
   AssignmentStatement,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   FunctionCall,
   Parameter,
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   PrintStatement,
@@ -27,6 +28,9 @@ const {
   DictionaryExpression,
   CallChain,
   AutoType,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 } = require('../ast');
 const {
   NumType,
@@ -47,23 +51,21 @@ Program.prototype.analyze = function(context) {
 Block.prototype.analyze = function(context) {
   const localContext = context.createChildContextForBlock();
   this.statements
-    .filter(
-      d =>
-        d.constructor === FunctionDeclaration ||
-        d.constructor === TaskDeclaration
-    )
+    .filter(d => d.constructor === FunctionDeclaration)
     .map(d => {
       d.analyzeSignature(localContext);
       localContext.add(d);
     });
-  this.statements.forEach(s => s.analyze(localContext));
+  this.statements.forEach(s => {
+    s.analyze(localContext);
+  });
   this.statements.filter(s => s.constructor === VariableDeclaration);
   check.statementsAreReachable(this.statements, localContext);
 };
 
 Object.assign(PrimitiveType.prototype, {
   isCompatibleWith(otherType) {
-    return this.id === 'auto' ? true : this === otherType;
+    return this.id === 'auto' ? true : this.id === otherType.id;
   },
 });
 
@@ -90,11 +92,11 @@ Object.assign(ListType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   if (this.init.length) {
     this.init.forEach(element => element.analyze(context));
-    this.init.forEach(element => check.hasCompatibleTypes(this.type, element));
+    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
     this.id.map((id, index) =>
       context.add(
         new VariableDeclaration(
-          id.ref,
+          id.id,
           this.type.isCompatibleWith(AutoType)
             ? this.init[index].type
             : this.type,
@@ -104,7 +106,7 @@ VariableDeclaration.prototype.analyze = function(context) {
     );
   } else {
     this.init.analyze(context);
-    check.hasCompatibleTypes(this.type, this.init);
+    check.hasEquivalentTypes(this.type, this.init);
     if (this.type instanceof PrimitiveType) {
       this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
     }
@@ -113,15 +115,19 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  this.target.type = context.lookup(this.target.ref).type;
+  this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
-  check.hasCompatibleTypes(this.target.type, this.source);
+  check.hasEquivalentTypes(this.target.type, this.source);
 };
 
-IdExpression.prototype.analyze = function(context) {
-  this.ref = context.lookup(this.ref);
-  this.type = this.ref.type;
+IdExpression.prototype.analyze = function(context, defaultType = undefined) {
+  if (defaultType) {
+    this.type = defaultType;
+  } else {
+    this.ref = context.lookup(this.id);
+    this.type = this.ref.type;
+  }
 };
 
 NumericLiteral.prototype.analyze = function() {
@@ -151,13 +157,14 @@ FunctionDeclaration.prototype.analyze = function() {
   check.bodyContainsReturn(this.body);
 };
 
-TaskDeclaration.prototype.analyzeSignature = function(context) {
-  this.bodyContext = context.createChildContextForTaskBody(this);
-  this.params && this.params.forEach(p => p.analyze(this.bodyContext));
+TaskStatement.prototype.analyze = function(context) {
+  this.exp.analyze(context, this.defaultType);
+  check.taskEvaluatesCorrectReturnType(this.exp, this.returnType);
+  context.add(this);
 };
 
 FunctionCall.prototype.analyze = function(context) {
-  this.callee = context.lookup(this.id.ref);
+  this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
 
   this.params && this.params.forEach(arg => arg.analyze(context));
@@ -165,10 +172,6 @@ FunctionCall.prototype.analyze = function(context) {
   check.paramsMatchDeclaration(this.params, this.callee.params);
 
   this.type = this.callee.returnType;
-};
-
-TaskDeclaration.prototype.analyze = function() {
-  this.body.analyze(this.bodyContext);
 };
 
 ReturnStatement.prototype.analyze = function(context) {
@@ -186,11 +189,14 @@ BreakStatement.prototype.analyze = function(context) {
   check.breakWithinValidBody(context);
 };
 
-BinaryExpression.prototype.analyze = function(context) {
+BinaryExpression.prototype.analyze = function(
+  context,
+  defaultType = undefined
+) {
   // Primitive Types First
   // Later consider something like [3,2,1] + [0] = [3,2,1,0]
-  this.left.analyze(context);
-  this.right.analyze(context);
+  this.left.analyze(context, defaultType);
+  this.right.analyze(context, defaultType);
 
   if (this.op === '+') {
     check.isNumStringOrChar(this.right);
@@ -273,6 +279,15 @@ IfStatement.prototype.analyze = function(context) {
   this.elseBody && this.elseBody.analyze(context);
 };
 
+IfShort.prototype.analyze = function(context) {
+  this.condition.analyze(context);
+  this.exp.analyze(context);
+  check.conditionIsDetermistic(this.condition);
+  this.alternate.analyze(context);
+  check.hasEquivalentTypes(this.exp, this.alternate);
+  this.type = this.exp.type;
+};
+
 DictionaryExpression.prototype.analyze = function() {
   this.pairs &&
     this.pairs.map(p => {
@@ -284,5 +299,36 @@ DictionaryExpression.prototype.analyze = function() {
 
 CallChain.prototype.analyze = function(context) {
   this.item.analyze(context);
-  this.methods.map(m => m.analyze(context));
+  this.tasks.map(task => {
+    let foundTask = context.lookup(task.id);
+    task.defaultType = foundTask.defaultType;
+    task.returnType = foundTask.returnType;
+  });
+  check.isValidTaskChain(this.item, this.tasks);
+  this.type = this.tasks[this.tasks.length - 1].returnType;
+};
+
+SubscriptedExp.prototype.analyze = function(context) {
+  this.item.analyze(context);
+  this.index.analyze(context);
+  if (this.index.constructor === NumRange) {
+    this.type = this.item.type;
+  } else {
+    check.isNum(this.index);
+    this.type = this.item.elements[0].type;
+  }
+};
+
+NumRange.prototype.analyze = function(context) {
+  this.start.analyze(context);
+  this.end.analyze(context);
+  check.isNum(this.start);
+  check.isNum(this.end);
+  check.isGreaterThan(this.start.value, this.end.value);
+};
+
+FieldExp.prototype.analyze = function(context) {
+  this.item.analyze(context);
+  // TODO: Check list type
+  this.type = context.lookup(this.functionCall.id.id).type;
 };

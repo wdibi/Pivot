@@ -1,5 +1,6 @@
 const {
-  standardFunctions,
+  mathFunctions,
+  listFunctions,
   BoolType,
   CharType,
   StringType,
@@ -51,7 +52,7 @@ class Context {
 
   // Adds a declaration to this context.
   add(declaration) {
-    declaration.id = declaration.id.ref || declaration.id; // I know, this needs to be fixed...
+    declaration.id = declaration.id.id || declaration.id; // I know, this needs to be fixed...
     if (this.locals.has(declaration.id)) {
       throw new Error(`${declaration.id} already declared in this scope`);
     }
@@ -62,6 +63,9 @@ class Context {
   // Returns the entity bound to the given identifier, starting from this
   // context and searching "outward" through enclosing contexts if necessary.
   lookup(id) {
+    if (id === 'default') {
+      return;
+    }
     for (let context = this; context !== null; context = context.parent) {
       if (context.locals.has(id)) {
         return context.locals.get(id);
@@ -79,7 +83,8 @@ Context.INITIAL = new Context();
   StringType,
   NumType,
   AutoType,
-  ...standardFunctions,
+  ...mathFunctions,
+  ...listFunctions,
 ].forEach(entity => {
   Context.INITIAL.add(entity);
 });

@@ -2,7 +2,6 @@ const util = require('util');
 
 const {
   FunctionDeclaration,
-  TaskDeclaration,
   ReturnStatement,
   BreakStatement,
   UnaryExpression,
@@ -17,6 +16,8 @@ const {
   BoolType,
   DictType,
   ListType,
+  FieldExp,
+  PrimitiveType,
 } = require('../ast');
 
 const literals = [
@@ -75,8 +76,7 @@ module.exports = {
   },
   isFunction(value) {
     doCheck(
-      value.constructor === FunctionDeclaration ||
-        value.constructor === TaskDeclaration,
+      value.constructor === FunctionDeclaration,
       `non-existing function called`
     );
   },
@@ -124,22 +124,31 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
-  hasCompatibleTypes(baseType, item) {
+  hasEquivalentTypes(baseType, item) {
     if (baseType.constructor === DictType) {
       doCheck(
         baseType.isCompatibleWithPairs(item.pairs),
         `pairs do not match DictType`
       );
     } else if (baseType.constructor === ListType) {
-      doCheck(
-        baseType.isCompatibleWithElements(item.elements),
-        `elements do not match ListType`
-      );
-    } else {
+      if (item.constructor === FieldExp) {
+        doCheck(
+          baseType === item.type,
+          `The list of type  is not equal to its expression`
+        );
+      } else {
+        doCheck(
+          baseType.isCompatibleWithElements(item.elements),
+          `elements do not match ListType`
+        );
+      }
+    } else if (baseType.constructor === PrimitiveType) {
       doCheck(
         baseType.isCompatibleWith(item.type),
         `PrimitiveTypes do not match: ${baseType.id} is not ${item.type.id}`
       );
+    } else {
+      doCheck(baseType.type.id === item.type.id, `error message`);
     }
   },
   statementsAreReachable(statements, context) {
@@ -194,7 +203,7 @@ module.exports = {
         pairs.every(
           p => p.key.type === firstKeyType && p.value.type === firstValueType
         ),
-        `Incosistent Dictionary Types`
+        `Inconsistent Dictionary Types`
       );
     }
   },
@@ -207,7 +216,30 @@ module.exports = {
       );
     }
   },
-  // notAssigningTask(source) {
-  //   doCheck(!(source.constructor === TaskDeclaration), 'cannot assign task');
-  // },
+  taskEvaluatesCorrectReturnType(exp, returnType) {
+    doCheck(
+      exp.type === returnType,
+      `${exp} does not evaluate to a ${returnType}`
+    );
+  },
+  isValidTaskChain(item, tasks) {
+    if (tasks.length === 1) {
+      doCheck(
+        item.type === tasks.defaultType,
+        `item type does not match single default task`
+      );
+    }
+
+    let nextType = item.type;
+    for (let i = 1; i < tasks.length; i++) {
+      doCheck(
+        nextType === tasks[i].defaultType,
+        `broken task types in pos ${i}`
+      );
+      nextType = tasks[i].returnType;
+    }
+  },
+  isGreaterThan(start, end) {
+    doCheck(end > start, `${end} is not greater than ${start}`);
+  },
 };

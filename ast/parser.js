@@ -13,6 +13,7 @@ const {
   RepeatStatement,
   ForStatement,
   IfStatement,
+  IfShort,
   WhileStatement,
   VariableDeclaration,
   FunctionCall,
@@ -39,7 +40,10 @@ const {
   Parameter,
   ReturnStatement,
   BreakStatement,
-  TaskDeclaration,
+  TaskStatement,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 } = require('.');
 
 const grammar = ohm.grammar(fs.readFileSync('./grammar/pivot.ohm'));
@@ -73,7 +77,7 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   CallExpression_function(c) {
     return c.ast();
   },
-  FunctionDeclaration_regular(i, _o, a, _c, _a, t, b) {
+  FunctionDeclaration(i, _o, a, _c, _a, t, b) {
     return new FunctionDeclaration(
       i.ast(),
       t.ast(),
@@ -81,12 +85,8 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
       b.ast()
     );
   },
-  FunctionDeclaration_task(_t, i, _o, a, _c, b) {
-    return new TaskDeclaration(
-      i.ast(),
-      a._node.matchLength > 0 ? a.ast() : null,
-      b.ast()
-    );
+  TaskStatement(dt, _task, i, _a, rt, exp) {
+    return new TaskStatement(dt.ast(), i.ast(), rt.ast(), exp.ast());
   },
   FunctionCall(i, _openParen, args, _closeParen) {
     return new FunctionCall(
@@ -94,8 +94,8 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
       args._node.matchLength > 0 ? args.ast() : null
     );
   },
-  CallExpression_chain(item, _a, methods) {
-    return new CallChain(item.ast(), methods.ast());
+  CallExpression_chain(_s, exp, _e, _a, tasks) {
+    return new CallChain(exp.ast(), tasks.ast());
   },
   IfStatement(_if, t, _then, consequent, _e, alternate) {
     return new IfStatement(
@@ -103,6 +103,9 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
       new Block(consequent.ast()),
       alternate.ast().length ? new Block(alternate.ast()[0]) : null
     );
+  },
+  IfShort(e, _when, c, _otherwise, a) {
+    return new IfShort(e.ast(), c.ast(), a.ast());
   },
   Assignment(i, _a, e) {
     return new AssignmentStatement(i.ast(), e.ast());
@@ -159,6 +162,15 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   },
   Exp7_parens(_1, e, _2) {
     return e.ast();
+  },
+  Lvalue_field(i, _c, f) {
+    return new FieldExp(i.ast(), f.ast());
+  },
+  Lvalue_subscripted(i, _c, n) {
+    return new SubscriptedExp(i.ast(), n.ast());
+  },
+  NumRange(s, _d, e) {
+    return new NumRange(s.ast(), e.ast());
   },
   Parameter(t, i) {
     return new Parameter(t.ast(), i.ast());

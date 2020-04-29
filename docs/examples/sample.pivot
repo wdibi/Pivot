@@ -1,1 +1,1 @@
-five() -> num return 5; end task fun() print true; end
+num x <- 5 when y > 5 otherwise 7;

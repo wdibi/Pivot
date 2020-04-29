@@ -22,13 +22,13 @@ class FunctionCall {
 }
 
 class CallChain {
-  constructor(item, methods) {
-    Object.assign(this, { item, methods });
+  constructor(item, tasks) {
+    Object.assign(this, { item, tasks });
   }
 }
-class TaskDeclaration {
-  constructor(id, params, body) {
-    Object.assign(this, { id, params, body });
+class TaskStatement {
+  constructor(defaultType, id, returnType, exp) {
+    Object.assign(this, { defaultType, id, returnType, exp });
   }
 }
 
@@ -43,6 +43,14 @@ class IfStatement {
     Object.assign(this, { condition, body, elseBody });
   }
 }
+
+class IfShort {
+  constructor(exp, condition, alternate) {
+    Object.assign(this, { exp, condition, alternate });
+  }
+}
+// num x <- 5 when (y > 5) otherwise (x <- 7);
+// Grammar -> AST/Parser -> Semantics -> Generator -> JavaScript
 
 class WhileStatement {
   constructor(condition, body) {
@@ -120,6 +128,13 @@ class DictType {
   }
 }
 
+class NumRange {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+}
+
 class Expression {}
 
 class BooleanLiteral extends Expression {
@@ -153,7 +168,7 @@ class CharacterLiteral extends Expression {
 class IdExpression extends Expression {
   constructor(id) {
     super();
-    this.ref = id;
+    this.id = id;
   }
 }
 
@@ -161,6 +176,20 @@ class ListExpression extends Expression {
   constructor(elements) {
     super();
     this.elements = elements;
+  }
+}
+
+class FieldExp extends Expression {
+  constructor(item, functionCall) {
+    super();
+    Object.assign(this, { item, functionCall });
+  }
+}
+
+class SubscriptedExp extends Expression {
+  constructor(item, index) {
+    super();
+    Object.assign(this, { item, index });
   }
 }
 
@@ -195,8 +224,9 @@ module.exports = {
   UnaryExpression,
   BinaryExpression,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   IfStatement,
+  IfShort,
   ForStatement,
   RepeatStatement,
   PrimitiveType,
@@ -221,4 +251,7 @@ module.exports = {
   ReturnStatement,
   BreakStatement,
   Parameter,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 };

@@ -4,6 +4,7 @@ const {
   DictType,
   FunctionDeclaration,
   Parameter,
+  IdExpression,
 } = require('../ast');
 
 const BoolType = new PrimitiveType('bool');
@@ -12,13 +13,30 @@ const StringType = new PrimitiveType('string');
 const NumType = new PrimitiveType('num');
 const AutoType = new PrimitiveType('auto');
 
-const standardFunctions = [
-  new FunctionDeclaration('print', [new Parameter(StringType, 's')]),
+const listFunctions = [
+  new FunctionDeclaration(new IdExpression('find'), NumType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
 ];
 
+const mathFunctions = [
+  new FunctionDeclaration(new IdExpression('abs'), NumType, [
+    new Parameter(new PrimitiveType('num'), new IdExpression('x')),
+  ]),
+  new FunctionDeclaration(new IdExpression('pi'), NumType),
+  new FunctionDeclaration(new IdExpression('random'), NumType, [
+    new Parameter(new PrimitiveType('num'), new IdExpression('lowerBound')),
+    new Parameter(new PrimitiveType('num'), new IdExpression('upperBound')),
+  ]),
+];
+
+const functions = [mathFunctions, listFunctions];
+
 /* eslint-disable no-param-reassign */
-standardFunctions.forEach(f => {
-  f.builtin = true;
+functions.forEach(funcGroup => {
+  funcGroup.forEach(f => {
+    f.builtin = true;
+  });
 });
 /* eslint-enable no-param-reassign */
 
@@ -30,5 +48,6 @@ module.exports = {
   AutoType,
   ListType,
   DictType,
-  standardFunctions,
+  mathFunctions,
+  listFunctions,
 };
