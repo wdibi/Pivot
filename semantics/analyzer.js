@@ -92,7 +92,7 @@ Object.assign(ListType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   if (this.init.length) {
     this.init.forEach(element => element.analyze(context));
-    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
+    this.init.forEach(element => check.hasCompatibleTypes(this.type, element));
     this.id.map((id, index) =>
       context.add(
         new VariableDeclaration(
@@ -106,7 +106,7 @@ VariableDeclaration.prototype.analyze = function(context) {
     );
   } else {
     this.init.analyze(context);
-    check.hasEquivalentTypes(this.type, this.init);
+    check.hasCompatibleTypes(this.type, this.init);
     if (this.type instanceof PrimitiveType) {
       this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
     }
@@ -118,7 +118,7 @@ AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
-  check.hasEquivalentTypes(this.target.type, this.source);
+  check.hasCompatibleTypes(this.target.type, this.source);
 };
 
 IdExpression.prototype.analyze = function(context, defaultType = undefined) {
@@ -284,7 +284,7 @@ IfShort.prototype.analyze = function(context) {
   this.exp.analyze(context);
   check.conditionIsDetermistic(this.condition);
   this.alternate.analyze(context);
-  check.hasEquivalentTypes(this.exp, this.alternate);
+  check.hasCompatibleTypes(this.exp, this.alternate);
   this.type = this.exp.type;
 };
 
