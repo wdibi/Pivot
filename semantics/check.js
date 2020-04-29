@@ -125,7 +125,7 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
-  hasEquivalentTypes(baseType, item) {
+  hasCompatibleTypes(baseType, item) {
     if (baseType.constructor === DictType) {
       doCheck(
         baseType.isCompatibleWithPairs(item.pairs),
