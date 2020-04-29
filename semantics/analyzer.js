@@ -27,6 +27,9 @@ const {
   DictionaryExpression,
   CallChain,
   AutoType,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 } = require('../ast');
 const {
   NumType,
@@ -293,4 +296,28 @@ CallChain.prototype.analyze = function(context) {
   });
   check.isValidTaskChain(this.item, this.tasks);
   this.type = this.tasks[this.tasks.length - 1].returnType;
+};
+
+SubscriptedExp.prototype.analyze = function(context) {
+  this.item.analyze(context);
+  this.index.analyze(context);
+  if (this.index.constructor === NumRange) {
+    this.type = this.item.type;
+  } else {
+    check.isNum(this.index);
+    this.type = this.item.elements[0].type;
+  }
+};
+
+NumRange.prototype.analyze = function(context) {
+  this.start.analyze(context);
+  this.end.analyze(context);
+  check.isNum(this.start);
+  check.isNum(this.end);
+  check.isGreaterThan(this.start.value, this.end.value);
+};
+
+FieldExp.prototype.analyze = function(context) {
+  this.item.analyze(context);
+  this.functionCall.analyze(context);
 };

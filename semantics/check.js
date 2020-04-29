@@ -229,4 +229,7 @@ module.exports = {
       nextType = tasks[i].returnType;
     }
   },
+  isGreaterThan(start, end) {
+    doCheck(end > start, `${end} is not greater than ${start}`);
+  },
 };
