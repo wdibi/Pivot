@@ -1,5 +1,4 @@
 const prettyJs = require('pretty-js');
-const util = require('util');
 
 const {
   VariableDeclaration,
@@ -25,6 +24,7 @@ const {
   ForStatement,
   DictionaryExpression,
   CallChain,
+  KeyValuePair,
 } = require('../ast');
 
 function makeOp(op) {
@@ -72,19 +72,22 @@ AssignmentStatement.prototype.gen = function() {
 };
 
 FunctionDeclaration.prototype.gen = function() {
-  return `function ${this.id}(${this.params.map(p =>
-    p.gen()
-  )}) { ${generateBlock(this.body)} }`;
+  let params = this.params ? this.params.map(p => p.gen()) : [];
+  return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
+    this.body
+  )} }`;
 };
 
 TaskDeclaration.prototype.gen = function() {
-  // TODO
-  return ``;
+  let params = this.params ? this.params.map(p => p.gen()) : [];
+  return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
+    this.body
+  )} }`;
 };
 
 FunctionCall.prototype.gen = function() {
-  // TODO
-  return ``;
+  let params = this.params ? this.params.map(p => p.gen()) : '';
+  return `${this.id.gen()}(${params.join(', ')})`;
 };
 
 Parameter.prototype.gen = function() {
@@ -126,20 +129,22 @@ WhileStatement.prototype.gen = function() {
 };
 
 RepeatStatement.prototype.gen = function() {
-  // TODO TEST
-  return `do {
-    ${generateBlock(this.body)}
-  } while (!${this.condition.gen()})`;
+  return `do {${generateBlock(this.body)}} while (!(${this.condition.gen()}))`;
 };
 
 ForStatement.prototype.gen = function() {
-  // TODO
-  return ``;
+  return `for (${this.init.gen()};${this.condition.gen()};${this.exp.gen()}) {
+    ${generateBlock(this.body)}
+  }`;
 };
 
 DictionaryExpression.prototype.gen = function() {
-  // TODO
-  return ``;
+  let pairs = this.pairs ? this.pairs.map(p => p.gen()) : [];
+  return `{${pairs.join(', ')}}`;
+};
+
+KeyValuePair.prototype.gen = function() {
+  return `${this.key.gen()}:${this.value.gen()}`;
 };
 
 CallChain.prototype.gen = function() {

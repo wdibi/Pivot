@@ -19,6 +19,7 @@ const {
   BooleanLiteral,
   AssignmentStatement,
   IfStatement,
+  IfShort,
   VariableDeclaration,
   PrimitiveType,
   DictType,
@@ -91,6 +92,27 @@ const fixture = {
               new NumericLiteral(4)
             ),
           ])
+        ),
+      ])
+    ),
+  ],
+
+  IfShort: [
+    String.raw`num x <- 5 when y > 5 otherwise 7;`,
+    new Program(
+      new Block([
+        new VariableDeclaration(
+          new IdExpression('x'),
+          new PrimitiveType('num'),
+          new IfShort(
+            new NumericLiteral(5),
+            new BinaryExpression(
+              '>',
+              new IdExpression('y'),
+              new NumericLiteral(5)
+            ),
+            new NumericLiteral(7)
+          )
         ),
       ])
     ),

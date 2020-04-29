@@ -44,10 +44,9 @@ class IfStatement {
   }
 }
 
-// Check
 class IfShort {
-  constructor(body, condition, otherwiseBody) {
-    Object.assign(this, { body, condition, otherwiseBody });
+  constructor(exp, condition, alternate) {
+    Object.assign(this, { exp, condition, alternate });
   }
 }
 // num x <- 5 when (y > 5) otherwise (x <- 7);
