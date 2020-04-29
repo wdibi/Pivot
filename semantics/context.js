@@ -1,5 +1,5 @@
 const {
-  mathFunctions,
+  standardFunctions,
   BoolType,
   CharType,
   StringType,
@@ -51,7 +51,7 @@ class Context {
 
   // Adds a declaration to this context.
   add(declaration) {
-    declaration.id = declaration.id.id || declaration.id; // I know, this needs to be fixed...
+    declaration.id = declaration.id.ref || declaration.id; // I know, this needs to be fixed...
     if (this.locals.has(declaration.id)) {
       throw new Error(`${declaration.id} already declared in this scope`);
     }
@@ -73,10 +73,15 @@ class Context {
 
 Context.INITIAL = new Context();
 
-[BoolType, CharType, StringType, NumType, AutoType, ...mathFunctions].forEach(
-  entity => {
-    Context.INITIAL.add(entity);
-  }
-);
+[
+  BoolType,
+  CharType,
+  StringType,
+  NumType,
+  AutoType,
+  ...standardFunctions,
+].forEach(entity => {
+  Context.INITIAL.add(entity);
+});
 
 module.exports = Context;
