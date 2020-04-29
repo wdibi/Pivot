@@ -21,8 +21,8 @@ const fixture = {
     ),
   ],
   task: [
-    `num task pow4 -> num default ** 4;`,
-    prettyJs(`const pow4 = (default) => default ** 4`), 
+    `num task pow4 -> num default ** 4; num y <- (5) >> pow4 >> pow4;`,
+    prettyJs(`const pow4 = (default) => default ** 4; let y = pow4(pow4(5));`), 
   ],
   if: [
     `num x <- 5; if x > 5 then print x; else print "nope"; end`,

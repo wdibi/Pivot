@@ -78,9 +78,16 @@ FunctionDeclaration.prototype.gen = function() {
   )} }`;
 };
 
-// Fix
 TaskStatement.prototype.gen = function() {
   return `const ${this.id} = (default) =>  ${ this.exp.gen() }`;
+};
+
+CallChain.prototype.gen = function() {
+  let statement = `${this.item.gen()}`
+  this.tasks.forEach(task => {
+    statement = `${task.gen()}(${statement})`
+  });
+  return statement + ';';
 };
 
 FunctionCall.prototype.gen = function() {
@@ -145,7 +152,3 @@ KeyValuePair.prototype.gen = function() {
   return `${this.key.gen()}:${this.value.gen()}`;
 };
 
-CallChain.prototype.gen = function() {
-  // TODO
-  return ``;
-};
