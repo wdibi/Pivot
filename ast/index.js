@@ -49,8 +49,6 @@ class IfShort {
     Object.assign(this, { exp, condition, alternate });
   }
 }
-// num x <- 5 when (y > 5) otherwise (x <- 7);
-// Grammar -> AST/Parser -> Semantics -> Generator -> JavaScript
 
 class WhileStatement {
   constructor(condition, body) {
