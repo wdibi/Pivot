@@ -79,12 +79,9 @@ FunctionDeclaration.prototype.gen = function() {
 };
 
 // Fix
-// TaskStatement.prototype.gen = function() {
-//   let params = this.params ? this.params.map(p => p.gen()) : [];
-//   return `function ${this.id}(${params.join(', ')}) { ${generateBlock(
-//     this.body
-//   )} }`;
-// };
+TaskStatement.prototype.gen = function() {
+  return `const ${this.id} = (default) =>  ${ this.exp.gen() }`;
+};
 
 FunctionCall.prototype.gen = function() {
   let params = this.params ? this.params.map(p => p.gen()) : '';
