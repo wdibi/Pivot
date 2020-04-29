@@ -13,6 +13,12 @@ const StringType = new PrimitiveType('string');
 const NumType = new PrimitiveType('num');
 const AutoType = new PrimitiveType('auto');
 
+const listFunctions = [
+  new FunctionDeclaration(new IdExpression('find'), NumType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
+];
+
 const mathFunctions = [
   new FunctionDeclaration(new IdExpression('abs'), NumType, [
     new Parameter(new PrimitiveType('num'), new IdExpression('x')),
@@ -24,7 +30,7 @@ const mathFunctions = [
   ]),
 ];
 
-const functions = [mathFunctions];
+const functions = [mathFunctions, listFunctions];
 
 /* eslint-disable no-param-reassign */
 functions.forEach(funcGroup => {
@@ -43,4 +49,5 @@ module.exports = {
   ListType,
   DictType,
   mathFunctions,
+  listFunctions,
 };
