@@ -25,10 +25,11 @@ Pivot {
                       | "for" VarDeclaration ";" (Exp | CallExpression)
                         ";" (CallExpression | Assignment) "do" Block                            -- for
   PrintStatement      = print (CallExpression | Exp)
-  FunctionDeclaration = id "(" listOf<Parameter, ","> ")" "->" Type Block                       -- regular
-                      | "task" id "(" listOf<Parameter, ","> ")" Block                          -- task
+  FunctionDeclaration = Type "task" id "->" Type Block                                          -- task
+                      | id "(" listOf<Parameter, ","> ")" "->" Type Block                       -- regular
+                      
   Parameter           = Type id
-  CallExpression      = (FunctionCall | Exp) "<<" NonemptyListOf<FunctionCall, "<<">            -- chain
+  CallExpression      = (FunctionCall | Exp) ">>" NonemptyListOf<id, ">>">                      -- chain
                       | FunctionCall                                                            -- function
   Exp                 = Exp orop Exp1                                                           -- binary
                       | Exp1
