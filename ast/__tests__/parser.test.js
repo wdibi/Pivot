@@ -470,7 +470,7 @@ const fixture = {
     ),
   ],
 
-  NoParamFuncAndTaskDec: [
+  NoParamFunc: [
     String.raw`five() -> num return 5; end`,
     new Program(
       new Block([
