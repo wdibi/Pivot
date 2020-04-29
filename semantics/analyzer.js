@@ -15,6 +15,7 @@ const {
   ReturnStatement,
   BreakStatement,
   IfStatement,
+  IfShort,
   BinaryExpression,
   UnaryExpression,
   PrintStatement,
@@ -90,11 +91,11 @@ Object.assign(ListType.prototype, {
 VariableDeclaration.prototype.analyze = function(context) {
   if (this.init.length) {
     this.init.forEach(element => element.analyze(context));
-    this.init.forEach(element => check.hasCompatibleTypes(this.type, element));
+    this.init.forEach(element => check.hasEquivalentTypes(this.type, element));
     this.id.map((id, index) =>
       context.add(
         new VariableDeclaration(
-          id.ref,
+          id.id,
           this.type.isCompatibleWith(AutoType)
             ? this.init[index].type
             : this.type,
@@ -104,7 +105,7 @@ VariableDeclaration.prototype.analyze = function(context) {
     );
   } else {
     this.init.analyze(context);
-    check.hasCompatibleTypes(this.type, this.init);
+    check.hasEquivalentTypes(this.type, this.init);
     if (this.type instanceof PrimitiveType) {
       this.type.isCompatibleWith(AutoType) && (this.type = this.init.type);
     }
@@ -113,14 +114,14 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  this.target.type = context.lookup(this.target.ref).type;
+  this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
   //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
-  check.hasCompatibleTypes(this.target.type, this.source);
+  check.hasEquivalentTypes(this.target.type, this.source);
 };
 
 IdExpression.prototype.analyze = function(context) {
-  this.ref = context.lookup(this.ref);
+  this.ref = context.lookup(this.id);
   this.type = this.ref.type;
 };
 
@@ -157,7 +158,7 @@ TaskDeclaration.prototype.analyzeSignature = function(context) {
 };
 
 FunctionCall.prototype.analyze = function(context) {
-  this.callee = context.lookup(this.id.ref);
+  this.callee = context.lookup(this.id.id);
   check.isFunction(this.callee);
 
   this.params && this.params.forEach(arg => arg.analyze(context));
@@ -273,13 +274,13 @@ IfStatement.prototype.analyze = function(context) {
   this.elseBody && this.elseBody.analyze(context);
 };
 
-// Where does context come from / what is it?
 IfShort.prototype.analyze = function(context) {
-  // Check this
   this.condition.analyze(context);
   this.exp.analyze(context);
   check.conditionIsDetermistic(this.condition);
-  this.otherwise && this.otherwise.analayze(context);
+  this.alternate.analyze(context);
+  check.hasEquivalentTypes(this.exp, this.alternate);
+  this.type = this.exp.type;
 };
 
 DictionaryExpression.prototype.analyze = function() {

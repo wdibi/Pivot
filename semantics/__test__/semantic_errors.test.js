@@ -161,6 +161,7 @@ const errors = [
     isYear2020 <- false;
   `,
   ],
+  [`num x <- 5 when 18 > 5 otherwise 7;`],
 ];
 
 describe('The semantic analyzer', () => {

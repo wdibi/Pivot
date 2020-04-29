@@ -17,6 +17,7 @@ const {
   BoolType,
   DictType,
   ListType,
+  PrimitiveType,
 } = require('../ast');
 
 const literals = [
@@ -124,7 +125,7 @@ module.exports = {
       `${util.format(exp.value)} is not a boolean`
     );
   },
-  hasCompatibleTypes(baseType, item) {
+  hasEquivalentTypes(baseType, item) {
     if (baseType.constructor === DictType) {
       doCheck(
         baseType.isCompatibleWithPairs(item.pairs),
@@ -135,11 +136,13 @@ module.exports = {
         baseType.isCompatibleWithElements(item.elements),
         `elements do not match ListType`
       );
-    } else {
+    } else if (baseType.constructor === PrimitiveType) {
       doCheck(
         baseType.isCompatibleWith(item.type),
         `PrimitiveTypes do not match: ${baseType.id} is not ${item.type.id}`
       );
+    } else {
+      doCheck(baseType.type.id === item.type.id, `error message`);
     }
   },
   statementsAreReachable(statements, context) {
