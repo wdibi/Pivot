@@ -1,11 +1,11 @@
-import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import React from 'react';
+import { Card, Image } from 'semantic-ui-react';
 
-import "./About.css";
-import nico from "./Images/Team/nico.jpg";
-import will from "./Images/Team/will.jpg";
-import jigar from "./Images/Team/jigar.jpg";
-import manny from "./Images/Team/manny.jpg";
+import './About.css';
+import nico from './Images/Team/nico.jpg';
+import will from './Images/Team/will.jpg';
+import jigar from './Images/Team/jigar.jpg';
+import manny from './Images/Team/manny.jpg';
 
 const About = () => {
   return (
@@ -14,10 +14,17 @@ const About = () => {
         <h1 className="about-title">About Pivot</h1>
         <hr className="horizontal-line" />
         <p className="about-pivot-content">
-          Pivot is designed to combine the simplicity of modern languages with
-          the capabilities of functional languages. Inspired by languages like
-          Awk, F#, Erlang, and JS, Pivot takes an impure approach with the
-          mindset of removing the limitations of similar languages.
+          This is Pivot, a scripting language designed to make programming a
+          more enjoyable experience. Pivot is developed with the user in mind
+          and has speech-like logic syntax structure. The core team aims to
+          build a feature rich language that can serve both expert and novice
+          programmers alike.
+        </p>
+        <p className="about-pivot-content">
+          Inspired by programming languages like JavaScript, F#, and Python,
+          Pivot features syntax and semantics designed with an effort to be
+          simple while still preserving the complex, logical features that make
+          these languages so great.
         </p>
         <div className="about-buttons">
           <a

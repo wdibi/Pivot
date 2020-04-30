@@ -21,7 +21,10 @@
   </a>
 </p>
 
-Pivot is designed to combine the simplicity of modern languages with the capabilities of functional languages. Inspired by languages like Awk, F#, Erlang, and JS, Pivot takes an impure approach with the mindset of removing the limitations of similar languages.
+This is Pivot, a scripting language designed to make programming a more enjoyable experience. Pivot is developed with the user in mind and has speech-like logic syntax structure. The core team aims to build a feature rich language that can serve both expert and novice programmers alike. 
+
+Inspired by programming languages like JavaScript, F#, and Python, Pivot features syntax and semantics designed with an effort to be simple while still preserving the complex, logical features that make these languages so great.
+
 
 - **Statically typed** except for the auto type, `_`
 - **Strongly typed**
