@@ -10,10 +10,11 @@ const fixture = {
   ],
   vars: [
     `num x <- 5; bool y <- !false; char z <- 'a'; x <- -12; {str:num} age <- {} ; 
-    age <- {"steve": 21, "luke": 32}; num j <- [1,2,3]::find(2); num a <- [3,4,5]:2;`,
+    age <- {"steve": 21, "luke": 32}; num j <- [1,2,3]::find(2); num a <- [3,4,5]:2;
+    all num age1, age2, age3 <- 12, 23, 2;`,
     prettyJs(
       `let x = 5; let y = !false; let z = "a"; x = -12; let age = {}; age = {"steve": 21, "luke": 32}; 
-      let j = [1,2,3].find(2); let a = [3,4,5][2];`
+      let j = [1,2,3].find(2); let a = [3,4,5][2]; let age1 = 12, age2 = 23, age3 = 2;`
     ),
   ],
   func: [
