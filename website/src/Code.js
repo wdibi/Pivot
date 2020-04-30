@@ -1,7 +1,7 @@
-import React from "react";
-import { Card } from "semantic-ui-react";
+import React from 'react';
+import { Card } from 'semantic-ui-react';
 
-import "./Code.css";
+import './Code.css';
 
 const Code = () => {
   return (
@@ -92,6 +92,44 @@ const Code = () => {
                   {`    else`}
                   <br />
                   {`        return x * firstFactorial(x - 1);`}
+                  <br />
+                  {`end`}
+                </pre>
+              </Card.Description>
+            </Card.Content>
+          </Card>
+        </div>
+        <div className="snippet-container">
+          <Card className="code-box">
+            <Card.Content className="code-content">
+              <Card.Header className="snippet-title">
+                Find Minimum Element
+              </Card.Header>
+              <Card.Description className="snippet-code">
+                <pre>
+                  {`findMin([num] arr, num low, num high) -> num`}
+                  <br />
+                  {`    if high < low then return arr:0; end`}
+                  <br />
+                  {`    if high == low then return arr:low; end`}
+                  <br />
+                  {`    num mid <- (low + high)/2;`}
+                  <br />
+                  {`    if mid < high and arr:mid+1 < arr:mid then`}
+                  <br />
+                  {`        return arr:mid+1;`}
+                  <br />
+                  {`    end`}
+                  <br />
+                  {`    if mid > low and arr:mid < arr:mid-1 then`}
+                  <br />
+                  {`        return arr:mid;`}
+                  <br />
+                  {`    end`}
+                  <br />
+                  {`    if arr:high > arr:mid then return findMin(arr, low, mid - 1); end`}
+                  <br />
+                  {`    return findMin(arr, mid + 1, high);`}
                   <br />
                   {`end`}
                 </pre>
