@@ -153,6 +153,8 @@ num yy <- [4,3,2,5,74]::find(3);
 
 num ifShortY <- 18;
 num ifShortX <- 5 when ifShortY > 5 otherwise 7;
+
+fifth([num] a) -> num return a:5; end
 `;
 
 describe('The semantic analyzer', () => {
