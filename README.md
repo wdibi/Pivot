@@ -34,7 +34,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
 
 - [Contents](#contents)
 - [Types](#types)
-- [Types of Semantic Errors](#types-of-semantic-errors)
+  - [Types of Semantic Errors](#types-of-semantic-errors)
 - [Examples:](#examples)
   - [Variable Declarations](#variable-declarations)
   - [Arithmetic](#arithmetic)
@@ -186,10 +186,8 @@ add5(num x) -> num
     return x+5;
 end
 
-num x <- 5;
-task updateX(num value)
-    x <- value;
-end
+num task pow4 -> num default ** 4; 
+num y <- (5) >> pow4 >> pow4;
 ```
 
   </td>
@@ -201,10 +199,8 @@ function add5(x) {
   return x + 5;
 }
 
-let x = 5;
-function updateX(num) {
-  x = num;
-}
+const pow4 = (default) => default * * 4;
+let y = pow4(pow4(5));
 ```
 
   </td>
@@ -345,10 +341,11 @@ when x == -30 end
   <td>
 
 ```javascript
-do (
+do {
     console.log(x);
     x -= 5;
-) while (x >= -30)
+} 
+while (x >= -30);
 ```
 
   </td>
@@ -432,7 +429,7 @@ fibonacci(num x) -> num
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    when num < 0 end
+    when x < 0 end
 
     return b;
 end
