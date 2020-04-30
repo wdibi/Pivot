@@ -33,6 +33,8 @@ print [1,2,3]:2;
 print x:2;
 [num] x <- list();
 print x:3;
+print [1,2,3]:y;
+print [1,2,3]:y+3;
 x <- [2,31,12,4,53]::sort();
 {num:str} z <- {5:"john"}:5;
 
