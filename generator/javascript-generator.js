@@ -44,14 +44,10 @@ module.exports = function(exp) {
 };
 
 VariableDeclaration.prototype.gen = function() {
-  // console.log(this.id.constructor === Array);
   if (this.id.constructor === Array) {
-    let variablesArr = [];
-    for (let i = 0; i < this.id.length; i++) {
-      variablesArr[i] = `${this.id[i].id} = ${this.init[i].gen()}`;
-    }
-    let variables = variablesArr.join(', ');
-    return `let ${variables}`;
+    return `let ${this.id
+      .map((elm, i) => `${elm.id} = ${this.init[i].gen()}`)
+      .join(', ')}`;
   }
   return `let ${this.id} = ${this.init.gen()}`;
 };
@@ -174,8 +170,6 @@ SubscriptedExp.prototype.gen = function() {
     return `${this.item.gen()}.slice(${this.index.start.value}, ${this.index.end
       .value + 1})`;
   } else {
-    console.log(this.item.gen());
-    console.log(this.index.gen());
     return `${this.item.gen()}[${this.index.gen()}]`;
   }
 };
