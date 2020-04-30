@@ -119,8 +119,14 @@ IfStatement.prototype.gen = function() {
 };
 
 BinaryExpression.prototype.gen = function() {
-  let result = (this.left.constructor === BinaryExpression ? `(${this.left.gen()})` : `${this.left.gen()}`) + ` ${makeOp(this.op)} `;
-  result += this.right.constructor === BinaryExpression ? `(${this.right.gen()})` : `${this.right.gen()}`
+  let result =
+    (this.left.constructor === BinaryExpression
+      ? `(${this.left.gen()})`
+      : `${this.left.gen()}`) + ` ${makeOp(this.op)} `;
+  result +=
+    this.right.constructor === BinaryExpression
+      ? `(${this.right.gen()})`
+      : `${this.right.gen()}`;
   return result;
 };
 

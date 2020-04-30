@@ -71,7 +71,7 @@ const fixture = {
   
     return findMin(arr, mid + 1, high);
   end`,
-  `function findMin(arr, low, high) {
+    `function findMin(arr, low, high) {
     if (high < low) {
         return arr[0];
     };
@@ -94,8 +94,8 @@ const fixture = {
     };
 
     return findMin(arr, mid + 1, high);
-};`
-  ]
+};`,
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
