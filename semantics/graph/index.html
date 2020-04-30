@@ -115,7 +115,9 @@
   }
 
   function tick() {
-    entities.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
+    const radius = 10;
+    entities.attr('cx', (d) => Math.max(radius, Math.min(width - radius, d.x)))
+      .attr('cy', (d) => Math.max(radius, Math.min(height - radius, d.y)));
     entityLabels.attr('x', (d) => d.x).attr('y', (d) => d.y);
     edges
       .attr('x1', (d) => d.source.x)
