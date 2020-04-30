@@ -155,6 +155,10 @@ const errors = [
     `types of expression and alternate are mismatched`,
     `num x <- 5 when 18 > 5 otherwise "Hello World";`,
   ],
+  [
+    'indexing type does not match var dec type',
+    `{num:bool} encode <- {22: false, 2112: true, 44: true}; str currEncode <- encode:22;`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
