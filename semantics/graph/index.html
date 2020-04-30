@@ -4,8 +4,8 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
   const svg = d3.select('svg');
-  const width = +svg.attr('width');
-  const height = +svg.attr('height');
+  let width = +svg.attr('width');
+  let height = +svg.attr('height');
 
   svg.append('defs').append('marker')
     .attr("id",'arrowhead')
@@ -26,7 +26,7 @@
 
   const simulation = d3
     .forceSimulation(data.entities)
-    .force('charge', d3.forceManyBody().strength(-1000))
+    .force('charge', d3.forceManyBody().strength(-150))
     .force('center', d3.forceCenter(width / 2, height / 2))
     .force(
       'link',
@@ -105,6 +105,14 @@
     });
 
   entities.call(drag);
+  resize();
+  window.addEventListener('resize', resize);
+
+  function resize() {
+    width = window.innerWidth, height = window.innerHeight;
+    svg.attr('width', width).attr('height', height);
+    simulation.force('center', d3.forceCenter(width / 2, height / 2))
+  }
 
   function tick() {
     entities.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
