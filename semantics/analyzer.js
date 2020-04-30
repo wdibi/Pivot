@@ -315,8 +315,13 @@ SubscriptedExp.prototype.analyze = function(context) {
   if (this.index.constructor === NumRange) {
     this.type = this.item.type;
   } else {
+    console.log(this);
     check.isNum(this.index);
-    this.type = this.item.elements[0].type;
+    if (this.item.ref) {
+      this.type = this.item.type.type;
+    } else {
+      this.type = this.item.elements[0].type;
+    }
   }
 };
 
