@@ -52,6 +52,50 @@ const fixture = {
     `num y <- 18; num x <- 5 when y > 5 otherwise 7;`,
     prettyJs(`let y = 18; let x = y > 5 ? 5 : 7`),
   ],
+  nontrivial: [
+    `findMin([num] arr, num low, num high) -> num
+    if high < low then return arr:0; end
+    if high == low then return arr:low; end
+  
+    num mid <- low + (high - low)/2;
+  
+    if mid < high and arr:mid+1 < arr:mid then
+      return arr:mid;
+    end
+
+    if mid > low and arr:mid < arr:mid-1 then
+      return arr:mid;
+    end
+
+    if arr:high > arr:mid then return findMin(arr, low, mid - 1); end
+  
+    return findMin(arr, mid + 1, high);
+  end`,
+    `function findMin(arr, low, high) {
+    if (high < low) {
+        return arr[0];
+    };
+
+    if (high === low) {
+        return arr[low];
+    };
+    let mid = low + ((high - low) / 2);
+
+    if ((mid < high) && (arr[mid + 1] < arr[mid])) {
+        return arr[mid];
+    };
+
+    if ((mid > low) && (arr[mid] < arr[mid - 1])) {
+        return arr[mid];
+    };
+
+    if (arr[high] > arr[mid]) {
+        return findMin(arr, low, mid - 1);
+    };
+
+    return findMin(arr, mid + 1, high);
+};`,
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
