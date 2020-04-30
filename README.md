@@ -50,6 +50,7 @@ Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Ra
     - [Even or Odd:](#even-or-odd)
     - [Greatest Common Divisor:](#greatest-common-divisor)
     - [First Factorial:](#first-factorial)
+    - [Find Minimum Element:](#find-minimum-element)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
@@ -550,6 +551,74 @@ function firstFactorial(x) {
   } else {
     return x * firstFactorial(x - 1);
   }
+}
+```
+
+  </td>
+
+</table>
+
+#### Find Minimum Element:
+
+<table style="table-layout: fixed; width: 100vw">
+  <tr>
+  <th>Pivot</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```text
+findMin([num] arr, num low, num high) -> num
+    if high < low then return arr:0; end
+
+    if high == low then return arr:low; end
+
+    num mid <- (low + high)/2;
+
+    if mid < high and arr:mid+1 < arr:mid then
+      return arr:mid+1;
+    end
+
+    if mid > low and arr:mid < arr:mid-1 then
+      return arr:mid;
+    end
+
+    if arr:high > arr:mid then return findMin(arr, low, mid - 1); end
+
+    return findMin(arr, mid + 1, high);
+end
+```
+
+  </td>
+
+  <td>
+
+```javascript
+function findMin(arr, low, high) {
+  if (high < low) {
+    return arr[0] 
+  }
+
+  if (high == low) {
+    return arr[low] 
+  } 
+
+  let mid = (low + high)/2
+
+  if (mid < high && (arr[mid+1] < arr[mid])) {
+    return arr[mid+1]
+  } 
+
+  if (mid > low && (arr[mid] < arr[mid - 1])) {
+    return arr[mid]
+  }
+
+  if (arr[high] > arr[mid]) {
+    return findMin(arr, low, mid-1) 
+  }
+  return findMin(arr, mid+1, high) 
 }
 ```
 
