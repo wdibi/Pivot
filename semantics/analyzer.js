@@ -313,17 +313,17 @@ CallChain.prototype.analyze = function(context) {
 SubscriptedExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   this.index.analyze(context);
-  if (this.item.type.constructor === ListType) {
-    check.isNum(this.index);
-    const list = this.item.type;
-    this.type = list.type;
-  } else if (this.item.constructor === ListExpression) {
+  if (this.item.constructor === ListExpression) {
     check.isNum(this.index);
     this.type = this.item.type;
   } else if (this.item.type.constructor === DictType) {
     const dict = this.item.type;
     check.hasCompatibleTypes(dict.keyType, this.index);
     this.type = dict.valueType;
+  } else {
+    check.isNum(this.index);
+    const list = this.item.type;
+    this.type = list.type;
   }
 };
 

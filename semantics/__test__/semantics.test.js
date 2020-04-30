@@ -155,6 +155,9 @@ num ifShortY <- 18;
 num ifShortX <- 5 when ifShortY > 5 otherwise 7;
 
 fifth([num] a) -> num return a:5; end
+
+{num:bool} encode <- {22: false, 2112: true, 44: true}; 
+bool currEncode <- encode:22;
 `;
 
 describe('The semantic analyzer', () => {

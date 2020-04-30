@@ -96,12 +96,7 @@ module.exports = {
     );
   },
   breakWithinValidBody(context) {
-    doCheck(
-      context.inLoop ||
-        (context.currentFunction &&
-          context.currentFunction.functionType === 'task'),
-      `not within task or loop`
-    );
+    doCheck(context.inLoop || context.currentFunction`not within task or loop`);
   },
   returnIsNotInTask(functionContext) {
     doCheck(
