@@ -247,6 +247,7 @@ PrintStatement.prototype.analyze = function(context) {
 ListExpression.prototype.analyze = function() {
   this.elements && this.elements.map(e => e.analyze());
   check.listHasConsistentTypes(this.elements);
+  this.type = this.elements && this.elements[0].type;
 };
 
 WhileStatement.prototype.analyze = function(context) {
@@ -312,11 +313,17 @@ CallChain.prototype.analyze = function(context) {
 SubscriptedExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   this.index.analyze(context);
-  if (this.index.constructor === NumRange) {
-    this.type = this.item.type;
-  } else {
+  if (this.item.type.constructor === ListType) {
     check.isNum(this.index);
-    this.type = this.item.elements[0].type;
+    const list = this.item.type;
+    this.type = list.type;
+  } else if (this.item.constructor === ListExpression) {
+    check.isNum(this.index);
+    this.type = this.item.type;
+  } else if (this.item.type.constructor === DictType) {
+    const dict = this.item.type;
+    check.hasCompatibleTypes(dict.keyType, this.index);
+    this.type = dict.valueType;
   }
 };
 
@@ -326,6 +333,7 @@ NumRange.prototype.analyze = function(context) {
   check.isNum(this.start);
   check.isNum(this.end);
   check.isGreaterThan(this.start.value, this.end.value);
+  this.type = NumType;
 };
 
 FieldExp.prototype.analyze = function(context) {
