@@ -44,6 +44,11 @@ module.exports = function(exp) {
 };
 
 VariableDeclaration.prototype.gen = function() {
+  if (this.id.constructor === Array) {
+    return `let ${this.id
+      .map((elm, i) => `${elm.id} = ${this.init[i].gen()}`)
+      .join(', ')}`;
+  }
   return `let ${this.id} = ${this.init.gen()}`;
 };
 
