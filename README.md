@@ -21,405 +21,277 @@
   </a>
 </p>
 
-Pivot is designed to combine the simplicity of modern languages with the capabilities of functional languages. Inspired by languages like Awk, F#, Erlang, and JS, Pivot takes an impure approach with the mindset of removing the limitations of similar languages.
+This is Pivot, a scripting language designed to make programming a more enjoyable experience. Pivot is developed with the user in mind and has speech-like logic syntax structure. The core team aims to build a feature rich language that can serve both expert and novice programmers alike.
 
-- **Statically typed** except for the auto type, `_`
+Inspired by programming languages like JavaScript, F#, and Python, Pivot features syntax and semantics designed with an effort to be simple while still preserving the complex, logical features that make these languages so great.
+
+- **Statically typed** with some auto type inference
 - **Strongly typed**
 - **Scripting**
 - **Impure functional language**
 
-Pivot is created by Will DiBiagio, Jigar Swaminarayan, Manny Barreto, Nicolas Raymundo.
+Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminarayan](https://github.com/JigarSwam), [@Manny Barreto](https://github.com/mannybarreto) and [@Nicolas Raymundo](https://github.com/nraymundo).
 
 ## Contents
 
 - [Contents](#contents)
 - [Types](#types)
-- [Examples:](#examples)
+  - [Primitive Types](#primitive-types)
+  - [Data types](#data-types)
+- [Operators](#operators)
+  - [Binary Operators](#binary-operators)
+  - [Unary Operators](#unary-operators)
+- [Pivot Examples](#pivot-examples)
   - [Variable Declarations](#variable-declarations)
-  - [Arithmetic](#arithmetic)
+  - [Tasks](#tasks)
+    - [Task Statement](#task-statement)
+    - [Call Chain](#call-chain)
   - [Functions](#functions)
-  - [If Statement](#if-statement)
-  - [For Loop](#for-loop)
-  - [While Loop](#while-loop)
-  - [Repeat](#repeat)
-  - [Dictionary](#dictionary)
-  - [List](#list)
-  - [Sample Program:](#sample-program)
-    - [Fibonacci Pivot:](#fibonacci-pivot)
-    - [Even or Odd:](#even-or-odd)
-    - [Greatest Common Divisor:](#greatest-common-divisor)
-    - [First Factorial:](#first-factorial)
+    - [Function Definition](#function-definition)
+    - [Function Call](#function-call)
+  - [Control Flow](#control-flow)
+    - [If Then](#if-then)
+    - [If Then Else](#if-then-else)
+    - [Short If](#short-if)
+  - [Iteration](#iteration)
+    - [For Loop](#for-loop)
+    - [While Loop](#while-loop)
+    - [Repeat Loop](#repeat-loop)
+  - [Dictionaries](#dictionaries)
+    - [Dictionary Declaration](#dictionary-declaration)
+    - [Dictionary Accessing](#dictionary-accessing)
+    - [Dictionary Built-ins](#dictionary-built-ins)
+  - [Lists](#lists)
+    - [List Indexing](#list-indexing)
+    - [List Built-ins](#list-built-ins)
+    - [List Concatenation](#list-concatenation)
+  - [JavaScript Comparison](#javascript-comparison)
+    - [Fibonacci](#fibonacci)
+      - [Pivot](#pivot)
+      - [JavaScript](#javascript)
+    - [Even or Odd](#even-or-odd)
+    - [Pivot](#pivot-1)
+    - [Greatest Common Divisor](#greatest-common-divisor)
+    - [Pivot](#pivot-2)
+    - [First Factorial](#first-factorial)
+    - [Pivot](#pivot-3)
+  - [Semantic Errors](#semantic-errors)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
 
-Primitive Types
+### Primitive Types
 
-- string
-- boolean
-- number
-- list
-- dict
+- Strings: `str`
+- Characters: `char`
+- Booleans: `bool`
+- Numbers: `num`
+- Auto: `_`
 
-Operators
+### Data types
+- Lists: `[type]`
+- Dictionaries: `{type:type}`
 
-- Add `+`
-- Subtract `-`
-- Multiply `*`
-- Power `**`
-- Divide `/`
-- Modulus `%`
-- Strict Equality `==`
-- Less than `<`
-- Greater than `>`
-- Less than or equal `<=`
-- Greater than or equal `>=`
-- Logical AND `and`, `&&`
-- Logical OR `or`, `||`
+## Operators
 
-## Examples:
+### Binary Operators
+
+| Operation                  |   Type Compatibility    |
+| -------------------------- | :---------------------: |
+| Add `+`                    | Strings, Numbers, Lists |
+| Subtract `-`               |         Numbers         |
+| Multiply `*`               |         Numbers         |
+| Power `**`                 |         Numbers         |
+| Divide `/`                 |         Numbers         |
+| Modulus `%`                |         Numbers         |
+| Strict Equality `==`       | Strings, Numbers, Lists |
+| Less than `<`              |    Strings, Numbers     |
+| Greater than `>`           |    Strings, Numbers     |
+| Less than or equal `<=`    |    Strings, Numbers     |
+| Greater than or equal `>=` |    Strings, Numbers     |
+| Logical AND `and`, `&&`    |        Booleans         |
+| Logical OR `or`, `||`      |        Booleans         |
+
+### Unary Operators
+| Operation           | Type Compatibility |
+| ------------------- | :----------------: |
+| Negative `-`        |      Numbers       |
+| Negation `!`, `not` |      Booleans      |
+
+## Pivot Examples
 
 ### Variable Declarations
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-    <th>Pivot</th>
-    <th>JavaScript</th>
-  </tr>
-  <tr>
-  
-  <td>
 
 ```text
 str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
 [str] animals <- ["dog", "cat", "pig"];
-all num a,b,c <- 1,2,3;
-{str:num} ages <- { "john" : 5, "tim" : 6 };
+all num a,b,c <- 1, 2, 3;
+{str:num} ages <- {"john" : 5, "tim" : 6};
 ```
 
-  </td>
+### Tasks
 
-  <td>
-  
-```javascript
-let name = "Jigar"
-let age = 21
-let below6ft = true
-let a = 5, b = 2, c = 3
-let animals = ["dog", "cat", "pig"]
+#### Task Statement
+```text
+num pow4 -> num default ** 4;
 ```
 
-  </td>
-  </tr>
-</table>
-
-### Arithmetic
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
+#### Call Chain
+Call chain with a built-in task or user defined task
 
 ```text
-a <- 3*2 + (5 ** 6) / 7;
-b <- 12 - 17 + 8;
+print (-33) >> abs >> pow4;
 ```
-
-  </td>
-
-  <td>
-
-```javascript
-a = 3 * 2 + 5 ** 6 / 7;
-b = 12 - 17 + 8;
-```
-
-  </td>
-
-</table>
 
 ### Functions
 
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Function Definition
 ```text
 add5(num x) -> num
-    return x+5;
-end
-
-num x <- 5;
-task updateX(num value)
-    x <- value;
+    return x + 5;
 end
 ```
 
-  </td>
-
-  <td>
-
-```javascript
-function add5(x) {
-  return x + 5;
-}
-
-let x = 5;
-function updateX(num) {
-  x = num;
-}
-```
-
-  </td>
-
-</table>
-
-### If Statement
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Function Call
 ```text
-if x > 5
-    then print "hello";
+add5(10);
+```
+
+### Control Flow
+
+#### If Then
+```text
+num x <- 3.1415;
+if x > 3 then print "larger than 3"; end
+```
+
+#### If Then Else
+```text
+num x <- 3.1415;
+if x > 3 then 
+  print "larger than 3";
 else
-    print "bye";
+  print "less than 3";
 end
-
-if x > 5 then print x; end
 ```
 
-  </td>
-
-  <td>
-
-```javascript
-if (x > 5) {
-  console.log('hello');
-} else {
-  console.log('bye');
-}
-
-if (x > 5) {
-  console.log(x);
-}
-```
-
-  </td>
-
-</table>
-
-### For Loop
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
+#### Short If
 
 ```text
-for num a <- 0; a < 2; a <- a + 1 do
-    print a;
+num x <- 32102123;
+str msg <- "hello" when x % 3 == 2 otherwise "bye";
+```
+
+### Iteration
+
+#### For Loop
+```text
+for num x <- 0; x <= 10; x <- x + 1 do
+    print x;
 end
 ```
 
-  </td>
-
-  <td>
-
-```javascript
-for (let i = 0; i < 2; i++) {
-  console.log(i);
-}
-```
-
-  </td>
-
-</table>
-
-### While Loop
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### While Loop
 ```text
 num x <- 25;
-
 while x do
     print x;
     x <- x - 1;
 end
-```
+``` 
 
-  </td>
-
-  <td>
-
-```javascript
-let x = 25;
-
-while (x) {
-  console.log(x);
-  x--;
-}
-```
-
-  </td>
-
-</table>
-
-### Repeat
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Repeat Loop
 ```text
 num x <- 30;
-
 repeat
     print x;
     x <- x - 5;
 when x == -30 end
 ```
 
-  </td>
+### Dictionaries
 
-  <td>
-
-```javascript
-do (
-    console.log(x);
-    x -= 5;
-) while (x >= -30)
+#### Dictionary Declaration
+```text
+{str:num} ages <- {"john" : 5, "tim" : 6};
 ```
 
-  </td>
-
-</table>
-
-### Dictionary
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
+#### Dictionary Accessing 
+```text
+ages:"john" // 5
+```
+#### Dictionary Built-ins
+Yet to be implemented
+- `contains(keyId)` contains key
+- `del(keyId)` delete pair by key
+- `keys` list of keys
+- `values` list of values
 
 ```text
-{str:num} ages <- { "john" : 5, "tim" : 6 };
+ages::keys                // ["john", "tim"]
+ages::contains("michael") // false
+ages::del("john")         // {"tim" : 6}
+ages::contains("john")    // false
+```
+  
+### Lists
+```text
+[str] friends <- [ "john", "tim", "steve" ];
 ```
 
-  </td>
-
-  <td>
-
-```javascript
-let ages = { john: 5, tim: 6 };
+#### List Indexing
+```text
+friends:1
+friends:1...3
 ```
 
-  </td>
-
-</table>
-
-### List
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
+#### List Built-ins
+Yet to be implemented
+- `head` first element
+- `tail` last element
+- `len` number of elements
+- `find(elemId)` index of element
 
 ```text
-[str] friends <- [ "john", "tim" ];
+friends::head      // "john"
+friends::tail      // "steve"
+friends::len       // 3
+friends::find(tim) // 1
 ```
 
-  </td>
-
-  <td>
-
-```javascript
-let friends = ['john', 'tim'];
+#### List Concatenation
+```text
+[str] friends <- ["john", "tim"];
+friends <- friends + ["alex", "sasha"];
+print friends;                           // ["john", "tim", "alex", "sasha"]
 ```
 
-  </td>
+### JavaScript Comparison
 
-</table>
+#### Fibonacci
 
-### Sample Program:
-
-#### Fibonacci Pivot:
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+##### Pivot
 ```text
 fibonacci(num x) -> num
-    all num a,b,temp <- 1,0,0;
-
+    all num a, b, temp <- 1, 0, 0;
+    
     repeat
         temp <- a;
         a <- a + b;
         b <- temp;
         x <- x - 1;
+        temp, a, b, x <- a, a + b, temp, x - 1;
     when num < 0 end
-
     return b;
 end
 ```
 
-  </td>
-
-  <td>
-
+##### JavaScript
 ```javascript
 function fibonacci(num) {
-  let a = 1,
-    b = 0,
-    temp;
+  let a = 1, b = 0, temp;
 
   while (num >= 0) {
     temp = a;
@@ -431,61 +303,29 @@ function fibonacci(num) {
 }
 ```
 
-  </td>
+#### Even or Odd
 
-</table>
-
-#### Even or Odd:
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Pivot
 ```text
 evenOdd(num x) -> bool
     return x % 2 == 0;
 end
 ```
 
-  </td>
-
-  <td>
-
 ```javascript
-function evenOdd(num) {
+function evenOdd(x) {
   return x % 2 == 0;
 }
 ```
 
-  </td>
+#### Greatest Common Divisor
 
-</table>
-
-#### Greatest Common Divisor:
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Pivot
 ```text
 gcd(num a, num b) -> num
     return a when !b otherwise gcd(b, a % b);
 end
 ```
-
-  </td>
-
-  <td>
 
 ```javascript
 function gcd(a, b) {
@@ -493,21 +333,9 @@ function gcd(a, b) {
 }
 ```
 
-  </td>
+#### First Factorial
 
-</table>
-
-#### First Factorial:
-
-<table style="table-layout: fixed; width: 100vw">
-  <tr>
-  <th>Pivot</th>
-  <th>JavaScript</th>
-  </tr>
-
-  <tr>
-  <td>
-
+#### Pivot
 ```text
 firstFactorial(num x) -> num
     if x == 0 or x == 1 then return 1; end
@@ -515,23 +343,38 @@ firstFactorial(num x) -> num
 end
 ```
 
-  </td>
-
-  <td>
-
 ```javascript
 function firstFactorial(x) {
   if (x == 0 || x == 1) {
     return 1;
-  } else {
-    return x * firstFactorial(x - 1);
   }
+  return x * firstFactorial(x - 1);
 }
 ```
 
-  </td>
-
-</table>
+### Semantic Errors 
+- Type mismatch in declaration
+- Variable already declared
+- Variable assignment type mismatch
+- Variable not yet declared
+- Non-existing function call
+- Incorrect number of function parameters
+- Mismatched function return type
+- Types are not compatible
+- Function missing return statement
+- Arithmetic with undefined variable
+- Invalid types used with addition
+- Invalid types used with multiplication
+- Invalid types used with subtraction
+- Invalid types used with division
+- Incorrect use of unary operator
+- Inconsistent list types
+- Invalid variable type
+- Break outside of loops or task
+- Deterministic condition
+- Invalid dict types
+- Unreachable statement
+- Inconsistent dict expression types
 
 ## 📄 License
 
