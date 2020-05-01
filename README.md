@@ -73,12 +73,15 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
       - [Pivot](#pivot-1)
       - [JavaScript](#javascript-1)
     - [Even or Odd](#even-or-odd)
-    - [Pivot](#pivot-2)
+      - [Pivot](#pivot-2)
+      - [JavaScript](#javascript-2)
     - [Greatest Common Divisor](#greatest-common-divisor)
-    - [Pivot](#pivot-3)
+      - [Pivot](#pivot-3)
+      - [JavaScript](#javascript-3)
     - [First Factorial](#first-factorial)
-    - [Pivot](#pivot-4)
-  - [Semantic Errors](#semantic-errors)
+      - [Pivot](#pivot-4)
+      - [JavaScript](#javascript-4)
+- [Semantic Errors](#semantic-errors)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
@@ -130,7 +133,7 @@ str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
 [str] animals <- ["dog", "cat", "pig"];
-all num a,b,c <- 1, 2, 3;
+all num a, b, c <- 1, 2, 3;
 {str:num} ages <- {"john" : 5, "tim" : 6};
 ```
 
@@ -358,13 +361,14 @@ function fibonacci(num) {
 
 #### Even or Odd
 
-#### Pivot
+##### Pivot
 ```text
 evenOdd(num x) -> bool
     return x % 2 == 0;
 end
 ```
 
+##### JavaScript
 ```javascript
 function evenOdd(x) {
   return x % 2 == 0;
@@ -373,13 +377,14 @@ function evenOdd(x) {
 
 #### Greatest Common Divisor
 
-#### Pivot
+##### Pivot
 ```text
 gcd(num a, num b) -> num
     return a when !b otherwise gcd(b, a % b);
 end
 ```
 
+##### JavaScript
 ```javascript
 function gcd(a, b) {
   return !b ? a : gcd(b, a % b);
@@ -388,7 +393,7 @@ function gcd(a, b) {
 
 #### First Factorial
 
-#### Pivot
+##### Pivot
 ```text
 firstFactorial(num x) -> num
     if x == 0 or x == 1 then return 1; end
@@ -396,6 +401,7 @@ firstFactorial(num x) -> num
 end
 ```
 
+##### JavaScript
 ```javascript
 function firstFactorial(x) {
   if (x == 0 || x == 1) {
@@ -405,7 +411,7 @@ function firstFactorial(x) {
 }
 ```
 
-### Semantic Errors 
+## Semantic Errors 
 - Type mismatch in declaration
 - Variable already declared
 - Variable assignment type mismatch
