@@ -116,7 +116,7 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 | Less than or equal `<=`    |    Strings, Numbers     |
 | Greater than or equal `>=` |    Strings, Numbers     |
 | Logical AND `and`, `&&`    |        Booleans         |
-| Logical OR `or`, `||`      |        Booleans         |
+| Logical OR `or`, `\|\|`      |        Booleans         |
 
 ### Unary Operators
 | Operation           | Type Compatibility |
