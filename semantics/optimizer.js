@@ -6,7 +6,7 @@ const {
   ReturnStatement,
   BreakStatement,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   NumericLiteral,
   StringLiteral,
   BooleanLiteral,
@@ -16,6 +16,7 @@ const {
   CallChain,
   IdExpression,
   IfStatement,
+  IfShort,
   WhileStatement,
   RepeatStatement,
   ForStatement,
@@ -25,6 +26,9 @@ const {
   DictionaryExpression,
   KeyValuePair,
   PrintStatement,
+  SubscriptedExp,
+  NumRange,
+  FieldExp,
 } = require('../ast');
 
 module.exports = program => program.optimize();
@@ -74,7 +78,7 @@ function isOrOp(op) {
 }
 
 Program.prototype.optimize = function() {
-  this.blocik = this.block.optimize();
+  this.block = this.block.optimize();
   return this;
 };
 
@@ -127,7 +131,7 @@ CallChain.prototype.optimize = function() {
   return this;
 };
 
-TaskDeclaration.prototype.optimize = function() {
+TaskStatement.prototype.optimize = function() {
   this.body = this.body.optimize();
   return this;
 };
@@ -136,12 +140,25 @@ Parameter.prototype.optimize = function() {
   return this;
 };
 
+FieldExp.prototype.optimize = function() {
+  this.item = this.item.optimize();
+  this.functionCall = this.item.functionCall();
+  return this;
+}
+
 IfStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.body = this.body.optimize();
   this.elseBody = this.body.optimize();
   return this;
 };
+
+IfShort.prototype.optimize = function() {
+  this.exp = this.exp.optimize();
+  this.condition = this.condition.optimize();
+  this.alternate = this.alternate.optimize();
+  return this;
+}
 
 WhileStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
@@ -255,6 +272,19 @@ KeyValuePair.prototype.optimize = function() {
   this.value = this.value.optimize();
   return this;
 };
+
+SubscriptedExp.prototype.optimize = function() {
+  this.item = this.item.optimize();
+  this.index = this.index.optimize();
+  return this;
+}
+
+NumRange.prototype.optimize = function() {
+  this.start = this.start.optimize();
+  this.end = this.end.optimize();
+  return this;
+}
+
 
 IdExpression.prototype.optimize = function() {
   return this;
