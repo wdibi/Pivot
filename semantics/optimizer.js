@@ -144,7 +144,7 @@ FieldExp.prototype.optimize = function() {
   this.item = this.item.optimize();
   this.functionCall = this.item.functionCall();
   return this;
-}
+};
 
 IfStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
@@ -158,7 +158,7 @@ IfShort.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.alternate = this.alternate.optimize();
   return this;
-}
+};
 
 WhileStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
@@ -277,14 +277,13 @@ SubscriptedExp.prototype.optimize = function() {
   this.item = this.item.optimize();
   this.index = this.index.optimize();
   return this;
-}
+};
 
 NumRange.prototype.optimize = function() {
   this.start = this.start.optimize();
   this.end = this.end.optimize();
   return this;
-}
-
+};
 
 IdExpression.prototype.optimize = function() {
   return this;
