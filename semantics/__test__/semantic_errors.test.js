@@ -25,13 +25,6 @@ const errors = [
       a <- 5;
     end`,
   ],
-  [
-    'return statement not valid in task',
-    `task updateX(num value)
-      num x <- value;
-      return value;
-    end`,
-  ],
   ['invalid addition with undefined variable', 'print x + 3;'],
   ['can only add strings and numbers', 'print false + 3;'],
   ['can only subtract numbers', 'print "hi" - 3;'],
@@ -48,7 +41,7 @@ const errors = [
     `,
   ],
   [
-    'break is not valid outside of task or loop',
+    'break is not valid outside of loops',
     `num j <- 25;
    break;
    while j do
@@ -94,15 +87,6 @@ const errors = [
     end`,
   ],
   [
-    'statement is unreachable',
-    `num x <- 0;
-    task updateX(num value)
-      break;
-      x <- value;
-    end
-    `,
-  ],
-  [
     'Inconsistent dict expression types',
     `print { "john" : 5, "tim" : false };`,
   ],
@@ -133,14 +117,6 @@ const errors = [
     `,
   ],
   [
-    'cannot assign task',
-    `num x <- 5;
-    task updateX(num value)
-      x <- value;
-    end
-    x <- updateX(x);`,
-  ],
-  [
     'pairs do not match DictTpe',
     `{str:num} dogAges <- { "boomer" : 5, "bucky" : 2 };
       dogAges <- { "boomer" : false, "bucky" : true };`,
@@ -160,6 +136,28 @@ const errors = [
     day <- "04172020";
     isYear2020 <- false;
   `,
+  ],
+  [
+    'can not use num task with a str variable',
+    `num task pow3 -> num default ** 3; str hello <- ("HELLO THERE") >> pow3;`,
+  ],
+  ['can not use boolean when indexing a list', 'num x <- [1,2,3]:true;'],
+  [
+    'can not have end index be greater than start index',
+    '[num] dogAges <- [4,3,2,5,74]:3...1;',
+  ],
+  [
+    'FieldExp does not match var dec type',
+    `[num] yy <- [4,3,2,5,74]::find(3);`,
+  ],
+  [`condition is deterministic`, `num x <- 5 when 18 > 5 otherwise 7;`],
+  [
+    `types of expression and alternate are mismatched`,
+    `num x <- 5 when 18 > 5 otherwise "Hello World";`,
+  ],
+  [
+    'indexing type does not match var dec type',
+    `{num:bool} encode <- {22: false, 2112: true, 44: true}; str currEncode <- encode:22;`,
   ],
 ];
 

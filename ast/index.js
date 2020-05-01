@@ -22,13 +22,13 @@ class FunctionCall {
 }
 
 class CallChain {
-  constructor(item, methods) {
-    Object.assign(this, { item, methods });
+  constructor(item, tasks) {
+    Object.assign(this, { item, tasks });
   }
 }
-class TaskDeclaration {
-  constructor(id, params, body) {
-    Object.assign(this, { id, params, body });
+class TaskStatement {
+  constructor(defaultType, id, returnType, exp) {
+    Object.assign(this, { defaultType, id, returnType, exp });
   }
 }
 
@@ -41,6 +41,12 @@ class VariableDeclaration {
 class IfStatement {
   constructor(condition, body, elseBody) {
     Object.assign(this, { condition, body, elseBody });
+  }
+}
+
+class IfShort {
+  constructor(exp, condition, alternate) {
+    Object.assign(this, { exp, condition, alternate });
   }
 }
 
@@ -120,6 +126,13 @@ class DictType {
   }
 }
 
+class NumRange {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+}
+
 class Expression {}
 
 class BooleanLiteral extends Expression {
@@ -164,6 +177,20 @@ class ListExpression extends Expression {
   }
 }
 
+class FieldExp extends Expression {
+  constructor(item, functionCall) {
+    super();
+    Object.assign(this, { item, functionCall });
+  }
+}
+
+class SubscriptedExp extends Expression {
+  constructor(item, index) {
+    super();
+    Object.assign(this, { item, index });
+  }
+}
+
 class DictionaryExpression extends Expression {
   constructor(pairs) {
     super();
@@ -195,8 +222,9 @@ module.exports = {
   UnaryExpression,
   BinaryExpression,
   FunctionDeclaration,
-  TaskDeclaration,
+  TaskStatement,
   IfStatement,
+  IfShort,
   ForStatement,
   RepeatStatement,
   PrimitiveType,
@@ -221,4 +249,7 @@ module.exports = {
   ReturnStatement,
   BreakStatement,
   Parameter,
+  FieldExp,
+  SubscriptedExp,
+  NumRange,
 };
