@@ -41,6 +41,8 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 - [Operators](#operators)
   - [Binary Operators](#binary-operators)
   - [Unary Operators](#unary-operators)
+- [Builtins](#builtins)
+  - [Math Functions](#math-functions)
 - [Pivot Examples](#pivot-examples)
   - [Variable Declarations](#variable-declarations)
   - [Tasks](#tasks)
@@ -116,13 +118,21 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 | Less than or equal `<=`    |    Strings, Numbers     |
 | Greater than or equal `>=` |    Strings, Numbers     |
 | Logical AND `and`, `&&`    |        Booleans         |
-| Logical OR `or`, `\|\|`      |        Booleans         |
+| Logical OR `or`, `\|\|`    |        Booleans         |
 
 ### Unary Operators
 | Operation           | Type Compatibility |
 | ------------------- | :----------------: |
 | Negative `-`        |      Numbers       |
 | Negation `!`, `not` |      Booleans      |
+
+## Builtins
+
+### Math Functions
+
+- Absolute Value: `abs(num)`
+- Pi: `pi()`
+- Random: `random(lowerBound, upperBound)`
 
 ## Pivot Examples
 
