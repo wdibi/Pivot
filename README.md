@@ -66,15 +66,18 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
     - [List Built-ins](#list-built-ins)
     - [List Concatenation](#list-concatenation)
   - [JavaScript Comparison](#javascript-comparison)
-    - [Fibonacci](#fibonacci)
+    - [Find Minimum Element](#find-minimum-element)
       - [Pivot](#pivot)
       - [JavaScript](#javascript)
+    - [Fibonacci](#fibonacci)
+      - [Pivot](#pivot-1)
+      - [JavaScript](#javascript-1)
     - [Even or Odd](#even-or-odd)
-    - [Pivot](#pivot-1)
-    - [Greatest Common Divisor](#greatest-common-divisor)
     - [Pivot](#pivot-2)
-    - [First Factorial](#first-factorial)
+    - [Greatest Common Divisor](#greatest-common-divisor)
     - [Pivot](#pivot-3)
+    - [First Factorial](#first-factorial)
+    - [Pivot](#pivot-4)
   - [Semantic Errors](#semantic-errors)
 - [📄 License](#%f0%9f%93%84-license)
 
@@ -270,6 +273,56 @@ print friends;                           // ["john", "tim", "alex", "sasha"]
 
 ### JavaScript Comparison
 
+#### Find Minimum Element
+##### Pivot
+```text
+findMin([num] arr, num low, num high) -> num
+    if high < low then return arr:0; end
+
+    if high == low then return arr:low; end
+
+    num mid <- (low + high)/2;
+
+    if mid < high and arr:mid+1 < arr:mid then
+      return arr:mid+1;
+    end
+
+    if mid > low and arr:mid < arr:mid-1 then
+      return arr:mid;
+    end
+
+    if arr:high > arr:mid then return findMin(arr, low, mid - 1); end
+
+    return findMin(arr, mid + 1, high);
+end
+```
+##### JavaScript
+```javascript
+function findMin(arr, low, high) {
+  if (high < low) {
+    return arr[0] 
+  }
+
+  if (high == low) {
+    return arr[low] 
+  } 
+
+  let mid = (low + high)/2
+
+  if (mid < high && (arr[mid+1] < arr[mid])) {
+    return arr[mid+1]
+  } 
+
+  if (mid > low && (arr[mid] < arr[mid - 1])) {
+    return arr[mid]
+  }
+
+  if (arr[high] > arr[mid]) {
+    return findMin(arr, low, mid-1) 
+  }
+  return findMin(arr, mid+1, high) 
+}
+```
 #### Fibonacci
 
 ##### Pivot
