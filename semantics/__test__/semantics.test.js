@@ -9,8 +9,6 @@ addFive(num a) -> num
   return a;
 end
 
-
-
 print "hello" + 5;
 print x + 5;
 print 'a' + 5;
@@ -171,9 +169,10 @@ num lenList <- [1,2,3]::len();
 [1,2,3]::push(6);
 
 [str] myStrings <- ["hi", "hello"];
-myStrings::pop();
+str poppedFromId <- myStrings::pop();
+str lastElemInString <- myStrings::tail();
 
-num poppedNum <- [1,2,3]::pop();
+num poppedFromExp <- [1,2,3]::pop();
 
 [num] testList2 <- [1,2,3];
 [num] list2 <- [1,2,3]::unshift(6);
@@ -181,6 +180,9 @@ num poppedNum <- [1,2,3]::pop();
 [1,2,3]::unshift(6);
 
 num shiftedNum <- [1,2,3]::shift();
+
+// bool ownIt <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");
+// bool ownIt <- inventory::contains("tv");
 `;
 
 describe('The semantic analyzer', () => {
