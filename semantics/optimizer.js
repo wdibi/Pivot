@@ -29,6 +29,7 @@ const {
   SubscriptedExp,
   NumRange,
   FieldExp,
+  Nop,
 } = require('../ast');
 
 module.exports = program => program.optimize();
@@ -168,6 +169,9 @@ IfShort.prototype.optimize = function() {
 WhileStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.body = this.body.optimize();
+  if (isBooleanLiteral(this.condition)) {
+    if (!this.condition.currentValue) return new Nop();
+  }
   return this;
 };
 
@@ -311,5 +315,9 @@ BooleanLiteral.prototype.optimize = function() {
 };
 
 CharacterLiteral.prototype.optimize = function() {
+  return this;
+};
+
+Nop.prototype.optimize = function() {
   return this;
 };
