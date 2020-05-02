@@ -41,7 +41,6 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 - [Operators](#operators)
   - [Binary Operators](#binary-operators)
   - [Unary Operators](#unary-operators)
-  - [Math Functions](#math-functions)
 - [Comments](#comments)
 - [Pivot Examples](#pivot-examples)
   - [Variable Declarations](#variable-declarations)
@@ -131,12 +130,6 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 | Negative `-`        |      Numbers       |
 | Negation `!`, `not` |      Booleans      |
 
-
-### Math Functions
-
-- Absolute Value: `abs(num)`
-- Pi: `pi()`
-- Random: `random(lowerBound, upperBound)`
 
 ## Comments
 - Single line: `//`
