@@ -269,6 +269,10 @@ Yet to be implemented
 - `tail` last element
 - `len` number of elements
 - `find(elemId)` index of element
+- `push(elem)` add to the end of a list
+- `pop()` remove from the end of a list
+- `unshift(elem)` add to the beginning of a list
+- `shift()` remove from the beginning of a list
 
 ```text
 friends::head      // "john"
