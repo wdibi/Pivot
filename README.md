@@ -84,6 +84,7 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
       - [Pivot](#pivot-4)
       - [JavaScript](#javascript-4)
 - [Semantic Errors](#semantic-errors)
+- [Optimizations](#optimizations)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
@@ -341,7 +342,9 @@ function findMin(arr, low, high) {
 ##### Pivot
 ```text
 fibonacci(num x) -> num
-    all num a, b, temp <- 1, 0, 0;
+    num a <- 1;
+    num b <- 0;
+    num temp <- 0;
     
     repeat
         temp <- a;
@@ -349,24 +352,24 @@ fibonacci(num x) -> num
         b <- temp;
         x <- x - 1;
         temp, a, b, x <- a, a + b, temp, x - 1;
-    when num < 0 end
+    when x < 0 end
     return b;
 end
 ```
 
 ##### JavaScript
 ```javascript
-function fibonacci(num) {
-  let a = 1, b = 0, temp;
-
-  while (num >= 0) {
-    temp = a;
-    a = a + b;
-    b = temp;
-    num--;
-  }
-  return b;
-}
+function fibonacci(x) {
+    let a = 1, b = 0, temp = 0;
+    do {
+        temp = a;
+        a = a + b;
+        b = temp;
+        x--;
+    }
+    while (!(x < 0));
+    return b;
+};
 ```
 
 #### Even or Odd
@@ -444,6 +447,11 @@ function firstFactorial(x) {
 - Invalid dict types
 - Unreachable statement
 - Inconsistent dict expression types
+
+## Optimizations
+
+### Binary Expressions
+- 
 
 ## 📄 License
 

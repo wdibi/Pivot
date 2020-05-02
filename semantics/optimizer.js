@@ -182,8 +182,8 @@ BinaryExpression.prototype.optimize = function() {
   this.right = this.right.optimize();
 
   // And
-  if (this.op === '+' && isZero(this.left)) return this.left;
-  if (this.op === '+' && isZero(this.right)) return this.right;
+  if (this.op === '+' && isZero(this.left)) return this.right; // shouldn't this be this.right?
+  if (this.op === '+' && isZero(this.right)) return this.left;
 
   // Sub
   if (this.op === '-' && areEqual(this.left, this.right))
