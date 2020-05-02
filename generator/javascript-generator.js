@@ -31,7 +31,32 @@ const {
   NumRange,
 } = require('../ast');
 
-const { builtin } = require('./generator_builtins');
+const builtins = {
+  find: function find(n) {
+    return `.find(${n})`;
+  },
+  head: function head() {
+    return `[0]`;
+  },
+  tail: function tail() {
+    return `.slice(1)`;
+  },
+  len: function len() {
+    return `.length`;
+  },
+  push: function push([n]) {
+    return `.push(${n})`;
+  },
+  pop: function pop([n]) {
+    return `.pop()`;
+  },
+  unshift: function unshift([n]) {
+    return `.unshift(${n})`;
+  },
+  shift: function shift() {
+    return `.shift()`;
+  },
+};
 
 function makeOp(op) {
   return { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op;
@@ -172,7 +197,11 @@ KeyValuePair.prototype.gen = function() {
 };
 
 FieldExp.prototype.gen = function() {
-  return `${this.item.gen()}.${this.functionCall.gen()}`;
+  // Only allowone param atm
+  const param = this.functionCall.params
+    ? this.functionCall.params[0].gen()
+    : null;
+  return `${this.item.gen()}${builtins[this.functionCall.id.gen()](param)}`;
 };
 
 SubscriptedExp.prototype.gen = function() {
