@@ -16,7 +16,7 @@ Pivot {
                       | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
                       | "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
-  Assignment          = (Lvalue | id) "<-" (CallExpression | Exp)
+  Assignment          = (Lvalue | id) "<-" (CallExpression | IfShort | Exp) 
   IfStatement         = if Exp then Statement+ (else Statement+)?
   IfShort             = Exp when (CallExpression | Exp)
                         otherwise (CallExpression | IfShort | Exp)

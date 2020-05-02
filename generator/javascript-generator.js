@@ -128,7 +128,7 @@ FunctionDeclaration.prototype.gen = function() {
 };
 
 TaskStatement.prototype.gen = function() {
-  return `const ${this.id} = (default) =>  ${this.exp.gen()}`;
+  return `const ${this.id} = (d) =>  ${this.exp.gen().replace('default', 'd')}`;
 };
 
 CallChain.prototype.gen = function() {
