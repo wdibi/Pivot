@@ -32,6 +32,46 @@ const {
   Nop,
 } = require('../ast');
 
+const builtins = {
+  find: function find(n) {
+    return `.find(${n})`;
+  },
+  head: function head() {
+    return `[0]`;
+  },
+  tail: function tail() {
+    return `.slice(1)`;
+  },
+  len: function len() {
+    return `.length`;
+  },
+  push: function push(n) {
+    return `.push(${n})`;
+  },
+  pop: function pop() {
+    return `.pop()`;
+  },
+  unshift: function unshift(n) {
+    return `.unshift(${n})`;
+  },
+  shift: function shift() {
+    return `.shift()`;
+  },
+  // Dict Need to be tested
+  contains: function contains(k) {
+    return `.hasOwnProperty(${k})`;
+  },
+  del: function del(objName, k) {
+    return `delete ${objName}[${k}]`;
+  },
+  keys: function keys(o) {
+    return `Object.keys(${o})`;
+  },
+  values: function values(o) {
+    return `Object.values(${o})`;
+  },
+};
+
 function makeOp(op) {
   return { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op;
 }
@@ -96,7 +136,7 @@ FunctionDeclaration.prototype.gen = function() {
 };
 
 TaskStatement.prototype.gen = function() {
-  return `const ${this.id} = (default) =>  ${this.exp.gen()}`;
+  return `const ${this.id} = (d) =>  ${this.exp.gen().replace('default', 'd')}`;
 };
 
 CallChain.prototype.gen = function() {
@@ -178,7 +218,22 @@ KeyValuePair.prototype.gen = function() {
 };
 
 FieldExp.prototype.gen = function() {
-  return `${this.item.gen()}.${this.functionCall.gen()}`;
+  // Only allow one param atm
+  const builtinId = this.functionCall.id.gen(); // delete objectName[${k}]
+  const param = this.functionCall.params
+    ? this.functionCall.params[0].gen()
+    : null;
+
+  switch (builtinId) {
+    case 'keys':
+    case 'values':
+      return builtins[builtinId](this.item.gen());
+    case 'del':
+      return builtins[builtinId](this.item.id, param);
+
+    default:
+      return `${this.item.gen()}${builtins[builtinId](param)}`;
+  }
 };
 
 SubscriptedExp.prototype.gen = function() {

@@ -115,14 +115,18 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  const ref = context.lookup(this.target.id);
-  this.target.type = ref.type;
-  this.source.analyze(context);
-  check.hasCompatibleTypes(this.target.type, this.source);
-  if (this.source.constructor === IdExpression) {
-    ref.currentValue = this.source.ref.currentValue;
+  if (this.target.constructor === SubscriptedExp) {
+    this.source.analyze(context);
   } else {
-    ref.currentValue = this.source;
+    const ref = context.lookup(this.target.id);
+    this.target.type = context.lookup(this.target.id).type;
+    this.source.analyze(context);
+    check.hasCompatibleTypes(this.target.type, this.source);
+    if (this.source.constructor === IdExpression) {
+      ref.currentValue = this.source.ref.currentValue;
+    } else {
+      ref.currentValue = this.source;
+    }
   }
 };
 
@@ -301,6 +305,12 @@ DictionaryExpression.prototype.analyze = function() {
       p.value.analyze();
     });
   check.dictHasConsistentTypes(this.pairs);
+  if (this.pairs) {
+    this.type = {
+      keyType: this.pairs[0].key.type,
+      valueType: this.pairs[0].value.type,
+    };
+  }
 };
 
 CallChain.prototype.analyze = function(context) {
@@ -341,8 +351,53 @@ NumRange.prototype.analyze = function(context) {
   this.type = NumType;
 };
 
+function isList(item) {
+  return item.constructor === ListType || item.constructor === ListExpression;
+}
+
 FieldExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   // TODO: Check list type
-  this.type = context.lookup(this.functionCall.id.id).type;
+  let builtin = context.lookup(this.functionCall.id.id);
+  let itemIsList = isList(this.item.ref ? this.item.ref.type : this.item);
+  if (itemIsList) {
+    this.item.type = this.item.ref ? this.item.type.type : this.item.type;
+    switch (builtin.id) {
+      case 'head':
+      case 'tail':
+      case 'pop':
+      case 'shift':
+        this.type = this.item.type;
+        break;
+      case 'len':
+      case 'find':
+        this.type = builtin.type;
+        break;
+      case 'push':
+      case 'unshift':
+        // TODO: elem type === list type
+        if (this.item.constructor === IdExpression) {
+          this.type = this.item.type;
+        } else {
+          this.type = new ListType(this.item.type);
+        }
+        break;
+    }
+  } else {
+    this.item.type = this.item.ref ? this.item.ref.type : this.item.type;
+    switch (builtin.id) {
+      case 'contains':
+        this.type = BoolType;
+        break;
+      case 'del':
+        this.type = this.item.type;
+        break;
+      case 'keys':
+        this.type = new ListType(this.item.type.keyType);
+        break;
+      case 'values':
+        this.type = new ListType(this.item.type.valueType);
+        break;
+    }
+  }
 };

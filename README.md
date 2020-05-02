@@ -41,8 +41,7 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 - [Operators](#operators)
   - [Binary Operators](#binary-operators)
   - [Unary Operators](#unary-operators)
-- [Builtins](#builtins)
-  - [Math Functions](#math-functions)
+- [Comments](#comments)
 - [Pivot Examples](#pivot-examples)
   - [Variable Declarations](#variable-declarations)
   - [Tasks](#tasks)
@@ -84,6 +83,10 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
       - [Pivot](#pivot-4)
       - [JavaScript](#javascript-4)
 - [Semantic Errors](#semantic-errors)
+- [Optimizations](#optimizations)
+  - [Strength Reduction](#strength-reduction)
+  - [IfShort](#ifshort)
+  - [While](#while)
 - [📄 License](#%f0%9f%93%84-license)
 
 ## Types
@@ -126,13 +129,10 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 | Negative `-`        |      Numbers       |
 | Negation `!`, `not` |      Booleans      |
 
-## Builtins
 
-### Math Functions
-
-- Absolute Value: `abs(num)`
-- Pi: `pi()`
-- Random: `random(lowerBound, upperBound)`
+## Comments
+- Single line: `//`
+- Multi-line: `/* */`
 
 ## Pivot Examples
 
@@ -247,9 +247,9 @@ Yet to be implemented
 
 ```text
 ages::keys                // ["john", "tim"]
+ages::values              // [5, 6]
 ages::contains("michael") // false
 ages::del("john")         // {"tim" : 6}
-ages::contains("john")    // false
 ```
   
 ### Lists
@@ -264,16 +264,20 @@ friends:1...3
 ```
 
 #### List Built-ins
-Yet to be implemented
+
 - `head` first element
 - `tail` last element
 - `len` number of elements
 - `find(elemId)` index of element
+- `push(elem)` add to the end of a list
+- `pop()` remove from the end of a list
+- `unshift(elem)` add to the beginning of a list
+- `shift()` remove from the beginning of a list
 
 ```text
-friends::head      // "john"
-friends::tail      // "steve"
-friends::len       // 3
+friends::head()    // "john"
+friends::tail()    // "steve"
+friends::len()     // 3
 friends::find(tim) // 1
 ```
 
@@ -348,24 +352,24 @@ fibonacci(num x) -> num
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    when num < 0 end
+    when num == 0 end
     return b;
 end
 ```
 
 ##### JavaScript
 ```javascript
-function fibonacci(num) {
-  let a = 1, b = 0, temp;
-
-  while (num >= 0) {
-    temp = a;
-    a = a + b;
-    b = temp;
-    num--;
-  }
-  return b;
-}
+function fibonacci(x) {
+    let a = 1, b = 0, temp = 0;
+    do {
+        temp = a;
+        a = a + b;
+        b = temp;
+        x--;
+    }
+    while (!(x === 0));
+    return b;
+};
 ```
 
 #### Even or Odd
@@ -443,6 +447,23 @@ function firstFactorial(x) {
 - Invalid dict types
 - Unreachable statement
 - Inconsistent dict expression types
+
+## Optimizations
+
+### Strength Reduction
+
+- Negation of `BoolLiteral` and `NumericLiteral`
+- Arithmetic expressions
+- Relational expressions
+- `OR` operations
+- `AND` operations
+
+### IfShort
+- Returning either the `expression` or `alternate` if the `condition` can be evaluated
+
+### While
+- No op optimization
+
 
 ## 📄 License
 

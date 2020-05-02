@@ -1,0 +1,2 @@
+[num] test <- [1,2,3];
+test::push(2);

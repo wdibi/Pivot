@@ -1,0 +1,20 @@
+num task inc -> num default + 1;
+changemaker([num] denominations, num change) -> num
+    [num] opt <- [0];
+
+    for num i <- 0; i <= change; i <- (i) >> inc do opt::push(0); end
+    
+    num n <- denominations::len();
+
+    for num j <- 1; j <= change + 1; j <- (j) >> inc do 
+        num smallest <- 999999;
+        for num t <- 0; t < n; t <- (t) >> inc do
+            if denominations:t <= j then
+                smallest <- smallest when smallest < opt:j - denominations:t
+                                otherwise opt:j - denominations:t;
+            end
+        end
+        opt:j <- (smallest) >> inc;
+    end
+    return opt:change;
+end

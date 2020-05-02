@@ -17,6 +17,28 @@ const listFunctions = [
   new FunctionDeclaration(new IdExpression('find'), NumType, [
     new Parameter(AutoType, new IdExpression('element')),
   ]),
+  new FunctionDeclaration(new IdExpression('head')),
+  new FunctionDeclaration(new IdExpression('tail')),
+  new FunctionDeclaration(new IdExpression('len'), NumType),
+  new FunctionDeclaration(new IdExpression('push'), ListType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
+  new FunctionDeclaration(new IdExpression('pop')),
+  new FunctionDeclaration(new IdExpression('unshift'), ListType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
+  new FunctionDeclaration(new IdExpression('shift'), AutoType),
+];
+
+const dictFunctions = [
+  new FunctionDeclaration(new IdExpression('contains'), BoolType, [
+    new Parameter(AutoType, new IdExpression('key')),
+  ]),
+  new FunctionDeclaration(new IdExpression('del'), DictType, [
+    new Parameter(AutoType, new IdExpression('key')),
+  ]),
+  new FunctionDeclaration(new IdExpression('keys')),
+  new FunctionDeclaration(new IdExpression('values')),
 ];
 
 const mathFunctions = [
@@ -30,7 +52,7 @@ const mathFunctions = [
   ]),
 ];
 
-const functions = [mathFunctions, listFunctions];
+const functions = [mathFunctions, listFunctions, dictFunctions];
 
 /* eslint-disable no-param-reassign */
 functions.forEach(funcGroup => {
@@ -50,4 +72,5 @@ module.exports = {
   DictType,
   mathFunctions,
   listFunctions,
+  dictFunctions,
 };

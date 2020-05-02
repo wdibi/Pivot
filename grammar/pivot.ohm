@@ -11,11 +11,12 @@ Pivot {
                       | Assignment ";"
                       | ReturnStatement ";"
                       | BreakStatement ";"
+                      | Lvalue ";"
   VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
                       | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
                       | "(" Type id ("," Type id)+ ")"
                         "<-" "(" NonemptyListOf<Exp, ","> ")"                                    -- multidec
-  Assignment          = id "<-" (CallExpression | Exp)
+  Assignment          = (Lvalue | id) "<-" (CallExpression | IfShort | Exp) 
   IfStatement         = if Exp then Statement+ (else Statement+)?
   IfShort             = Exp when (CallExpression | Exp)
                         otherwise (CallExpression | IfShort | Exp)

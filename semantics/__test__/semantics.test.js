@@ -9,8 +9,6 @@ addFive(num a) -> num
   return a;
 end
 
-
-
 print "hello" + 5;
 print x + 5;
 print 'a' + 5;
@@ -64,6 +62,7 @@ str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
 [str] animals <- ["dog", "cat", "pig"];
+animals:1 <- "lion";
 all num q,w,s <- 1,2,3;
 {str:num} ages <- { "john" : 5, "tim" : 6 };
 
@@ -158,6 +157,40 @@ fifth([num] a) -> num return a:5; end
 
 {num:bool} encode <- {22: false, 2112: true, 44: true}; 
 bool currEncode <- encode:22;
+
+num firstElem <- [1,2,3]::head();
+
+num lastElem <- [1,2,3]::tail();
+
+num lenList <- [1,2,3]::len();
+
+[num] testList <- [1,2,3];
+[num] list <- [1,2,3]::push(6);
+
+[1,2,3]::push(6);
+
+[str] myStrings <- ["hi", "hello"];
+str poppedFromId <- myStrings::pop();
+str lastElemInString <- myStrings::tail();
+
+num poppedFromExp <- [1,2,3]::pop();
+
+[num] testList2 <- [1,2,3];
+[num] list2 <- [1,2,3]::unshift(6);
+
+[1,2,3]::unshift(6);
+
+num shiftedNum <- [1,2,3]::shift();
+
+{str:num} inventory <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");
+bool ownIt <- inventory::contains("tv");
+
+inventory <- inventory::del("tv");
+{str:num} inventory2 <- inventory::del("tv");
+
+[str] listInventory <- inventory2::keys();
+
+[num] listInventory2 <- {"tv": 2, "radio": 0, "bed": 1}::values();
 
 sirList() -> [num] return [1,2,3,4,5]; end
 `;
