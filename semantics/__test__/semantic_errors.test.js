@@ -187,6 +187,10 @@ const errors = [
     'New variable type must match shifted element type',
     `str shiftedNum <- [1,2,3]::pop();`,
   ],
+  [
+    'Contains method returns boolean',
+    `str ownIt <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

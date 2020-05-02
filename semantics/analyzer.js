@@ -296,8 +296,11 @@ DictionaryExpression.prototype.analyze = function() {
     });
   check.dictHasConsistentTypes(this.pairs);
   if (this.pairs) {
-    this.keyType = this.pairs[0].key.type;
-    this.valueType = this.pairs[0].value.type;
+    this.type = {
+      keyType: this.pairs[0].key.type,
+      valueType: this.pairs[0].value.type,
+    };
+    // this.type.valueType = this.pairs[0].value.type;
   }
 };
 
@@ -347,7 +350,8 @@ FieldExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   // TODO: Check list type
   let builtin = context.lookup(this.functionCall.id.id);
-  if (isList(this.item.ref ? this.item.ref.type : this.item)) {
+  let itemIsList = isList(this.item.ref ? this.item.ref.type : this.item);
+  if (itemIsList) {
     this.item.type = this.item.ref ? this.item.type.type : this.item.type;
     switch (builtin.id) {
       case 'head':
@@ -366,15 +370,25 @@ FieldExp.prototype.analyze = function(context) {
         if (this.item.constructor === IdExpression) {
           this.type = this.item.type;
         } else {
-          this.type = new ListType(new PrimitiveType(this.item.type.id));
+          this.type = new ListType(this.item.type);
         }
         break;
     }
   } else {
-    console.log(this.item);
+    this.item.type = this.item.ref ? this.item.ref.type : this.item.type;
     switch (builtin.id) {
       case 'contains':
-        this.type = new PrimitiveType(BoolType);
+        this.type = BoolType;
+        break;
+      case 'del':
+        this.type = this.item.type;
+        break;
+      case 'keys':
+        this.type = new ListType(this.item.type.keyType);
+        break;
+      case 'values':
+        console.log(this.item);
+        this.type = new ListType(this.item.type.valueType);
         break;
     }
   }

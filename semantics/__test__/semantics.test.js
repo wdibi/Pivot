@@ -181,8 +181,16 @@ num poppedFromExp <- [1,2,3]::pop();
 
 num shiftedNum <- [1,2,3]::shift();
 
-// bool ownIt <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");
-// bool ownIt <- inventory::contains("tv");
+{str:num} inventory <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");
+bool ownIt <- inventory::contains("tv");
+
+inventory <- inventory::del("tv");
+{str:num} inventory2 <- inventory::del("tv");
+
+[str] listInventory <- inventory2::keys();
+
+[num] listInventory2 <- {"tv": 2, "radio": 0, "bed": 1}::values();
+
 `;
 
 describe('The semantic analyzer', () => {

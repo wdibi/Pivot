@@ -30,10 +30,6 @@ const listFunctions = [
   new FunctionDeclaration(new IdExpression('shift'), AutoType),
 ];
 
-// - `contains(keyId)` contains key
-// - `del(keyId)` delete pair by key
-// - `keys` list of keys
-// - `values` list of values
 const dictFunctions = [
   new FunctionDeclaration(new IdExpression('contains'), BoolType, [
     new Parameter(AutoType, new IdExpression('key')),
