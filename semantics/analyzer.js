@@ -117,7 +117,6 @@ VariableDeclaration.prototype.analyze = function(context) {
 AssignmentStatement.prototype.analyze = function(context) {
   this.target.type = context.lookup(this.target.id).type;
   this.source.analyze(context);
-  //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
   check.hasCompatibleTypes(this.target.type, this.source);
 };
 
@@ -339,5 +338,43 @@ NumRange.prototype.analyze = function(context) {
 FieldExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   // TODO: Check list type
-  this.type = context.lookup(this.functionCall.id.id).type;
+  let builtin = context.lookup(this.functionCall.id.id);
+  if (this.item.type !== DictType) {
+    switch (builtin.id) {
+      case 'head':
+        this.type = this.item.elements[0].type;
+        break;
+      case 'tail':
+        this.type = this.item.elements[0].type;
+        break;
+      case 'len':
+        this.type = builtin.type; // can add to default
+        break;
+      case 'find':
+        this.type = builtin.type;
+        break;
+      case 'push':
+        // TODO: elem type === list type
+        if (this.item.constructor === IdExpression) {
+          this.type = this.item.type;
+        } else {
+          this.type = new ListType(new PrimitiveType(this.item.type.id));
+        }
+        break;
+      case 'pop':
+        this.type = this.item.type;
+        break;
+      case 'unshift':
+        // TODO: elem type === list type
+        if (this.item.constructor === IdExpression) {
+          this.type = this.item.type;
+        } else {
+          this.type = new ListType(new PrimitiveType(this.item.type.id));
+        }
+        break;
+      case 'shift':
+        this.type = this.item.type;
+        break;
+    }
+  }
 };

@@ -159,6 +159,34 @@ const errors = [
     'indexing type does not match var dec type',
     `{num:bool} encode <- {22: false, 2112: true, 44: true}; str currEncode <- encode:22;`,
   ],
+  [
+    'Element type must match variable type',
+    `str firstElem <- [1,2,3]::head();`,
+  ],
+  [
+    'Element type must match variable type',
+    `str firstElem <- [1,2,3]::tail();`,
+  ],
+  [
+    'Variable type must be num if calling len()',
+    `str lenList <- [1,2,3]::len();`,
+  ],
+  [
+    'New variable type must match list type',
+    `[num] testList <- [1,2,3]; [str] list <- [1,2,3]::push(6);`,
+  ],
+  [
+    'New variable type must match popped element type',
+    `str poppedNum <- [1,2,3]::pop();`,
+  ],
+  [
+    'New variable type must match list type',
+    `[num] testList <- [1,2,3]; [str] list <- [1,2,3]::unshift(6);`,
+  ],
+  [
+    'New variable type must match shifted element type',
+    `str shiftedNum <- [1,2,3]::pop();`,
+  ],
 ];
 
 describe('The semantic analyzer', () => {

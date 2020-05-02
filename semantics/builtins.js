@@ -17,6 +17,17 @@ const listFunctions = [
   new FunctionDeclaration(new IdExpression('find'), NumType, [
     new Parameter(AutoType, new IdExpression('element')),
   ]),
+  new FunctionDeclaration(new IdExpression('head')),
+  new FunctionDeclaration(new IdExpression('tail')),
+  new FunctionDeclaration(new IdExpression('len'), NumType),
+  new FunctionDeclaration(new IdExpression('push'), ListType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
+  new FunctionDeclaration(new IdExpression('pop')),
+  new FunctionDeclaration(new IdExpression('unshift'), ListType, [
+    new Parameter(AutoType, new IdExpression('element')),
+  ]),
+  new FunctionDeclaration(new IdExpression('shift'), AutoType),
 ];
 
 const mathFunctions = [

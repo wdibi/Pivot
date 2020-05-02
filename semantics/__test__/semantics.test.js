@@ -158,6 +158,29 @@ fifth([num] a) -> num return a:5; end
 
 {num:bool} encode <- {22: false, 2112: true, 44: true}; 
 bool currEncode <- encode:22;
+
+num firstElem <- [1,2,3]::head();
+
+num lastElem <- [1,2,3]::tail();
+
+num lenList <- [1,2,3]::len();
+
+[num] testList <- [1,2,3];
+[num] list <- [1,2,3]::push(6);
+
+[1,2,3]::push(6);
+
+[str] myStrings <- ["hi", "hello"];
+myStrings::pop();
+
+num poppedNum <- [1,2,3]::pop();
+
+[num] testList2 <- [1,2,3];
+[num] list2 <- [1,2,3]::unshift(6);
+
+[1,2,3]::unshift(6);
+
+num shiftedNum <- [1,2,3]::shift();
 `;
 
 describe('The semantic analyzer', () => {
