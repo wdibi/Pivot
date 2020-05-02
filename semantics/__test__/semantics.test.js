@@ -62,6 +62,7 @@ str name <- "Jigar";
 _ age <- 21;
 bool below6ft <- true;
 [str] animals <- ["dog", "cat", "pig"];
+animals:1 <- "lion";
 all num q,w,s <- 1,2,3;
 {str:num} ages <- { "john" : 5, "tim" : 6 };
 
