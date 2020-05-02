@@ -115,10 +115,15 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  this.target.type = context.lookup(this.target.id).type;
+  const ref = context.lookup(this.target.id);
+  this.target.type = ref.type;
   this.source.analyze(context);
-  //   check.notAssigningTask(this.source); // Need to add this to list + dict ^. Was added after I pulled so didn't see it.
   check.hasCompatibleTypes(this.target.type, this.source);
+  if (this.source.constructor === IdExpression) {
+    ref.currentValue = this.source.ref.currentValue;
+  } else {
+    ref.currentValue = this.source;
+  }
 };
 
 IdExpression.prototype.analyze = function(context, defaultType = undefined) {

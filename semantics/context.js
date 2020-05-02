@@ -51,6 +51,7 @@ class Context {
       throw new Error(`${declaration.id} already declared in this scope`);
     }
     const entity = declaration;
+    entity.currentValue = declaration.init;
     this.locals.set(declaration.id, entity);
   }
 

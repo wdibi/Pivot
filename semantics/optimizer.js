@@ -88,7 +88,7 @@ Block.prototype.optimize = function() {
 };
 
 VariableDeclaration.prototype.optimize = function() {
-  this.init.optimize();
+  this.init = this.init.optimize();
   return this;
 };
 
@@ -126,7 +126,6 @@ FunctionCall.prototype.optimize = function() {
 };
 
 CallChain.prototype.optimize = function() {
-  // this.item ?
   this.methods = this.methods.map(m => m.optimize());
   return this;
 };
@@ -157,6 +156,9 @@ IfShort.prototype.optimize = function() {
   this.exp = this.exp.optimize();
   this.condition = this.condition.optimize();
   this.alternate = this.alternate.optimize();
+  if (this.condition.constructor === BooleanLiteral) {
+    return this.condition.value ? this.exp : this.alternate;
+  }
   return this;
 };
 
@@ -197,6 +199,13 @@ UnaryExpression.prototype.optimize = function() {
 BinaryExpression.prototype.optimize = function() {
   this.left = this.left.optimize();
   this.right = this.right.optimize();
+
+  this.left = isNumericLiteral(this.left.ref.currentValue)
+    ? this.left.ref.currentValue
+    : this.left;
+  this.right = isNumericLiteral(this.right.ref.currentValue)
+    ? this.right.ref.currentValue
+    : this.right;
 
   // And
   if (this.op === '+' && isZero(this.left)) return this.left;
@@ -304,3 +313,7 @@ BooleanLiteral.prototype.optimize = function() {
 CharacterLiteral.prototype.optimize = function() {
   return this;
 };
+
+function isNumericLiteral(e) {
+  return e.constructor === NumericLiteral;
+}
