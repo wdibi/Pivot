@@ -212,6 +212,8 @@ class BinaryExpression extends Expression {
   }
 }
 
+class Nop {}
+
 module.exports = {
   Program,
   Block,
@@ -252,4 +254,5 @@ module.exports = {
   FieldExp,
   SubscriptedExp,
   NumRange,
+  Nop,
 };
