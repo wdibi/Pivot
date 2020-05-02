@@ -1,0 +1,2 @@
+num x <- 20;
+str msg <- "hello" when x > 19 otherwise "bye";
