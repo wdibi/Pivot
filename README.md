@@ -349,7 +349,7 @@ fibonacci(num x) -> num
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    when x < 0 end
+    when x == 0 end
     return b;
 end
 ```
@@ -364,7 +364,7 @@ function fibonacci(x) {
         b = temp;
         x--;
     }
-    while (!(x < 0));
+    while (!(x == 0));
     return b;
 };
 ```
@@ -448,7 +448,7 @@ function firstFactorial(x) {
 ## Optimizations
 
 ### Binary Expressions
-- 
+- Additin: returns 
 
 ## 📄 License
 
