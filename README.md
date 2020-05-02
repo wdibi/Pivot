@@ -84,8 +84,7 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
       - [JavaScript](#javascript-4)
 - [Semantic Errors](#semantic-errors)
 - [Optimizations](#optimizations)
-  - [Unary Expression](#unary-expression)
-  - [Binary Expressions](#binary-expressions)
+  - [Strength Reduction](#strength-reduction)
   - [IfShort](#ifshort)
   - [While](#while)
 - [📄 License](#%f0%9f%93%84-license)
@@ -451,16 +450,16 @@ function firstFactorial(x) {
 
 ## Optimizations
 
-### Unary Expression
-- Simplifying negation on a `NumericLiteral`
-- Simplifying negation on a`BooleanLiteral`
+### Strength Reduction
 
-### Binary Expressions
-- Simplifying arithmetic
-- Simplifying boolean and/or operations
+- Negation of `BoolLiteral` and `NumericLiteral`
+- Arithmetic expressions
+- Relational expressions
+- `OR` operations
+- `AND` operations
 
 ### IfShort
-- Returning either the `expression` or `alternate` if the `condition` can be evaulated
+- Returning either the `expression` or `alternate` if the `condition` can be evaluated
 
 ### While
 - No op optimization
