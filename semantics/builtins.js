@@ -30,6 +30,21 @@ const listFunctions = [
   new FunctionDeclaration(new IdExpression('shift'), AutoType),
 ];
 
+// - `contains(keyId)` contains key
+// - `del(keyId)` delete pair by key
+// - `keys` list of keys
+// - `values` list of values
+const dictFunctions = [
+  new FunctionDeclaration(new IdExpression('contains'), BoolType, [
+    new Parameter(AutoType, new IdExpression('key')),
+  ]),
+  new FunctionDeclaration(new IdExpression('del'), DictType, [
+    new Parameter(AutoType, new IdExpression('key')),
+  ]),
+  new FunctionDeclaration(new IdExpression('keys')),
+  new FunctionDeclaration(new IdExpression('values')),
+];
+
 const mathFunctions = [
   new FunctionDeclaration(new IdExpression('abs'), NumType, [
     new Parameter(new PrimitiveType('num'), new IdExpression('x')),
@@ -41,7 +56,7 @@ const mathFunctions = [
   ]),
 ];
 
-const functions = [mathFunctions, listFunctions];
+const functions = [mathFunctions, listFunctions, dictFunctions];
 
 /* eslint-disable no-param-reassign */
 functions.forEach(funcGroup => {
@@ -61,4 +76,5 @@ module.exports = {
   DictType,
   mathFunctions,
   listFunctions,
+  dictFunctions,
 };

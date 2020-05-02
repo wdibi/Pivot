@@ -127,8 +127,6 @@ module.exports = {
       );
     } else if (baseType.constructor === ListType) {
       if (item.constructor === FieldExp) {
-        // console.log(baseType);
-        // console.log(item.type);
         doCheck(
           baseType.type.id === item.type.type.id,
           `The list of type is not equal to its expression`
