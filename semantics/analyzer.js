@@ -304,7 +304,6 @@ DictionaryExpression.prototype.analyze = function() {
       keyType: this.pairs[0].key.type,
       valueType: this.pairs[0].value.type,
     };
-    // this.type.valueType = this.pairs[0].value.type;
   }
 };
 
@@ -333,7 +332,7 @@ SubscriptedExp.prototype.analyze = function(context) {
   } else {
     check.isNum(this.index);
     const list = this.item.type;
-    // this.type = list.type;
+    this.type = list.type;
   }
 };
 
