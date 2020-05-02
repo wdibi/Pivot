@@ -295,6 +295,10 @@ DictionaryExpression.prototype.analyze = function() {
       p.value.analyze();
     });
   check.dictHasConsistentTypes(this.pairs);
+  if (this.pairs) {
+    this.keyType = this.pairs[0].key.type;
+    this.valueType = this.pairs[0].value.type;
+  }
 };
 
 CallChain.prototype.analyze = function(context) {
@@ -335,35 +339,28 @@ NumRange.prototype.analyze = function(context) {
   this.type = NumType;
 };
 
+function isList(item) {
+  return item.constructor === ListType || item.constructor === ListExpression;
+}
+
 FieldExp.prototype.analyze = function(context) {
   this.item.analyze(context);
   // TODO: Check list type
   let builtin = context.lookup(this.functionCall.id.id);
-  if (this.item.type !== DictType) {
+  if (isList(this.item.ref ? this.item.ref.type : this.item)) {
+    this.item.type = this.item.ref ? this.item.type.type : this.item.type;
     switch (builtin.id) {
       case 'head':
-        this.type = this.item.elements[0].type;
-        break;
       case 'tail':
-        this.type = this.item.elements[0].type;
+      case 'pop':
+      case 'shift':
+        this.type = this.item.type;
         break;
       case 'len':
-        this.type = builtin.type; // can add to default
-        break;
       case 'find':
         this.type = builtin.type;
         break;
       case 'push':
-        // TODO: elem type === list type
-        if (this.item.constructor === IdExpression) {
-          this.type = this.item.type;
-        } else {
-          this.type = new ListType(new PrimitiveType(this.item.type.id));
-        }
-        break;
-      case 'pop':
-        this.type = this.item.type;
-        break;
       case 'unshift':
         // TODO: elem type === list type
         if (this.item.constructor === IdExpression) {
@@ -372,8 +369,12 @@ FieldExp.prototype.analyze = function(context) {
           this.type = new ListType(new PrimitiveType(this.item.type.id));
         }
         break;
-      case 'shift':
-        this.type = this.item.type;
+    }
+  } else {
+    console.log(this.item);
+    switch (builtin.id) {
+      case 'contains':
+        this.type = new PrimitiveType(BoolType);
         break;
     }
   }
