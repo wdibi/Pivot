@@ -97,6 +97,20 @@ const fixture = {
     return findMin(arr, mid + 1, high);
 };`,
   ],
+  builtins: [
+    `
+    [num] x <- [1,2,3,4,5,7];
+    print x::find(5);
+    print x::tail();
+    print x::head();
+    print x::len();
+    print x::push(8);
+    print x::pop();
+    print x::unshift(2);
+    print x::shift();
+    `,
+    prettyJs(`for (let a = 0; a < 10; a = a + 1) { console.log(a); };`),
+  ],
 };
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
