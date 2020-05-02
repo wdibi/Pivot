@@ -447,6 +447,10 @@ function firstFactorial(x) {
 
 ## Optimizations
 
+### Unary Expression
+- `-`: return new negated `NumericLiteral`
+- `!` or `not`: return negated `BooleanLiteral`
+
 ### Binary Expressions
 - `+`: if one numeric literal is `0`, will return the non-zero numeric literal
 - `-`: if both numeric literals are the same, will return `0`
