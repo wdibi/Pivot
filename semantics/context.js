@@ -1,6 +1,7 @@
 const {
   mathFunctions,
   listFunctions,
+  dictFunctions,
   BoolType,
   CharType,
   StringType,
@@ -76,6 +77,7 @@ Context.INITIAL = new Context();
   AutoType,
   ...mathFunctions,
   ...listFunctions,
+  ...dictFunctions,
 ].forEach(entity => {
   Context.INITIAL.add(entity);
 });
