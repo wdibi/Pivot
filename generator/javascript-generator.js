@@ -44,7 +44,7 @@ const builtins = {
   len: function len() {
     return `.length`;
   },
-  push: function push([n]) {
+  push: function push(n) {
     return `.push(${n})`;
   },
   pop: function pop([n]) {
@@ -115,7 +115,7 @@ FunctionDeclaration.prototype.gen = function() {
 };
 
 TaskStatement.prototype.gen = function() {
-  return `const ${this.id} = (default) =>  ${this.exp.gen()}`;
+  return `const ${this.id} = (d) =>  ${this.exp.gen().replace('default', 'd')}`;
 };
 
 CallChain.prototype.gen = function() {
