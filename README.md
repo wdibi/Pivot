@@ -342,16 +342,13 @@ function findMin(arr, low, high) {
 ##### Pivot
 ```text
 fibonacci(num x) -> num
-    num a <- 1;
-    num b <- 0;
-    num temp <- 0;
+    all num a, b, temp <- 1, 0, 0;
     
     repeat
         temp <- a;
         a <- a + b;
         b <- temp;
         x <- x - 1;
-        temp, a, b, x <- a, a + b, temp, x - 1;
     when x < 0 end
     return b;
 end
