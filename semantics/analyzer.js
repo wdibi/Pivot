@@ -115,10 +115,10 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  const ref = context.lookup(this.target.id);
   if (this.target.constructor === SubscriptedExp) {
     this.source.analyze(context);
   } else {
+    const ref = context.lookup(this.target.id);
     this.target.type = context.lookup(this.target.id).type;
     this.source.analyze(context);
     check.hasCompatibleTypes(this.target.type, this.source);
