@@ -29,6 +29,7 @@ const {
   FieldExp,
   SubscriptedExp,
   NumRange,
+  Nop,
 } = require('../ast');
 
 const builtins = {
@@ -76,7 +77,14 @@ function makeOp(op) {
 }
 
 function generateBlock(block) {
-  return block.statements.map(s => `${s.gen()};`).join('');
+  return block.statements
+    .filter(s => !isNop(s))
+    .map(s => `${s.gen()};`)
+    .join('');
+}
+
+function isNop(s) {
+  return s instanceof Nop;
 }
 
 module.exports = function(exp) {

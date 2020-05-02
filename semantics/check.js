@@ -18,6 +18,7 @@ const {
   ListType,
   FieldExp,
   PrimitiveType,
+  ListExpression,
 } = require('../ast');
 
 const literals = [
@@ -88,12 +89,19 @@ module.exports = {
     doCheck(foundReturn, 'no return statement found within function');
   },
   returnMatchesFunctionReturnType(returnExpression, functionContext) {
-    doCheck(
-      returnExpression.type === functionContext.returnType,
-      `returns ${util.format(
-        returnExpression.type
-      )}, but function expects ${util.format(functionContext.returnType)}`
-    );
+    if (returnExpression.constructor === ListExpression) {
+      doCheck(
+        returnExpression.type.isCompatibleWith(functionContext.type.type),
+        `return list of type ${returnExpression.type} does not match return type`
+      );
+    } else {
+      doCheck(
+        returnExpression.type === functionContext.returnType,
+        `returns ${util.format(
+          returnExpression.type
+        )}, but function expects ${util.format(functionContext.returnType)}`
+      );
+    }
   },
   breakWithinValidBody(context) {
     doCheck(context.inLoop || context.currentFunction`not within task or loop`);

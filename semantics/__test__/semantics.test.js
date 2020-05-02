@@ -192,6 +192,7 @@ inventory <- inventory::del("tv");
 
 [num] listInventory2 <- {"tv": 2, "radio": 0, "bed": 1}::values();
 
+sirList() -> [num] return [1,2,3,4,5]; end
 `;
 
 describe('The semantic analyzer', () => {

@@ -29,6 +29,7 @@ const {
   SubscriptedExp,
   NumRange,
   FieldExp,
+  Nop,
 } = require('../ast');
 
 module.exports = program => program.optimize();
@@ -77,6 +78,11 @@ function isOrOp(op) {
   return op === 'or' || op === '||';
 }
 
+function getNumLitRefValue(e) {
+  if (!e.ref) return null;
+  return isNumericLiteral(e.ref.currentValue) ? e.ref.currentValue : null;
+}
+
 Program.prototype.optimize = function() {
   this.block = this.block.optimize();
   return this;
@@ -88,16 +94,14 @@ Block.prototype.optimize = function() {
 };
 
 VariableDeclaration.prototype.optimize = function() {
-  this.init.optimize();
+  this.init = this.init.optimize();
   return this;
 };
 
 AssignmentStatement.prototype.optimize = function() {
   this.target = this.target.optimize();
   this.source = this.source.optimize();
-  if (this.target == this.source) {
-    return null;
-  }
+  if (this.target == this.source) return null;
   return this;
 };
 
@@ -126,7 +130,6 @@ FunctionCall.prototype.optimize = function() {
 };
 
 CallChain.prototype.optimize = function() {
-  // this.item ?
   this.methods = this.methods.map(m => m.optimize());
   return this;
 };
@@ -157,12 +160,18 @@ IfShort.prototype.optimize = function() {
   this.exp = this.exp.optimize();
   this.condition = this.condition.optimize();
   this.alternate = this.alternate.optimize();
+  if (isBooleanLiteral(this.condition)) {
+    return this.condition.value ? this.exp : this.alternate;
+  }
   return this;
 };
 
 WhileStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.body = this.body.optimize();
+  if (isBooleanLiteral(this.condition)) {
+    if (!this.condition.currentValue) return new Nop();
+  }
   return this;
 };
 
@@ -197,6 +206,10 @@ UnaryExpression.prototype.optimize = function() {
 BinaryExpression.prototype.optimize = function() {
   this.left = this.left.optimize();
   this.right = this.right.optimize();
+
+  this.left = getNumLitRefValue(this.left) || this.left;
+
+  this.right = getNumLitRefValue(this.right) || this.right;
 
   // And
   if (this.op === '+' && isZero(this.left)) return this.right; // shouldn't this be this.right?
@@ -302,5 +315,9 @@ BooleanLiteral.prototype.optimize = function() {
 };
 
 CharacterLiteral.prototype.optimize = function() {
+  return this;
+};
+
+Nop.prototype.optimize = function() {
   return this;
 };

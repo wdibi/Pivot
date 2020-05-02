@@ -115,12 +115,18 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
+  const ref = context.lookup(this.target.id);
   if (this.target.constructor === SubscriptedExp) {
     this.source.analyze(context);
   } else {
     this.target.type = context.lookup(this.target.id).type;
     this.source.analyze(context);
     check.hasCompatibleTypes(this.target.type, this.source);
+  }
+  if (this.source.constructor === IdExpression) {
+    ref.currentValue = this.source.ref.currentValue;
+  } else {
+    ref.currentValue = this.source;
   }
 };
 

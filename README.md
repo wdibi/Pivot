@@ -352,7 +352,7 @@ fibonacci(num x) -> num
         a <- a + b;
         b <- temp;
         x <- x - 1;
-    when x == 0 end
+    when num == 0 end
     return b;
 end
 ```
