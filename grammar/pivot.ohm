@@ -11,6 +11,7 @@ Pivot {
                       | Assignment ";"
                       | ReturnStatement ";"
                       | BreakStatement ";"
+                      | Lvalue ";"
   VarDeclaration      = "all" Type  NonemptyListOf<id, ","> "<-" NonemptyListOf<Exp, ",">        -- multi
                       | Type id "<-" (CallExpression | IfShort | Exp)                            -- single
                       | "(" Type id ("," Type id)+ ")"
