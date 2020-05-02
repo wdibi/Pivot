@@ -462,6 +462,9 @@ function firstFactorial(x) {
 ### IfShort
 - Returning either the `expression` or `alternate` if the `condition` can be evaulated
 
+### While
+- No op optimization
+
 
 ## 📄 License
 

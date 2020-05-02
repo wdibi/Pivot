@@ -31,6 +31,8 @@ const {
   NumRange,
 } = require('../ast');
 
+const { builtin } = require('./generator_builtins');
+
 function makeOp(op) {
   return { not: '!', and: '&&', or: '||', '==': '===', '!=': '!=' }[op] || op;
 }
