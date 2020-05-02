@@ -216,8 +216,6 @@ FieldExp.prototype.gen = function() {
     ? this.functionCall.params[0].gen()
     : null;
 
-  console.log(this);
-
   switch (builtinId) {
     case 'keys':
     case 'values':
