@@ -115,9 +115,13 @@ VariableDeclaration.prototype.analyze = function(context) {
 };
 
 AssignmentStatement.prototype.analyze = function(context) {
-  this.target.type = context.lookup(this.target.id).type;
-  this.source.analyze(context);
-  check.hasCompatibleTypes(this.target.type, this.source);
+  if (this.target.constructor === SubscriptedExp) {
+    this.source.analyze(context);
+  } else {
+    this.target.type = context.lookup(this.target.id).type;
+    this.source.analyze(context);
+    check.hasCompatibleTypes(this.target.type, this.source);
+  }
 };
 
 IdExpression.prototype.analyze = function(context, defaultType = undefined) {
@@ -329,7 +333,7 @@ SubscriptedExp.prototype.analyze = function(context) {
   } else {
     check.isNum(this.index);
     const list = this.item.type;
-    this.type = list.type;
+    // this.type = list.type;
   }
 };
 
@@ -387,7 +391,6 @@ FieldExp.prototype.analyze = function(context) {
         this.type = new ListType(this.item.type.keyType);
         break;
       case 'values':
-        console.log(this.item);
         this.type = new ListType(this.item.type.valueType);
         break;
     }
