@@ -100,9 +100,7 @@ VariableDeclaration.prototype.optimize = function() {
 AssignmentStatement.prototype.optimize = function() {
   this.target = this.target.optimize();
   this.source = this.source.optimize();
-  if (this.target == this.source) {
-    return null;
-  }
+  if (this.target == this.source) return null;
   return this;
 };
 
@@ -161,7 +159,7 @@ IfShort.prototype.optimize = function() {
   this.exp = this.exp.optimize();
   this.condition = this.condition.optimize();
   this.alternate = this.alternate.optimize();
-  if (this.condition.constructor === BooleanLiteral) {
+  if (isBooleanLiteral(this.condition)) {
     return this.condition.value ? this.exp : this.alternate;
   }
   return this;
