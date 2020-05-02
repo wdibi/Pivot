@@ -122,11 +122,11 @@ AssignmentStatement.prototype.analyze = function(context) {
     this.target.type = context.lookup(this.target.id).type;
     this.source.analyze(context);
     check.hasCompatibleTypes(this.target.type, this.source);
-  }
-  if (this.source.constructor === IdExpression) {
-    ref.currentValue = this.source.ref.currentValue;
-  } else {
-    ref.currentValue = this.source;
+    if (this.source.constructor === IdExpression) {
+      ref.currentValue = this.source.ref.currentValue;
+    } else {
+      ref.currentValue = this.source;
+    }
   }
 };
 
