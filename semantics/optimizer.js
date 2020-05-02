@@ -313,7 +313,3 @@ BooleanLiteral.prototype.optimize = function() {
 CharacterLiteral.prototype.optimize = function() {
   return this;
 };
-
-function isNumericLiteral(e) {
-  return e.constructor === NumericLiteral;
-}
