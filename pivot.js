@@ -4,9 +4,9 @@ const { argv } = require('yargs')
   .usage('$0 [-a] [-o] [-i] [-g] filename')
   .boolean(['a', 'o', 'i', 'g'])
   .describe('a', 'show abstract syntax tree after parsing then stop')
-  .describe('o', 'do optimizations')
+  .describe('o', 'generate optimized JavaScript code')
   .describe('i', 'generate and show the intermediate code then stop')
-  .describe('g', 'generate JavaScript code')
+  .describe('g', 'generate non-optimized JavaScript code')
   .demand(1);
 
 const fs = require('fs');
@@ -44,6 +44,7 @@ fs.readFile(argv._[0], 'utf-8', (error, text) => {
     try {
       analyze(program);
       program = optimizer(program);
+      console.log(generate(program));
     } catch (error) {
       console.error(error.message);
     }
