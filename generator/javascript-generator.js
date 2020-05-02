@@ -44,17 +44,30 @@ const builtins = {
   len: function len() {
     return `.length`;
   },
-  push: function push([n]) {
+  push: function push(n) {
     return `.push(${n})`;
   },
-  pop: function pop([n]) {
+  pop: function pop() {
     return `.pop()`;
   },
-  unshift: function unshift([n]) {
+  unshift: function unshift(n) {
     return `.unshift(${n})`;
   },
   shift: function shift() {
     return `.shift()`;
+  },
+  // Dict Need to be tested
+  contains: function contains(k) {
+    return `.hasOwnProperty(${k})`;
+  },
+  del: function del(objName, k) {
+    return `delete ${objName}[${k}]`;
+  },
+  keys: function keys(o) {
+    return `Object.keys(${o})`;
+  },
+  values: function values(o) {
+    return `Object.values(${o})`;
   },
 };
 
@@ -198,10 +211,23 @@ KeyValuePair.prototype.gen = function() {
 
 FieldExp.prototype.gen = function() {
   // Only allow one param atm
+  const builtinId = this.functionCall.id.gen(); // delete objectName[${k}]
   const param = this.functionCall.params
     ? this.functionCall.params[0].gen()
     : null;
-  return `${this.item.gen()}${builtins[this.functionCall.id.gen()](param)}`;
+
+  console.log(this);
+
+  switch (builtinId) {
+    case 'keys':
+    case 'values':
+      return builtins[builtinId](this.item.gen());
+    case 'del':
+      return builtins[builtinId](this.item.id, param);
+
+    default:
+      return `${this.item.gen()}${builtins[builtinId](param)}`;
+  }
 };
 
 SubscriptedExp.prototype.gen = function() {

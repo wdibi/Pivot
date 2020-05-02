@@ -97,21 +97,51 @@ const fixture = {
     return findMin(arr, mid + 1, high);
 };`,
   ],
-  // builtins: [
-  //   `
-  //   [num] x <- [1,2,3,4,5,7];
-  //   print x::find(5);
-  //   print x::tail();
-  //   print x::head();
-  //   print x::len();
-  //   print x::push(8);
-  //   print x::pop();
-  //   print x::unshift(2);
-  //   print x::shift();
-  //   `,
-  //   prettyJs(`for (let a = 0; a < 10; a = a + 1) { console.log(a); };`),
-  // ],
+  listBuiltins: [
+    `
+    [num] x <- [1,2,3,4,5,6,7];
+    print x::find(5);
+    print x::tail();
+    print x::head();
+    print x::len();
+    print x::push(8);
+    print x::pop();
+    print x::unshift(2);
+    print x::shift();
+    `,
+    prettyJs(
+      `let x = [1,2,3,4,5,6,7]; 
+      console.log(x.find(5));
+      console.log(x.slice(1));
+      console.log(x[0]);
+      console.log(x.length);
+      console.log(x.push(8));
+      console.log(x.pop());
+      console.log(x.unshift(2));
+      console.log(x.shift());
+      `
+    ),
+  ],
+  dictBuiltins: [
+    `
+    {str:num} ages <- {"jigar": 21, "will": 21, "nico": 21};
+    ages::contains(5);
+    ages::keys();
+    ages::values();
+    ages::del("jigar");
+    `,
+    prettyJs(
+      `
+      let ages = {"jigar": 21, "will": 21, "nico": 21};
+      ages.hasOwnProperty(5);
+      Object.keys(ages);
+      Object.values(ages);
+      delete ages["jigar"];
+      `
+    ),
+  ],
 };
+
 describe('The JavaScript generator', () => {
   Object.entries(fixture).forEach(([name, [source, expected]]) => {
     test(`produces the correct output for ${name}`, done => {
