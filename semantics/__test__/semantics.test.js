@@ -158,6 +158,8 @@ fifth([num] a) -> num return a:5; end
 
 {num:bool} encode <- {22: false, 2112: true, 44: true}; 
 bool currEncode <- encode:22;
+
+sirList() -> [num] return [1,2,3,4,5]; end
 `;
 
 describe('The semantic analyzer', () => {
