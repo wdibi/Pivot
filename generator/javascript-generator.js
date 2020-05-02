@@ -197,7 +197,7 @@ KeyValuePair.prototype.gen = function() {
 };
 
 FieldExp.prototype.gen = function() {
-  // Only allowone param atm
+  // Only allow one param atm
   const param = this.functionCall.params
     ? this.functionCall.params[0].gen()
     : null;
