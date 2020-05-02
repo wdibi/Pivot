@@ -237,9 +237,9 @@ Yet to be implemented
 
 ```text
 ages::keys                // ["john", "tim"]
+ages::values              // [5, 6]
 ages::contains("michael") // false
 ages::del("john")         // {"tim" : 6}
-ages::contains("john")    // false
 ```
   
 ### Lists
@@ -265,9 +265,9 @@ friends:1...3
 - `shift()` remove from the beginning of a list
 
 ```text
-friends::head      // "john"
-friends::tail      // "steve"
-friends::len       // 3
+friends::head()    // "john"
+friends::tail()    // "steve"
+friends::len()     // 3
 friends::find(tim) // 1
 ```
 
