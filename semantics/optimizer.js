@@ -77,6 +77,11 @@ function isOrOp(op) {
   return op === 'or' || op === '||';
 }
 
+function getNumLitRefValue(e) {
+  if (!e.ref) return null;
+  return isNumericLiteral(e.ref.currentValue) ? e.ref.currentValue : null;
+}
+
 Program.prototype.optimize = function() {
   this.block = this.block.optimize();
   return this;
@@ -200,12 +205,9 @@ BinaryExpression.prototype.optimize = function() {
   this.left = this.left.optimize();
   this.right = this.right.optimize();
 
-  this.left = isNumericLiteral(this.left.ref.currentValue)
-    ? this.left.ref.currentValue
-    : this.left;
-  this.right = isNumericLiteral(this.right.ref.currentValue)
-    ? this.right.ref.currentValue
-    : this.right;
+  this.left = getNumLitRefValue(this.left) || this.left;
+
+  this.right = getNumLitRefValue(this.right) || this.right;
 
   // And
   if (this.op === '+' && isZero(this.left)) return this.left;
