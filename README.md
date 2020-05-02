@@ -135,6 +135,10 @@ Pivot is created by [@Will DiBiagio](https://github.com/wdibi), [@Jigar Swaminar
 - Pi: `pi()`
 - Random: `random(lowerBound, upperBound)`
 
+## Comments
+- Single line: `//`
+- Multi-line: `/* */`
+
 ## Pivot Examples
 
 ### Variable Declarations
