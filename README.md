@@ -364,7 +364,7 @@ function fibonacci(x) {
         b = temp;
         x--;
     }
-    while (!(x == 0));
+    while (!(x === 0));
     return b;
 };
 ```
@@ -448,7 +448,32 @@ function firstFactorial(x) {
 ## Optimizations
 
 ### Binary Expressions
-- Additin: returns 
+- `+`: if one numeric literal is `0`, will return the non-zero numeric literal
+- `-`: if both numeric literals are the same, will return `0`
+- `*`:
+  - if one numeric literal is `0`, return `0`
+  - if one numeric literal is `1`, return the other numeric literal
+- `/`: if both numeric literals are the same, will return `1`
+- `%`: if both numeric literals are the same, will return `1`
+- `<` or `>`: if both numeric literals are the same, will return `false`
+- `<= `or `>=` or `==`: if numeric literals are equal, will return `true`
+- `&&` or `and`: if one of the values in the `and` operation is `false`, will return `false`
+- `||` or `or`: if one of the values in the `or` operation is `true`, will return `true`
+- Both `NumericLiteral`: 
+  - `+`: returns a new `NumericLiteral` from `a + b`
+  - `-`: returns a new `NumericLiteral` from `a - b`
+  - `*`: returns a new `NumericLiteral` from `a * b`
+  - `**`: returns a new `NumericLiteral` from `Math.pow(a, b)`
+  - `/`: returns a new `NumericLiteral` from `a / b`
+  - `%`: returns a new `NumericLiteral` from `a % b`
+  - `==`: returns a new `BooleanLiteral` from `a === b`
+  - `<`: returns a new `BooleanLiteral` from `a < b`
+  - `>`: returns a new `BooleanLiteral` from `a > b`
+  - `<=`: returns a new `BooleanLiteral` from `a <= b`
+  - `>=`: returns a new `BooleanLiteral` from `a >= b`
+
+### IfShort
+- 
 
 ## 📄 License
 
