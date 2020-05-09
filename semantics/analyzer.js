@@ -261,7 +261,6 @@ ListExpression.prototype.analyze = function() {
 
 WhileStatement.prototype.analyze = function(context) {
   this.condition.analyze(context);
-  check.conditionIsDetermistic(this.condition);
   this.bodyContext = context.createChildContextForLoop();
   this.body.analyze(this.bodyContext);
 };
