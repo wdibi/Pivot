@@ -509,6 +509,28 @@ const fixture = {
       ])
     ),
   ],
+
+  MultiVarAssignment: [
+    String.raw`all l, m, n, o <- 1, true, 'b', "hello";`,
+    new Program(
+      new Block([
+        new AssignmentStatement(
+          [
+            new IdExpression('l'),
+            new IdExpression('m'),
+            new IdExpression('n'),
+            new IdExpression('o'),
+          ],
+          [
+            new NumericLiteral(1),
+            new BooleanLiteral(true),
+            new CharacterLiteral('b'),
+            new StringLiteral('hello'),
+          ]
+        ),
+      ])
+    ),
+  ],
 };
 
 describe('The parser', () => {

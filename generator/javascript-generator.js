@@ -125,6 +125,11 @@ PrintStatement.prototype.gen = function() {
 };
 
 AssignmentStatement.prototype.gen = function() {
+  if (Array.isArray(this.target)) {
+    return `[${this.target.map(t => t.gen())}] = [${this.source.map(s =>
+      s.gen()
+    )}]`;
+  }
   return `${this.target.gen()} = ${this.source.gen()}`;
 };
 
