@@ -245,4 +245,13 @@ module.exports = {
   isGreaterThan(start, end) {
     doCheck(end > start, `${end} is not greater than ${start}`);
   },
+  hasCompatibleTargetsAndSources(targets, sources) {
+    doCheck(
+      targets.length === sources.length,
+      `${targets.length} number of targets does not match ${sources.length} sources`
+    );
+    targets.map((target, index) => {
+      this.hasCompatibleTypes(target.ref.type, sources[index]);
+    });
+  },
 };
