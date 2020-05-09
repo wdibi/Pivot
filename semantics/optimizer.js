@@ -152,7 +152,7 @@ FieldExp.prototype.optimize = function() {
 IfStatement.prototype.optimize = function() {
   this.condition = this.condition.optimize();
   this.body = this.body.optimize();
-  this.elseBody = this.body.optimize();
+  this.elseBody = this.elseBody ? this.elseBody.optimize() : null;
   return this;
 };
 
