@@ -62,6 +62,8 @@ end
 x <- addFive(3);
 _ z <- (29.3) >> round;
 // a comment at the end of the program
+
+all x, y, z, p <- "apple", 5, "car", "green";
 `;
 
 describe('The syntax checker', () => {
