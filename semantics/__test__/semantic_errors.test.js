@@ -51,13 +51,6 @@ const errors = [
   ],
   [
     'condition is deterministic',
-    `while 5 > 2 do
-      num x <- 5;
-    end
-    `,
-  ],
-  [
-    'condition is deterministic',
     `repeat
       num x <- 5;
     when true end
