@@ -78,9 +78,17 @@ function isOrOp(op) {
   return op === 'or' || op === '||';
 }
 
+function isFuncCall(e) {
+  return e instanceof FunctionCall;
+}
+
 function getNumLitRefValue(e) {
   if (!e.ref) return null;
   return isNumericLiteral(e.ref.currentValue) ? e.ref.currentValue : null;
+}
+
+function isFuncRecursive(func, returnStmt) {
+  return isFuncCall(returnStmt) && func.id == returnStmt.id.id;
 }
 
 Program.prototype.optimize = function() {
@@ -99,6 +107,7 @@ VariableDeclaration.prototype.optimize = function() {
 };
 
 AssignmentStatement.prototype.optimize = function() {
+  console.log(this.target);
   this.target = this.target.optimize();
   this.source = this.source.optimize();
   if (this.target == this.source) return null;
@@ -121,6 +130,22 @@ PrintStatement.prototype.optimize = function() {
 
 FunctionDeclaration.prototype.optimize = function() {
   this.body = this.body.optimize();
+  const returnStmt = this.body.statements[this.body.statements.length - 1].item;
+  if (isFuncRecursive(this, returnStmt)) {
+    console.log('nope');
+    this.body = new Block([
+      new WhileStatement(
+        new BooleanLiteral(true),
+        new Block([
+          ...this.body.statements.slice(0, -1),
+          new AssignmentStatement(
+            this.params.map(p => p),
+            returnStmt.params.map(p => p.optimize())
+          ),
+        ])
+      ),
+    ]);
+  }
   return this;
 };
 
