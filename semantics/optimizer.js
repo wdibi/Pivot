@@ -107,7 +107,6 @@ VariableDeclaration.prototype.optimize = function() {
 };
 
 AssignmentStatement.prototype.optimize = function() {
-  console.log(this.target);
   this.target = this.target.optimize();
   this.source = this.source.optimize();
   if (this.target == this.source) return null;
