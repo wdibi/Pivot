@@ -184,6 +184,25 @@ const errors = [
     'Contains method returns boolean',
     `str ownIt <- {"tv": 2, "radio": 0, "bed": 1}::contains("tv");`,
   ],
+  [
+    'Number of targets and sources do not match',
+    `
+    all num x, y, z <- 1, 2, 3;
+    all x, y <- 2, 4, 6;
+    `,
+  ],
+  [
+    'Incompatible types in multi var assignment ',
+    `
+    all num ll, p <- 0, 0;
+    bool m <- false;
+    char n <- 'a';
+    str o <- "bye";
+    [char] zq <- ['a', 'b', 'c'];
+    
+    all ll, m, n, o, p, zq <- 1, true, 'b', "hello", ll + zq:0, [2,2,2,2];
+    `,
+  ],
 ];
 
 describe('The semantic analyzer', () => {
