@@ -1,0 +1,9 @@
+gcd(num x, num y) -> num 
+  if y == 0 then return x; end
+  return gcd(x, x % y);
+end
+
+fib(num n, num a, num b) -> num
+  if n == 0 then return a; end
+  return fib(n - 1, b, a + b);
+end
