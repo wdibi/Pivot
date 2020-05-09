@@ -132,7 +132,6 @@ FunctionDeclaration.prototype.optimize = function() {
   this.body = this.body.optimize();
   const returnStmt = this.body.statements[this.body.statements.length - 1].item;
   if (isFuncRecursive(this, returnStmt)) {
-    console.log('nope');
     this.body = new Block([
       new WhileStatement(
         new BooleanLiteral(true),
