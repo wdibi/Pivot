@@ -140,6 +140,19 @@ const fixture = {
       `
     ),
   ],
+  multiVarAssignment: [
+    `num tmp <- 0;
+    {str:num} fruitInventory <- {"apple": 20, "grapes": 100};
+    all tmp, fruitInventory:"apple" <- fruitInventory:"apple", 12;
+    `,
+    prettyJs(
+      `
+      let tmp = 0;
+      let fruitInventory = {"apple": 20, "grapes": 100};
+      [tmp, fruitInventory["apple"]] = [fruitInventory["apple"], 12];
+      `
+    ),
+  ],
 };
 
 describe('The JavaScript generator', () => {
