@@ -107,7 +107,10 @@ const astBuilder = grammar.createSemantics().addOperation('ast', {
   IfShort(e, _when, c, _otherwise, a) {
     return new IfShort(e.ast(), c.ast(), a.ast());
   },
-  Assignment(i, _a, e) {
+  Assignment_single(i, _a, e) {
+    return new AssignmentStatement(i.ast(), e.ast());
+  },
+  Assignment_multi(_all, i, _a, e) {
     return new AssignmentStatement(i.ast(), e.ast());
   },
   BooleanType(_) {
